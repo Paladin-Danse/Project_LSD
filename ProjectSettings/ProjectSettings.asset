@@ -822,12 +822,12 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 674f5043-2f14-4f54-984a-6ae1a6d7aaf2
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
+  projectName: Project LSD
   organizationId: dltmdwns1026
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
