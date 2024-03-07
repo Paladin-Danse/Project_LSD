@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8622fb1ee86e4bf9ba7793242811256, type: 3}
+  m_Name: Menu Items Properties
+  m_EditorClassIdentifier: 
+  playerProperties:
+    player: {fileID: 1455750926546636793, guid: 33efdbf3cd0794b6f877d7c4c6393da6,
+      type: 3}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  weaponProperties:
+    weapon: {fileID: 8018180164800978471, guid: c231d8d091c8c4f45bcc7c3dc6e856fc,
+      type: 3}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  weaponAmmoProperties:
+    weaponAmmo: {fileID: 4188426297502099695, guid: aca4323b7680148189b8bc218c241fa4,
+      type: 3}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  aiProperties:
+    ai: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
+  spawnZoneProperties:
+    spawnZone: {fileID: 8429157651300108348, guid: 3fedb96d0b62f0147a2a059f9012e1d5,
+      type: 3}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
