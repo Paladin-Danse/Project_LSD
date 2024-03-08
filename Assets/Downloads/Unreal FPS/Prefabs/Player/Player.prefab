@@ -4888,7 +4888,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1457120790647613641}
   - component: {fileID: 1541770780095274439}
-  - component: {fileID: 1558818896466286285}
   m_Layer: 0
   m_Name: FPSBody
   m_TagString: Untagged
@@ -4934,6 +4933,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< HEAD:Assets/Unreal FPS/Prefabs/Player/Player.prefab
 --- !u!114 &1558818896466286285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4950,6 +4950,8 @@ MonoBehaviour:
   stayBodyHeight: -1.55
   crouchBodyHeight: -0.55
   moveHeightsmooth: 7
+=======
+>>>>>>> Dev:Assets/Downloads/Unreal FPS/Prefabs/Player/Player.prefab
 --- !u!1 &1455608705822262473
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,11 +5888,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1452353903265862703}
-  - component: {fileID: 1569839214256186383}
-  - component: {fileID: 1558698377079278107}
-  - component: {fileID: 1558799417041825141}
-  - component: {fileID: 1455750926546636794}
-  - component: {fileID: 1558588370996476573}
   - component: {fileID: 1518064272483665855}
   m_Layer: 8
   m_Name: Player
@@ -5918,6 +5915,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD:Assets/Unreal FPS/Prefabs/Player/Player.prefab
 --- !u!143 &1569839214256186383
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6174,6 +6172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e85f0ac37f44611b886b41d99a275a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+>>>>>>> Dev:Assets/Downloads/Unreal FPS/Prefabs/Player/Player.prefab
 --- !u!82 &1518064272483665855
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7246,6 +7246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28,
         type: 3}
+<<<<<<< HEAD:Assets/Unreal FPS/Prefabs/Player/Player.prefab
       propertyPath: health
       value: 
       objectReference: {fileID: 1558799417041825141}
@@ -7260,6 +7261,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+=======
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1452353903265862703}
+    - target: {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28, type: 3}
+>>>>>>> Dev:Assets/Downloads/Unreal FPS/Prefabs/Player/Player.prefab
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -7270,18 +7283,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 383459657184006282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1900226616623725392 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28,
-    type: 3}
-  m_PrefabInstance: {fileID: 383459657184006282}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0aaa37d513ce48279ed7158d5537f66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1456732292989213920
 PrefabInstance:
   m_ObjectHideFlags: 0
