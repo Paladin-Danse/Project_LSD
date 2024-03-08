@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class DungeonEntranceUI : MonoBehaviour
 {
-    public static DungeonEntranceUI instance;
-    public GameObject GreenLine;
+    public static DungeonEntranceUI instance;    
 
     private void Awake()
     {
@@ -23,7 +22,7 @@ public class DungeonEntranceUI : MonoBehaviour
     private void Start()
     {
         Cursor.visible = true;
-        GreenLine.SetActive(false);
+        
     }
     void Update()
     {
@@ -38,12 +37,12 @@ public class DungeonEntranceUI : MonoBehaviour
         //}
     }
 
-    public void OnGreenLine()
+    public void OnGreenLine(GameObject GreenLine)
     {
         GreenLine.SetActive(true);
     }
 
-    public void OffGreenLine()
+    public void OffGreenLine(GameObject GreenLine)
     {
         GreenLine.SetActive(false);
     }

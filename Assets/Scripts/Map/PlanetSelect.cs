@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlanetSelect : MonoBehaviour
+public class PlanetSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject GreenLine;
+
+    private void Start()
     {
-        
+        GreenLine.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        
+        GreenLine.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GreenLine.SetActive(false);
     }
 }
