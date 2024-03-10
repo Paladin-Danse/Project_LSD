@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b75de87ef1ef445b34b9b888a2899c, type: 3}
+  m_Name: DesertPlanet
+  m_EditorClassIdentifier: 
+  dungeonName: {fileID: 0}
+  dungeonImage: {fileID: 0}
+  dungeonEx: {fileID: 0}
