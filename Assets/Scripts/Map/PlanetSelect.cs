@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlanetSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class PlanetSelect : MonoBehaviour
 {
-    public GameObject GreenLine;
+    public GameObject GreenLine;    
 
-    private void Start()
-    {
-        GreenLine.SetActive(false);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public void MouseOverUI()
     {
         GreenLine.SetActive(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void MouseExitUI()
     {
         GreenLine.SetActive(false);
     }
