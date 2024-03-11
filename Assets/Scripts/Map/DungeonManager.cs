@@ -15,7 +15,8 @@ public class DungeonManager : MonoBehaviour
     public GameObject dungeonEntrancePanel;
     public TextMeshProUGUI dungeonNameOfPanel;
     public Dungeon[] SelectedDungeon;    
-    public RectTransform rectTransform;
+    public RectTransform tooltipRectTransform;
+    public RectTransform backgroundRectTransform;
 
     private void Awake()
     {
@@ -33,7 +34,8 @@ public class DungeonManager : MonoBehaviour
     }
     private void Update()
     {
-        rectTransform.position = Input.mousePosition;        
+        Vector2 tooltipPosition = Input.mousePosition;        
+        tooltipRectTransform.position = tooltipPosition;
     }    
 
     public void OnDungeonEntrancePanel(int dungeonNum)

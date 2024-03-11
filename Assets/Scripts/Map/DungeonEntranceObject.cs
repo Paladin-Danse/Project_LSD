@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DungeonEntranceObject : MonoBehaviour, IInteractable
 {
+    public GameObject dungeonSelectedUI;
     public string GetInteractPrompt()
     {
         return string.Format("[E] 던전 창 오픈");
@@ -11,6 +12,6 @@ public class DungeonEntranceObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        //던전 창 트루
+        dungeonSelectedUI.SetActive(true);
     }    
 }
