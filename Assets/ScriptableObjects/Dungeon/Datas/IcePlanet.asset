@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b75de87ef1ef445b34b9b888a2899c, type: 3}
   m_Name: IcePlanet
   m_EditorClassIdentifier: 
-  dungeonName: 
-  dungeonImage: {fileID: 0}
-  dungeonEx: 
-  dungeonNumber: 0
+  dungeonName: "\uC5BC\uC74C \uD589\uC131"
+  dungeonImage: {fileID: 21300000, guid: 47fa5044a118d144da7986e44a8b4c15, type: 3}
+  dungeonEx: "\uC544\uC9C1 \uBBF8\uAC1C\uBC1C"
+  dungeonNumber: 1
