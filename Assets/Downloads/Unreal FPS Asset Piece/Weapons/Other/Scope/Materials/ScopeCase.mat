@@ -77,6 +77,11 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
+<<<<<<< Updated upstream:Assets/Downloads/Unreal FPS Asset Piece/Weapons/Other/Scope/Materials/ScopeCase.mat
     - _Color: {r: 0, g: 0, b: 0, a: 1}
+=======
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
+>>>>>>> Stashed changes:Assets/Downloads/Unreal FPS/Models/Solder/FBX/Materials/lambert2.mat
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectColor: {r: 0, g: 0, b: 0, a: 0.5}
