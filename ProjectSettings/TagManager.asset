@@ -4,11 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Weapon
-  - AI
-  - Climb
   - FPCamera
+  - Weapon
   - FPWeaponLayer
+  - AI
   layers:
   - Default
   - TransparentFX
@@ -18,14 +17,14 @@ TagManager:
   - UI
   - 
   - 
-  - Player
+  - 
   - Weapon
-  - AI
-  - AI Friendly
-  - AI Enemy
-  - Remote Body
-  - Obstacle
-  - PostProcessing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
