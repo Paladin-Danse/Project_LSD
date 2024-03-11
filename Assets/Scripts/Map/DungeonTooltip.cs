@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DungeonTooltip : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public TextMeshProUGUI dungeonDisplayName;
+    public Image dungeonImage;
+    public TextMeshProUGUI dungeonDescription;
+    Dungeon dungeon;
+    
+    public void OnTooltip(Dungeon dungeon)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //
+        this.dungeon = dungeon;
+        dungeonDisplayName.text = dungeon.Ddata.dungeonName;
+        dungeonImage.sprite = dungeon.Ddata.dungeonImage;
+        dungeonDescription.text = dungeon.Ddata.dungeonEx;
     }
 }
