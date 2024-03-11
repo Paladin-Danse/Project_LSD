@@ -4933,6 +4933,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< HEAD:Assets/Unreal FPS/Prefabs/Player/Player.prefab
+--- !u!114 &1558818896466286285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455604652166626565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246abbf95b27d406ea41d09ce7fbb90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1558698377079278107}
+  stayBodyHeight: -1.55
+  crouchBodyHeight: -0.55
+  moveHeightsmooth: 7
+=======
+>>>>>>> Dev:Assets/Downloads/Unreal FPS/Prefabs/Player/Player.prefab
 --- !u!1 &1455608705822262473
 GameObject:
   m_ObjectHideFlags: 0
@@ -5896,6 +5915,265 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD:Assets/Unreal FPS/Prefabs/Player/Player.prefab
+--- !u!143 &1569839214256186383
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455750926546636793}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1558698377079278107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455750926546636793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a916c092cb5f49bca115da76b6db51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runSpeed: 5
+  runStepLength: 1.2
+  walkSpeed: 3
+  walkStepLength: 1.5
+  sprintSpeed: 7
+  sprintStepLength: 1
+  stepInterval: 5
+  sprintDirection: 1
+  jumpForce: 5
+  simulateJumpDirectionImpulse: 1
+  jumpDirectionImpulse: 1
+  airControl: 0
+  airControlSpeed: 2
+  stickToGroundForce: 10
+  gravityMultiplier: 2
+  footstepProperties: {fileID: 11400000, guid: 73cf066fb9a0c434eb18446ae38b5bf4, type: 2}
+  _FPCamera: {fileID: 1476745153943953997}
+  cameraLook:
+    xSensitivity: 2
+    ySensitivity: 2
+    minimumX: -90
+    maximumX: 90
+    minimumY: -90
+    maximumY: 90
+    smoothTime: 20
+    clampVerticalRotation: 1
+    clampHorizontalRotation: 0
+    smooth: 1
+    lockCursor: 1
+    m_cursorIsLocked: 1
+  fovKickSystem:
+    originalFov: 60
+    fovIncrease: 7.5
+    increaseSpeed: 10
+    decreaseSpeed: 10
+  curveControlledBobSystem:
+    horizontalBobRange: 0.15
+    verticalBobRange: 0.15
+    verticaltoHorizontalRatio: 2
+    bobBaseInterval: 7
+    bobcurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.25
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.75
+        value: -0.5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  jumpBobSystem:
+    bobDuration: 0.2
+    bobAmount: 0.1
+  crouchSystem:
+    crouchType: 0
+    speed: 2
+    smooth: 5
+    crouchHeight: 0.7
+  grabSystem:
+    grabRange: 3
+    grabDistance: 1
+    heightOffset: 0.5
+    spring: 50
+    damper: 5
+    drag: 10
+    angularDrag: 5
+    distance: 0.2
+  cameraTilt:
+    angle: 45
+    outputRange: 0.5
+    rotateSpeed: 2
+    outputSpeed: 2
+  climbSystem:
+    climbStart: 0
+    startClimbKey: 116
+    speed: 2
+    downThreshold: -0.4
+    freezLateralMove: 1
+    playSoundSpeed: 1
+    climbStepProperties: {fileID: 0}
+  pickupItemSystem:
+    hud: {fileID: 1900226616623725392}
+  fovKickIsEnabled: 1
+  headBobIsEnabled: 1
+--- !u!114 &1558799417041825141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455750926546636793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb28d553a5d14fc682eafe2ec7828d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  minHealth: 0
+  useRegeniration: 1
+  fallDamageProperties:
+  - damage: 10
+    minHeight: 2
+    maxHeight: 3
+  - damage: 20
+    minHeight: 3
+    maxHeight: 5
+  - damage: 50
+    minHeight: 5
+    maxHeight: 10
+  regenerationSystem:
+    regenerationProperties:
+      rate: 0.25
+      value: 1
+      delay: 3
+  deathCamera:
+    camera: {fileID: 1456926350347756843}
+    body: {fileID: 1452187493214124581}
+    lookAtTransform: {fileID: 1457049742624719881}
+    rotationSpeed: 3
+    transformsToDisable:
+    - {fileID: 1452146481479029601}
+    - {fileID: 1457120790647613641}
+    componentsToDisable:
+    - {fileID: 1558698377079278107}
+    - {fileID: 1456732292268846475}
+  damageCameraEffect:
+    profile: {fileID: 11400000, guid: 4ef56febbaf18a0488828b10e94ee9f3, type: 2}
+    startPoint: 50
+    resetSmooth: 10
+    chromaticAberrationSpeed: 2
+    vignetteSmooth: 10
+    vignetteMinValue: 0.3
+    vignetteMaxValue: 0.5
+--- !u!114 &1455750926546636794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455750926546636793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f05e5c90ef840aeb4154ddb1da52ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _FPCamera: {fileID: 1452146481479029601}
+  groups:
+  - name: Rifles
+    inventorySlots:
+    - key: 50
+      weapon: {fileID: 11400000, guid: 576001d2115474151838b5cb91814298, type: 2}
+    - key: 51
+      weapon: {fileID: 11400000, guid: c43cd214323a34c0cb5a2a6c6d2b726d, type: 2}
+  - name: Pistols
+    inventorySlots:
+    - key: 49
+      weapon: {fileID: 11400000, guid: 1f51ff8e5b42a43d1add86de52e4f2c8, type: 2}
+  - name: Launchers
+    inventorySlots:
+    - key: 52
+      weapon: {fileID: 11400000, guid: cce74e22b08a4b649bdb025986e1b539, type: 2}
+  allowIdenticalWeapons: 0
+  switchMode: 2
+  startWeaponKey: 0
+--- !u!114 &1558588370996476573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455750926546636793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e85f0ac37f44611b886b41d99a275a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+=======
+>>>>>>> Dev:Assets/Downloads/Unreal FPS/Prefabs/Player/Player.prefab
 --- !u!82 &1518064272483665855
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6968,6 +7246,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28,
         type: 3}
+<<<<<<< HEAD:Assets/Unreal FPS/Prefabs/Player/Player.prefab
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1558799417041825141}
+    - target: {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1452353903265862703}
+    - target: {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+=======
       propertyPath: player
       value: 
       objectReference: {fileID: 1452353903265862703}
@@ -6978,6 +7272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2237344040137534426, guid: 29b618fe1dd8a4a72ae0a619aa1a9a28, type: 3}
+>>>>>>> Dev:Assets/Downloads/Unreal FPS/Prefabs/Player/Player.prefab
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
