@@ -9,7 +9,8 @@ public class DungeonSelect : MonoBehaviour
     public GameObject GreenLine;    
     public GameObject dungeonEntrancePanel;
     public TextMeshProUGUI dungeonNameOfPanel;
-    public DungeonData[] SelectedDungeon; 
+    public DungeonData[] SelectedDungeon;
+    public GameObject dungeonTooltip;
 
     public void MouseOverUI()
     {
@@ -30,5 +31,15 @@ public class DungeonSelect : MonoBehaviour
     public void OffDungeonEntrancePanel()
     {
         dungeonEntrancePanel.SetActive(false);
+    }
+
+    public void ShowTooltip()
+    {
+        dungeonTooltip.SetActive(true);
+    }
+
+    public void HideTooltip()
+    {
+        dungeonTooltip.SetActive(false);
     }
 }

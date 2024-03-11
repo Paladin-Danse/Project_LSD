@@ -11,6 +11,6 @@ public class DungeonData : ScriptableObject
     [Header("DungeonInfo")]
     public string dungeonName;
     public Sprite dungeonImage;
-    public string dungeonEx;
+    [TextArea] public string dungeonEx;
     public int dungeonNumber;
 }
