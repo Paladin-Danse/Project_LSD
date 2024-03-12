@@ -66,9 +66,12 @@ public class DungeonInteract : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext callbackContext)
     {
-        curInteractable.OnInteract();
-        curInteractGameobject = null;
-        curInteractable = null;
-        promptText.gameObject.SetActive(false);
+        if(curInteractable != null)
+        {
+            curInteractable.OnInteract();
+            curInteractGameobject = null;
+            curInteractable = null;
+            promptText.gameObject.SetActive(false);
+        }        
     }    
 }

@@ -12,7 +12,7 @@ public class PlayerBaseState : IState
     protected PlayerStateMachine stateMachine;
     protected readonly PlayerGroundData groundData;
 
-    DungeonInteract dungeonInteract;
+    DungeonInteract dungeonInteract = new DungeonInteract();
 
     public PlayerBaseState(PlayerStateMachine playerStateMachine)
     {
