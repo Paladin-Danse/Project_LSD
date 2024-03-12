@@ -15,5 +15,6 @@ public class PlayerDungeonSpawn : MonoBehaviour
     private void Start()
     {
         player.transform.position = dungeonSpawnPosition.position;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
