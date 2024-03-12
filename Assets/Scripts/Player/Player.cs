@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerData Data { get; private set; }
     public Rigidbody rigidbody { get; private set; }
 
-    public DungeonInteract dungeonInteract;
+    [HideInInspector] public DungeonInteract dungeonInteract;
 
     private void Awake()
     {
