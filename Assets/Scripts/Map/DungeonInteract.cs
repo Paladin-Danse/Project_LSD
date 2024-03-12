@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public interface IInteractable
 {
@@ -60,17 +61,14 @@ public class DungeonInteract : MonoBehaviour
     private void SetPromptText()
     {
         promptText.gameObject.SetActive(true);
-        promptText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt());
+        promptText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt());
     }
 
     public void OnInteractInput(InputAction.CallbackContext callbackContext)
     {
-        if (callbackContext.phase == InputActionPhase.Started && curInteractable != null)
-        {
-            curInteractable.OnInteract();
-            curInteractGameobject = null;
-            curInteractable = null;
-            promptText.gameObject.SetActive(false);
-        }
-    }
+        curInteractable.OnInteract();
+        curInteractGameobject = null;
+        curInteractable = null;
+        promptText.gameObject.SetActive(false);
+    }    
 }

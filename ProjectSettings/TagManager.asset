@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - FPWeaponLayer
   - AI
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - DungeonEntrance
   - 
   - 
   - Weapon
