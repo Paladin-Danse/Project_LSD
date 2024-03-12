@@ -2,12 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 [Serializable]
-public class WeaponStat
+public class WeaponStat : Stat
 {
-    public StatModifyType statModifyType;
-
     [Header("Default Weapon Stat")]
     public float spread;
     public float recoil;
@@ -19,31 +18,40 @@ public class WeaponStat
 
     public void Add(WeaponStat other)
     {
-        spread += other.spread;
-        recoil += other.recoil;
-        preFireDelay += other.preFireDelay;
-        fireDelay += other.fireDelay;
-        reloadDelay += other.reloadDelay;
-        bulletPerFire += other.bulletPerFire;
+        Func<float, float, float> op = (o1, o2) => o1 + o2;
+        spread = UpdateStat(op, spread, other.spread);
+        recoil = UpdateStat(op, recoil, other.recoil);
+        preFireDelay = UpdateStat(op, preFireDelay, other.preFireDelay);
+        fireDelay = UpdateStat(op, fireDelay, other.fireDelay);
+        reloadDelay = UpdateStat(op, reloadDelay, other.reloadDelay);
+
+        Func<int, int, int> op2 = (o1, o2) => o1 + o2;
+        bulletPerFire = UpdateStat(op2, bulletPerFire, other.bulletPerFire);
     }
 
     public void Multiply(WeaponStat other)
     {
-        spread *= other.spread;
-        recoil *= other.recoil;
-        preFireDelay *= other.preFireDelay;
-        fireDelay *= other.fireDelay;
-        reloadDelay *= other.reloadDelay;
-        bulletPerFire *= other.bulletPerFire;
+        Func<float, float, float> op = (o1, o2) => o1 * o2;
+        spread = UpdateStat(op, spread, other.spread);
+        recoil = UpdateStat(op, recoil, other.recoil);
+        preFireDelay = UpdateStat(op, preFireDelay, other.preFireDelay);
+        fireDelay = UpdateStat(op, fireDelay, other.fireDelay);
+        reloadDelay = UpdateStat(op, reloadDelay, other.reloadDelay);
+
+        Func<int, int, int> op2 = (o1, o2) => o1 * o2;
+        bulletPerFire = UpdateStat(op2, bulletPerFire, other.bulletPerFire);
     }
 
     public void Override(WeaponStat other)
     {
-        spread = other.spread;
-        recoil = other.recoil;
-        preFireDelay = other.preFireDelay;
-        fireDelay = other.fireDelay;
-        reloadDelay = other.reloadDelay;
-        bulletPerFire *= other.bulletPerFire;
+        Func<float, float, float> op = (o1, o2) => o2;
+        spread = UpdateStat(op, spread, other.spread);
+        recoil = UpdateStat(op, recoil, other.recoil);
+        preFireDelay = UpdateStat(op, preFireDelay, other.preFireDelay);
+        fireDelay = UpdateStat(op, fireDelay, other.fireDelay);
+        reloadDelay = UpdateStat(op, reloadDelay, other.reloadDelay);
+
+        Func<int, int, int> op2 = (o1, o2) => o2;
+        bulletPerFire = UpdateStat(op2, bulletPerFire, other.bulletPerFire);
     }
 }

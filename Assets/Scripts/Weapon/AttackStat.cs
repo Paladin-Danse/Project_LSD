@@ -10,10 +10,8 @@ public enum AttackType
 }
 
 [Serializable]
-public class AttackStat
+public class AttackStat : Stat
 {
-    public StatModifyType statModifyType;
-
     public float damage;
     public float range;
     public float bulletSpeed;
@@ -30,37 +28,40 @@ public class AttackStat
 
     public void Add(AttackStat other)
     {
-        damage += other.damage;
-        range += other.range;
-        bulletSpeed += other.bulletSpeed;
-        explosionRange += other.explosionRange;
-        maxExplosionDamageRange += other.maxExplosionDamageRange;
+        Func<float, float, float> op = (o1, o2) => o1 + o2;
+        damage = UpdateStat(op, damage, other.damage);
+        range = UpdateStat(op, range, other.range);
+        bulletSpeed = UpdateStat(op, bulletSpeed, other.bulletSpeed);
+        explosionRange = UpdateStat(op, explosionRange, other.explosionRange);
+        maxExplosionDamageRange = UpdateStat(op, maxExplosionDamageRange, other.maxExplosionDamageRange);
 
-        knockBackPower += other.knockBackPower;
-        knockBackTime += other.knockBackTime;
+        knockBackPower = UpdateStat(op, knockBackPower, other.knockBackPower);
+        knockBackTime = UpdateStat(op, knockBackTime, other.knockBackTime);
     }
 
     public void Multiply(AttackStat other)
     {
-        damage *= other.damage;
-        range *= other.range;
-        bulletSpeed *= other.bulletSpeed;
-        explosionRange *= other.explosionRange;
-        maxExplosionDamageRange *= other.maxExplosionDamageRange;
+        Func<float, float, float> op = (o1, o2) => o1 * o2;
+        damage = UpdateStat(op, damage, other.damage);
+        range = UpdateStat(op, range, other.range);
+        bulletSpeed = UpdateStat(op, bulletSpeed, other.bulletSpeed);
+        explosionRange = UpdateStat(op, explosionRange, other.explosionRange);
+        maxExplosionDamageRange = UpdateStat(op, maxExplosionDamageRange, other.maxExplosionDamageRange);
 
-        knockBackPower *= other.knockBackPower;
-        knockBackTime *= other.knockBackTime;
+        knockBackPower = UpdateStat(op, knockBackPower, other.knockBackPower);
+        knockBackTime = UpdateStat(op, knockBackTime, other.knockBackTime);
     }
 
     public void Override(AttackStat other)
     {
-        damage = other.damage;
-        range = other.range;
-        bulletSpeed = other.bulletSpeed;
-        explosionRange = other.explosionRange;
-        maxExplosionDamageRange = other.maxExplosionDamageRange;
+        Func<float, float, float> op = (o1, o2) => o2;
+        damage = UpdateStat(op, damage, other.damage);
+        range = UpdateStat(op, range, other.range);
+        bulletSpeed = UpdateStat(op, bulletSpeed, other.bulletSpeed);
+        explosionRange = UpdateStat(op, explosionRange, other.explosionRange);
+        maxExplosionDamageRange = UpdateStat(op, maxExplosionDamageRange, other.maxExplosionDamageRange);
 
-        knockBackPower = other.knockBackPower;
-        knockBackTime = other.knockBackTime;
+        knockBackPower = UpdateStat(op, knockBackPower, other.knockBackPower);
+        knockBackTime = UpdateStat(op, knockBackTime, other.knockBackTime);
     }
 }
