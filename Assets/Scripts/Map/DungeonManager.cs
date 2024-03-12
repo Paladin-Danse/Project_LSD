@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Dungeon
@@ -17,6 +18,8 @@ public class DungeonManager : MonoBehaviour
     public Dungeon[] SelectedDungeon;    
     public RectTransform tooltipRectTransform;
     public RectTransform backgroundRectTransform;
+
+    int entranceNumber;
 
     private void Awake()
     {
@@ -42,10 +45,23 @@ public class DungeonManager : MonoBehaviour
     {
         dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].Ddata.dungeonName;
         dungeonEntrancePanel.SetActive(true);
+        entranceNumber = dungeonNum;
     }
 
     public void OffDungeonEntrancePanel()
     {
         dungeonEntrancePanel.SetActive(false);
     }    
+
+    public void DungeonEntrance()
+    {        
+        if(entranceNumber == 0)
+        {
+            SceneManager.LoadScene("DungeonScene");
+        }
+        else if(entranceNumber == 1)
+        {
+            return;
+        }
+    }
 }

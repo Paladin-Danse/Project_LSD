@@ -24,6 +24,8 @@ public class DungeonInteract : MonoBehaviour
     public TextMeshProUGUI promptText;
     private Camera camera;
 
+    bool isPrompt = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +48,10 @@ public class DungeonInteract : MonoBehaviour
                 {
                     curInteractGameobject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
-                    SetPromptText();
+                    if(isPrompt == true)
+                    {
+                        SetPromptText();
+                    }                    
                 }
             }
             else
@@ -72,6 +77,7 @@ public class DungeonInteract : MonoBehaviour
             curInteractGameobject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
+            isPrompt = false;
         }        
     }    
 }

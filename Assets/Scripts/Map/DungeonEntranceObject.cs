@@ -13,5 +13,6 @@ public class DungeonEntranceObject : MonoBehaviour, IInteractable
     public void OnInteract()
     {
         dungeonSelectedUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
     }    
 }
