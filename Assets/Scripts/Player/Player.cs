@@ -9,11 +9,14 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerData Data { get; private set; }
     public Rigidbody rigidbody { get; private set; }
 
+    public DungeonInteract dungeonInteract;
+
     private void Awake()
     {
         stateMachine = new PlayerStateMachine(this);
         rigidbody = GetComponent<Rigidbody>();
         input = GetComponent<PlayerInput>();
+        dungeonInteract = GetComponent<DungeonInteract>();
     }
 
     private void Start()

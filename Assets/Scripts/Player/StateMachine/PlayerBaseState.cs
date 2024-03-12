@@ -12,8 +12,6 @@ public class PlayerBaseState : IState
     protected PlayerStateMachine stateMachine;
     protected readonly PlayerGroundData groundData;
 
-    DungeonInteract dungeonInteract = new DungeonInteract();
-
     public PlayerBaseState(PlayerStateMachine playerStateMachine)
     {
         stateMachine = playerStateMachine;
@@ -49,14 +47,14 @@ public class PlayerBaseState : IState
         PlayerInput input = stateMachine.player.input;
         input.playerActions.Move.canceled += OnMovementCanceled;
         input.playerActions.Look.started += Rotate;
-        input.playerActions.Interact.started += dungeonInteract.OnInteractInput;
+        input.playerActions.Interact.started += stateMachine.player.dungeonInteract.OnInteractInput;
     }
     protected virtual void RemoveInputActionsCallbacks()
     {
         PlayerInput input = stateMachine.player.input;
         input.playerActions.Move.canceled -= OnMovementCanceled;
         input.playerActions.Look.started -= Rotate;
-        input.playerActions.Interact.started -= dungeonInteract.OnInteractInput;
+        input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
