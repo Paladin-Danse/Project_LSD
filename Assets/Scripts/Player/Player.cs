@@ -10,7 +10,11 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerData Data { get; private set; }
     public Rigidbody rigidbody { get; private set; }
 
+<<<<<<< Updated upstream
     public DungeonInteract dungeonInteract;
+=======
+    DungeonInteract dungeonInteract;
+>>>>>>> Stashed changes
 
     private void Awake()
     {
