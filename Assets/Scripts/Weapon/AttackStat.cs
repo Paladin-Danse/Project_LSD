@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
+using static WeaponStat;
 
 [Serializable]
 public enum AttackType
@@ -12,6 +14,24 @@ public enum AttackType
 [Serializable]
 public class AttackStat : Stat
 {
+    [Flags]
+    [Serializable]
+    public enum AttackStatFlag
+    {
+        None = 0,
+        Damage = 1 << 0,
+        Range = 1 << 1,
+        BulletSpeed = 1 << 2,
+        ExplosionRange = 1 << 3,
+        MaxExplosionDamageRange = 1 << 4,
+        IsKnockBackEnable = 1 << 5,
+        KnockBackPower = 1 << 6,
+        KnockBackTime = 1 << 7,
+    }
+
+    public AttackType AttackType;
+    public AttackStatFlag attackStatFlag;
+
     public float damage;
     public float range;
     public float bulletSpeed;
@@ -26,42 +46,44 @@ public class AttackStat : Stat
     public float knockBackPower;
     public float knockBackTime;
 
-    public void Add(AttackStat other)
+    public void OverlapStats(AttackStat other)
     {
-        Func<float, float, float> op = (o1, o2) => o1 + o2;
-        damage = UpdateStat(op, damage, other.damage);
-        range = UpdateStat(op, range, other.range);
-        bulletSpeed = UpdateStat(op, bulletSpeed, other.bulletSpeed);
-        explosionRange = UpdateStat(op, explosionRange, other.explosionRange);
-        maxExplosionDamageRange = UpdateStat(op, maxExplosionDamageRange, other.maxExplosionDamageRange);
+        Func<float, float, float> op = (o1, o2) => o1;
 
-        knockBackPower = UpdateStat(op, knockBackPower, other.knockBackPower);
-        knockBackTime = UpdateStat(op, knockBackTime, other.knockBackTime);
-    }
+        if (other.statModifyType == StatModifyType.Add)
+            op = (o1, o2) => o1 + o2;
+        else if (other.statModifyType == StatModifyType.Multiply)
+            op = (o1, o2) => o1 * o2;
+        else if (other.statModifyType == StatModifyType.Override)
+            op = (o1, o2) => o2;
 
-    public void Multiply(AttackStat other)
-    {
-        Func<float, float, float> op = (o1, o2) => o1 * o2;
-        damage = UpdateStat(op, damage, other.damage);
-        range = UpdateStat(op, range, other.range);
-        bulletSpeed = UpdateStat(op, bulletSpeed, other.bulletSpeed);
-        explosionRange = UpdateStat(op, explosionRange, other.explosionRange);
-        maxExplosionDamageRange = UpdateStat(op, maxExplosionDamageRange, other.maxExplosionDamageRange);
+        if ((other.attackStatFlag & AttackStatFlag.Damage) != 0)
+            damage = op(damage, other.damage);
+        if ((other.attackStatFlag & AttackStatFlag.Range) != 0)
+            range = op(range, other.range);
+        if ((other.attackStatFlag & AttackStatFlag.BulletSpeed) != 0)
+            bulletSpeed = op(bulletSpeed, other.bulletSpeed);
 
-        knockBackPower = UpdateStat(op, knockBackPower, other.knockBackPower);
-        knockBackTime = UpdateStat(op, knockBackTime, other.knockBackTime);
-    }
+        if ((other.attackStatFlag & AttackStatFlag.ExplosionRange) != 0)
+            explosionRange = op(explosionRange, other.explosionRange);
+        if ((other.attackStatFlag & AttackStatFlag.MaxExplosionDamageRange) != 0)
+            maxExplosionDamageRange = op(maxExplosionDamageRange, other.maxExplosionDamageRange);
 
-    public void Override(AttackStat other)
-    {
-        Func<float, float, float> op = (o1, o2) => o2;
-        damage = UpdateStat(op, damage, other.damage);
-        range = UpdateStat(op, range, other.range);
-        bulletSpeed = UpdateStat(op, bulletSpeed, other.bulletSpeed);
-        explosionRange = UpdateStat(op, explosionRange, other.explosionRange);
-        maxExplosionDamageRange = UpdateStat(op, maxExplosionDamageRange, other.maxExplosionDamageRange);
+        if ((other.attackStatFlag & AttackStatFlag.KnockBackPower) != 0)
+            knockBackPower = op(knockBackPower, other.knockBackPower);
+        if ((other.attackStatFlag & AttackStatFlag.KnockBackTime) != 0)
+            knockBackTime = op(knockBackTime, other.knockBackTime);
 
-        knockBackPower = UpdateStat(op, knockBackPower, other.knockBackPower);
-        knockBackTime = UpdateStat(op, knockBackTime, other.knockBackTime);
+        Func<bool, bool, bool> op2 = (o1, o2) => o1;
+
+        if (other.statModifyType == StatModifyType.Add)
+            op2 = (o1, o2) => o1 | o2;
+        else if (other.statModifyType == StatModifyType.Multiply)
+            op2 = (o1, o2) => o1 & o2;
+        else if (other.statModifyType == StatModifyType.Override)
+            op2 = (o1, o2) => o2;
+
+        if ((other.attackStatFlag & AttackStatFlag.IsKnockBackEnable) != 0)
+            IsKnockbackEnable = op2(IsKnockbackEnable, other.IsKnockbackEnable);
     }
 }

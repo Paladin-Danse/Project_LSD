@@ -7,6 +7,22 @@ using UnityEngine.SocialPlatforms;
 [Serializable]
 public class WeaponStat : Stat
 {
+    [Flags]
+    [Serializable]
+    public enum WeaponStatFlag
+    {
+        None = 0,
+        Spread = 1 << 0,
+        Recoil = 1 << 1,
+        PreFireDelay = 1 << 2,
+        FireDelay = 1 << 3,
+        ReloadDelay = 1 << 4,
+        BulletPerFire = 1 << 5,
+        AttackStat = 1 << 6,
+    }
+
+    WeaponStatFlag weaponStatFlag;
+
     [Header("Default Weapon Stat")]
     public float spread;
     public float recoil;
@@ -16,42 +32,41 @@ public class WeaponStat : Stat
     public int bulletPerFire;
     public AttackStat attackStat;
 
-    public void Add(WeaponStat other)
+    public void OverlapStats(WeaponStat other)
     {
-        Func<float, float, float> op = (o1, o2) => o1 + o2;
-        spread = UpdateStat(op, spread, other.spread);
-        recoil = UpdateStat(op, recoil, other.recoil);
-        preFireDelay = UpdateStat(op, preFireDelay, other.preFireDelay);
-        fireDelay = UpdateStat(op, fireDelay, other.fireDelay);
-        reloadDelay = UpdateStat(op, reloadDelay, other.reloadDelay);
+        Func<float, float, float> op = (o1, o2) => o1;
 
-        Func<int, int, int> op2 = (o1, o2) => o1 + o2;
-        bulletPerFire = UpdateStat(op2, bulletPerFire, other.bulletPerFire);
-    }
+        if (other.statModifyType == StatModifyType.Add)
+            op = (o1, o2) => o1 + o2;
+        else if (other.statModifyType == StatModifyType.Multiply)
+            op = (o1, o2) => o1 * o2;
+        else if (other.statModifyType == StatModifyType.Override)
+            op = (o1, o2) => o2;
 
-    public void Multiply(WeaponStat other)
-    {
-        Func<float, float, float> op = (o1, o2) => o1 * o2;
-        spread = UpdateStat(op, spread, other.spread);
-        recoil = UpdateStat(op, recoil, other.recoil);
-        preFireDelay = UpdateStat(op, preFireDelay, other.preFireDelay);
-        fireDelay = UpdateStat(op, fireDelay, other.fireDelay);
-        reloadDelay = UpdateStat(op, reloadDelay, other.reloadDelay);
+        if ((other.weaponStatFlag & WeaponStatFlag.Spread) != 0)
+            spread = op(spread, other.spread);
+        if ((other.weaponStatFlag & WeaponStatFlag.Recoil) != 0)
+            recoil = op(recoil, other.recoil);
+        if ((other.weaponStatFlag & WeaponStatFlag.PreFireDelay) != 0)
+            preFireDelay = op(preFireDelay, other.preFireDelay);
+        if ((other.weaponStatFlag & WeaponStatFlag.FireDelay) != 0)
+            fireDelay = op(fireDelay, other.fireDelay);
+        if ((other.weaponStatFlag & WeaponStatFlag.ReloadDelay) != 0)
+            reloadDelay = op(reloadDelay, other.reloadDelay);
 
-        Func<int, int, int> op2 = (o1, o2) => o1 * o2;
-        bulletPerFire = UpdateStat(op2, bulletPerFire, other.bulletPerFire);
-    }
+        Func<int, int, int> op2 = (o1, o2) => o1;
 
-    public void Override(WeaponStat other)
-    {
-        Func<float, float, float> op = (o1, o2) => o2;
-        spread = UpdateStat(op, spread, other.spread);
-        recoil = UpdateStat(op, recoil, other.recoil);
-        preFireDelay = UpdateStat(op, preFireDelay, other.preFireDelay);
-        fireDelay = UpdateStat(op, fireDelay, other.fireDelay);
-        reloadDelay = UpdateStat(op, reloadDelay, other.reloadDelay);
+        if (other.statModifyType == StatModifyType.Add)
+            op2 = (o1, o2) => o1 + o2;
+        else if (other.statModifyType == StatModifyType.Multiply)
+            op2 = (o1, o2) => o1 * o2;
+        else if (other.statModifyType == StatModifyType.Override)
+            op2 = (o1, o2) => o2;
 
-        Func<int, int, int> op2 = (o1, o2) => o2;
-        bulletPerFire = UpdateStat(op2, bulletPerFire, other.bulletPerFire);
+        if ((other.weaponStatFlag & WeaponStatFlag.BulletPerFire) != 0)
+            bulletPerFire = op2(bulletPerFire, other.bulletPerFire);
+
+        if ((other.weaponStatFlag & WeaponStatFlag.AttackStat) != 0)
+            attackStat.OverlapStats(other.attackStat);
     }
 }

@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : StatHandlerBase<WeaponStat>
+public class Mod : MonoBehaviour
 {
-    [SerializeField]
-    WeaponStatSO baseStatSO;
-
-    List<Mod> mods;
+    WeaponStatSO modStatBase;
+    WeaponStat modStat;
 
     // Start is called before the first frame update
     void Start()
@@ -19,15 +17,5 @@ public class Weapon : StatHandlerBase<WeaponStat>
     void Update()
     {
         
-    }
-
-    public void AddMod() 
-    {
-    
-    }
-
-    public void RemoveMod() 
-    {
-    
     }
 }
