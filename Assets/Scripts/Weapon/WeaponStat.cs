@@ -12,18 +12,20 @@ public class WeaponStat : Stat
     public enum WeaponStatFlag
     {
         None = 0,
-        Spread = 1 << 0,
-        Recoil = 1 << 1,
-        PreFireDelay = 1 << 2,
-        FireDelay = 1 << 3,
-        ReloadDelay = 1 << 4,
-        BulletPerFire = 1 << 5,
-        AttackStat = 1 << 6,
+        Magazine = 1 << 0,
+        Spread = 1 << 1,
+        Recoil = 1 << 2,
+        PreFireDelay = 1 << 3,
+        FireDelay = 1 << 4,
+        ReloadDelay = 1 << 5,
+        BulletPerFire = 1 << 6,
+        AttackStat = 1 << 7,
     }
 
     WeaponStatFlag weaponStatFlag;
 
     [Header("Default Weapon Stat")]
+    public int magazine;
     public float spread;
     public float recoil;
     public float preFireDelay;
@@ -68,6 +70,8 @@ public class WeaponStat : Stat
         else if (other.statModifyType == StatModifyType.Override)
             op2 = (o1, o2) => o2;
 
+        if ((other.weaponStatFlag & WeaponStatFlag.Magazine) != 0)
+            magazine = op2(magazine, other.magazine);
         if ((other.weaponStatFlag & WeaponStatFlag.BulletPerFire) != 0)
             bulletPerFire = op2(bulletPerFire, other.bulletPerFire);
 
