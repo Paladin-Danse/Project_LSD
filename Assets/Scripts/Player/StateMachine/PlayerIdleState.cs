@@ -11,6 +11,8 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        SetAnimation(stateMachine.player.AnimationData.DirectionParameterHash, 0f);
+        SetAnimation(stateMachine.player.AnimationData.SpeedParameterHash, 0f);
     }
     public override void Exit() 
     {

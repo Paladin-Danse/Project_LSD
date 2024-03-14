@@ -19,5 +19,7 @@ public class PlayerWalkState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
+        SetAnimation(stateMachine.player.AnimationData.DirectionParameterHash, stateMachine.MovementInput.x / 2);
+        SetAnimation(stateMachine.player.AnimationData.SpeedParameterHash, stateMachine.MovementInput.y / 2);
     }
 }
