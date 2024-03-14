@@ -12,4 +12,5 @@ public class PlayerData : ScriptableObject
     [Header("ETC")]
     public float LookRotateSpeed;
     public float LookRotateModifier;
+    public float UpdownMaxAngle;
 }

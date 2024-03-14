@@ -7,5 +7,4 @@ public class PlayerAirState : PlayerBaseState
     public PlayerAirState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
     }
-
 }

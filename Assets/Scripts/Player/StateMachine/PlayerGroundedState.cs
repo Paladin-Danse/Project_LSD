@@ -40,4 +40,9 @@ public class PlayerGroundedState : PlayerBaseState
     {
         stateMachine.ChangeState(stateMachine.WalkState);
     }
+
+    protected override void OnJump(InputAction.CallbackContext callbackContext)
+    {
+        stateMachine.ChangeState(stateMachine.JumpState);
+    }
 }
