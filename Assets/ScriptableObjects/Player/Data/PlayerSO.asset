@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundData:
     BaseSpeed: 8
-    BaseRotationDamping: 1
+    WalkSpeedModifier: 1
+    RunSpeedModifier: 2
   airData:
     JumpForce: 10
     JumpForceModifier: 1

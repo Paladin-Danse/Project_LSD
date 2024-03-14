@@ -7,4 +7,20 @@ public class PlayerRunState : PlayerGroundedState
     public PlayerRunState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
     }
+
+    public override void Enter()
+    {
+        stateMachine.MovementSpeedModifier = stateMachine.player.Data.groundData.RunSpeedModifier;
+        base.Enter();
+    }
+    public override void Exit()
+    {
+        base.Exit();
+    }
+    public override void Update()
+    {
+        base.Update();
+        SetAnimation(stateMachine.player.AnimationData.DirectionParameterHash, stateMachine.MovementInput.x);
+        SetAnimation(stateMachine.player.AnimationData.SpeedParameterHash, stateMachine.MovementInput.y);
+    }
 }

@@ -10,6 +10,7 @@ public class PlayerWalkState : PlayerGroundedState
 
     public override void Enter()
     {
+        stateMachine.MovementSpeedModifier = stateMachine.player.Data.groundData.WalkSpeedModifier;
         base.Enter();
     }
     public override void Exit()

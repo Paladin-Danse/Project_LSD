@@ -6,6 +6,8 @@ public class PlayerStateMachine : StateMachine
 {
     public Player player { get; }
 
+    public float camXRotate = 0f;
+    public float playerYRotate = 0f;
     public PlayerIdleState IdleState { get; }
     public PlayerWalkState WalkState { get; }
     public PlayerRunState RunState { get; }
@@ -13,8 +15,7 @@ public class PlayerStateMachine : StateMachine
     public PlayerJumpState JumpState { get; }
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
-    public float RotationDamping { get; private set; }
-    public float MovementSpeedModifier { get; set; } = 1f;
+    public float MovementSpeedModifier { get; set; }
     public float JumpForce { get; set; }
     public bool IsAttacking { get; set; }
     public int ComboIndex { get; set; }
@@ -32,7 +33,7 @@ public class PlayerStateMachine : StateMachine
         JumpState = new PlayerJumpState(this);
 
         MovementSpeed = this.player.Data.groundData.BaseSpeed;
-        RotationDamping = this.player.Data.groundData.BaseRotationDamping;
+        MovementSpeedModifier = this.player.Data.groundData.WalkSpeedModifier;
 
         PlayerCamTransform = this.player.transform.Find("FPCamera");
     }
