@@ -6,6 +6,8 @@ public class PlayerStateMachine : StateMachine
 {
     public Player player { get; }
 
+    public float camXRotate = 0f;
+    public float playerYRotate = 0f;
     public PlayerIdleState IdleState { get; }
     public PlayerWalkState WalkState { get; }
     public PlayerRunState RunState { get; }
