@@ -32,7 +32,12 @@ public class WeaponStat : Stat
     public int bulletPerFire;
     public AttackStat attackStat;
 
-    public void OverlapStats(WeaponStat other)
+    public override void OverlapStats(Stat other)
+    {
+        if(other is  WeaponStat) 
+            OverlapStat(other as WeaponStat);
+    }
+    public void OverlapStat(WeaponStat other)
     {
         Func<float, float, float> op = (o1, o2) => o1;
 

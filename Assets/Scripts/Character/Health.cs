@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     public void TakeDamage(float damage)
@@ -38,7 +38,7 @@ public class Health : MonoBehaviour
 
         if (curHealth == 0) return;
 
-        curHealth = Mathf.Max(curHealth - damage, 0);
+        curHealth = Mathf.Max(curHealth - ((damage - characterStatHandler.currentStat.defense) * characterStatHandler.currentStat.defenseRateMultiplyConverted), 0);
 
         if (curHealth == 0)
             OnDie?.Invoke();

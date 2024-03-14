@@ -46,7 +46,12 @@ public class AttackStat : Stat
     public float knockBackPower;
     public float knockBackTime;
 
-    public void OverlapStats(AttackStat other)
+    public override void OverlapStats(Stat other)
+    {
+        if(other is AttackStat)
+            OverlapStat(other as AttackStat);
+    }
+    public void OverlapStat(AttackStat other)
     {
         Func<float, float, float> op = (o1, o2) => o1;
 

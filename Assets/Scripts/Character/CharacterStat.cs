@@ -13,9 +13,9 @@ public enum StatModifyType
 
 public class Stat
 {
-    public StatModifyType statModifyType; 
+    public StatModifyType statModifyType;
 
-    public void OverlapStats(Stat other) { }
+    public virtual void OverlapStats(Stat other){ }
 }
 
 
@@ -41,14 +41,20 @@ public class CharacterStat : Stat
     public float maxHealth;
     public float defense;
     [SerializeField]
-    private float defenseRate;
+    public float defenseRate;
     public float regenHealthPerSec;
     public float moveSpeed;
     public float criticalDamageRate;
 
     public float defenseRateMultiplyConverted { get { return 100f / (100f + defenseRate); } }
 
-    public void OverlapStats(CharacterStat other) 
+    public override void OverlapStats(Stat other)
+    {
+        if (other is CharacterStat)
+            this.OverlapStat(other as CharacterStat);
+    }
+
+    public void OverlapStat(CharacterStat other) 
     {
         Func<float, float, float> op = (o1, o2) => o1;
         

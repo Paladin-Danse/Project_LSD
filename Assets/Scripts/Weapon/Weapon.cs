@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Weapon : StatHandlerBase<WeaponStat>
@@ -21,13 +22,21 @@ public class Weapon : StatHandlerBase<WeaponStat>
         
     }
 
-    public void AddMod() 
+    protected override void InitStat()
     {
-    
+        base.InitStat();
     }
 
-    public void RemoveMod() 
+    public void AddMod(Mod mod) 
     {
-    
+        mods.Add(mod);
+        AddStatModifier(mod.modStat);
     }
+
+    public void RemoveMod(Mod mod) 
+    {
+        mods.Remove(mod);
+        RemoveStatModifier(mod.modStat);
+    }
+
 }

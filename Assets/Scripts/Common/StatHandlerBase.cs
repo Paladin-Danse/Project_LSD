@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
     [SerializeField]
     protected T baseStat;
     public List<T> statModifiers;
+
+    [field : SerializeField]
     public T currentStat { get; protected set; }
 
     // Start is called before the first frame update
@@ -34,13 +37,13 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
         // Init Stat with StatSO
     }
 
-    public void AddCharacterStatModifier(T statModifier)
+    public void AddStatModifier(T statModifier)
     {
         statModifiers.Add(statModifier);
         UpdateStats();
     }
 
-    public void RemoveCharacterStatModifier(T statModifier)
+    public void RemoveStatModifier(T statModifier)
     {
         statModifiers.Remove(statModifier);
         UpdateStats();

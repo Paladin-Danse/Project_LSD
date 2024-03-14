@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Mod : MonoBehaviour
 {
-    WeaponStatSO modStatBase;
-    WeaponStat modStat;
+    public WeaponStatSO modStatBase;
+    public WeaponStat modStat;
 
     // Start is called before the first frame update
     void Start()
