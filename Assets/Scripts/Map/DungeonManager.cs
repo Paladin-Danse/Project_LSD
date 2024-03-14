@@ -19,7 +19,7 @@ public class DungeonManager : MonoBehaviour
     public RectTransform tooltipRectTransform;
     public RectTransform backgroundRectTransform;
 
-    int entranceNumber;
+    int entranceNumber;    
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class DungeonManager : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
-        }
+        }        
     }
     private void Update()
     {
@@ -54,14 +54,19 @@ public class DungeonManager : MonoBehaviour
     }    
 
     public void DungeonEntrance()
-    {        
-        if(entranceNumber == 0)
+    {
+        StartCoroutine(LoadScene());        
+    }
+
+    IEnumerator LoadScene()
+    {
+        if (entranceNumber == 0)
         {
-            SceneManager.LoadScene("DungeonScene");
+            yield return SceneManager.LoadSceneAsync("DungeonScene");
         }
-        else if(entranceNumber == 1)
+        else if (entranceNumber == 1)
         {
-            return;
-        }
+            yield return null;
+        }        
     }
 }
