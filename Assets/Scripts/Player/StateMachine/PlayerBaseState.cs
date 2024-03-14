@@ -11,7 +11,9 @@ public class PlayerBaseState : IState
 {
     protected PlayerStateMachine stateMachine;
     protected readonly PlayerGroundData groundData;
-
+    protected Vector2 rotateDirection;
+    private float camXRotate = 0f;
+    private float playerYRotate;
     public PlayerBaseState(PlayerStateMachine playerStateMachine)
     {
         stateMachine = playerStateMachine;
@@ -41,59 +43,85 @@ public class PlayerBaseState : IState
     {
         
     }
-
+    protected void SetAnimation(int ParameterHash)
+    {
+        stateMachine.player.animator.SetTrigger(ParameterHash);
+    }
+    protected void SetAnimation(int ParameterHash, bool setBool)
+    {
+        stateMachine.player.animator.SetBool(ParameterHash, setBool);
+    }
+    protected void SetAnimation(int ParameterHash, float setFloat)
+    {
+        stateMachine.player.animator.SetFloat(ParameterHash, setFloat);
+    }
+    
     protected virtual void AddInputActionsCallbacks()
     {
-        PlayerInput input = stateMachine.player.input;
+        //Movement
+        PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled += OnMovementCanceled;
         input.playerActions.Look.started += Rotate;
+        input.playerActions.Jump.started += OnJump;
+
+        //Interact
         input.playerActions.Interact.started += stateMachine.player.dungeonInteract.OnInteractInput;
     }
     protected virtual void RemoveInputActionsCallbacks()
     {
-        PlayerInput input = stateMachine.player.input;
+        //Movement
+        PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled -= OnMovementCanceled;
         input.playerActions.Look.started -= Rotate;
+        input.playerActions.Jump.started -= OnJump;
+        
+        //Interact
         input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
 
     }
+    protected virtual void OnJump(InputAction.CallbackContext callbackContext)
+    {
+
+    }
     private void ReadMovementInput()
     {
-        stateMachine.MovementInput = stateMachine.player.input.playerActions.Move.ReadValue<Vector2>();
+        stateMachine.MovementInput = stateMachine.player.input_.playerActions.Move.ReadValue<Vector2>();
     }
     private void Move()
     {
+        Player player = stateMachine.player;
+        
         Vector3 movementDirection = GetMovementDirection();
         Move(movementDirection);
     }
     protected void Rotate(InputAction.CallbackContext callbackContext)
     {
-        Vector2 rotateDirection = stateMachine.player.input.playerActions.Look.ReadValue<Vector2>();
-        
-        Debug.Log(rotateDirection);
+        rotateDirection = callbackContext.ReadValue<Vector2>();
+
         PlayerData SOData = stateMachine.player.Data;
         Transform camTransform = stateMachine.PlayerCamTransform;
-        Rigidbody rigidbody = stateMachine.player.rigidbody;
+        Rigidbody rigidbody = stateMachine.player.rigidbody_;
+        
 
-        camTransform.rotation *= Quaternion.Euler(new Vector3(camTransform.forward.x + rotateDirection.y, 0, 0) * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1);
-        rigidbody.rotation *= Quaternion.Euler(new Vector3(0, camTransform.forward.y + rotateDirection.x, 0) * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime);
+        camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
+        camXRotate = Mathf.Clamp(camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
+
+        playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
+
+        camTransform.localRotation = Quaternion.Euler(new Vector3(camXRotate, 0, 0));
+        rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, playerYRotate, 0));
     }
-
 
     protected void Move(Vector3 movementDirection)
     {
         Player player = stateMachine.player;
         float movementSpeed = GetMovementSpeed();
-        //stateMachine.player.Controller.Move(
-        //    ((movementDirection * movementSpeed) +
-        //    stateMachine.player.ForceReceiver.Movement) *
-        //    Time.deltaTime
-        //    );
-        player.rigidbody.MovePosition(player.transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+        player.GetComponent<Rigidbody>().MovePosition(player.transform.position + (movementDirection * movementSpeed * Time.deltaTime));
     }
+
 
     private float GetMovementSpeed()
     {
@@ -114,5 +142,4 @@ public class PlayerBaseState : IState
 
         return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
     }
-
 }
