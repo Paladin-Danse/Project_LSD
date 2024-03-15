@@ -16,6 +16,11 @@ public class Player : MonoBehaviour
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
 
+    //임시변수
+    public Transform firePos;
+    public float fireRateDelay;
+    public AmmoProjectile ammoProjectile;
+
     private void Awake()
     {
         stateMachine = new PlayerStateMachine(this);
@@ -48,5 +53,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
-    }    
+    }
+
+    public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List,AmmoProjectile obj)
+    {
+        AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
+        pooling_List.Add(newProjectile);
+        return newProjectile;
+    }
 }

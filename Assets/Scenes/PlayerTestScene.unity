@@ -711,7 +711,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31448
+  m_Name: pb_Mesh32176
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -988,6 +988,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!4 &1977660545 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2791065022152246742, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+  m_PrefabInstance: {fileID: 9089967867849399417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9089967867849399417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1008,9 +1013,21 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2625551935077178340, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2787227431534410052, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790616117500768380, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790616117500768380, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2917989534520319805, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: m_Name
@@ -1024,6 +1041,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4694924474476497900, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: firePos
+      value: 
+      objectReference: {fileID: 1977660545}
+    - target: {fileID: 4694924474476497900, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: fireRateDelay
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694924474476497900, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: ammoProjectile
+      value: 
+      objectReference: {fileID: -1474169686497059885, guid: ec5062bf53f37fd4892bdeb6601e564a, type: 3}
     - target: {fileID: 4721132650358045687, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1
@@ -1035,6 +1064,10 @@ PrefabInstance:
     - target: {fileID: 4721132650364933143, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964234177382405657, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8496106446693382973, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: m_RootOrder

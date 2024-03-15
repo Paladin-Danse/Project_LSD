@@ -32,7 +32,7 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
         
     }
 
-    protected virtual void InitStat() 
+    protected virtual void InitStat()
     {
         // Init Stat with StatSO
     }
