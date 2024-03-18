@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackStat:
     statModifyType: 0
+    AttackType: 0
+    attackStatFlag: 0
     damage: 0
     range: 0
     bulletSpeed: 0
