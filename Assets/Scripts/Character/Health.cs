@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void TakeDamage(float damageTaken);
+public delegate float MaxHealth();
 
 [DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
-    public float maxHealth;
+    [SerializeField]
+    float _maxHealth;
+    public float maxHealth { get { return MaxHealth(); } }
     public float curHealth;
     public bool IsDead => curHealth == 0;
 
@@ -17,10 +20,12 @@ public class Health : MonoBehaviour
     public Action OnTakeDamage;
 
     public TakeDamage TakeDamage;
+    public MaxHealth MaxHealth;
 
     private void Awake()
     {
         TakeDamage = TakeDamageWithoutDefense;
+        MaxHealth = () => { return _maxHealth; };
     }
 
     private void Start()

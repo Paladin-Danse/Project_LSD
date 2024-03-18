@@ -19,14 +19,14 @@ public class CharacterStatHandler : StatHandlerBase<CharacterStat>
     protected void Awake()
     {
         base.Awake();
-        if (TryGetComponent(out health))
-            health.maxHealth = currentStat.maxHealth;
+        TryGetComponent(out health);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         health.TakeDamage = TakeDamageWithDefense;
+        health.MaxHealth = () => { return currentStat.maxHealth; };
     }
 
     // Update is called once per frame
