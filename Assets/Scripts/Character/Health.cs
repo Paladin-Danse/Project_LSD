@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void TakeDamage(float damageTaken);
-public delegate float MaxHealth();
-
 [DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
@@ -13,24 +10,32 @@ public class Health : MonoBehaviour
     float _maxHealth;
     public float maxHealth { get { return MaxHealth(); } }
     public float curHealth;
+
+    [SerializeField]
+    float _regenHealth;
+    public float regenHealthPerSec {  get { return RegenHealth(); } }
+
     public bool IsDead => curHealth == 0;
 
     public Action OnDie;
     public Action OnHeal;
     public Action OnTakeDamage;
 
-    public TakeDamage TakeDamage;
-    public MaxHealth MaxHealth;
+    public Action<float> TakeDamage;
+    public Func<float> MaxHealth;
+    public Func<float> RegenHealth;
 
     private void Awake()
     {
         TakeDamage = TakeDamageWithoutDefense;
         MaxHealth = () => { return _maxHealth; };
+        RegenHealth = () => { return _regenHealth; };
     }
 
     private void Start()
     {
         curHealth = maxHealth;
+        InvokeRepeating("RegenHealthPerSec", 0f, 1.0f);
     }
 
     private void Update()
@@ -56,8 +61,8 @@ public class Health : MonoBehaviour
         curHealth = MathF.Min(maxHealth, curHealth + addHealth);
     }
 
-    private void RegenHealth(float health)
+    private void RegenHealthPerSec()
     {
-        curHealth = MathF.Min(maxHealth, curHealth + health);
+        curHealth = MathF.Min(maxHealth, curHealth + regenHealthPerSec);
     }
 }

@@ -27,6 +27,7 @@ public class CharacterStatHandler : StatHandlerBase<CharacterStat>
     {
         health.TakeDamage = TakeDamageWithDefense;
         health.MaxHealth = () => { return currentStat.maxHealth; };
+        health.RegenHealth = () => { return currentStat.regenHealthPerSec; };
     }
 
     // Update is called once per frame
