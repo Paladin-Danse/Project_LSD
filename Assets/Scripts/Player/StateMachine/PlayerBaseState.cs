@@ -52,7 +52,7 @@ public class PlayerBaseState : IState
     }
     protected void SetAnimation(int ParameterHash, float setFloat)
     {
-        //stateMachine.player.animator.SetFloat(ParameterHash, math.lerp());
+        stateMachine.player.animator.SetFloat(ParameterHash, setFloat);
     }
     
     protected virtual void AddInputActionsCallbacks()
@@ -67,9 +67,6 @@ public class PlayerBaseState : IState
         //Interact
         input.playerActions.Interact.started += stateMachine.player.dungeonInteract.OnInteractInput;
 
-        //Weapon
-        //input.playerActions.Shoot.started += OnFire;//단발
-        input.playerActions.Shoot.performed += OnFire;//연사
     }
 
     
@@ -84,10 +81,6 @@ public class PlayerBaseState : IState
 
         //Interact
         input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
-
-        //Weapon
-        //input.playerActions.Shoot.started -= OnFire;
-        input.playerActions.Shoot.performed -= OnFire;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
@@ -108,14 +101,7 @@ public class PlayerBaseState : IState
         Vector3 movementDirection = GetMovementDirection();
         Move(movementDirection);
     }
-    private void OnFire(InputAction.CallbackContext callbackContext)
-    {
-        if(stateMachine.ShotCoroutine == null)
-        {
-            stateMachine.ShotCoroutine = Shot();
-            stateMachine.player.StartCoroutine(stateMachine.ShotCoroutine);
-        }
-    }
+    
     protected void Rotate(InputAction.CallbackContext callbackContext)
     {
         Vector2 rotateDirection = callbackContext.ReadValue<Vector2>();
@@ -142,39 +128,9 @@ public class PlayerBaseState : IState
     }
     private void OnRun(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        
     }
-    protected IEnumerator Shot()
-    {
-        ProjectilePooling(stateMachine.player.ammoProjectile);
-        yield return stateMachine.weaponAttackDelay;
-        stateMachine.ShotCoroutine = null;
-    }
-
-    protected void ProjectilePooling(AmmoProjectile projectile)
-    {
-        if(stateMachine.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-        {
-            AmmoProjectile findProjectile = stateMachine.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-            findProjectile.transform.position = stateMachine.player.firePos.position;
-            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.player.firePos.forward);
-            findProjectile.OnInit();
-        }
-        else
-        {
-            //Monobehavior를 상속받지 못해 Instantiate를 사용할 수가 없다!!
-            //stateMachine.weaponProjectile_List = 
-            AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
-            newProjectile.transform.position = stateMachine.player.firePos.position;
-            newProjectile.OnInit();
-        }
-    }
-
-    protected void WeaponSet()
-    {
-        stateMachine.weaponAttackDelay = new WaitForSeconds(stateMachine.player.fireRateDelay);
-    }
-
+    
     private float GetMovementSpeed()
     {
         float moveSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
