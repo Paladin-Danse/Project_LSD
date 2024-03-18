@@ -3,23 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void TakeDamage(float damageTaken);
+
 [DisallowMultipleComponent]
-[RequireComponent (typeof(CharacterStatHandler))]
 public class Health : MonoBehaviour
 {
-    private CharacterStatHandler characterStatHandler;
-
-    public float maxHealth { get { return characterStatHandler.currentStat.maxHealth; } }
+    public float maxHealth;
     public float curHealth;
     public bool IsDead => curHealth == 0;
 
-    public event Action OnDie;
-    public event Action OnHeal;
-    public event Action OnTakeDamage;
+    public Action OnDie;
+    public Action OnHeal;
+    public Action OnTakeDamage;
+
+    public TakeDamage TakeDamage;
 
     private void Awake()
     {
-        characterStatHandler = GetComponent<CharacterStatHandler>();
+        TakeDamage = TakeDamageWithoutDefense;
     }
 
     private void Start()
@@ -32,13 +33,13 @@ public class Health : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamageWithoutDefense(float damage)
     {
         OnTakeDamage?.Invoke();
 
         if (curHealth == 0) return;
 
-        curHealth = Mathf.Max(curHealth - ((damage - characterStatHandler.currentStat.defense) * characterStatHandler.currentStat.defenseRateMultiplyConverted), 0);
+        curHealth = Mathf.Max(curHealth - damage, 0);
 
         if (curHealth == 0)
             OnDie?.Invoke();
@@ -50,8 +51,8 @@ public class Health : MonoBehaviour
         curHealth = MathF.Min(maxHealth, curHealth + addHealth);
     }
 
-    private void RegenHealth()
+    private void RegenHealth(float health)
     {
-        curHealth = MathF.Min(maxHealth, curHealth + characterStatHandler.currentStat.regenHealthPerSec);
+        curHealth = MathF.Min(maxHealth, curHealth + health);
     }
 }
