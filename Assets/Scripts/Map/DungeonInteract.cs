@@ -23,11 +23,12 @@ public class DungeonInteract : MonoBehaviour
 
     public TextMeshProUGUI promptText;
     private Camera camera;
+    DungeonEntranceObject entranceObject;
 
-    bool isPrompt = true;
-
-
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        entranceObject = FindObjectOfType<DungeonEntranceObject>();
+    }
     void Start()
     {
         camera = Camera.main;
@@ -48,7 +49,7 @@ public class DungeonInteract : MonoBehaviour
                 {
                     curInteractGameobject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
-                    if(isPrompt == true)
+                    if(entranceObject.isDungeonSelectedUI == false)
                     {
                         SetPromptText();
                     }                    
@@ -76,8 +77,7 @@ public class DungeonInteract : MonoBehaviour
             curInteractable.OnInteract();
             curInteractGameobject = null;
             curInteractable = null;
-            promptText.gameObject.SetActive(false);
-            isPrompt = false;
+            promptText.gameObject.SetActive(false);            
         }        
     }    
 }
