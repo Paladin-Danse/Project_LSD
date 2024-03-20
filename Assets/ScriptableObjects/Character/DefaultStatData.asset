@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: DefaultStatData
   m_EditorClassIdentifier: 
   characterStat:
-    statModifyType: 0
+    statModifyType: 2
+    characterStatFlag: -1
     maxHealth: 0
     defense: 0
-    _defenseRate: 0
+    defenseRate: 0
     regenHealthPerSec: 0
     moveSpeed: 0
     criticalDamageRate: 0

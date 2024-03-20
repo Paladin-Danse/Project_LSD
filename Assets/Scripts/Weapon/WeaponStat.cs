@@ -22,7 +22,7 @@ public class WeaponStat : Stat
         AttackStat = 1 << 7,
     }
 
-    WeaponStatFlag weaponStatFlag;
+    public WeaponStatFlag weaponStatFlag;
 
     [Header("Default Weapon Stat")]
     public int magazine;
