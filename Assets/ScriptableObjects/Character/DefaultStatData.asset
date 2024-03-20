@@ -15,9 +15,9 @@ MonoBehaviour:
   characterStat:
     statModifyType: 2
     characterStatFlag: -1
-    maxHealth: 0
-    defense: 0
-    defenseRate: 0
-    regenHealthPerSec: 0
-    moveSpeed: 0
-    criticalDamageRate: 0
+    maxHealth: 100
+    defense: 10
+    defenseRate: 100
+    regenHealthPerSec: 1
+    moveSpeed: 1
+    criticalDamageRate: 1

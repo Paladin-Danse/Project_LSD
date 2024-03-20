@@ -40,7 +40,7 @@ public class CharacterStatHandler : StatHandlerBase<CharacterStat>
     {
         if (baseStatSO != null) 
         {
-            baseStat = baseStatSO.characterStat;
+            baseStat = (Instantiate(baseStatSO) as CharacterStatSO).characterStat;
         }
     }
 

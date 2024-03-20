@@ -26,6 +26,10 @@ public enum EBuffEndCondition
 public class Buff<T> where T : Stat
 {
     public int buffID;
+
+    public string buffName;
+    public string buffDesc;
+
     public EBuffType type;
     public EBuffEndCondition endFlag;
     public float duration;
@@ -39,6 +43,7 @@ public class Buff<T> where T : Stat
     public virtual void OnBuffed(BuffHandler<T> handler) 
     {
         curBuffStat.OverlapStats(basebuffStat);
+        remainingBufftime = duration;
         
         if(endFlag == EBuffEndCondition.TimeOver)
             OnTimeOver = handler.RemoveBuff;
@@ -136,13 +141,15 @@ public class BuffHandler<T> : MonoBehaviour where T : Stat
 {
     Dictionary<int, Buff<T>> buffDic;
     StatHandlerBase<T> handler;
+    List<Buff<T>> timeOverBuffList;
 
     // Start is called before the first frame update
     private void Awake()
     {
         buffDic = new Dictionary<int, Buff<T>>();
+        timeOverBuffList = new List<Buff<T>>();
 
-        if(TryGetComponent<StatHandlerBase<T>>(out handler))
+        if (!TryGetComponent<StatHandlerBase<T>>(out handler))
         {
             Debug.Log("Noooooo!");
         }
@@ -161,15 +168,24 @@ public class BuffHandler<T> : MonoBehaviour where T : Stat
 
     protected void UpdateBuffTimes() 
     {
+        Debug.Log(buffDic.Count);
+
         foreach (var buff in buffDic)
         {
             buff.Value.remainingBufftime -= Time.deltaTime;
 
             if (buff.Value.remainingBufftime <= 0)
             {
-                buff.Value.OnTimeOver.Invoke(buff.Key);
+                timeOverBuffList.Add(buff.Value);
             }
         }
+
+        foreach (var buff in timeOverBuffList) 
+        {
+            buff.OnTimeOver.Invoke(buff.buffID);
+        }
+
+        timeOverBuffList.Clear();
     }
 
     public void AddBuff(Buff<T> addBuff) 
@@ -180,6 +196,7 @@ public class BuffHandler<T> : MonoBehaviour where T : Stat
         }
         else 
         {
+            Debug.Log("Buffed!");
             buffDic.Add(addBuff.buffID, addBuff);
             addBuff.OnBuffed(this);
             handler.AddStatModifier(addBuff.curBuffStat);
@@ -190,6 +207,7 @@ public class BuffHandler<T> : MonoBehaviour where T : Stat
     {
         if (buffDic.ContainsKey(removeBuff.buffID))
         {
+            handler.RemoveStatModifier(removeBuff.curBuffStat);
             buffDic.Remove(removeBuff.buffID);
         }
     }
@@ -198,6 +216,7 @@ public class BuffHandler<T> : MonoBehaviour where T : Stat
     {
         if (buffDic.ContainsKey(buffID))
         {
+            handler.RemoveStatModifier(buffDic[buffID].curBuffStat);
             buffDic.Remove(buffID);
         }
     }

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2860f33fe5efa0469c90fab0f0a582a, type: 3}
+  m_Name: TestCharacterBuffData
+  m_EditorClassIdentifier: 
+  buff:
+    buffID: 0
+    buffName: BuffTest
+    buffDesc: "\uBC84\uD504\uD14C\uC2A4\uD2B8"
+    type: 1
+    endFlag: 0
+    duration: 10
+    remainingBufftime: 0
+    basebuffStat:
+      statModifyType: 0
+      characterStatFlag: 2
+      maxHealth: 0
+      defense: 10
+      defenseRate: 0
+      regenHealthPerSec: 0
+      moveSpeed: 0
+      criticalDamageRate: 0
+    curBuffStat:
+      statModifyType: 0
+      characterStatFlag: 0
+      maxHealth: 0
+      defense: 0
+      defenseRate: 0
+      regenHealthPerSec: 0
+      moveSpeed: 0
+      criticalDamageRate: 0
