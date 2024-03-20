@@ -49,7 +49,7 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
         UpdateStats();
     }
 
-    void UpdateStats()
+    public void UpdateStats()
     {
         baseStat.statModifyType = StatModifyType.Override;
         currentStat.OverlapStats(baseStat);
