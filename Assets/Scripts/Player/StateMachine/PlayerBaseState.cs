@@ -36,7 +36,7 @@ public class PlayerBaseState : IState
     public virtual void Update()
     {
         Move();
-        //if (stateMachine.player.curWeapon.stateMachine.addRecoil > 0) //¹İµ¿ È¸º¹ °³¹ßÁß
+        //if (stateMachine.player.curWeapon.stateMachine.addRecoil > 0) //ë°˜ë™ íšŒë³µ ê°œë°œì¤‘
     }
 
     public virtual void PhysicsUpdate()
@@ -62,16 +62,19 @@ public class PlayerBaseState : IState
         PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled += OnMovementCanceled;
         input.playerActions.Look.started += Rotate;
-        //input.playerActions.Shoot.started += RecoilRotate;//¹İµ¿ °³¹ßÁß
+        //input.playerActions.Shoot.started += RecoilRotate;//ë°˜ë™ ê°œë°œì¤‘
         input.playerActions.Jump.started += OnJump;
         input.playerActions.Run.started += OnRun;
 
         //Interact
         input.playerActions.Interact.started += stateMachine.player.dungeonInteract.OnInteractInput;
 
+        //Inventory
+        input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
+
     }
 
-    
+
     protected virtual void RemoveInputActionsCallbacks()
     {
         //Movement
@@ -83,6 +86,8 @@ public class PlayerBaseState : IState
 
         //Interact
         input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
+        //Inventory
+        input.playerActions.Inventory.started -= stateMachine.player.inventory.Toggle;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
@@ -92,6 +97,7 @@ public class PlayerBaseState : IState
     {
 
     }
+
     private void ReadMovementInput()
     {
         stateMachine.MovementInput = stateMachine.player.input_.playerActions.Move.ReadValue<Vector2>();
@@ -131,12 +137,29 @@ public class PlayerBaseState : IState
     {
         
     }
-    /* ¹İµ¿ °³¹ßÁß
+    /* ë°˜ë™ ê°œë°œì¤‘
     private void RecoilRotate(InputAction.CallbackContext callbackContext)
     {
         float addRecoil = -stateMachine.player.curWeapon.stateMachine.addRecoil;
         stateMachine.camXRotate += addRecoil;
 
+    protected void ProjectilePooling(AmmoProjectile projectile)
+    {
+        if(stateMachine.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
+        {
+            AmmoProjectile findProjectile = stateMachine.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
+            findProjectile.transform.position = stateMachine.player.firePos.position;
+            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.player.firePos.forward);
+            findProjectile.OnInit();
+        }
+        else
+        {
+            //Monobehaviorë¥¼ ìƒì†ë°›ì§€ ëª»í•´ Instantiateë¥¼ ì‚¬ìš©í•  ìˆ˜ê°€ ì—†ë‹¤!!
+            //stateMachine.weaponProjectile_List = 
+            //AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
+            //newProjectile.transform.position = stateMachine.player.firePos.position;
+            //newProjectile.OnInit();
+        }
         stateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
     }
     */

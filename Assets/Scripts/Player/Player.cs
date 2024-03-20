@@ -15,8 +15,16 @@ public class Player : MonoBehaviour
     public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
+    // �κ��丮
+    public Inventory inventory;
+
+    //�ӽú���
+    public Transform firePos;
+    public float fireRateDelay;
+    public AmmoProjectile ammoProjectile;
     [SerializeField] public Weapon curWeapon;
     public Action<PlayerStateMachine> SetWeaponEvent;
+
 
     private void Awake()
     {
@@ -25,6 +33,8 @@ public class Player : MonoBehaviour
         input_ = GetComponent<PlayerInput>();
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
+        // �κ��丮
+        inventory = GetComponent<Inventory>();
 
         Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
         foreach(Animator anim in anim_temp)
@@ -54,4 +64,10 @@ public class Player : MonoBehaviour
     {
         stateMachine.PhysicsUpdate();
     }
+    //public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List,AmmoProjectile obj)
+    //{
+    //    AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
+    //    pooling_List.Add(newProjectile);
+    //    return newProjectile;
+    //}
 }
