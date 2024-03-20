@@ -9,6 +9,8 @@ TagManager:
   - FPWeaponLayer
   - AI
   - Terrain
+  - Fire
+  - InteractableObject
   layers:
   - Default
   - TransparentFX
