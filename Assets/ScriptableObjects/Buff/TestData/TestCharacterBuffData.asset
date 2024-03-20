@@ -31,7 +31,7 @@ MonoBehaviour:
       criticalDamageRate: 0
     curBuffStat:
       statModifyType: 0
-      characterStatFlag: 2
+      characterStatFlag: 0
       maxHealth: 0
       defense: 0
       defenseRate: 0
