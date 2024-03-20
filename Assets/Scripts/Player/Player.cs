@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
+        curWeapon.WeaponSet();
         curWeapon.CurrentWeaponEquip();
         SetWeaponEvent += curWeapon.GetStateMachine;
         SetWeaponEvent.Invoke(stateMachine);
