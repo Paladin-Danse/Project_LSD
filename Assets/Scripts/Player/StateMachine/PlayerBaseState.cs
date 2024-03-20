@@ -70,9 +70,12 @@ public class PlayerBaseState : IState
         //Weapon
         //input.playerActions.Shoot.started += OnFire;//단발
         input.playerActions.Shoot.performed += OnFire;//연사
+
+        //Inventory
+        input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
     }
 
-    
+
     protected virtual void RemoveInputActionsCallbacks()
     {
         //Movement
@@ -88,6 +91,9 @@ public class PlayerBaseState : IState
         //Weapon
         //input.playerActions.Shoot.started -= OnFire;
         input.playerActions.Shoot.performed -= OnFire;
+
+        //Inventory
+        input.playerActions.Inventory.started -= stateMachine.player.inventory.Toggle;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
@@ -97,6 +103,7 @@ public class PlayerBaseState : IState
     {
 
     }
+
     private void ReadMovementInput()
     {
         stateMachine.MovementInput = stateMachine.player.input_.playerActions.Move.ReadValue<Vector2>();
@@ -164,9 +171,9 @@ public class PlayerBaseState : IState
         {
             //Monobehavior를 상속받지 못해 Instantiate를 사용할 수가 없다!!
             //stateMachine.weaponProjectile_List = 
-            AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
-            newProjectile.transform.position = stateMachine.player.firePos.position;
-            newProjectile.OnInit();
+            //AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
+            //newProjectile.transform.position = stateMachine.player.firePos.position;
+            //newProjectile.OnInit();
         }
     }
 

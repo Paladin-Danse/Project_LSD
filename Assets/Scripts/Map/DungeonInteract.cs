@@ -77,7 +77,7 @@ public class DungeonInteract : MonoBehaviour
             curInteractGameobject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
-            isPrompt = false;
+            // isPrompt = false;
         }        
     }    
 }
