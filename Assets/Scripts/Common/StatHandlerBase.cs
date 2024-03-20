@@ -32,7 +32,7 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
         
     }
 
-    protected virtual void InitStat() 
+    protected virtual void InitStat()
     {
         // Init Stat with StatSO
     }
@@ -49,7 +49,7 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
         UpdateStats();
     }
 
-    void UpdateStats()
+    public void UpdateStats()
     {
         baseStat.statModifyType = StatModifyType.Override;
         currentStat.OverlapStats(baseStat);

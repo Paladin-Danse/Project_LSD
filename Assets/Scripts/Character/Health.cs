@@ -4,27 +4,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent (typeof(CharacterStatHandler))]
 public class Health : MonoBehaviour
 {
-    private CharacterStatHandler characterStatHandler;
-
-    public float maxHealth { get { return characterStatHandler.currentStat.maxHealth; } }
+    [SerializeField]
+    float _maxHealth;
+    public float maxHealth { get { return MaxHealth(); } }
     public float curHealth;
+
+    [SerializeField]
+    float _regenHealth;
+    public float regenHealthPerSec {  get { return RegenHealth(); } }
+
     public bool IsDead => curHealth == 0;
 
-    public event Action OnDie;
-    public event Action OnHeal;
-    public event Action OnTakeDamage;
+    public Action OnDie;
+    public Action OnHeal;
+    public Action OnTakeDamage;
+
+    public Action<float> TakeDamage;
+    public Func<float> MaxHealth;
+    public Func<float> RegenHealth;
 
     private void Awake()
     {
-        characterStatHandler = GetComponent<CharacterStatHandler>();
+        TakeDamage = TakeDamageWithoutDefense;
+        MaxHealth = () => { return _maxHealth; };
+        RegenHealth = () => { return _regenHealth; };
     }
 
     private void Start()
     {
         curHealth = maxHealth;
+        InvokeRepeating("RegenHealthPerSec", 0f, 1.0f);
     }
 
     private void Update()
@@ -32,13 +43,13 @@ public class Health : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamageWithoutDefense(float damage)
     {
         OnTakeDamage?.Invoke();
 
         if (curHealth == 0) return;
 
-        curHealth = Mathf.Max(curHealth - ((damage - characterStatHandler.currentStat.defense) * characterStatHandler.currentStat.defenseRateMultiplyConverted), 0);
+        curHealth = Mathf.Max(curHealth - damage, 0);
 
         if (curHealth == 0)
             OnDie?.Invoke();
@@ -50,8 +61,8 @@ public class Health : MonoBehaviour
         curHealth = MathF.Min(maxHealth, curHealth + addHealth);
     }
 
-    private void RegenHealth()
+    private void RegenHealthPerSec()
     {
-        curHealth = MathF.Min(maxHealth, curHealth + characterStatHandler.currentStat.regenHealthPerSec);
+        curHealth = MathF.Min(maxHealth, curHealth + regenHealthPerSec);
     }
 }

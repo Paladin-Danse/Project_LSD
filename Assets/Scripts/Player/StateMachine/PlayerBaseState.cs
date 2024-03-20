@@ -36,6 +36,7 @@ public class PlayerBaseState : IState
     public virtual void Update()
     {
         Move();
+        //if (stateMachine.player.curWeapon.stateMachine.addRecoil > 0) //반동 회복 개발중
     }
 
     public virtual void PhysicsUpdate()
@@ -52,7 +53,7 @@ public class PlayerBaseState : IState
     }
     protected void SetAnimation(int ParameterHash, float setFloat)
     {
-        //stateMachine.player.animator.SetFloat(ParameterHash, math.lerp());
+        stateMachine.player.animator.SetFloat(ParameterHash, setFloat);
     }
     
     protected virtual void AddInputActionsCallbacks()
@@ -61,14 +62,19 @@ public class PlayerBaseState : IState
         PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled += OnMovementCanceled;
         input.playerActions.Look.started += Rotate;
+        //input.playerActions.Shoot.started += RecoilRotate;//반동 개발중
         input.playerActions.Jump.started += OnJump;
         input.playerActions.Run.started += OnRun;
 
         //Interact
         input.playerActions.Interact.started += stateMachine.player.dungeonInteract.OnInteractInput;
+
+        //Inventory
+        input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
+
     }
 
-    
+
     protected virtual void RemoveInputActionsCallbacks()
     {
         //Movement
@@ -80,6 +86,8 @@ public class PlayerBaseState : IState
 
         //Interact
         input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
+        //Inventory
+        input.playerActions.Inventory.started -= stateMachine.player.inventory.Toggle;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
@@ -89,6 +97,7 @@ public class PlayerBaseState : IState
     {
 
     }
+
     private void ReadMovementInput()
     {
         stateMachine.MovementInput = stateMachine.player.input_.playerActions.Move.ReadValue<Vector2>();
@@ -100,18 +109,18 @@ public class PlayerBaseState : IState
         Vector3 movementDirection = GetMovementDirection();
         Move(movementDirection);
     }
+    
     protected void Rotate(InputAction.CallbackContext callbackContext)
     {
         Vector2 rotateDirection = callbackContext.ReadValue<Vector2>();
 
         PlayerData SOData = stateMachine.player.Data;
-        Transform camTransform = stateMachine.PlayerCamTransform;
+        Transform camTransform = stateMachine.playerCamTransform;
         Rigidbody rigidbody = stateMachine.player.rigidbody_;
         
-        
+
         stateMachine.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
         stateMachine.camXRotate = Mathf.Clamp(stateMachine.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
-
         stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
 
         camTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
@@ -126,10 +135,34 @@ public class PlayerBaseState : IState
     }
     private void OnRun(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        
     }
+    /* 반동 개발중
+    private void RecoilRotate(InputAction.CallbackContext callbackContext)
+    {
+        float addRecoil = -stateMachine.player.curWeapon.stateMachine.addRecoil;
+        stateMachine.camXRotate += addRecoil;
 
-
+    protected void ProjectilePooling(AmmoProjectile projectile)
+    {
+        if(stateMachine.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
+        {
+            AmmoProjectile findProjectile = stateMachine.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
+            findProjectile.transform.position = stateMachine.player.firePos.position;
+            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.player.firePos.forward);
+            findProjectile.OnInit();
+        }
+        else
+        {
+            //Monobehavior를 상속받지 못해 Instantiate를 사용할 수가 없다!!
+            //stateMachine.weaponProjectile_List = 
+            //AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
+            //newProjectile.transform.position = stateMachine.player.firePos.position;
+            //newProjectile.OnInit();
+        }
+        stateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
+    }
+    */
     private float GetMovementSpeed()
     {
         float moveSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
@@ -138,8 +171,8 @@ public class PlayerBaseState : IState
 
     private Vector3 GetMovementDirection()
     {
-        Vector3 forward = stateMachine.PlayerCamTransform.forward;
-        Vector3 right = stateMachine.PlayerCamTransform.right;
+        Vector3 forward = stateMachine.playerCamTransform.forward;
+        Vector3 right = stateMachine.playerCamTransform.right;
 
         forward.y = 0;
         right.y = 0;

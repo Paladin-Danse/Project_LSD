@@ -20,8 +20,7 @@ public class PlayerStateMachine : StateMachine
     public bool IsAttacking { get; set; }
     public int ComboIndex { get; set; }
 
-    public Transform PlayerCamTransform;
-
+    public Transform playerCamTransform;
     public PlayerStateMachine(Player player)
     {
         this.player = player;
@@ -35,6 +34,6 @@ public class PlayerStateMachine : StateMachine
         MovementSpeed = this.player.Data.groundData.BaseSpeed;
         MovementSpeedModifier = this.player.Data.groundData.WalkSpeedModifier;
 
-        PlayerCamTransform = this.player.transform.Find("FPCamera");
+        playerCamTransform = this.player.transform.Find("FPCamera");
     }
 }

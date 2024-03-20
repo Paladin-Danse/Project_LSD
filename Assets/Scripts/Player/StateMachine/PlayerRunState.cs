@@ -10,7 +10,7 @@ public class PlayerRunState : PlayerGroundedState
 
     public override void Enter()
     {
-        stateMachine.MovementSpeedModifier = stateMachine.player.Data.groundData.RunSpeedModifier;
+        stateMachine.MovementSpeedModifier = groundData.RunSpeedModifier;
         base.Enter();
     }
     public override void Exit()
