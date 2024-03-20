@@ -12,5 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f3302dd790cb34ea36e0c380ee67cd, type: 3}
   m_Name: DefaultWeaponData
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
-  firePoint: {fileID: 0}
+  weaponStat:
+    statModifyType: 2
+    weaponStatFlag: -1
+    magazine: 30
+    spread: 5
+    recoil: 5
+    preFireDelay: 1
+    fireDelay: 0.15
+    reloadDelay: 2
+    bulletPerFire: 1
+    attackStat:
+      statModifyType: 0
+      AttackType: 1
+      attackStatFlag: -1
+      damage: 10
+      range: 200
+      bulletSpeed: 10
+      explosionRange: 0
+      maxExplosionDamageRange: 0
+      IsKnockbackEnable: 0
+      knockBackPower: 0
+      knockBackTime: 0

@@ -15,11 +15,8 @@ public class Player : MonoBehaviour
     public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
-
-    //임시변수
-    public Transform firePos;
-    public float fireRateDelay;
-    public AmmoProjectile ammoProjectile;
+    [SerializeField] public Weapon curWeapon;
+    public Action<PlayerStateMachine> SetWeaponEvent;
 
     private void Awake()
     {
@@ -28,11 +25,11 @@ public class Player : MonoBehaviour
         input_ = GetComponent<PlayerInput>();
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
-        
+
         Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
         foreach(Animator anim in anim_temp)
         {
-            if (anim.gameObject.activeSelf)
+            if (anim.gameObject.activeSelf && !anim.CompareTag("Weapon"))
                 animator = anim;
         }
     }
@@ -42,6 +39,9 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
+        curWeapon.CurrentWeaponEquip();
+        SetWeaponEvent += curWeapon.GetStateMachine;
+        SetWeaponEvent.Invoke(stateMachine);
     }
 
     private void Update()
@@ -53,12 +53,5 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
-    }
-
-    public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List,AmmoProjectile obj)
-    {
-        AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
-        pooling_List.Add(newProjectile);
-        return newProjectile;
     }
 }
