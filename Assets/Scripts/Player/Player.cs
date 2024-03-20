@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     [SerializeField] public Weapon curWeapon;
+    public Action<PlayerStateMachine> SetWeaponEvent;
 
     private void Awake()
     {
@@ -38,6 +39,9 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
+        curWeapon.CurrentWeaponEquip();
+        SetWeaponEvent += curWeapon.GetStateMachine;
+        SetWeaponEvent.Invoke(stateMachine);
     }
 
     private void Update()

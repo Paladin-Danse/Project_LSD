@@ -36,6 +36,7 @@ public class PlayerBaseState : IState
     public virtual void Update()
     {
         Move();
+        //if (stateMachine.player.curWeapon.stateMachine.addRecoil > 0) //반동 회복 개발중
     }
 
     public virtual void PhysicsUpdate()
@@ -61,6 +62,7 @@ public class PlayerBaseState : IState
         PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled += OnMovementCanceled;
         input.playerActions.Look.started += Rotate;
+        //input.playerActions.Shoot.started += RecoilRotate;//반동 개발중
         input.playerActions.Jump.started += OnJump;
         input.playerActions.Run.started += OnRun;
 
@@ -110,10 +112,9 @@ public class PlayerBaseState : IState
         Transform camTransform = stateMachine.playerCamTransform;
         Rigidbody rigidbody = stateMachine.player.rigidbody_;
         
-        
+
         stateMachine.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
         stateMachine.camXRotate = Mathf.Clamp(stateMachine.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
-
         stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
 
         camTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
@@ -130,7 +131,15 @@ public class PlayerBaseState : IState
     {
         
     }
-    
+    /* 반동 개발중
+    private void RecoilRotate(InputAction.CallbackContext callbackContext)
+    {
+        float addRecoil = -stateMachine.player.curWeapon.stateMachine.addRecoil;
+        stateMachine.camXRotate += addRecoil;
+
+        stateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
+    }
+    */
     private float GetMovementSpeed()
     {
         float moveSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;

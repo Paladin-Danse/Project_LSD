@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class GunBaseState : IState
 
     public virtual void Enter()
     {
+        stateMachine.DebugCurrentState();
         AddInputActionsCallbacks();
     }
 
@@ -30,6 +32,7 @@ public class GunBaseState : IState
     }
     public virtual void Update()
     {
+        if (stateMachine.addRecoil > 0) RecoverRecoil();
     }
     public virtual void PhysicsUpdate()
     {
@@ -74,6 +77,34 @@ public class GunBaseState : IState
             AmmoProjectile newProjectile = stateMachine.Gun.CreateObject(stateMachine.Gun.weaponProjectile_List, projectile);
             newProjectile.transform.position = stateMachine.Gun.firePos.position;
             newProjectile.OnInit(stateMachine.Gun);
+        }
+    }
+    protected virtual void OnReload(InputAction.CallbackContext callbackContext)
+    {
+        
+    }
+    public void RecoverRecoil()
+    {
+        
+    }
+    protected IEnumerator OnRecoil()
+    {
+        stateMachine.OnRecoil();
+        PlayerStateMachine playerStateMachine = stateMachine.playerStateMachine_;
+        float OriginRotate = playerStateMachine.camXRotate;
+        float lerpRotate = playerStateMachine.camXRotate;
+
+        while (playerStateMachine.camXRotate - stateMachine.addRecoil != OriginRotate)
+        {
+            lerpRotate = math.lerp(lerpRotate, playerStateMachine.camXRotate - stateMachine.addRecoil, 0.5f);
+            playerStateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(lerpRotate, 0, 0));
+            yield return null;
+        }
+        while(stateMachine.addRecoil > 0)
+        {
+            stateMachine.addRecoil = math.lerp(stateMachine.addRecoil, 0, 0.2f);
+            playerStateMachine.playerCamTransform.localRotation = Quaternion.Euler(OriginRotate - stateMachine.addRecoil, 0, 0);
+            yield return null;
         }
     }
 }

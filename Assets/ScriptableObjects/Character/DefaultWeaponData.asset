@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DefaultWeaponData
   m_EditorClassIdentifier: 
   weaponStat:
-    statModifyType: 0
+    statModifyType: 2
+    weaponStatFlag: -1
     magazine: 30
     spread: 5
     recoil: 5
@@ -24,10 +25,10 @@ MonoBehaviour:
     attackStat:
       statModifyType: 0
       AttackType: 1
-      attackStatFlag: 1
+      attackStatFlag: -1
       damage: 10
       range: 200
-      bulletSpeed: 100
+      bulletSpeed: 10
       explosionRange: 0
       maxExplosionDamageRange: 0
       IsKnockbackEnable: 0
