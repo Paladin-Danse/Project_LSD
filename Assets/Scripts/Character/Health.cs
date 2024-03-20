@@ -36,12 +36,7 @@ public class Health : MonoBehaviour
     {
         curHealth = maxHealth;
         InvokeRepeating("RegenHealthPerSec", 0f, 1.0f);
-    }
-
-    private void Update()
-    {
-
-    }
+    }    
 
     public void TakeDamageWithoutDefense(float damage)
     {

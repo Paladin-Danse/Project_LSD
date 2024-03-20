@@ -19,7 +19,7 @@ public class DungeonSelect : MonoBehaviour
     public void MouseOverUI()
     {
         GreenLine.SetActive(true);
-        dungeonTooltip.OnTooltip(DungeonManager.instance.SelectedDungeon[dungeonData.dungeonNumber]);
+        dungeonTooltip.OnTooltip(DungeonSelectedManager.instance.SelectedDungeon[dungeonData.dungeonNumber]);
         dungeonTooltipPanel.SetActive(true);
     }
 

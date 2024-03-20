@@ -6,32 +6,27 @@ using UnityEngine;
 public class DestructibleObject : MonoBehaviour
 {
     [SerializeField] private GameObject destrutedBox;
-    [SerializeField] private GameObject bulletBox;
-    [SerializeField] private int maxHP = 100;
-    private int currentHP;
+    [SerializeField] private GameObject bulletBox;    
+    Health health;   
 
     bool isDestroyed = false;
 
     private void Awake()
     {
-        currentHP = maxHP;
+        health = GetComponent<Health>();
+        health.OnDie += DestroyBox;
     }
-
-    public void TakeDamage(int damage)
+    
+    void DestroyBox()
     {
-        currentHP -= damage;
+        isDestroyed = true;
 
-        if(currentHP <= 0 && isDestroyed == false)
-        {
-            isDestroyed = true;
+        GameObject destroyBox = Instantiate(destrutedBox, transform.position, transform.rotation);
 
-            GameObject destroyBox = Instantiate(destrutedBox, transform.position, transform.rotation);
+        Destroy(gameObject);
 
-            Destroy(gameObject);
+        Instantiate(bulletBox, transform.position, transform.rotation);
 
-            Instantiate(bulletBox, transform.position, transform.rotation);
-
-            Destroy(destroyBox, 3f);
-        }
+        Destroy(destroyBox, 3f);
     }
 }
