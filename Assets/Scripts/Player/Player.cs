@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         curWeapon.CurrentWeaponEquip();
         SetWeaponEvent += curWeapon.GetStateMachine;
         SetWeaponEvent.Invoke(stateMachine);
+        //DungeonManager.instance.LoadSceneEvent += ObjectListClear;
     }
 
     private void Update()
@@ -64,6 +65,11 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
+    }
+
+    public void ObjectListClear()
+    {
+        curWeapon.weaponProjectile_List.Clear();
     }
     //public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List,AmmoProjectile obj)
     //{
