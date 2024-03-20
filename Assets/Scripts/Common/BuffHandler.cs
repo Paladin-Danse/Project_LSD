@@ -44,7 +44,7 @@ public class Buff<T> where T : Stat
             OnTimeOver = handler.RemoveBuff;
     }
 
-    public virtual void OffBuffed() 
+    public virtual void OnBuffOff() 
     {
         
     }
