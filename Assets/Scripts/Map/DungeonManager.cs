@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -12,17 +14,35 @@ public class Dungeon
 }
 public class DungeonManager : MonoBehaviour
 {
-    public static DungeonManager instance;
+    private static DungeonManager _instance;
+    public static DungeonManager instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                GameObject gameObject = GameObject.FindObjectOfType<DungeonManager>().gameObject;
+                if (gameObject == null)
+                {
+                    gameObject = new GameObject("DungeonManager");
+                    _instance = gameObject.AddComponent<DungeonManager>();
+                }
+            }
+            return _instance;
+        }
+    }
     public GameObject dungeonEntrancePanel;
     public TextMeshProUGUI dungeonNameOfPanel;
     public Dungeon[] SelectedDungeon;    
     public RectTransform tooltipRectTransform;
     public RectTransform backgroundRectTransform;
 
+    //public Action LoadSceneEvent;
     int entranceNumber;    
 
     private void Awake()
     {
+        /*
         if (instance == null)
         {
             instance = this;
@@ -33,7 +53,8 @@ public class DungeonManager : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
-        }        
+        }
+        */
     }
     private void Update()
     {
@@ -55,6 +76,7 @@ public class DungeonManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
+        //LoadSceneEvent();
         StartCoroutine(LoadScene());        
     }
 
