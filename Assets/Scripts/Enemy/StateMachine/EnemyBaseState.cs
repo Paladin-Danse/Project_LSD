@@ -56,12 +56,12 @@ public class EnemyBaseState : IState
         Move(movementDirection);
     }
 
-    protected void ForceMove()
-    {
-        stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
-    }
+    //protected void ForceMove()
+    //{
+    //    stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
+    //}
 
-    // 
+
     private Vector3 GetMovementDirection()
     {
         return (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).normalized;
@@ -69,8 +69,9 @@ public class EnemyBaseState : IState
 
     private void Move(Vector3 direction)
     {
-        float movementSpeed = GetMovementSpeed();
-        stateMachine.Enemy.Controller.Move(((direction * movementSpeed) + stateMachine.Enemy.ForceReceiver.Movement) * Time.deltaTime);
+        Enemy enemy = stateMachine.Enemy;
+        
+        enemy.GetComponent<Rigidbody>().MovePosition(enemy.transform.position);
     }
 
     private void Rotate(Vector3 direction)
@@ -94,13 +95,16 @@ public class EnemyBaseState : IState
     protected float GetNormalizedTime(Animator animator, string tag)
     {
         AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        //Debug.Log(currentInfo);
         AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
-
+        Debug.Log(currentInfo.IsTag(tag) + "/" + animator.IsInTransition(0));
+        //Debug.Log(currentInfo.IsTag(tag) + "/" + animator.IsInTransition(0));
+        //Debug.Log(nextInfo.IsTag(tag));
         if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
         {
             return nextInfo.normalizedTime;
         }
-        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
+        if (!animator.IsInTransition(0) && animator.GetBool(tag))
         {
             return currentInfo.normalizedTime;
         }
@@ -110,7 +114,21 @@ public class EnemyBaseState : IState
         }
     }
 
-    //
+    //private Vector3 GetMovementDirection()
+    //{
+    //    Vector3 forward = stateMachine.Enemy.transform.forward;
+    //    Vector3 right = stateMachine.Enemy.transform.right;
+
+    //    forward.y = 0;
+    //    right.y = 0;
+
+    //    forward.Normalize();
+    //    right.Normalize();
+    //    return (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).normalized;
+    //    return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
+    //}
+
+
     protected bool IsInChaseRange()
     {
         // if (stateMachine.Target.IsDead) { return false; }

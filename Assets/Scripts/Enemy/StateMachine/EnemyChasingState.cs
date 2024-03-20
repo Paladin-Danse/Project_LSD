@@ -31,7 +31,7 @@ public class EnemyChasingState : EnemyBaseState
             stateMachine.ChangeState(stateMachine.IdlingState);
             return;
         }
-        else if (IsInAttackRange())
+        if (IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.AttackState);
             return;

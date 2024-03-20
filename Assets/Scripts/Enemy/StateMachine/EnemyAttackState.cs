@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyAttackState : EnemyBaseState
 {
 
-    private bool alreadyAppliedForce;       
+    private bool alreadyAppliedForce;
+    private bool alreadyAppliedDealing;
 
     public EnemyAttackState(EnemyStateMachine ememyStateMachine) : base(ememyStateMachine)
     {
@@ -13,6 +14,9 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
+        alreadyAppliedForce = false;
+        alreadyAppliedDealing = false;
+
         stateMachine.MovementSpeedModifier = 0;
         base.Enter();
         StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
@@ -31,18 +35,40 @@ public class EnemyAttackState : EnemyBaseState
     {
         base.Update();
 
-        ForceMove();
+        //ForceMove();
 
         float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
+
+        //if (IsInAttackRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.AttackState);
+        //    return;
+        //}
         
-        if (normalizedTime < 1f)
+
+        if (0 < normalizedTime && normalizedTime < 1f)
         {
-            if (normalizedTime >= stateMachine.Enemy.Data.ForceTransitionTime)
-                TryApplyForce();
+            //if (normalizedTime >= stateMachine.Enemy.Data.ForceTransitionTime)
+            //    TryApplyForce();
+            //Debug.Log(normalizedTime);
+            if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_Start_TransitionTime)
+            {                
+                stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage, stateMachine.Enemy.Data.Force);
+                stateMachine.Enemy.Weapon.gameObject.SetActive(true);
+                //alreadyAppliedDealing = true;                
+            }
+
+            //if (alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_End_TransitionTime)
+            //{
+            //    stateMachine.Enemy.Weapon.gameObject.SetActive(false);
+            //    alreadyAppliedDealing = true;
+            //}
 
         }
         else
         {
+            stateMachine.Enemy.Weapon.gameObject.SetActive(false);
+            Debug.Log(IsInChaseRange());
             if (IsInChaseRange())
             {
                 stateMachine.ChangeState(stateMachine.ChasingState);
@@ -57,20 +83,21 @@ public class EnemyAttackState : EnemyBaseState
 
         if (!IsInAttackRange())
         {
+            stateMachine.Enemy.Weapon.gameObject.SetActive(false);
             stateMachine.ChangeState(stateMachine.ChasingState);
             return;
         }
 
     }
 
-    private void TryApplyForce()
-    {
-        if (alreadyAppliedForce) return;
-        alreadyAppliedForce = true;
+    //private void TryApplyForce()
+    //{
+    //    if (alreadyAppliedForce) return;
+    //    alreadyAppliedForce = true;
 
-        stateMachine.Enemy.ForceReceiver.Reset();
+    //    stateMachine.Enemy.ForceReceiver.Reset();
 
-        stateMachine.Enemy.ForceReceiver.AddForce(stateMachine.Enemy.transform.forward * stateMachine.Enemy.Data.Force);
+    //    stateMachine.Enemy.ForceReceiver.AddForce(stateMachine.Enemy.transform.forward * stateMachine.Enemy.Data.Force);
 
-    }
+    //}
 }

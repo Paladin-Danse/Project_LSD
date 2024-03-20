@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EnemySO
   m_EditorClassIdentifier: 
   <PlayerChasingRange>k__BackingField: 10
-  <AttackRange>k__BackingField: 3
+  <AttackRange>k__BackingField: 5
   <ForceTransitionTime>k__BackingField: 0.2
-  <Force>k__BackingField: 2
-  <Damage>k__BackingField: 5
+  <Force>k__BackingField: 0.1
+  <Damage>k__BackingField: 20
   <Dealing_Start_TransitionTime>k__BackingField: 0.25
   <Dealing_End_TransitionTime>k__BackingField: 0.35
   <GroundedData>k__BackingField:
