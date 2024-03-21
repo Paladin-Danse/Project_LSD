@@ -19,7 +19,17 @@ public class Weapon : StatHandlerBase<WeaponStat>
     protected GameObject projectiles;
     public AmmoProjectile ammoProjectile;
     public Transform firePos;
-    
+
+    [Header("Audio")]
+    protected AudioSource audioSource;
+    public AudioClip shot_AudioClip;
+    public AudioClip dry_AudioClip;
+    public AudioClip cock_AudioClip;
+
+    public float shot_Volume;
+    public float dry_Volume;
+    public float cock_Volume;
+
     protected override void InitStat()
     {
         base.InitStat();
@@ -30,6 +40,7 @@ public class Weapon : StatHandlerBase<WeaponStat>
         }
 
         stateMachine = new GunStateMachine(this);
+        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
         input_ = GetComponentInParent<PlayerInput>();
         weaponProjectile_List = new List<AmmoProjectile>();
         projectiles = new GameObject("Projectiles");
@@ -81,6 +92,7 @@ public class Weapon : StatHandlerBase<WeaponStat>
     public void CurrentWeaponEquip()
     {
         gameObject.SetActive(true);
+        PlayClip(cock_AudioClip, cock_Volume);
         stateMachine.ChangeState(stateMachine.ReadyState);
     }
 
@@ -96,5 +108,11 @@ public class Weapon : StatHandlerBase<WeaponStat>
     public void GetStateMachine(PlayerStateMachine stateMachine)
     {
         this.stateMachine.playerStateMachine_ = stateMachine;
+    }
+    public void PlayClip(AudioClip newClip, float volume)
+    {
+        audioSource.clip = newClip;
+        audioSource.volume = volume;
+        audioSource.Play();
     }
 }

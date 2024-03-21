@@ -65,6 +65,8 @@ public class GunReadyState : GunBaseState
     protected IEnumerator Shot()
     {
         stateMachine.curMagazine--;
+        stateMachine.Gun.PlayClip(stateMachine.Gun.shot_AudioClip, stateMachine.Gun.shot_Volume);
+
         if(stateMachine.RecoilCoroutine != null) stateMachine.Gun.StopCoroutine(stateMachine.RecoilCoroutine);
         stateMachine.RecoilCoroutine = OnRecoil();
         stateMachine.Gun.StartCoroutine(stateMachine.RecoilCoroutine);
