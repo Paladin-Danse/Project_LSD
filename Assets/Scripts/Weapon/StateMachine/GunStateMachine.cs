@@ -23,7 +23,8 @@ public class GunStateMachine : StateMachine
     public float targetRecoil = 0f;
     public float curRecoil = 0f;
     public float maxRecoil;
-    public float recoveryRecoil;
+    public float defaultSpread = 0f;
+    public float maxSpread;
     public PlayerStateMachine playerStateMachine_;
     public GunStateMachine(Weapon Gun)
     {

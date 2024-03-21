@@ -12,7 +12,7 @@ public class AmmoProjectile : MonoBehaviour
     private float ProjectileDamage;
 
     RaycastHit hit;
-    public LayerMask hitLayer;
+    public LayerMask TargetLayer;
 
     private void Awake()
     {
@@ -49,10 +49,10 @@ public class AmmoProjectile : MonoBehaviour
         if(rigidbody_.SweepTest(transform.forward, out hit, ProjectileVelocity * ProjectileSweepCheckModifier))
         {
             int objectLayer = 1 << hit.transform.gameObject.layer;
-            if (objectLayer == hitLayer)
+            
+            if ((TargetLayer & objectLayer) != 0)
             {
-                Health hit_Object;
-                if (hit.transform.TryGetComponent<Health>(out hit_Object))
+                if (hit.transform.TryGetComponent<Health>(out Health hit_Object))
                 {
                     Debug.Log("Target Hit & Damaged!!");
                     hit_Object.TakeDamage(ProjectileDamage);
@@ -61,9 +61,9 @@ public class AmmoProjectile : MonoBehaviour
                 {
                     Debug.Log("Target Hit!!");
                 }
-                rigidbody_.velocity = Vector3.zero;
-                gameObject.SetActive(false);
             }
+            rigidbody_.velocity = Vector3.zero;
+            gameObject.SetActive(false);
         }
     }
     
