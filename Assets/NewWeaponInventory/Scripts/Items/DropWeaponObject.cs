@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemEntranceObject : MonoBehaviour, IInteractable
+public class DropWeaponObject : MonoBehaviour, IInteractable
 {
     public ItemData item;
 
