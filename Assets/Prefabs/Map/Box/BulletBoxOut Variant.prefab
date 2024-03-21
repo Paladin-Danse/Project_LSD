@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destrutedBox: {fileID: 1640868949709861289, guid: 66433b6a6fad0ed4cbe63fdae9267b95, type: 3}
   bulletBox: {fileID: 1682786352928709123, guid: 97473e95d93d37e4c8334cf3c1555378, type: 3}
+  firstAidKit: {fileID: 4887278874905095115, guid: 9dd7795374dcbd340917f62ba7fe8e63, type: 3}
 --- !u!114 &-4088722964268683480
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DungeonInteractableObject : MonoBehaviour, IInteractable
+public class AmmoBoxObject: MonoBehaviour, IInteractable
 {    
     public string GetInteractPrompt()
     {
