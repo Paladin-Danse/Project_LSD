@@ -16,7 +16,7 @@ public class DungeonEntranceObject : MonoBehaviour, IInteractable
         dungeonSelectedUI.SetActive(true);
         isDungeonSelectedUI = true;
         Cursor.lockState = CursorLockMode.Confined;
-    }    
+    }
 
     public void OffDungeonSelectedUI()
     {

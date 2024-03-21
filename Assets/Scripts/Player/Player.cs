@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
         curWeapon.CurrentWeaponEquip();
         SetWeaponEvent += curWeapon.GetStateMachine;
         SetWeaponEvent.Invoke(stateMachine);
-        //DungeonManager.instance.LoadSceneEvent += ObjectListClear;
     }
 
     private void Update()
