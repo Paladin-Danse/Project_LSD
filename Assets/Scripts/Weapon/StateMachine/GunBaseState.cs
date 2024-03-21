@@ -32,7 +32,7 @@ public class GunBaseState : IState
     }
     public virtual void Update()
     {
-        if (stateMachine.addRecoil > 0) RecoverRecoil();
+        if (stateMachine.curRecoil > 0) RecoverRecoil();
     }
     public virtual void PhysicsUpdate()
     {
@@ -89,22 +89,32 @@ public class GunBaseState : IState
     }
     protected IEnumerator OnRecoil()
     {
-        stateMachine.OnRecoil();
-        PlayerStateMachine playerStateMachine = stateMachine.playerStateMachine_;
-        float OriginRotate = playerStateMachine.camXRotate;
-        float lerpRotate = playerStateMachine.camXRotate;
+        stateMachine.targetRecoil = math.min(stateMachine.curRecoil + stateMachine.Gun.currentStat.recoil, stateMachine.maxRecoil);
 
-        while (playerStateMachine.camXRotate - stateMachine.addRecoil != OriginRotate)
+        PlayerStateMachine playerStateMachine = stateMachine.playerStateMachine_;
+        Transform camTransform = playerStateMachine.playerCamTransform;
+        int cnt = 0;
+        while (stateMachine.curRecoil < stateMachine.targetRecoil - 0.1f)
         {
-            lerpRotate = math.lerp(lerpRotate, playerStateMachine.camXRotate - stateMachine.addRecoil, 0.5f);
-            playerStateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(lerpRotate, 0, 0));
-            yield return null;
+            stateMachine.curRecoil = math.lerp(stateMachine.curRecoil, stateMachine.targetRecoil, 0.4f);
+            
+            cnt++;
+            if (cnt > 100) break;
+            
+            yield return stateMachine.whileRestTimeSeconds;
         }
-        while(stateMachine.addRecoil > 0)
+        cnt = 0;
+        while(stateMachine.curRecoil > 0.1f)
         {
-            stateMachine.addRecoil = math.lerp(stateMachine.addRecoil, 0, 0.2f);
-            playerStateMachine.playerCamTransform.localRotation = Quaternion.Euler(OriginRotate - stateMachine.addRecoil, 0, 0);
-            yield return null;
+            if(stateMachine.Gun.isFiring) stateMachine.curRecoil = math.lerp(stateMachine.curRecoil, 0, 0.1f);
+            else stateMachine.curRecoil = math.lerp(stateMachine.curRecoil, 0, 0.4f);
+            cnt++;
+            if(cnt > 100) break;
+
+            yield return stateMachine.whileRestTimeSeconds;
         }
+        stateMachine.RecoilCoroutine = null;
+        Debug.Log("Coroutine end");
+        yield break;
     }
 }
