@@ -67,6 +67,8 @@ public class Player : MonoBehaviour
 
     public void ObjectListClear()
     {
+        foreach (AmmoProjectile ammoProjectile in curWeapon.weaponProjectile_List)
+            Destroy(ammoProjectile.gameObject);
         curWeapon.weaponProjectile_List.Clear();
     }
 }

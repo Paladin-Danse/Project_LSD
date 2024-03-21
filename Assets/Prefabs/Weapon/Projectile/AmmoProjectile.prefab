@@ -121,9 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnablePos: {x: 0, y: 0, z: 0}
   ProjectileSweepCheckModifier: 0.1
-  hitLayer:
+  TargetLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 128
 --- !u!54 &3941396886549777392
 Rigidbody:
   m_ObjectHideFlags: 0
