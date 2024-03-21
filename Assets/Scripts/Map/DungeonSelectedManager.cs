@@ -36,14 +36,15 @@ public class DungeonSelectedManager : MonoBehaviour
     public Dungeon[] SelectedDungeon; 
     public RectTransform tooltipRectTransform;
     public RectTransform backgroundRectTransform;
-
-    SelectedDungeonKeep dungeonKeep;    
-
+    
+    SelectedDungeonKeep dungeonKeep;
+    Player _player;
     private void Awake()
     {
         dungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
+        _player = FindObjectOfType<Player>();
     }
-    //public Action LoadSceneEvent;            
+    
     private void Update()
     {
         Vector2 tooltipPosition = Input.mousePosition;        
@@ -64,8 +65,8 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
-        //LoadSceneEvent();
-        StartCoroutine(LoadScene());        
+        _player.ObjectListClear();
+        StartCoroutine(LoadScene());
     }
 
     IEnumerator LoadScene()

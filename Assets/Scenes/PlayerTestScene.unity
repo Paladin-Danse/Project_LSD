@@ -301,7 +301,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32288
+  m_Name: pb_Mesh54954
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -1481,10 +1481,6 @@ PrefabInstance:
       propertyPath: selectedItemName
       value: 
       objectReference: {fileID: 1856434507}
-    - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-      propertyPath: uiSlots.Array.size
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: selectedItemStatNames
       value: 
