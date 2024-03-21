@@ -37,6 +37,12 @@ public class DungeonSelectedManager : MonoBehaviour
     public RectTransform tooltipRectTransform;
     public RectTransform backgroundRectTransform;
 
+    SelectedDungeonKeep dungeonKeep;    
+
+    private void Awake()
+    {
+        dungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
+    }
     //public Action LoadSceneEvent;            
     private void Update()
     {
@@ -48,6 +54,7 @@ public class DungeonSelectedManager : MonoBehaviour
     {
         dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].Ddata.dungeonName;
         dungeonEntrancePanel.SetActive(true);
+        dungeonKeep.mapNumber = dungeonNum;
     }
 
     public void OffDungeonEntrancePanel()

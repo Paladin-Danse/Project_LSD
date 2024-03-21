@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Dungeon[] dungeons;
+    private GameObject dungeonMapPrefab;
+    SelectedDungeonKeep selectedDungeonKeep;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        selectedDungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
+        dungeonMapPrefab = dungeons[selectedDungeonKeep.mapNumber].Ddata.dungeonPrefab;
+    }
+    private void Start()
+    {
+        CreateMap();
+    }
+    void CreateMap()
+    {
+        Instantiate(dungeonMapPrefab, transform.position, transform.rotation);
     }
 }
