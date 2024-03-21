@@ -7,19 +7,20 @@ public class DungeonSelect : MonoBehaviour
     public GameObject GreenLine;
     public GameObject dungeonTooltipPanel;
     public DungeonData dungeonData;
-    
 
+    DungeonSelectedManager dungeonSelectedManager;
     DungeonTooltip dungeonTooltip;
 
     private void Awake()
     {
         dungeonTooltip = dungeonTooltipPanel.GetComponent<DungeonTooltip>();
+        dungeonSelectedManager = FindObjectOfType<DungeonSelectedManager>();
     }
 
     public void MouseOverUI()
     {
         GreenLine.SetActive(true);
-        dungeonTooltip.OnTooltip(DungeonManager.instance.SelectedDungeon[dungeonData.dungeonNumber]);
+        dungeonTooltip.OnTooltip(dungeonSelectedManager.SelectedDungeon[dungeonData.dungeonNumber]);
         dungeonTooltipPanel.SetActive(true);
     }
 

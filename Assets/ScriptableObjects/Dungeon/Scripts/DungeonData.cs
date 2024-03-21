@@ -13,4 +13,5 @@ public class DungeonData : ScriptableObject
     public Sprite dungeonImage;
     [TextArea] public string dungeonEx;
     public int dungeonNumber;
+    public GameObject dungeonPrefab;
 }

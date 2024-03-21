@@ -53,7 +53,7 @@ public class EnemyAttackState : EnemyBaseState
             //Debug.Log(normalizedTime);
             if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_Start_TransitionTime)
             {                
-                stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage, stateMachine.Enemy.Data.Force);
+                stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage);
                 stateMachine.Enemy.Weapon.gameObject.SetActive(true);
                 //alreadyAppliedDealing = true;                
             }

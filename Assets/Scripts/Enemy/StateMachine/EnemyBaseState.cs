@@ -54,12 +54,7 @@ public class EnemyBaseState : IState
 
         Rotate(movementDirection);
         Move(movementDirection);
-    }
-
-    //protected void ForceMove()
-    //{
-    //    stateMachine.Enemy.Controller.Move(stateMachine.Enemy.ForceReceiver.Movement * Time.deltaTime);
-    //}
+    }    
 
 
     private Vector3 GetMovementDirection()
@@ -94,12 +89,9 @@ public class EnemyBaseState : IState
 
     protected float GetNormalizedTime(Animator animator, string tag)
     {
-        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
-        //Debug.Log(currentInfo);
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);        
         AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
-        Debug.Log(currentInfo.IsTag(tag) + "/" + animator.IsInTransition(0));
-        //Debug.Log(currentInfo.IsTag(tag) + "/" + animator.IsInTransition(0));
-        //Debug.Log(nextInfo.IsTag(tag));
+        
         if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
         {
             return nextInfo.normalizedTime;
@@ -112,26 +104,12 @@ public class EnemyBaseState : IState
         {
             return 0f;
         }
-    }
-
-    //private Vector3 GetMovementDirection()
-    //{
-    //    Vector3 forward = stateMachine.Enemy.transform.forward;
-    //    Vector3 right = stateMachine.Enemy.transform.right;
-
-    //    forward.y = 0;
-    //    right.y = 0;
-
-    //    forward.Normalize();
-    //    right.Normalize();
-    //    return (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).normalized;
-    //    return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
-    //}
+    }    
 
 
     protected bool IsInChaseRange()
     {
-        // if (stateMachine.Target.IsDead) { return false; }
+        if (stateMachine.Target.IsDead) { return false; }
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
@@ -140,7 +118,7 @@ public class EnemyBaseState : IState
 
     protected bool IsInAttackRange()
     {
-        // if (stateMachine.Target.IsDead) { return false; }
+        if (stateMachine.Target.IsDead) { return false; }
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
