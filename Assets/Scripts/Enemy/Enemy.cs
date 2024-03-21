@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     {
         stateMachine.ChangeState(stateMachine.IdlingState);
         health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Update()
@@ -52,5 +53,11 @@ public class Enemy : MonoBehaviour
     {
         Animator.SetTrigger("Die");
         enabled = false;
+    }
+
+    void OnHit()
+    {
+        Animator.SetTrigger("Hit");
+        Destroy(gameObject,6f);
     }
 }
