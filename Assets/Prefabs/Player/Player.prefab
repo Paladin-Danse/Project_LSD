@@ -43,7 +43,7 @@ Transform:
   - {fileID: 6555084489318409380}
   - {fileID: 6241565147527886410}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &7728274037642359275
 AudioSource:
@@ -174,7 +174,6 @@ MonoBehaviour:
   inventory: {fileID: 7861501597850789122}
   firePos: {fileID: 2791065022152246742}
   fireRateDelay: 0
-  ammoProjectile: {fileID: -1474169686497059885, guid: ec5062bf53f37fd4892bdeb6601e564a, type: 3}
   curWeapon: {fileID: 186643427179275146}
 --- !u!114 &479642553634175452
 MonoBehaviour:

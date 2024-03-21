@@ -35,19 +35,20 @@ public class DungeonSelectedManager : MonoBehaviour
     public TextMeshProUGUI dungeonNameOfPanel;
     public Dungeon[] SelectedDungeon; 
     public RectTransform tooltipRectTransform;
-    Vector2 tooltipPosition;
-
-    SelectedDungeonKeep dungeonKeep;    
-
+    public RectTransform backgroundRectTransform;
+    
+    SelectedDungeonKeep dungeonKeep;
+    Player _player;
     private void Awake()
     {
         dungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
+        _player = FindObjectOfType<Player>();
     }
-    //public Action LoadSceneEvent;            
+    
     private void Update()
     {
-        tooltipPosition = Input.mousePosition;        
-        tooltipRectTransform.position = tooltipPosition;        
+        Vector2 tooltipPosition = Input.mousePosition;        
+        tooltipRectTransform.position = tooltipPosition;
     }    
 
     public void OnDungeonEntrancePanel(int dungeonNum)
@@ -64,12 +65,12 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
-        //LoadSceneEvent();
-        StartCoroutine(LoadScene());        
+        _player.ObjectListClear();
+        StartCoroutine(LoadScene());
     }
 
     IEnumerator LoadScene()
     {
         yield return SceneManager.LoadSceneAsync("DungeonScene");
-    }    
+    }
 }
