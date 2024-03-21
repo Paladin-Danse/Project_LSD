@@ -16,6 +16,7 @@ public class Weapon : StatHandlerBase<WeaponStat>
     public bool isFiring;
     List<Mod> mods;
     public List<AmmoProjectile> weaponProjectile_List;
+    protected GameObject projectiles;
     public AmmoProjectile ammoProjectile;
     public Transform firePos;
     
@@ -31,6 +32,7 @@ public class Weapon : StatHandlerBase<WeaponStat>
         stateMachine = new GunStateMachine(this);
         input_ = GetComponentInParent<PlayerInput>();
         weaponProjectile_List = new List<AmmoProjectile>();
+        projectiles = new GameObject("Projectiles");
     }
 
     private void Start()
@@ -56,7 +58,7 @@ public class Weapon : StatHandlerBase<WeaponStat>
         AddStatModifier(mod.modStat);
     }
 
-    public void RemoveMod(Mod mod) 
+    public void RemoveMod(Mod mod)
     {
         mods.Remove(mod);
         RemoveStatModifier(mod.modStat);
@@ -69,7 +71,11 @@ public class Weapon : StatHandlerBase<WeaponStat>
         stateMachine.maxMagazine = currentStat.magazine;
         stateMachine.curMagazine = math.max(0, stateMachine.maxMagazine);//현재는 0으로 되어있는 값을 나중에 인벤토리 내에 가지고 있는 탄약을 가져와 넣을 것.
         stateMachine.maxRecoil = currentStat.recoil * 2f;
-        stateMachine.recoveryRecoil = currentStat.recoil * 0.25f;
+        stateMachine.defaultSpread = currentStat.spread;
+        stateMachine.maxSpread = currentStat.spread * 2f;
+
+        for (int i = 0; i < stateMachine.maxMagazine; i++)
+            CreateObject(weaponProjectile_List, ammoProjectile).gameObject.SetActive(false);
     }
 
     public void CurrentWeaponEquip()
@@ -81,6 +87,9 @@ public class Weapon : StatHandlerBase<WeaponStat>
     public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List, AmmoProjectile obj)
     {
         AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
+
+        if(projectiles == null) projectiles = new GameObject("Projectiles");
+        newProjectile.transform.parent = projectiles.transform;
         pooling_List.Add(newProjectile);
         return newProjectile;
     }

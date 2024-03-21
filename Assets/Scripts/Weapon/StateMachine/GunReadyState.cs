@@ -73,5 +73,4 @@ public class GunReadyState : GunBaseState
         yield return stateMachine.weaponAttackDelay;
         stateMachine.ShotCoroutine = null;
     }
-    
 }
