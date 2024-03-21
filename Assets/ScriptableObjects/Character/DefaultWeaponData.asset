@@ -26,7 +26,7 @@ MonoBehaviour:
       statModifyType: 0
       AttackType: 1
       attackStatFlag: -1
-      damage: 10
+      damage: 100
       range: 200
       bulletSpeed: 50
       explosionRange: 0

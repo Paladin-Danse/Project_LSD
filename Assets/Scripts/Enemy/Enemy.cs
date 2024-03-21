@@ -58,5 +58,6 @@ public class Enemy : MonoBehaviour
     void OnHit()
     {
         Animator.SetTrigger("Hit");
+        Destroy(gameObject,6f);
     }
 }
