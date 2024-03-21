@@ -33,42 +33,22 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Update()
     {
-        base.Update();
+        base.Update();        
 
-        //ForceMove();
-
-        float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
-
-        //if (IsInAttackRange())
-        //{
-        //    stateMachine.ChangeState(stateMachine.AttackState);
-        //    return;
-        //}
+        float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");        
         
-
         if (0 < normalizedTime && normalizedTime < 1f)
-        {
-            //if (normalizedTime >= stateMachine.Enemy.Data.ForceTransitionTime)
-            //    TryApplyForce();
-            //Debug.Log(normalizedTime);
+        {            
             if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_Start_TransitionTime)
             {                
                 stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage);
-                stateMachine.Enemy.Weapon.gameObject.SetActive(true);
-                //alreadyAppliedDealing = true;                
-            }
-
-            //if (alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_End_TransitionTime)
-            //{
-            //    stateMachine.Enemy.Weapon.gameObject.SetActive(false);
-            //    alreadyAppliedDealing = true;
-            //}
+                stateMachine.Enemy.Weapon.gameObject.SetActive(true);                             
+            }            
 
         }
         else
         {
-            stateMachine.Enemy.Weapon.gameObject.SetActive(false);
-            Debug.Log(IsInChaseRange());
+            stateMachine.Enemy.Weapon.gameObject.SetActive(false);            
             if (IsInChaseRange())
             {
                 stateMachine.ChangeState(stateMachine.ChasingState);
@@ -88,16 +68,5 @@ public class EnemyAttackState : EnemyBaseState
             return;
         }
 
-    }
-
-    //private void TryApplyForce()
-    //{
-    //    if (alreadyAppliedForce) return;
-    //    alreadyAppliedForce = true;
-
-    //    stateMachine.Enemy.ForceReceiver.Reset();
-
-    //    stateMachine.Enemy.ForceReceiver.AddForce(stateMachine.Enemy.transform.forward * stateMachine.Enemy.Data.Force);
-
-    //}
+    }    
 }

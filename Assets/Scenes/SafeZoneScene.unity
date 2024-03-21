@@ -2773,7 +2773,6 @@ MonoBehaviour:
   - Ddata: {fileID: 11400000, guid: 220604b018ef8df4092dd1697c0a127e, type: 2}
   - Ddata: {fileID: 11400000, guid: a260182193810a340a8b5612cf05c03d, type: 2}
   tooltipRectTransform: {fileID: 3428766687136513327}
-  backgroundRectTransform: {fileID: 63407118}
 --- !u!1 &2032751105
 GameObject:
   m_ObjectHideFlags: 0
@@ -3413,6 +3412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3428766687136513327}
   - component: {fileID: 5134335537993809351}
+  - component: {fileID: 5875445280969043338}
   m_Layer: 5
   m_Name: DungeonTooltip
   m_TagString: Untagged
@@ -3420,6 +3420,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &5875445280969043338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5875445280969043337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743a7791b5f9cb94c80dea671713625f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &6147937241874743718
 CanvasRenderer:
   m_ObjectHideFlags: 0
