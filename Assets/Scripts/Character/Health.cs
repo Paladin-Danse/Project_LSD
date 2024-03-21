@@ -40,9 +40,9 @@ public class Health : MonoBehaviour
 
     public void TakeDamageWithoutDefense(float damage)
     {
-        OnTakeDamage?.Invoke();
-
         if (curHealth == 0) return;
+
+        OnTakeDamage?.Invoke();        
 
         curHealth = Mathf.Max(curHealth - damage, 0);
 

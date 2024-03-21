@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletBoxOut Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4030027225385296292, guid: d47f9375794dd9d40b384d5b2689d4e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7480770726775009648, guid: d47f9375794dd9d40b384d5b2689d4e4, type: 3}
       propertyPath: m_IsKinematic
       value: 0
@@ -2305,6 +2309,10 @@ PrefabInstance:
       propertyPath: promptText
       value: 
       objectReference: {fileID: 1070995271}
+    - target: {fileID: 1447474519214557870, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: _maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2917989534520319805, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3449,6 +3457,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletBoxOut Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4030027225385296292, guid: d47f9375794dd9d40b384d5b2689d4e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7480770726775009648, guid: d47f9375794dd9d40b384d5b2689d4e4, type: 3}
       propertyPath: m_IsKinematic
       value: 0
@@ -3943,6 +3955,7 @@ MonoBehaviour:
   - Ddata: {fileID: 11400000, guid: 220604b018ef8df4092dd1697c0a127e, type: 2}
   - Ddata: {fileID: 11400000, guid: a260182193810a340a8b5612cf05c03d, type: 2}
   tooltipRectTransform: {fileID: 3428766687136513327}
+  backgroundRectTransform: {fileID: 0}
 --- !u!1 &1947778609 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6554458113972422046, guid: 7dca597ed605cc544bcf4eb5b4372094, type: 3}

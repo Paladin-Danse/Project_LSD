@@ -123,7 +123,7 @@ MonoBehaviour:
   ProjectileSweepCheckModifier: 0.1
   hitLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 128
 --- !u!54 &3941396886549777392
 Rigidbody:
   m_ObjectHideFlags: 0
