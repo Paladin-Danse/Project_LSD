@@ -30,12 +30,6 @@ public class CharacterStatHandler : StatHandlerBase<CharacterStat>
         health.RegenHealth = () => { return currentStat.regenHealthPerSec; };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     protected override void InitStat() 
     {
         if (baseStatSO != null) 
