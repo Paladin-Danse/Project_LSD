@@ -19,7 +19,7 @@ MonoBehaviour:
     spread: 5
     recoil: 5
     preFireDelay: 1
-    fireDelay: 0.15
+    fireDelay: 0.1
     reloadDelay: 2
     bulletPerFire: 1
     attackStat:
@@ -28,7 +28,7 @@ MonoBehaviour:
       attackStatFlag: -1
       damage: 10
       range: 200
-      bulletSpeed: 10
+      bulletSpeed: 50
       explosionRange: 0
       maxExplosionDamageRange: 0
       IsKnockbackEnable: 0

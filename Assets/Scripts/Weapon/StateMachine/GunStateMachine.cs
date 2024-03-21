@@ -11,14 +11,17 @@ public class GunStateMachine : StateMachine
 
     public WaitForSeconds weaponAttackDelay;
     public WaitForSeconds weaponReloadDelay;
+    public WaitForSeconds whileRestTimeSeconds;
     public IEnumerator ShotCoroutine = null;
+    public IEnumerator RecoilCoroutine = null;
     public GunReadyState ReadyState { get; }
     public GunEmptyState EmptyState { get; }
     public GunReloadState ReloadState { get; }
     public int maxMagazine;
     public int curMagazine;
     public bool isEmpty => curMagazine <= 0;
-    public float addRecoil = 0f;
+    public float targetRecoil = 0f;
+    public float curRecoil = 0f;
     public float maxRecoil;
     public float recoveryRecoil;
     public PlayerStateMachine playerStateMachine_;
@@ -33,9 +36,5 @@ public class GunStateMachine : StateMachine
     public void DebugCurrentState()
     {
         Debug.Log(currentState);
-    }
-    public void OnRecoil()
-    {
-        addRecoil = math.min(addRecoil + Gun.currentStat.recoil, maxRecoil);
     }
 }

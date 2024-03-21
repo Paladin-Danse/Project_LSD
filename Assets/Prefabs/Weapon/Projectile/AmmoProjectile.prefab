@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4340543293303876330}
   - component: {fileID: -1474169686497059885}
   - component: {fileID: 3941396886549777392}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AmmoProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnablePos: {x: 0, y: 0, z: 0}
+  ProjectileSweepCheckModifier: 0.1
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!54 &3941396886549777392
 Rigidbody:
   m_ObjectHideFlags: 0

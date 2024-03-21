@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     //�ӽú���
     public Transform firePos;
     public float fireRateDelay;
-    public AmmoProjectile ammoProjectile;
     [SerializeField] public Weapon curWeapon;
     public Action<PlayerStateMachine> SetWeaponEvent;
 
@@ -71,10 +70,4 @@ public class Player : MonoBehaviour
     {
         curWeapon.weaponProjectile_List.Clear();
     }
-    //public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List,AmmoProjectile obj)
-    //{
-    //    AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
-    //    pooling_List.Add(newProjectile);
-    //    return newProjectile;
-    //}
 }

@@ -65,7 +65,9 @@ public class GunReadyState : GunBaseState
     protected IEnumerator Shot()
     {
         stateMachine.curMagazine--;
-        //stateMachine.Gun.StartCoroutine(OnRecoil());
+        if(stateMachine.RecoilCoroutine != null) stateMachine.Gun.StopCoroutine(stateMachine.RecoilCoroutine);
+        stateMachine.RecoilCoroutine = OnRecoil();
+        stateMachine.Gun.StartCoroutine(stateMachine.RecoilCoroutine);
         if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
         ProjectilePooling(stateMachine.Gun.ammoProjectile);
         yield return stateMachine.weaponAttackDelay;

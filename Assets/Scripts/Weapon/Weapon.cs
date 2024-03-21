@@ -65,6 +65,7 @@ public class Weapon : StatHandlerBase<WeaponStat>
     {
         stateMachine.weaponAttackDelay = new WaitForSeconds(stateMachine.Gun.baseStatSO.weaponStat.fireDelay);
         stateMachine.weaponReloadDelay = new WaitForSeconds(stateMachine.Gun.baseStatSO.weaponStat.reloadDelay);
+        stateMachine.whileRestTimeSeconds = new WaitForSeconds(0.03f);
         stateMachine.maxMagazine = currentStat.magazine;
         stateMachine.curMagazine = math.max(0, stateMachine.maxMagazine);//현재는 0으로 되어있는 값을 나중에 인벤토리 내에 가지고 있는 탄약을 가져와 넣을 것.
         stateMachine.maxRecoil = currentStat.recoil * 2f;
