@@ -10,6 +10,7 @@ public class WeaponSlotUI : MonoBehaviour
     public Button button;
     public Image icon;
     public TextMeshProUGUI nameText;
+    public TextMeshProUGUI equipText;
     private WeaponSlot curSlot;
     private Outline outline;
 
@@ -24,6 +25,7 @@ public class WeaponSlotUI : MonoBehaviour
     private void OnEnable()
     {
         outline.enabled = equipped; // 장착했다면 아웃라인을 표시
+        equipText.enabled = equipped;
     }
 
     // 아이템 셋팅
@@ -33,6 +35,7 @@ public class WeaponSlotUI : MonoBehaviour
         icon.gameObject.SetActive(true); // 아이콘 표시
         icon.sprite = slot.item.icon; // 아이콘 스프라이트 설정
         nameText.text = slot.item.displayName; // 텍스트 표현
+        equipText.enabled = equipped; // 장착여부 표시
         if (outline != null) // 아웃라인이 있다면
         {
             outline.enabled = equipped;

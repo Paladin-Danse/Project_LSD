@@ -363,6 +363,11 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &129583383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5394077616546552576, guid: f86d4b7ca0ca87f4fb96fe7876bf588d, type: 3}
+  m_PrefabInstance: {fileID: 1011708343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &165659827
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +568,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fd02108e3871943a7f71005dc98e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GreenLine: {fileID: 0}
+  dungeonTooltipPanel: {fileID: 0}
+  dungeonData: {fileID: 0}
 --- !u!114 &223048113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7488969221815630741, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1224920123}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: useButton
       value: 
@@ -654,14 +666,14 @@ PrefabInstance:
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: inventoryWindow
       value: 
-      objectReference: {fileID: 1011708344}
+      objectReference: {fileID: 129583383}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: selectedItemName
       value: 
       objectReference: {fileID: 1011708352}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-      propertyPath: uiWeapons.Array.size
-      value: 4
+      propertyPath: uiSlots.Array.size
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: selectedItemStatNames
@@ -707,22 +719,6 @@ PrefabInstance:
       propertyPath: selectedItemDescription
       value: 
       objectReference: {fileID: 1011708351}
-    - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-      propertyPath: uiWeapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 998718119}
-    - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-      propertyPath: uiWeapons.Array.data[1]
-      value: 
-      objectReference: {fileID: 1398813490}
-    - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-      propertyPath: uiWeapons.Array.data[2]
-      value: 
-      objectReference: {fileID: 219694492}
-    - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-      propertyPath: uiWeapons.Array.data[3]
-      value: 
-      objectReference: {fileID: 1955882432}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: weaponsUiSlots.Array.size
       value: 4
@@ -1373,6 +1369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fd02108e3871943a7f71005dc98e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GreenLine: {fileID: 0}
+  dungeonTooltipPanel: {fileID: 0}
+  dungeonData: {fileID: 0}
 --- !u!1 &858693642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,11 +2042,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f86d4b7ca0ca87f4fb96fe7876bf588d, type: 3}
---- !u!1 &1011708344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5394077616546552576, guid: f86d4b7ca0ca87f4fb96fe7876bf588d, type: 3}
-  m_PrefabInstance: {fileID: 1011708343}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1011708345 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4727796786556513492, guid: f86d4b7ca0ca87f4fb96fe7876bf588d, type: 3}
@@ -2675,6 +2669,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127490818}
   m_CullTransparentMesh: 1
+--- !u!114 &1224920123 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1447474519214557870, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+  m_PrefabInstance: {fileID: 296651499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0869258e809ae0f4bb7bfd33f911a82c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1240375721
 PrefabInstance:
   m_ObjectHideFlags: 0

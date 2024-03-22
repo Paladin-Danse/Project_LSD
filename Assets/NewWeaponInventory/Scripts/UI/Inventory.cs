@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -60,6 +61,9 @@ public class Inventory : MonoBehaviour
     public UnityEvent onCloseInventory; // 인벤토리 닫기 이벤트
 
     public static Inventory instance; // 인벤토리 싱글톤 패턴
+
+    public WeaponSlot equipWeapon; // 장착한 무기
+    public int equipWeaponIndex; // 장착한 무기 인덱스
     void Awake()
     {
         instance = this;
@@ -69,6 +73,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        equipWeapon = null;
         inventoryWindow.SetActive(false); // 인벤토리 꺼두기
         slots = new ItemSlot[uiSlots.Length]; // 아이템 슬롯
         weaponsSlots = new WeaponSlot[weaponsUiSlots.Length];
@@ -320,31 +325,55 @@ public class Inventory : MonoBehaviour
         RemoveSelectedItem();
     }
 
-    // 아이템 착용 버튼
-    public void OnEquipButton()
+    // 무기 장착
+    void Equip(int weaponIndex)
     {
+        if (equipWeapon != null)
+        {
+            UnEquip(equipWeaponIndex);
+        }
+        if (selectedWeapon != null)
+        {
+            weaponsUiSlots[weaponIndex].equipped = true;
+            equipWeapon = selectedWeapon;
+            equipWeaponIndex = weaponIndex;
+        }
 
     }
 
-    // 아이템 착용해제
-    void UnEquip(int index)
+    // 아이템 착용 버튼
+    public void OnEquipButton()
     {
+        Equip(selectedWeaponsIndex);
+        UpdateUI();
+        SelectWeapon(selectedWeaponsIndex);
+    }
 
+    // 아이템 착용해제
+    void UnEquip(int weaponsIndex)
+    {
+        if (selectedWeapon != null)
+        {
+            weaponsUiSlots[weaponsIndex].equipped = false;
+            equipWeapon = null;
+        }
     }
 
     // 아이템 착용해제 버튼
     public void OnUnEquipButton()
     {
-
+        UnEquip(selectedWeaponsIndex);
+        UpdateUI();
+        SelectWeapon(selectedWeaponsIndex);
     }
 
     // 아이템 버림 버튼
     public void OnDropButton()
     {
         if (selectedItem != null)
-            ThrowItem(selectedItem.item); // 선택아이템 버림
+            ThrowItem(selectedItem.item); // 바닥에 아이템 생성
         else if (selectedWeapon != null)
-            ThrowWeapon(selectedWeapon.item); // 선택무기 버림
+            ThrowWeapon(selectedWeapon.item); // 바닥에 무기 생성
         RemoveSelectedItem(); // 선택아이템 인벤토리에서 삭제
     }
 
@@ -370,6 +399,8 @@ public class Inventory : MonoBehaviour
         {
             // 선택한 무기 인벤토리에서 삭제
             Debug.Log("코드 구현 필요:선택한 무기 인벤토리에서 삭제");
+
+            ClearSeletecItemWindow();
         }
 
         UpdateUI();
