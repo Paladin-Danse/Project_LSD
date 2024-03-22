@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class PlayerStateMachine : StateMachine
     public int ComboIndex { get; set; }
 
     public Transform playerCamTransform;
+    public Action<Player> playerUIEvent;
     public PlayerStateMachine(Player player)
     {
         this.player = player;

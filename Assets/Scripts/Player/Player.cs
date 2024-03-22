@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -18,12 +19,15 @@ public class Player : MonoBehaviour
     // �κ��丮
     public Inventory inventory;
 
-    //�ӽú���
+    //Weapon
     public Transform firePos;
     public float fireRateDelay;
     [SerializeField] public Weapon curWeapon;
-    public Action<PlayerStateMachine> SetWeaponEvent;
+    //public Action<PlayerStateMachine> SetWeaponEvent;
 
+    //UI
+    public PlayerUI playerUI;
+    
 
     private void Awake()
     {
@@ -34,6 +38,14 @@ public class Player : MonoBehaviour
         AnimationData = new PlayerAnimationData();
         // �κ��丮
         inventory = GetComponent<Inventory>();
+
+        //UI
+        if (!TryGetComponent<PlayerUI>(out playerUI)) Debug.Log("Player : PlayerUI is not Found!");
+        else
+        {
+            playerUI.InitSetting();
+            stateMachine.playerUIEvent += playerUI.UITextUpdate;
+        }
 
         Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
         foreach(Animator anim in anim_temp)
@@ -48,10 +60,10 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
-        curWeapon.WeaponSet();
         curWeapon.CurrentWeaponEquip();
-        SetWeaponEvent += curWeapon.GetStateMachine;
-        SetWeaponEvent.Invoke(stateMachine);
+        curWeapon.GetStateMachine(stateMachine);
+
+        playerUIEventInvoke();
     }
 
     private void Update()
@@ -70,5 +82,10 @@ public class Player : MonoBehaviour
         foreach (AmmoProjectile ammoProjectile in curWeapon.weaponProjectile_List)
             Destroy(ammoProjectile.gameObject);
         curWeapon.weaponProjectile_List.Clear();
+    }
+
+    public void playerUIEventInvoke()
+    {
+        if (playerUI) stateMachine.playerUIEvent(this);
     }
 }
