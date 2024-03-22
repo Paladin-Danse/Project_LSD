@@ -25,4 +25,13 @@ public class GunEmptyState : GunBaseState
         yield return null;
         stateMachine.ShotCoroutine = null;
     }
+
+    protected override void OnReload(InputAction.CallbackContext callbackContext)
+    {
+        base.OnReload(callbackContext);
+        if (stateMachine.curMagazine != stateMachine.maxMagazine)
+        {
+            stateMachine.ChangeState(stateMachine.ReloadState);
+        }
+    }
 }
