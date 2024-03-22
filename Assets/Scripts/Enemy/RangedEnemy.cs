@@ -2,30 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class RangedEnemy : MonoBehaviour
 {
     [field: Header("References")]
     [field: SerializeField] public EnemySO Data { get; private set; }
-    [field: SerializeField] public EnemyWeapon Weapon { get; private set; }
+    [field: SerializeField] public RangedEnemyWeapon Weapon { get; private set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     public Rigidbody Rigidbody { get; private set; }
-    public Animator Animator { get; private set; }        
+    public Animator Animator { get; private set; }    
     public Health health { get; private set; }
 
-    private EnemyStateMachine stateMachine;
+    private RangedEnemyStateMachine stateMachine;
 
     void Awake()
     {
         AnimationData.Initialize();
 
         Rigidbody = GetComponent<Rigidbody>();
-        Animator = GetComponentInChildren<Animator>();                
+        Animator = GetComponentInChildren<Animator>();        
         health = GetComponent<Health>();
 
-        stateMachine = new EnemyStateMachine(this);
+        stateMachine = new RangedEnemyStateMachine(this);
     }
 
     private void Start()
