@@ -37,7 +37,6 @@ public class PlayerBaseState : IState
     {
         Move();
         Rotate();
-        //if (stateMachine.player.curWeapon.stateMachine.addRecoil > 0) //반동 회복 개발중
     }
 
     public virtual void PhysicsUpdate()
@@ -62,8 +61,6 @@ public class PlayerBaseState : IState
         //Movement
         PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled += OnMovementCanceled;
-        //input.playerActions.Look.started += Rotate;
-        //input.playerActions.Shoot.started += RecoilRotate;//반동 개발중
         input.playerActions.Jump.started += OnJump;
         input.playerActions.Run.started += OnRun;
 
@@ -81,7 +78,6 @@ public class PlayerBaseState : IState
         //Movement
         PlayerInput input = stateMachine.player.input_;
         input.playerActions.Move.canceled -= OnMovementCanceled;
-        //input.playerActions.Look.started -= Rotate;
         input.playerActions.Jump.started -= OnJump;
         input.playerActions.Run.started -= OnRun;
 
@@ -153,32 +149,6 @@ public class PlayerBaseState : IState
     {
         
     }
-    /* 반동 개발중
-    private void RecoilRotate(InputAction.CallbackContext callbackContext)
-    {
-        float addRecoil = -stateMachine.player.curWeapon.stateMachine.addRecoil;
-        stateMachine.camXRotate += addRecoil;
-
-    protected void ProjectilePooling(AmmoProjectile projectile)
-    {
-        if(stateMachine.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-        {
-            AmmoProjectile findProjectile = stateMachine.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-            findProjectile.transform.position = stateMachine.player.firePos.position;
-            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.player.firePos.forward);
-            findProjectile.OnInit();
-        }
-        else
-        {
-            //Monobehavior를 상속받지 못해 Instantiate를 사용할 수가 없다!!
-            //stateMachine.weaponProjectile_List = 
-            //AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
-            //newProjectile.transform.position = stateMachine.player.firePos.position;
-            //newProjectile.OnInit();
-        }
-        stateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
-    }
-    */
     private float GetMovementSpeed()
     {
         float moveSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;

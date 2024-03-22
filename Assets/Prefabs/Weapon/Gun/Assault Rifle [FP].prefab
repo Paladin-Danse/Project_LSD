@@ -5611,12 +5611,22 @@ MonoBehaviour:
       knockBackPower: 0
       knockBackTime: 0
   baseStatSO: {fileID: 11400000, guid: 7dafc06bad125094ca77373f284e5865, type: 2}
+  WeaponName: 
   isAuto: 1
   isFiring: 0
   weaponProjectile_List: []
   ammoProjectile: {fileID: -1474169686497059885, guid: ec5062bf53f37fd4892bdeb6601e564a, type: 3}
   firePos: {fileID: 6311730112135329543}
-  shot_AudioClip: {fileID: 0}
+  shot_AudioClip: {fileID: 8300000, guid: 80fcb1a77cae6c0498a4ab521473acb6, type: 3}
+  dry_AudioClip: {fileID: 8300000, guid: 3240e06a294389f4780132974ee81c77, type: 3}
+  cock_AudioClip: {fileID: 8300000, guid: adc3400a823b48444bbdf591543f1cdc, type: 3}
+  reload_start_AudioClip: {fileID: 8300000, guid: 05a51e063197fd1469bae48e78534280, type: 3}
+  reload_end_AudioClip: {fileID: 8300000, guid: 2818f9036a3f74b4c8c1589ae2758054, type: 3}
+  shot_Volume: 0.7
+  dry_Volume: 1
+  cock_Volume: 1
+  reload_Volume: 1
+  animator: {fileID: 0}
 --- !u!82 &202057173180895889
 AudioSource:
   m_ObjectHideFlags: 0

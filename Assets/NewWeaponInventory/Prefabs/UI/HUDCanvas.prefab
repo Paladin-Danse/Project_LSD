@@ -888,7 +888,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3223964863816766974}
   - component: {fileID: 3780672853497383084}
-  - component: {fileID: 3283031669434233921}
+  - component: {fileID: 6415790587300373029}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -924,7 +924,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3573722358221405018}
   m_CullTransparentMesh: 0
---- !u!114 &3283031669434233921
+--- !u!114 &6415790587300373029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1277,7 +1277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4635422808494870401
 RectTransform:
   m_ObjectHideFlags: 0

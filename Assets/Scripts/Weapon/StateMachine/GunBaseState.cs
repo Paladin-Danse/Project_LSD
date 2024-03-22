@@ -32,7 +32,6 @@ public class GunBaseState : IState
     }
     public virtual void Update()
     {
-        if (stateMachine.curRecoil > 0) RecoverRecoil();
     }
     public virtual void PhysicsUpdate()
     {
@@ -43,6 +42,7 @@ public class GunBaseState : IState
         
         input.playerActions.Shoot.started += OnFire;
         input.playerActions.Shoot.canceled += StopFire;
+        input.playerActions.Reload.started += OnReload;
     }
 
     
@@ -52,6 +52,7 @@ public class GunBaseState : IState
         
         input.playerActions.Shoot.started -= OnFire;
         input.playerActions.Shoot.canceled -= StopFire;
+        input.playerActions.Reload.started -= OnReload;
     }
 
     protected virtual void OnFire(InputAction.CallbackContext callbackContext)
@@ -65,25 +66,17 @@ public class GunBaseState : IState
 
     protected void ProjectilePooling(AmmoProjectile projectile)
     {
+        AmmoProjectile newProjectile;
         if (stateMachine.Gun.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-        {
-            AmmoProjectile findProjectile = stateMachine.Gun.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-            findProjectile.transform.position = stateMachine.Gun.firePos.position;
-            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.Gun.firePos.forward);
-            findProjectile.OnInit(stateMachine.Gun);
-        }
+            newProjectile = stateMachine.Gun.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
         else
-        {
-            AmmoProjectile newProjectile = stateMachine.Gun.CreateObject(stateMachine.Gun.weaponProjectile_List, projectile);
-            newProjectile.transform.position = stateMachine.Gun.firePos.position;
-            newProjectile.OnInit(stateMachine.Gun);
-        }
+            newProjectile = stateMachine.Gun.CreateObject(stateMachine.Gun.weaponProjectile_List, projectile);
+
+        newProjectile.transform.position = stateMachine.Gun.firePos.position;
+        newProjectile.transform.rotation = Quaternion.LookRotation(stateMachine.Gun.RandomSpread());
+        newProjectile.OnInit(stateMachine.Gun);
     }
     protected virtual void OnReload(InputAction.CallbackContext callbackContext)
-    {
-        
-    }
-    public void RecoverRecoil()
     {
         
     }
