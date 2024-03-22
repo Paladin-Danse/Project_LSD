@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7293718422290133018}
   - component: {fileID: 1522519627395906739}
   - component: {fileID: 5906735287153786789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,10 +92,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2908068410981260368}
-  - component: {fileID: 2443213000204033923}
+  - component: {fileID: -1410299341651815296}
   - component: {fileID: 3151009529611127797}
   - component: {fileID: 4909411319209273206}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DropWeaponCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2443213000204033923
+--- !u!114 &-1410299341651815296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,10 +127,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8524836299991479280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c616c0aee3f8134f8763cce58c8047b, type: 3}
+  m_Script: {fileID: 11500000, guid: aa7149f56227d534d83f98b24927c7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 0111a19b316abd84e9e81ccdaf2bab9f, type: 2}
+  item: {fileID: 11400000, guid: 1cbeade433fde404680df6bc9bb7fe1f, type: 2}
 --- !u!65 &3151009529611127797
 BoxCollider:
   m_ObjectHideFlags: 0

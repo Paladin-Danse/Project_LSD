@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropWeaponObject : MonoBehaviour, IInteractable
 {
-    public ItemData item;
+    public ItemWeaponData item;
 
     public string GetInteractPrompt()
     {
@@ -13,7 +13,7 @@ public class DropWeaponObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        Inventory.instance.AddItem(item); // 인벤토리(싱클톤화)에 아이템 추가하기
+        Inventory.instance.PickUpItem(item); // 인벤토리(싱클톤화)에 아이템 추가하기
         Destroy(gameObject); // 아이템 제거
     }
 }

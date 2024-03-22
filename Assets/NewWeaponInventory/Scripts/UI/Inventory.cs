@@ -14,11 +14,20 @@ public class ItemSlot
     public int quantity;
 }
 
+// 무기 슬롯 클래스
+public class WeaponSlot
+{
+    public ItemWeaponData item;
+}
+
 // 인벤토리를 표현하기 위한 클래스
 public class Inventory : MonoBehaviour
 {
     public ItemSlotUI[] uiSlots; // ui 슬롯
     public ItemSlot[] slots; // item 슬롯
+
+    public WeaponSlotUI[] weaponsUiSlots; // ui 슬롯
+    public WeaponSlot[] weaponsSlots; // weapon 슬롯
 
     public GameObject inventoryWindow; // 인벤토리 켜기
     public Transform dropPosition; // 아이템 버리기 위치
@@ -26,6 +35,12 @@ public class Inventory : MonoBehaviour
     [Header("Selected Item")]
     private ItemSlot selectedItem; // 선택한 아이템
     private int selectedItemIndex; // 선택한 아이템 인덱스
+
+    [Header("Selected Weapons")]
+    private WeaponSlot selectedWeapon; // 선택한 아이템
+    private int selectedWeaponsIndex; // 선택한 아이템 인덱스
+
+    [Header("Selected Info")]
     public TextMeshProUGUI selectedItemName; // 이름
     public TextMeshProUGUI selectedItemDescription; // 설명
     public TextMeshProUGUI selectedItemStatNames; // 스텟
@@ -56,12 +71,19 @@ public class Inventory : MonoBehaviour
     {
         inventoryWindow.SetActive(false); // 인벤토리 꺼두기
         slots = new ItemSlot[uiSlots.Length]; // 아이템 슬롯
+        weaponsSlots = new WeaponSlot[weaponsUiSlots.Length];
 
         for (int i = 0; i < slots.Length; i++) // 슬롯 초기화
         {
             slots[i] = new ItemSlot();
             uiSlots[i].index = i;
             uiSlots[i].Clear();
+        }
+        for (int i = 0; i < weaponsSlots.Length; i++)
+        {
+            weaponsSlots[i] = new WeaponSlot();
+            weaponsUiSlots[i].index = i;
+            weaponsUiSlots[i].Clear();
         }
 
         ClearSeletecItemWindow();
@@ -126,8 +148,29 @@ public class Inventory : MonoBehaviour
         ThrowItem(item); // 인벤토리가 꽉 찼다면 버리기
     }
 
+    // 무기 줍기
+    public void PickUpItem(ItemWeaponData item)
+    {
+        WeaponSlot emptySlot = GetEmptyWeaponSlot(); // 비어있는 무기 슬롯 찾기
+
+        if (emptySlot != null) // 비어있는 슬롯이 있다면
+        {
+            emptySlot.item = item;
+            UpdateUI();
+            return;
+        }
+
+        ThrowWeapon(item);
+    }
+
     // 아이템 버림
     void ThrowItem(ItemData item)
+    {
+        Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360f));
+    }
+
+    // 무기 버림
+    void ThrowWeapon(ItemWeaponData item)
     {
         Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360f));
     }
@@ -141,6 +184,14 @@ public class Inventory : MonoBehaviour
                 uiSlots[i].Set(slots[i]); // 세팅
             else
                 uiSlots[i].Clear(); // 없다면 클리어
+        }
+
+        for (int i = 0; i < weaponsSlots.Length; i++)
+        {
+            if (weaponsSlots[i].item != null) // 슬롯에 아이템이 있다면
+                weaponsUiSlots[i].Set(weaponsSlots[i]); // 세팅
+            else
+                weaponsUiSlots[i].Clear(); // 없다면 클리어
         }
     }
 
@@ -168,11 +219,25 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
+
+    // 비어있는 아이템 슬롯 가져오기
+    WeaponSlot GetEmptyWeaponSlot()
+    {
+        for (int i = 0; i < weaponsSlots.Length; i++)
+        {
+            if (weaponsSlots[i].item == null)
+                return weaponsSlots[i];
+        }
+
+        return null;
+    }
+
     // 인덱스로 인벤토리창에서 아이템 가져오기
     public void SelectItem(int index)
     {
-        if (slots[index].item == null)
+        if (slots[index] == null)
             return;
+        selectedWeapon = null;
         // 선택한 아이템 변수에 대입
         selectedItem = slots[index];
         selectedItemIndex = index;
@@ -195,11 +260,35 @@ public class Inventory : MonoBehaviour
         dropButton.SetActive(true);
     }
 
+    // 인덱스로 무기 선택
+    public void SelectWeapon(int index)
+    {
+        if (weaponsSlots[index] == null)
+            return;
+        selectedItem = null;
+        // 선택한 아이템 변수에 대입
+        selectedWeapon = weaponsSlots[index];
+        selectedWeaponsIndex = index;
+        // 아이템 이름, 정보 표시
+        selectedItemName.text = selectedWeapon.item.displayName;
+        selectedItemDescription.text = selectedWeapon.item.description;
+        // 아이템 스텟 초기화
+        selectedItemStatNames.text = string.Empty;
+        selectedItemStatValues.text = string.Empty;
+
+        // 버튼 표시
+        useButton.SetActive(selectedWeapon.item.type == ItemType.Consumable);
+        equipButton.SetActive(selectedWeapon.item.type == ItemType.Equipable && !weaponsUiSlots[index].equipped);
+        unEquipButton.SetActive(selectedWeapon.item.type == ItemType.Equipable && weaponsUiSlots[index].equipped);
+        dropButton.SetActive(true);
+    }
+
     // 인벤토리창에서 아이템 선택 취소하기
     private void ClearSeletecItemWindow()
     {
         // 아이템 선택안함 표현
         selectedItem = null;
+        selectedWeapon = null;
         selectedItemName.text = string.Empty;
         selectedItemDescription.text = string.Empty;
         // 아이템 스탯 표시 제거
@@ -252,24 +341,35 @@ public class Inventory : MonoBehaviour
     // 아이템 버림 버튼
     public void OnDropButton()
     {
-        ThrowItem(selectedItem.item); // 선택아이템 아이템 버림
+        if (selectedItem != null)
+            ThrowItem(selectedItem.item); // 선택아이템 버림
+        else if (selectedWeapon != null)
+            ThrowWeapon(selectedWeapon.item); // 선택무기 버림
         RemoveSelectedItem(); // 선택아이템 인벤토리에서 삭제
     }
 
     // 선택한 아이템 삭제
     private void RemoveSelectedItem()
     {
-        selectedItem.quantity--;
-
-        if (selectedItem.quantity <= 0)
+        if (selectedItem != null)
         {
-            if (uiSlots[selectedItemIndex].equipped)
-            {
-                UnEquip(selectedItemIndex);
-            }
+            selectedItem.quantity--;
 
-            selectedItem.item = null;
-            ClearSeletecItemWindow();
+            if (selectedItem.quantity <= 0)
+            {
+                if (uiSlots[selectedItemIndex].equipped)
+                {
+                    UnEquip(selectedItemIndex);
+                }
+
+                selectedItem.item = null;
+                ClearSeletecItemWindow();
+            }
+        }
+        else if (selectedWeapon != null)
+        {
+            // 선택한 무기 인벤토리에서 삭제
+            Debug.Log("코드 구현 필요:선택한 무기 인벤토리에서 삭제");
         }
 
         UpdateUI();

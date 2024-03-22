@@ -25,7 +25,7 @@ public class ItemDataConsumable
 }
 
 // 스크립터블 오브젝트 상속하기(ScriptableObject)
-[CreateAssetMenu(fileName = "Item", menuName = "New Item")]
+[CreateAssetMenu(fileName = "Item", menuName = "New ItemData")]
 public class ItemData : ScriptableObject
 {
     [Header("Info")] // 설명

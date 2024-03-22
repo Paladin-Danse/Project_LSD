@@ -9,28 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6f3302dd790cb34ea36e0c380ee67cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 46b5aaff2a2c45543bccc24d3c996a94, type: 3}
   m_Name: DropWeaponData
   m_EditorClassIdentifier: 
-  weaponStat:
-    statModifyType: 2
-    weaponStatFlag: -1
-    magazine: 30
-    spread: 5
-    recoil: 5
-    preFireDelay: 1
-    fireDelay: 0.1
-    reloadDelay: 2
-    bulletPerFire: 1
-    attackStat:
-      statModifyType: 0
-      AttackType: 1
-      attackStatFlag: -1
-      damage: 100
-      range: 200
-      bulletSpeed: 50
-      explosionRange: 0
-      maxExplosionDamageRange: 0
-      IsKnockbackEnable: 0
-      knockBackPower: 0
-      knockBackTime: 0
+  displayName: "\uAE30\uBCF8\uC2A4\uD0EF \uBB34\uAE30"
+  description: "\uAE30\uBCF8\uC2A4\uD0EF \uBB34\uAE30 \uC124\uBA85"
+  type: 1
+  icon: {fileID: 0}
+  dropPrefab: {fileID: 8524836299991479280, guid: 53300dbfa9133b748a4250c4578d2f82, type: 3}
+  weaponStatSO: {fileID: 11400000, guid: 7dafc06bad125094ca77373f284e5865, type: 2}
