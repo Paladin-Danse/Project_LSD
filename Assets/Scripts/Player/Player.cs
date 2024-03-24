@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
-    // �κ��丮
+    //Inventory
     public Inventory inventory;
 
     //Weapon
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         input_ = GetComponent<PlayerInput>();
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
-        // �κ��丮
+        //Inventory
         inventory = GetComponent<Inventory>();
 
         //UI
