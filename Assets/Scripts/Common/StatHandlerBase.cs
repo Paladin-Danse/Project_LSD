@@ -4,6 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+[Serializable]
+public enum StatModifyType
+{
+    Add, Multiply, Override
+}
+
+public class Stat
+{
+    public StatModifyType statModifyType;
+
+    public virtual void OverlapStats(Stat other) { }
+}
+
+
 public class StatHandlerBase <T> : MonoBehaviour where T : Stat
 {
     [SerializeField]

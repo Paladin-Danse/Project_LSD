@@ -6,20 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
-public enum StatModifyType 
-{
-    Add, Multiply, Override
-}
-
-public class Stat
-{
-    public StatModifyType statModifyType;
-
-    public virtual void OverlapStats(Stat other){ }
-}
-
-
-[Serializable]
 public class CharacterStat : Stat
 {
     [Flags]
