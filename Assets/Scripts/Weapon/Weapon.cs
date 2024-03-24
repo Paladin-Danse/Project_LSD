@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class Weapon : MonoBehaviour
 {
     public GunStateMachine stateMachine { get; private set; }
-    public PlayerInput input_ { get; private set; }
+    public PlayerInput input_;
     [SerializeField]
     WeaponStatSO baseStatSO;
     public WeaponStat baseStat;
@@ -55,7 +55,6 @@ public class Weapon : MonoBehaviour
 
         stateMachine = new GunStateMachine(this);
         if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        input_ = GetComponentInParent<PlayerInput>();
         weaponProjectile_List = new List<AmmoProjectile>();
         projectiles = new GameObject("Projectiles");
         mods = new List<Mod>();

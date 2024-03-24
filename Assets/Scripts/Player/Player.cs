@@ -1,127 +1,66 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public PlayerStateMachine stateMachine { get; private set; }
-    public PlayerInput input_ { get; private set; }
-    [field: SerializeField] public PlayerData Data { get; private set; }
-    public Rigidbody rigidbody_ { get; private set; }
+    public PlayerInput _input { get; private set; }
     [SerializeField] public Animator animator { get; private set; }
-    public PlayerAnimationData AnimationData {get; private set; }
-    public DungeonInteract dungeonInteract;
-    [field: SerializeField] public LayerMask layerMask_GroundCheck;
-    public bool isGrounded = true;
-    // �κ��丮
+
     public Inventory inventory;
-
-    //Weapon
-    public Transform firePos;
-    public float fireRateDelay;
-
-    [SerializeField] public Weapon curWeapon;
-    private WeaponStatHandler weaponStatHandler;
-
-    public Action<PlayerStateMachine> SetWeaponEvent;
-
-    [SerializeField]
-    private Weapon primaryWeapon;
-    [SerializeField]
-    private Weapon secondaryWeapon;
-
-    //public Action<PlayerStateMachine> SetWeaponEvent;
-
-    //UI
     public PlayerUI playerUI;
-    
+
+    public PlayerCharacter playerCharacter;
 
     private void Awake()
     {
-        stateMachine = new PlayerStateMachine(this);
-        rigidbody_ = GetComponent<Rigidbody>();
-        input_ = GetComponent<PlayerInput>();
-        dungeonInteract = GetComponent<DungeonInteract>();
-        AnimationData = new PlayerAnimationData();
-        // �κ��丮
+        _input = transform.AddComponent<PlayerInput>();
         inventory = GetComponent<Inventory>();
-
-        if(!TryGetComponent(out weaponStatHandler)) Debug.Log("WeaponStatHandler : weaponStatHandler is not Found!");
-        //UI
-        if (!TryGetComponent<PlayerUI>(out playerUI)) Debug.Log("Player : PlayerUI is not Found!");
-        else
-        {
-            playerUI.InitSetting();
-            stateMachine.playerUIEvent += playerUI.UITextUpdate;
-        }
-
-        Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
-        foreach(Animator anim in anim_temp)
-        {
-            if (anim.gameObject.activeSelf && !anim.CompareTag("Weapon"))
-                animator = anim;
-        }
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        stateMachine.ChangeState(stateMachine.IdleState);
-        AnimationData.Initialize();
-        
-        if(curWeapon == null) 
-        {
-            if (primaryWeapon != null)
-                EquipWeapon(primaryWeapon);
-            else if (secondaryWeapon != null)
-                EquipWeapon(secondaryWeapon);
-            else
-            { 
-                // todo : 무기 없을 경우에 주먹?
-            }
-        }
-        
-        playerUIEventInvoke();
+        Possess(playerCharacter);
     }
 
     private void Update()
     {
-        stateMachine.HandleInput();
-        stateMachine.Update();
     }
 
     private void FixedUpdate()
     {
-        stateMachine.PhysicsUpdate();
+
     }
 
-    public void EquipWeapon(Weapon weapon) 
+    public void Possess(PlayerCharacter playerCharacter)
     {
-        weaponStatHandler.EquipWeapon(weapon);
-        curWeapon = weapon;
-        curWeapon.WeaponSet();
-        curWeapon.CurrentWeaponEquip();
-        curWeapon.GetStateMachine(stateMachine);
+        this.playerCharacter = playerCharacter;
+        OnControllCharacter();
+        playerCharacter.playerUIEventInvoke();
     }
 
-    public void UnequipWeapon(Weapon weapon) 
+    public void UnPossessed(PlayerCharacter playerCharacter) 
     {
-        weaponStatHandler.EquipWeapon(weapon);
-        curWeapon = null;
+        this.playerCharacter = null;
+        playerCharacter.playerUIEventInvoke();
     }
 
-    public void ObjectListClear()
+    public void OnControllCharacter() 
     {
-        foreach (AmmoProjectile ammoProjectile in curWeapon.weaponProjectile_List)
-            Destroy(ammoProjectile.gameObject);
-        curWeapon.weaponProjectile_List.Clear();
+        Cursor.lockState = CursorLockMode.Locked;
+        playerCharacter.input = _input;
+        playerCharacter.OnPossessCharacter();
     }
 
-    public void playerUIEventInvoke()
+    public void OnControllUI() 
     {
-        if (playerUI) stateMachine.playerUIEvent(this);
+        Cursor.lockState = CursorLockMode.None;
+        playerCharacter.input = null;
+        playerCharacter.OnUnpossessCharacter();
     }
 }

@@ -65,7 +65,7 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
-        _player.ObjectListClear();
+        _player.playerCharacter.ObjectListClear();
         StartCoroutine(LoadScene());
     }
 

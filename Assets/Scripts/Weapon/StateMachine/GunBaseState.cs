@@ -19,12 +19,14 @@ public class GunBaseState : IState
     public virtual void Enter()
     {
         stateMachine.DebugCurrentState();
-        AddInputActionsCallbacks();
+        if(stateMachine.Gun.input_ != null)
+            AddInputActionsCallbacks();
     }
 
     public virtual void Exit()
     {
-        RemoveInputActionsCallbacks();
+        if (stateMachine.Gun.input_ != null)
+            RemoveInputActionsCallbacks();
     }
 
     public virtual void HandleInput()
@@ -36,7 +38,7 @@ public class GunBaseState : IState
     public virtual void PhysicsUpdate()
     {
     }
-    protected virtual void AddInputActionsCallbacks()
+    public virtual void AddInputActionsCallbacks()
     {
         PlayerInput input = stateMachine.Gun.input_;
         
@@ -46,7 +48,7 @@ public class GunBaseState : IState
     }
 
     
-    protected virtual void RemoveInputActionsCallbacks()
+    public virtual void RemoveInputActionsCallbacks()
     {
         PlayerInput input = stateMachine.Gun.input_;
         

@@ -23,15 +23,17 @@ public class WeaponStatHandler : StatHandlerBase<WeaponStat>
         }
         UpdateStats();
         weapon.GetWeaponStat = () => { return currentStat; };
+
     }
 
-    public void UnequipWeapon(Weapon weapon) 
+    public void UnequipWeapon() 
     {
-        foreach (Mod mod in weapon.mods)
+        foreach (Mod mod in curWeapon.mods)
         {
             statModifiers.Remove(mod.modStat);
         }
-        weapon.GetWeaponStat = () => { return weapon.baseStat; };
+        curWeapon.GetWeaponStat = () => { return curWeapon.baseStat; };
         curWeapon = null;
+
     }
 }
