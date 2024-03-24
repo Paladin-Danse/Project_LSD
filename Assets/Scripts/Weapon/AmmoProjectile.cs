@@ -24,9 +24,9 @@ public class AmmoProjectile : MonoBehaviour
         //탄 투사체가 생성되거나 SetActive가 True가 되었을 때 무기 클래스를 매개변수로 받아와 탄속을 저장.
         //현재 Weapon에서 currentStat을 받아오는 작업이 진행되고 있지 않다. 초기화를 해주었음에도 초기화가 안 된 모습이다.
         EnablePos = transform.position;
-        ProjectileVelocity = curWeapon.currentStat.attackStat.bulletSpeed;
-        ProjectileMaxDistance = curWeapon.currentStat.attackStat.range;
-        ProjectileDamage = curWeapon.currentStat.attackStat.damage;
+        ProjectileVelocity = curWeapon.curWeaponStat.attackStat.bulletSpeed;
+        ProjectileMaxDistance = curWeapon.curWeaponStat.attackStat.range;
+        ProjectileDamage = curWeapon.curWeaponStat.attackStat.damage;
         gameObject.SetActive(true);
         Move();
     }

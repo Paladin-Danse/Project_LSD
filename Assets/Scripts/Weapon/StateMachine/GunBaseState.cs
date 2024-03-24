@@ -82,7 +82,7 @@ public class GunBaseState : IState
     }
     protected IEnumerator OnRecoil()
     {
-        stateMachine.targetRecoil = math.min(stateMachine.curRecoil + stateMachine.Gun.currentStat.recoil, stateMachine.maxRecoil);
+        stateMachine.targetRecoil = math.min(stateMachine.curRecoil + stateMachine.Gun.curWeaponStat.recoil, stateMachine.maxRecoil);
 
         PlayerStateMachine playerStateMachine = stateMachine.playerStateMachine_;
         Transform camTransform = playerStateMachine.playerCamTransform;

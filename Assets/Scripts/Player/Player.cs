@@ -22,7 +22,17 @@ public class Player : MonoBehaviour
     //Weapon
     public Transform firePos;
     public float fireRateDelay;
+
     [SerializeField] public Weapon curWeapon;
+    private WeaponStatHandler weaponStatHandler;
+
+    public Action<PlayerStateMachine> SetWeaponEvent;
+
+    [SerializeField]
+    private Weapon primaryWeapon;
+    [SerializeField]
+    private Weapon secondaryWeapon;
+
     //public Action<PlayerStateMachine> SetWeaponEvent;
 
     //UI
@@ -39,6 +49,7 @@ public class Player : MonoBehaviour
         // �κ��丮
         inventory = GetComponent<Inventory>();
 
+        if(!TryGetComponent(out weaponStatHandler)) Debug.Log("WeaponStatHandler : weaponStatHandler is not Found!");
         //UI
         if (!TryGetComponent<PlayerUI>(out playerUI)) Debug.Log("Player : PlayerUI is not Found!");
         else
@@ -60,9 +71,19 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
-        curWeapon.CurrentWeaponEquip();
-        curWeapon.GetStateMachine(stateMachine);
-
+        
+        if(curWeapon == null) 
+        {
+            if (primaryWeapon != null)
+                EquipWeapon(primaryWeapon);
+            else if (secondaryWeapon != null)
+                EquipWeapon(secondaryWeapon);
+            else
+            { 
+                // todo : 무기 없을 경우에 주먹?
+            }
+        }
+        
         playerUIEventInvoke();
     }
 
@@ -75,6 +96,21 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
+    }
+
+    public void EquipWeapon(Weapon weapon) 
+    {
+        weaponStatHandler.EquipWeapon(weapon);
+        curWeapon = weapon;
+        curWeapon.WeaponSet();
+        curWeapon.CurrentWeaponEquip();
+        curWeapon.GetStateMachine(stateMachine);
+    }
+
+    public void UnequipWeapon(Weapon weapon) 
+    {
+        weaponStatHandler.EquipWeapon(weapon);
+        curWeapon = null;
     }
 
     public void ObjectListClear()

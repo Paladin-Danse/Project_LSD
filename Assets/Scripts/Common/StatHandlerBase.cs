@@ -21,17 +21,6 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
         UpdateStats();
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     protected virtual void InitStat()
     {
         // Init Stat with StatSO
