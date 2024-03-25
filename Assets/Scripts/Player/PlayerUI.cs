@@ -19,7 +19,7 @@ public class PlayerUI : MonoBehaviour
             Debug.Log("Player(maxMagazineTxt) : Wrong path");
     }
 
-    public void UITextUpdate(Player player)
+    public void UITextUpdate(PlayerCharacter player)
     {
         //CurrentWeaponNameText.text = player.curWeapon.WeaponName;
         currentMagazineTxt.text = player.curWeapon.stateMachine.curMagazineText;

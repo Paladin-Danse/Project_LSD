@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateMachine : StateMachine
+public class EnemyStateMachine : StateMachine<EnemyBaseState>
 {
     public Enemy Enemy { get; }
 

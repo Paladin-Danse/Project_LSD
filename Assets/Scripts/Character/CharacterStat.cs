@@ -6,20 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
-public enum StatModifyType 
-{
-    Add, Multiply, Override
-}
-
-public class Stat
-{
-    public StatModifyType statModifyType;
-
-    public virtual void OverlapStats(Stat other){ }
-}
-
-
-[Serializable]
 public class CharacterStat : Stat
 {
     [Flags]
@@ -27,12 +13,12 @@ public class CharacterStat : Stat
     public enum CharacterStatFlag
     {
         NONE = 0,
-        MAX_HEALTH = 1 << 0,
-        DEFENSE = 1 << 1,
-        DEFENSE_RATE = 1 << 2,
-        REGEN_HEALTH = 1 << 3,
-        MOVE_SPEED = 1 << 4,
-        CRIT_DAMAGE = 1 << 5,
+        MAX_HEALTH = 1 << 1,
+        DEFENSE = 1 << 2,
+        DEFENSE_RATE = 1 << 3,
+        REGEN_HEALTH = 1 << 4,
+        MOVE_SPEED = 1 << 5,
+        CRIT_DAMAGE = 1 << 6,
     }
 
     public CharacterStatFlag characterStatFlag;

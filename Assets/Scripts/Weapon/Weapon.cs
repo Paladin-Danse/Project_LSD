@@ -6,17 +6,22 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Weapon : StatHandlerBase<WeaponStat>
+public class Weapon : MonoBehaviour
 {
     public GunStateMachine stateMachine { get; private set; }
-    public PlayerInput input_ { get; private set; }
+    public PlayerInput input_;
     [SerializeField]
     WeaponStatSO baseStatSO;
+    public WeaponStat baseStat;
+
+    public WeaponStat curWeaponStat { get { return GetWeaponStat(); } }
+    public Func<WeaponStat> GetWeaponStat;
 
     public string WeaponName;
     public bool isAuto;
     public bool isFiring;
-    List<Mod> mods;
+
+    public List<Mod> mods { get; private set; }
     public List<AmmoProjectile> weaponProjectile_List;
     protected GameObject projectiles;
     public AmmoProjectile ammoProjectile;
@@ -38,13 +43,11 @@ public class Weapon : StatHandlerBase<WeaponStat>
     [Header("Animation")]
     public Animator animator;
     public WeaponAnimationData animationData;
-    protected override void InitStat()
+    protected void Awake()
     {
-        base.InitStat();
-
         if (baseStatSO != null)
         {
-            baseStat = baseStatSO.weaponStat;
+            baseStat = Instantiate(baseStatSO).weaponStat;
         }
 
         if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
@@ -52,9 +55,12 @@ public class Weapon : StatHandlerBase<WeaponStat>
 
         stateMachine = new GunStateMachine(this);
         if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        input_ = GetComponentInParent<PlayerInput>();
         weaponProjectile_List = new List<AmmoProjectile>();
         projectiles = new GameObject("Projectiles");
+        mods = new List<Mod>();
+
+        baseStat = Instantiate(baseStatSO).weaponStat;
+        GetWeaponStat = () => { return baseStat; };
     }
 
     private void Update()
@@ -72,13 +78,11 @@ public class Weapon : StatHandlerBase<WeaponStat>
     public void AddMod(Mod mod) 
     {
         mods.Add(mod);
-        AddStatModifier(mod.modStat);
     }
 
     public void RemoveMod(Mod mod)
     {
         mods.Remove(mod);
-        RemoveStatModifier(mod.modStat);
     }
     public Vector3 RandomSpread()
     {
@@ -109,17 +113,16 @@ public class Weapon : StatHandlerBase<WeaponStat>
         //RandomSpread * Recoil
         Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * stateMachine.defaultSpread * (stateMachine.curRecoil * 0.01f);
         return -firePos.forward + randomSpreadCircle;
-        
     }
     public void WeaponSet()
     {
         stateMachine.weaponAttackDelay = new WaitForSeconds(stateMachine.Gun.baseStatSO.weaponStat.fireDelay);
         stateMachine.weaponReloadDelay = new WaitForSeconds(stateMachine.Gun.baseStatSO.weaponStat.reloadDelay);
         stateMachine.whileRestTimeSeconds = new WaitForSeconds(0.03f);
-        stateMachine.maxMagazine = currentStat.magazine;
-        stateMachine.curMagazine = math.max(0, stateMachine.maxMagazine);//ÇöÀç´Â 0À¸·Î µÇ¾îÀÖ´Â °ªÀ» ³ªÁß¿¡ ÀÎº¥Åä¸® ³»¿¡ °¡Áö°í ÀÖ´Â Åº¾àÀ» °¡Á®¿Í ³ÖÀ» °Í.
-        stateMachine.maxRecoil = currentStat.recoil * 2f;
-        stateMachine.defaultSpread = currentStat.spread * 0.01f;
+        stateMachine.maxMagazine = curWeaponStat.magazine;
+        stateMachine.curMagazine = math.max(0, stateMachine.maxMagazine);//ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Åºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+        stateMachine.maxRecoil = curWeaponStat.recoil * 2f;
+        stateMachine.defaultSpread = curWeaponStat.spread * 0.01f;
         stateMachine.maxSpread = stateMachine.defaultSpread * 2f;
 
         if (weaponProjectile_List.Find(x => x == ammoProjectile) == null)

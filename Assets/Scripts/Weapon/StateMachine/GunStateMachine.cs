@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GunStateMachine : StateMachine
+public class GunStateMachine : StateMachine<GunBaseState>
 {
     public Weapon Gun { get; }
 
