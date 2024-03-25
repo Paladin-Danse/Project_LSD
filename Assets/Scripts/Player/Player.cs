@@ -10,8 +10,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public PlayerInput _input { get; private set; }
-    [SerializeField] public Animator animator { get; private set; }
-
+    
     public Inventory inventory;
     public PlayerUI playerUI;
 
