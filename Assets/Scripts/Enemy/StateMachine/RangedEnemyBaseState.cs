@@ -65,8 +65,10 @@ public class RangedEnemyBaseState : IState
     private void Move(Vector3 direction)
     {
         RangedEnemy enemy = stateMachine.Enemy;
-
-        enemy.GetComponent<Rigidbody>().MovePosition(enemy.transform.position);
+        float movementSpeed = GetMovementSpeed();
+        //Debug.Log(direction + "/" + movementSpeed);
+        Debug.Log(stateMachine.Enemy.Animator.GetBool("@Attack"));
+        enemy.GetComponent<Rigidbody>().MovePosition(enemy.transform.position + ((direction * movementSpeed) * Time.deltaTime));
     }
 
     private void Rotate(Vector3 direction)

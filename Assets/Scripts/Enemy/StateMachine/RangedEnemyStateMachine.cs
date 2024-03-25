@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedEnemyStateMachine : StateMachine
+public class RangedEnemyStateMachine : StateMachine<RangedEnemyBaseState>
 {
     public RangedEnemy Enemy { get; }
 

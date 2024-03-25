@@ -15,6 +15,9 @@ public class RangedEnemy : MonoBehaviour
     public Animator Animator { get; private set; }    
     public Health health { get; private set; }
 
+    [SerializeField] private GameObject bulletBox;
+    [SerializeField] private GameObject firstAidKit;
+
     private RangedEnemyStateMachine stateMachine;
 
     void Awake()
@@ -49,9 +52,18 @@ public class RangedEnemy : MonoBehaviour
 
     void OnDie()
     {
+        int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
         enabled = false;
-        Destroy(gameObject, 6f);
+        Destroy(gameObject, 2f);
+        if (per >= 50)
+        {
+            Instantiate(bulletBox, transform.position, transform.rotation);
+        }
+        else if (per < 50)
+        {
+            Instantiate(firstAidKit, transform.position, transform.rotation);
+        }
     }
 
     void OnHit()

@@ -6,10 +6,10 @@ public class PlayerDungeonSpawn : MonoBehaviour
 {
     public Transform dungeonSpawnPosition;
 
-    Player player;
+    PlayerCharacter player;
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerCharacter>();
     }
 
     private void Start()

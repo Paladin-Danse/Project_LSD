@@ -35,34 +35,19 @@ public class RangedEnemyAttackState : RangedEnemyBaseState
         base.Update();
 
         float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
-
-        if (0 < normalizedTime && normalizedTime < 1f)
+        Debug.Log(normalizedTime + "/" + IsInAttackRange());
+        if (0 < normalizedTime)
         {
             if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_Start_TransitionTime)
             {
                 stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage);                
             }
 
-        }
-        else
-        {            
-            if (IsInChaseRange())
+            if (!IsInAttackRange())
             {
                 stateMachine.ChangeState(stateMachine.ChasingState);
                 return;
             }
-            else
-            {
-                stateMachine.ChangeState(stateMachine.IdlingState);
-                return;
-            }
-        }
-
-        if (!IsInAttackRange())
-        {            
-            stateMachine.ChangeState(stateMachine.ChasingState);
-            return;
-        }
-
+        }        
     }
 }

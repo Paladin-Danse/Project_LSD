@@ -7,14 +7,9 @@ public class RangedEnemyWeapon : EnemyProjectile
     public GameObject projectilePrefab;
     public Transform muzzlePos;
     public int projectileSpeed;    
-    Transform target;
+    public Transform target;
     RangedEnemyStateMachine stateMachine;
-
-    private void Awake()
-    {
-        stateMachine = GetComponent<RangedEnemyStateMachine>();
-        target = stateMachine.Target.transform;
-    }
+    
     public void Use()
     {
         StartCoroutine("Shot");
