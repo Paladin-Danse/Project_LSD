@@ -131,13 +131,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1313626083770278775, guid: a47b11bf6e3357244990283221eb1320, type: 3}
+      propertyPath: bulletBox
+      value: 
+      objectReference: {fileID: 1682786352928709123, guid: 97473e95d93d37e4c8334cf3c1555378, type: 3}
+    - target: {fileID: 1313626083770278775, guid: a47b11bf6e3357244990283221eb1320, type: 3}
+      propertyPath: firstAidKit
+      value: 
+      objectReference: {fileID: 4887278874905095115, guid: 9dd7795374dcbd340917f62ba7fe8e63, type: 3}
     - target: {fileID: 7752065810459482343, guid: a47b11bf6e3357244990283221eb1320, type: 3}
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7752065810459482343, guid: a47b11bf6e3357244990283221eb1320, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 17.87
       objectReference: {fileID: 0}
     - target: {fileID: 7752065810459482343, guid: a47b11bf6e3357244990283221eb1320, type: 3}
       propertyPath: m_LocalPosition.y
@@ -145,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7752065810459482343, guid: a47b11bf6e3357244990283221eb1320, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 9.48
       objectReference: {fileID: 0}
     - target: {fileID: 7752065810459482343, guid: a47b11bf6e3357244990283221eb1320, type: 3}
       propertyPath: m_LocalRotation.w
@@ -178,6 +186,10 @@ PrefabInstance:
     - target: {fileID: 9163229756498105670, guid: a47b11bf6e3357244990283221eb1320, type: 3}
       propertyPath: m_Name
       value: MediumMechStrikerMasterPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 9163229756498105670, guid: a47b11bf6e3357244990283221eb1320, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2635,10 +2647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef22aa11efb7ce43a5f420d3bb589ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 20
   projectilePrefab: {fileID: 7966957110157969915, guid: 46b4935c692488248970df747f153c13, type: 3}
   muzzlePos: {fileID: 1216638370}
   projectileSpeed: 50
-  damage: 20
 --- !u!1 &1231657941 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2995828229661691052, guid: 7dca597ed605cc544bcf4eb5b4372094, type: 3}
@@ -4473,6 +4485,10 @@ PrefabInstance:
     - target: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939, type: 3}
       propertyPath: m_Name
       value: PBRCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
