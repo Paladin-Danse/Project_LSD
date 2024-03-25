@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateMachine : StateMachine
+public class PlayerStateMachine : StateMachine<PlayerBaseState>
 {
-    public Player player { get; }
+    public PlayerCharacter player { get; }
 
     public float camXRotate = 0f;
     public float playerYRotate = 0f;
@@ -21,7 +22,8 @@ public class PlayerStateMachine : StateMachine
     public int ComboIndex { get; set; }
 
     public Transform playerCamTransform;
-    public PlayerStateMachine(Player player)
+    public Action<PlayerCharacter> playerUIEvent;
+    public PlayerStateMachine(PlayerCharacter player)
     {
         this.player = player;
 

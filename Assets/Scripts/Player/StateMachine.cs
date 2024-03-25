@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateMachine
+public abstract class StateMachine<T> where T : IState
 {
-    protected IState currentState;
+    public T currentState { get; protected set; }
 
-    public void ChangeState(IState newState)
+    public void ChangeState(T newState)
     {
         currentState?.Exit();
         currentState = newState;

@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GunStateMachine : StateMachine
+public class GunStateMachine : StateMachine<GunBaseState>
 {
     public Weapon Gun { get; }
 
@@ -18,7 +18,9 @@ public class GunStateMachine : StateMachine
     public GunEmptyState EmptyState { get; }
     public GunReloadState ReloadState { get; }
     public int maxMagazine;
+    public string maxMagazineText { get { return maxMagazine.ToString(); } }
     public int curMagazine;
+    public string curMagazineText { get { return curMagazine.ToString(); } }
     public bool isEmpty => curMagazine <= 0;
     public float targetRecoil = 0f;
     public float curRecoil = 0f;

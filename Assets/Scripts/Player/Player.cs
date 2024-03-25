@@ -1,74 +1,66 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public PlayerStateMachine stateMachine { get; private set; }
-    public PlayerInput input_ { get; private set; }
-    [field: SerializeField] public PlayerData Data { get; private set; }
-    public Rigidbody rigidbody_ { get; private set; }
+    public PlayerInput _input { get; private set; }
     [SerializeField] public Animator animator { get; private set; }
-    public PlayerAnimationData AnimationData {get; private set; }
-    public DungeonInteract dungeonInteract;
-    [field: SerializeField] public LayerMask layerMask_GroundCheck;
-    public bool isGrounded = true;
-    // �κ��丮
+
     public Inventory inventory;
+    public PlayerUI playerUI;
 
-    //�ӽú���
-    public Transform firePos;
-    public float fireRateDelay;
-    [SerializeField] public Weapon curWeapon;
-    public Action<PlayerStateMachine> SetWeaponEvent;
-
+    public PlayerCharacter playerCharacter;
 
     private void Awake()
     {
-        stateMachine = new PlayerStateMachine(this);
-        rigidbody_ = GetComponent<Rigidbody>();
-        input_ = GetComponent<PlayerInput>();
-        dungeonInteract = GetComponent<DungeonInteract>();
-        AnimationData = new PlayerAnimationData();
-        // �κ��丮
+        _input = transform.AddComponent<PlayerInput>();
         inventory = GetComponent<Inventory>();
-
-        Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
-        foreach(Animator anim in anim_temp)
-        {
-            if (anim.gameObject.activeSelf && !anim.CompareTag("Weapon"))
-                animator = anim;
-        }
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        stateMachine.ChangeState(stateMachine.IdleState);
-        AnimationData.Initialize();
-        curWeapon.WeaponSet();
-        curWeapon.CurrentWeaponEquip();
-        SetWeaponEvent += curWeapon.GetStateMachine;
-        SetWeaponEvent.Invoke(stateMachine);
+        Possess(playerCharacter);
     }
 
     private void Update()
     {
-        stateMachine.HandleInput();
-        stateMachine.Update();
     }
 
     private void FixedUpdate()
     {
-        stateMachine.PhysicsUpdate();
+
     }
 
-    public void ObjectListClear()
+    public void Possess(PlayerCharacter playerCharacter)
     {
-        foreach (AmmoProjectile ammoProjectile in curWeapon.weaponProjectile_List)
-            Destroy(ammoProjectile.gameObject);
-        curWeapon.weaponProjectile_List.Clear();
+        this.playerCharacter = playerCharacter;
+        OnControllCharacter();
+        playerCharacter.playerUIEventInvoke();
+    }
+
+    public void UnPossessed(PlayerCharacter playerCharacter) 
+    {
+        this.playerCharacter = null;
+        playerCharacter.playerUIEventInvoke();
+    }
+
+    public void OnControllCharacter() 
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        playerCharacter.input = _input;
+        playerCharacter.OnPossessCharacter();
+    }
+
+    public void OnControllUI() 
+    {
+        Cursor.lockState = CursorLockMode.None;
+        playerCharacter.input = null;
+        playerCharacter.OnUnpossessCharacter();
     }
 }

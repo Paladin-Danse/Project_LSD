@@ -14,6 +14,7 @@ public class GunReadyState : GunBaseState
     {
         base.Enter();
         if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
+        stateMachine.Gun.isFiring = false;
     }
     public override void Exit()
     {
@@ -60,16 +61,27 @@ public class GunReadyState : GunBaseState
     protected override void OnReload(InputAction.CallbackContext callbackContext)
     {
         base.OnReload(callbackContext);
-
+        //재장전 하기 전 남은 잔탄을 현재 가지고 있는 전체 탄에 더할 것.
+        if(stateMachine.curMagazine != stateMachine.maxMagazine)
+        {
+            stateMachine.ChangeState(stateMachine.ReloadState);
+        }
     }
     protected IEnumerator Shot()
     {
         stateMachine.curMagazine--;
-        if(stateMachine.RecoilCoroutine != null) stateMachine.Gun.StopCoroutine(stateMachine.RecoilCoroutine);
+        stateMachine.Gun.PlayClip(stateMachine.Gun.shot_AudioClip, stateMachine.Gun.shot_Volume);
+        stateMachine.playerStateMachine_.player.playerUIEventInvoke();
+
+        //Projectile Create
+        ProjectilePooling(stateMachine.Gun.ammoProjectile);
+        //Recoil
+        if (stateMachine.RecoilCoroutine != null) stateMachine.Gun.StopCoroutine(stateMachine.RecoilCoroutine);
         stateMachine.RecoilCoroutine = OnRecoil();
         stateMachine.Gun.StartCoroutine(stateMachine.RecoilCoroutine);
+        //Empty Check
         if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
-        ProjectilePooling(stateMachine.Gun.ammoProjectile);
+        //shoot CoolTime
         yield return stateMachine.weaponAttackDelay;
         stateMachine.ShotCoroutine = null;
     }

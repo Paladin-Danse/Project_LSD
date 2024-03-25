@@ -19,12 +19,14 @@ public class GunBaseState : IState
     public virtual void Enter()
     {
         stateMachine.DebugCurrentState();
-        AddInputActionsCallbacks();
+        if(stateMachine.Gun.input_ != null)
+            AddInputActionsCallbacks();
     }
 
     public virtual void Exit()
     {
-        RemoveInputActionsCallbacks();
+        if (stateMachine.Gun.input_ != null)
+            RemoveInputActionsCallbacks();
     }
 
     public virtual void HandleInput()
@@ -32,26 +34,27 @@ public class GunBaseState : IState
     }
     public virtual void Update()
     {
-        if (stateMachine.curRecoil > 0) RecoverRecoil();
     }
     public virtual void PhysicsUpdate()
     {
     }
-    protected virtual void AddInputActionsCallbacks()
+    public virtual void AddInputActionsCallbacks()
     {
         PlayerInput input = stateMachine.Gun.input_;
         
         input.playerActions.Shoot.started += OnFire;
         input.playerActions.Shoot.canceled += StopFire;
+        input.playerActions.Reload.started += OnReload;
     }
 
     
-    protected virtual void RemoveInputActionsCallbacks()
+    public virtual void RemoveInputActionsCallbacks()
     {
         PlayerInput input = stateMachine.Gun.input_;
         
         input.playerActions.Shoot.started -= OnFire;
         input.playerActions.Shoot.canceled -= StopFire;
+        input.playerActions.Reload.started -= OnReload;
     }
 
     protected virtual void OnFire(InputAction.CallbackContext callbackContext)
@@ -65,31 +68,23 @@ public class GunBaseState : IState
 
     protected void ProjectilePooling(AmmoProjectile projectile)
     {
+        AmmoProjectile newProjectile;
         if (stateMachine.Gun.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-        {
-            AmmoProjectile findProjectile = stateMachine.Gun.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-            findProjectile.transform.position = stateMachine.Gun.firePos.position;
-            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.Gun.firePos.forward);
-            findProjectile.OnInit(stateMachine.Gun);
-        }
+            newProjectile = stateMachine.Gun.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
         else
-        {
-            AmmoProjectile newProjectile = stateMachine.Gun.CreateObject(stateMachine.Gun.weaponProjectile_List, projectile);
-            newProjectile.transform.position = stateMachine.Gun.firePos.position;
-            newProjectile.OnInit(stateMachine.Gun);
-        }
+            newProjectile = stateMachine.Gun.CreateObject(stateMachine.Gun.weaponProjectile_List, projectile);
+
+        newProjectile.transform.position = stateMachine.Gun.firePos.position;
+        newProjectile.transform.rotation = Quaternion.LookRotation(stateMachine.Gun.RandomSpread());
+        newProjectile.OnInit(stateMachine.Gun);
     }
     protected virtual void OnReload(InputAction.CallbackContext callbackContext)
     {
         
     }
-    public void RecoverRecoil()
-    {
-        
-    }
     protected IEnumerator OnRecoil()
     {
-        stateMachine.targetRecoil = math.min(stateMachine.curRecoil + stateMachine.Gun.currentStat.recoil, stateMachine.maxRecoil);
+        stateMachine.targetRecoil = math.min(stateMachine.curRecoil + stateMachine.Gun.curWeaponStat.recoil, stateMachine.maxRecoil);
 
         PlayerStateMachine playerStateMachine = stateMachine.playerStateMachine_;
         Transform camTransform = playerStateMachine.playerCamTransform;

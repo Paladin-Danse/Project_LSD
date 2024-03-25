@@ -20,12 +20,14 @@ public class PlayerBaseState : IState
     }
     public virtual void Enter()
     {
-        AddInputActionsCallbacks();
+        if(stateMachine.player.input != null)
+            AddInputActionsCallbacks();
     }
 
     public virtual void Exit()
     {
-        RemoveInputActionsCallbacks();
+        if (stateMachine.player.input != null)
+            RemoveInputActionsCallbacks();
     }
 
     public virtual void HandleInput()
@@ -37,7 +39,6 @@ public class PlayerBaseState : IState
     {
         Move();
         Rotate();
-        //if (stateMachine.player.curWeapon.stateMachine.addRecoil > 0) //반동 회복 개발중
     }
 
     public virtual void PhysicsUpdate()
@@ -57,13 +58,11 @@ public class PlayerBaseState : IState
         stateMachine.player.animator.SetFloat(ParameterHash, setFloat);
     }
     
-    protected virtual void AddInputActionsCallbacks()
+    public virtual void AddInputActionsCallbacks()
     {
         //Movement
-        PlayerInput input = stateMachine.player.input_;
+        PlayerInput input = stateMachine.player.input;
         input.playerActions.Move.canceled += OnMovementCanceled;
-        //input.playerActions.Look.started += Rotate;
-        //input.playerActions.Shoot.started += RecoilRotate;//반동 개발중
         input.playerActions.Jump.started += OnJump;
         input.playerActions.Run.started += OnRun;
 
@@ -72,16 +71,13 @@ public class PlayerBaseState : IState
 
         //Inventory
         input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
-
     }
 
-
-    protected virtual void RemoveInputActionsCallbacks()
+    public virtual void RemoveInputActionsCallbacks()
     {
         //Movement
-        PlayerInput input = stateMachine.player.input_;
+        PlayerInput input = stateMachine.player.input;
         input.playerActions.Move.canceled -= OnMovementCanceled;
-        //input.playerActions.Look.started -= Rotate;
         input.playerActions.Jump.started -= OnJump;
         input.playerActions.Run.started -= OnRun;
 
@@ -101,12 +97,10 @@ public class PlayerBaseState : IState
 
     private void ReadMovementInput()
     {
-        stateMachine.MovementInput = stateMachine.player.input_.playerActions.Move.ReadValue<Vector2>();
+        stateMachine.MovementInput = stateMachine.player.input.playerActions.Move.ReadValue<Vector2>();
     }
     private void Move()
     {
-        Player player = stateMachine.player;
-        
         Vector3 movementDirection = GetMovementDirection();
         Move(movementDirection);
     }
@@ -129,7 +123,7 @@ public class PlayerBaseState : IState
     }
     protected void Rotate()
     {
-        Vector2 rotateDirection = stateMachine.player.input_.playerActions.Look.ReadValue<Vector2>();
+        Vector2 rotateDirection = stateMachine.player.input.playerActions.Look.ReadValue<Vector2>();
 
         PlayerData SOData = stateMachine.player.Data;
         Transform camTransform = stateMachine.playerCamTransform;
@@ -140,45 +134,18 @@ public class PlayerBaseState : IState
         stateMachine.camXRotate = Mathf.Clamp(stateMachine.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
         stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
 
-        camTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate - stateMachine.player.curWeapon.stateMachine.curRecoil, 0, 0));
+        camTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
         rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
     }
     protected void Move(Vector3 movementDirection)
     {
-        Player player = stateMachine.player;
         float movementSpeed = GetMovementSpeed();
-        player.GetComponent<Rigidbody>().MovePosition(player.transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+        stateMachine.player.GetComponent<Rigidbody>().MovePosition(stateMachine.player.transform.position + (movementDirection * movementSpeed * Time.deltaTime));
     }
     private void OnRun(InputAction.CallbackContext context)
     {
         
     }
-    /* 반동 개발중
-    private void RecoilRotate(InputAction.CallbackContext callbackContext)
-    {
-        float addRecoil = -stateMachine.player.curWeapon.stateMachine.addRecoil;
-        stateMachine.camXRotate += addRecoil;
-
-    protected void ProjectilePooling(AmmoProjectile projectile)
-    {
-        if(stateMachine.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-        {
-            AmmoProjectile findProjectile = stateMachine.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-            findProjectile.transform.position = stateMachine.player.firePos.position;
-            findProjectile.transform.rotation = Quaternion.LookRotation(-stateMachine.player.firePos.forward);
-            findProjectile.OnInit();
-        }
-        else
-        {
-            //Monobehavior를 상속받지 못해 Instantiate를 사용할 수가 없다!!
-            //stateMachine.weaponProjectile_List = 
-            //AmmoProjectile newProjectile = stateMachine.player.CreateObject(stateMachine.weaponProjectile_List, projectile);
-            //newProjectile.transform.position = stateMachine.player.firePos.position;
-            //newProjectile.OnInit();
-        }
-        stateMachine.playerCamTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
-    }
-    */
     private float GetMovementSpeed()
     {
         float moveSpeed = stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
