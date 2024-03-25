@@ -6,10 +6,11 @@ using UnityEngine;
 public class PlayerCharacter : MonoBehaviour
 {
     public PlayerStateMachine stateMachine { get; private set; }
+    [HideInInspector]
     public PlayerInput input;
     [field: SerializeField] public PlayerData Data { get; private set; }
     public Rigidbody rigidbody_ { get; private set; }
-    [SerializeField] public Animator animator { get; private set; }
+    public Animator animator { get; private set; }
     public PlayerAnimationData AnimationData { get; private set; }
     public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
