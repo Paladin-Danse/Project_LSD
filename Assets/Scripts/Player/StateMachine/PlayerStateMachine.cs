@@ -7,7 +7,6 @@ public class PlayerStateMachine : StateMachine<PlayerBaseState>
 {
     public PlayerCharacter player { get; }
 
-    public float camXRotate = 0f;
     public float playerYRotate = 0f;
     public PlayerIdleState IdleState { get; }
     public PlayerWalkState WalkState { get; }
@@ -21,7 +20,6 @@ public class PlayerStateMachine : StateMachine<PlayerBaseState>
     public bool IsAttacking { get; set; }
     public int ComboIndex { get; set; }
 
-    public Transform playerCamTransform;
     public Action<PlayerCharacter> playerUIEvent;
     public PlayerStateMachine(PlayerCharacter player)
     {
@@ -36,6 +34,5 @@ public class PlayerStateMachine : StateMachine<PlayerBaseState>
         MovementSpeed = this.player.Data.groundData.BaseSpeed;
         MovementSpeedModifier = this.player.Data.groundData.WalkSpeedModifier;
 
-        playerCamTransform = this.player.transform.Find("FPCamera");
     }
 }

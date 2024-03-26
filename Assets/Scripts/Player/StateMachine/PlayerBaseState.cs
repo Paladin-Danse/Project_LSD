@@ -109,32 +109,33 @@ public class PlayerBaseState : IState
     {
         Vector2 rotateDirection = callbackContext.ReadValue<Vector2>();
 
-        PlayerData SOData = stateMachine.player.Data;
-        Transform camTransform = stateMachine.playerCamTransform;
+        PlayerCharacter player = stateMachine.player;
+        PlayerData SOData = player.Data;
+        Transform camTransform = player.playerCamTransform;
         Rigidbody rigidbody = stateMachine.player.rigidbody_;
         
 
-        stateMachine.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
-        stateMachine.camXRotate = Mathf.Clamp(stateMachine.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
+        player.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
+        player.camXRotate = Mathf.Clamp(player.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
         stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
 
-        camTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
+        camTransform.localRotation = Quaternion.Euler(new Vector3(player.camXRotate - player.curWeapon.curRecoil, 0, 0));
         rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
     }
     protected void Rotate()
     {
-        Vector2 rotateDirection = stateMachine.player.input.playerActions.Look.ReadValue<Vector2>();
+        PlayerCharacter player = stateMachine.player;
+        Vector2 rotateDirection = player.input.playerActions.Look.ReadValue<Vector2>();
 
-        PlayerData SOData = stateMachine.player.Data;
-        Transform camTransform = stateMachine.playerCamTransform;
-        Rigidbody rigidbody = stateMachine.player.rigidbody_;
+        PlayerData SOData = player.Data;
+        Transform camTransform = player.playerCamTransform;
+        Rigidbody rigidbody = player.rigidbody_;
 
-
-        stateMachine.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
-        stateMachine.camXRotate = Mathf.Clamp(stateMachine.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
+        player.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
+        player.camXRotate = Mathf.Clamp(player.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
         stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
 
-        camTransform.localRotation = Quaternion.Euler(new Vector3(stateMachine.camXRotate, 0, 0));
+        camTransform.localRotation = Quaternion.Euler(new Vector3(player.camXRotate - player.curWeapon.curRecoil, 0, 0));
         rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
     }
     protected void Move(Vector3 movementDirection)
@@ -154,8 +155,8 @@ public class PlayerBaseState : IState
 
     private Vector3 GetMovementDirection()
     {
-        Vector3 forward = stateMachine.playerCamTransform.forward;
-        Vector3 right = stateMachine.playerCamTransform.right;
+        Vector3 forward = stateMachine.player.playerCamTransform.forward;
+        Vector3 right = stateMachine.player.playerCamTransform.right;
 
         forward.y = 0;
         right.y = 0;

@@ -22,7 +22,7 @@ public class PlayerUI : MonoBehaviour
     public void UITextUpdate(PlayerCharacter player)
     {
         //CurrentWeaponNameText.text = player.curWeapon.WeaponName;
-        currentMagazineTxt.text = player.curWeapon.stateMachine.curMagazineText;
-        maxMagazineTxt.text = player.curWeapon.stateMachine.maxMagazineText;
+        currentMagazineTxt.text = player.curWeapon.curMagazineText;
+        maxMagazineTxt.text = player.curWeapon.maxMagazineText;
     }
 }
