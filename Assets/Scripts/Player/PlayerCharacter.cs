@@ -17,6 +17,10 @@ public class PlayerCharacter : MonoBehaviour
     public bool isGrounded = true;
     public Inventory inventory;
 
+    public Camera FPCamera { get; private set; }
+    public Transform playerCamTransform;
+    public float camXRotate = 0f;
+
     //Weapon
     public Transform firePos;
     public float fireRateDelay;
@@ -44,6 +48,8 @@ public class PlayerCharacter : MonoBehaviour
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
         inventory = GetComponent<Inventory>();
+        playerCamTransform = transform.Find("FPCamera");
+        FPCamera = playerCamTransform.GetComponent<Camera>();
 
         if (!TryGetComponent(out weaponStatHandler)) Debug.Log("WeaponStatHandler : weaponStatHandler is not Found!");
         //UI
@@ -68,7 +74,7 @@ public class PlayerCharacter : MonoBehaviour
         AnimationData.Initialize();
     }
 
-    public void OnPossessCharacter() 
+    public void OnPossessCharacter()
     {
         if (stateMachine.currentState == null)
             stateMachine.ChangeState(stateMachine.IdleState);
@@ -107,11 +113,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
-        curWeapon.input_ = this.input;
-        curWeapon.WeaponSet();
-        curWeapon.CurrentWeaponEquip();
-        curWeapon.GetStateMachine(stateMachine);
-        curWeapon.stateMachine.currentState.AddInputActionsCallbacks();
+        curWeapon.Init(this);
     }
 
     public void UnequipWeapon(Weapon weapon)

@@ -13,7 +13,7 @@ public class GunReadyState : GunBaseState
     public override void Enter()
     {
         base.Enter();
-        if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
+        if (stateMachine.Gun.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
         stateMachine.Gun.isFiring = false;
     }
     public override void Exit()
@@ -23,7 +23,7 @@ public class GunReadyState : GunBaseState
     public override void Update()
     {
         base.Update();
-        if(stateMachine.Gun.isAuto && stateMachine.Gun.isFiring && !stateMachine.isEmpty) AutoFire();
+        if(stateMachine.Gun.isAuto && stateMachine.Gun.isFiring && !stateMachine.Gun.isEmpty) AutoFire();
     }
 
     protected override void OnFire(InputAction.CallbackContext callbackContext)
@@ -33,10 +33,9 @@ public class GunReadyState : GunBaseState
 
         curWeapon.isFiring = true;
 
-        if (!curWeapon.isAuto && stateMachine.ShotCoroutine == null && !stateMachine.isEmpty)
+        if (!curWeapon.isAuto && !curWeapon.isEmpty)
         {
-            stateMachine.ShotCoroutine = Shot();
-            curWeapon.StartCoroutine(stateMachine.ShotCoroutine);
+            curWeapon.ShotCoroutinePlay(curWeapon.Shot());
         }
     }
 
@@ -52,37 +51,19 @@ public class GunReadyState : GunBaseState
     {
         Weapon curWeapon = stateMachine.Gun;
 
-        if (stateMachine.ShotCoroutine == null && curWeapon.isFiring && !stateMachine.isEmpty)
+        if (curWeapon.isFiring && !curWeapon.isEmpty)
         {
-            stateMachine.ShotCoroutine = Shot();
-            curWeapon.StartCoroutine(stateMachine.ShotCoroutine);
+            curWeapon.ShotCoroutinePlay(curWeapon.Shot());
         }
     }
     protected override void OnReload(InputAction.CallbackContext callbackContext)
     {
         base.OnReload(callbackContext);
+        Weapon curWeapon = stateMachine.Gun;
         //재장전 하기 전 남은 잔탄을 현재 가지고 있는 전체 탄에 더할 것.
-        if(stateMachine.curMagazine != stateMachine.maxMagazine)
+        if (curWeapon.curMagazine != curWeapon.maxMagazine)
         {
             stateMachine.ChangeState(stateMachine.ReloadState);
         }
-    }
-    protected IEnumerator Shot()
-    {
-        stateMachine.curMagazine--;
-        stateMachine.Gun.PlayClip(stateMachine.Gun.shot_AudioClip, stateMachine.Gun.shot_Volume);
-        stateMachine.playerStateMachine_.player.playerUIEventInvoke();
-
-        //Projectile Create
-        ProjectilePooling(stateMachine.Gun.ammoProjectile);
-        //Recoil
-        if (stateMachine.RecoilCoroutine != null) stateMachine.Gun.StopCoroutine(stateMachine.RecoilCoroutine);
-        stateMachine.RecoilCoroutine = OnRecoil();
-        stateMachine.Gun.StartCoroutine(stateMachine.RecoilCoroutine);
-        //Empty Check
-        if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
-        //shoot CoolTime
-        yield return stateMachine.weaponAttackDelay;
-        stateMachine.ShotCoroutine = null;
     }
 }

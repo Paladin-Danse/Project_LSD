@@ -278,14 +278,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6305471067245340087}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6311334542385709741}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
 --- !u!137 &6228360005116094639
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -5565,6 +5565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82508e22265a5f4b8c2bad6b6ac314f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input_: {fileID: 0}
+  baseStatSO: {fileID: 11400000, guid: 7dafc06bad125094ca77373f284e5865, type: 2}
   baseStat:
     statModifyType: 0
     weaponStatFlag: 0
@@ -5587,33 +5589,14 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
-  statModifiers: []
-  <currentStat>k__BackingField:
-    statModifyType: 0
-    weaponStatFlag: 0
-    magazine: 0
-    spread: 0
-    recoil: 0
-    preFireDelay: 0
-    fireDelay: 0
-    reloadDelay: 0
-    bulletPerFire: 0
-    attackStat:
-      statModifyType: 0
-      AttackType: 0
-      attackStatFlag: 0
-      damage: 0
-      range: 0
-      bulletSpeed: 0
-      explosionRange: 0
-      maxExplosionDamageRange: 0
-      IsKnockbackEnable: 0
-      knockBackPower: 0
-      knockBackTime: 0
-  baseStatSO: {fileID: 11400000, guid: 7dafc06bad125094ca77373f284e5865, type: 2}
   WeaponName: 
   isAuto: 1
   isFiring: 0
+  maxMagazine: 0
+  curMagazine: 0
+  maxRecoil: 0
+  defaultSpread: 0
+  maxSpread: 0
   weaponProjectile_List: []
   ammoProjectile: {fileID: -1474169686497059885, guid: ec5062bf53f37fd4892bdeb6601e564a, type: 3}
   firePos: {fileID: 6311730112135329543}
@@ -11745,7 +11728,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6306347487650814721}
-  m_LocalRotation: {x: 0.028567383, y: -0.000000013622018, z: -0.00000047664255, w: 0.9995919}
+  m_LocalRotation: {x: -0.0000005615313, y: 0.9995919, z: -0.028567348, w: -0.00000001604801}
   m_LocalPosition: {x: -0.00014310359, y: 0.0001744218, z: 0.000010566399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11757,7 +11740,7 @@ Transform:
   - {fileID: 6311630350559882389}
   m_Father: {fileID: 6311334542385709741}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 3.2740247, y: -0.0000031257596, z: -0.00005473084}
+  m_LocalEulerAnglesHint: {x: 3.2740247, y: 180, z: -0.00005473084}
 --- !u!1 &6306349155930756979
 GameObject:
   m_ObjectHideFlags: 0
