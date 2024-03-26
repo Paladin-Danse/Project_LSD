@@ -33,8 +33,7 @@ public class RangedEnemyChasingState : RangedEnemyBaseState
         }
         if (IsInAttackRange())
         {
-            stateMachine.ChangeState(stateMachine.AttackState);
-            //stateMachine.Enemy.Weapon.Use();
+            stateMachine.ChangeState(stateMachine.AttackState);            
             return;
         }        
     }

@@ -26,7 +26,7 @@ public class RangedEnemyStateMachine : StateMachine<RangedEnemyBaseState>
         ChasingState = new RangedEnemyChasingState(this);
         AttackState = new RangedEnemyAttackState(this);
 
-        MovementSpeed = enemy.Data.GroundedData.BaseSpeed;
-        RotationDamping = enemy.Data.GroundedData.BaseRotationDamping;
+        MovementSpeed = enemy.RData.GroundedData.BaseSpeed;
+        RotationDamping = enemy.RData.GroundedData.BaseRotationDamping;
     }
 }

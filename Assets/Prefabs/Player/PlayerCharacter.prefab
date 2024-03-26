@@ -45,7 +45,7 @@ Transform:
   - {fileID: 6241565147527886410}
   - {fileID: 4080101249623371697}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &7728274037642359275
 AudioSource:
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869258e809ae0f4bb7bfd33f911a82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 0
+  _maxHealth: 100
   curHealth: 0
   _regenHealth: 0
 --- !u!114 &8504559133320176564

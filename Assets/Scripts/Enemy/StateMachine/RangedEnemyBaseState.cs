@@ -10,7 +10,7 @@ public class RangedEnemyBaseState : IState
     public RangedEnemyBaseState(RangedEnemyStateMachine ememyStateMachine)
     {
         stateMachine = ememyStateMachine;
-        groundData = stateMachine.Enemy.Data.GroundedData;
+        groundData = stateMachine.Enemy.RData.GroundedData;
     }
 
     public virtual void Enter()
@@ -115,7 +115,7 @@ public class RangedEnemyBaseState : IState
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
-        return playerDistanceSqr <= stateMachine.Enemy.Data.PlayerChasingRange * stateMachine.Enemy.Data.PlayerChasingRange;
+        return playerDistanceSqr <= stateMachine.Enemy.RData.PlayerChasingRange * stateMachine.Enemy.RData.PlayerChasingRange;
     }
 
     protected bool IsInAttackRange()
@@ -124,6 +124,6 @@ public class RangedEnemyBaseState : IState
 
         float playerDistanceSqr = (stateMachine.Target.transform.position - stateMachine.Enemy.transform.position).sqrMagnitude;
 
-        return playerDistanceSqr <= stateMachine.Enemy.Data.AttackRange * stateMachine.Enemy.Data.AttackRange;
+        return playerDistanceSqr <= stateMachine.Enemy.RData.AttackRange * stateMachine.Enemy.RData.AttackRange;
     }
 }

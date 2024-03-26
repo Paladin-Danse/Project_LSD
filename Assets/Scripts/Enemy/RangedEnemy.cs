@@ -5,8 +5,8 @@ using UnityEngine;
 public class RangedEnemy : MonoBehaviour
 {
     [field: Header("References")]
-    [field: SerializeField] public EnemySO Data { get; private set; }
-    [field: SerializeField] public RangedEnemyWeapon Weapon { get; private set; }
+    [field: SerializeField] public EnemySO RData { get; private set; }
+    [field: SerializeField] public RangedEnemyWeapon Weapon { get; private set; }    
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
@@ -28,7 +28,7 @@ public class RangedEnemy : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();        
         health = GetComponent<Health>();
 
-        stateMachine = new RangedEnemyStateMachine(this);
+        stateMachine = new RangedEnemyStateMachine(this);        
     }
 
     private void Start()
