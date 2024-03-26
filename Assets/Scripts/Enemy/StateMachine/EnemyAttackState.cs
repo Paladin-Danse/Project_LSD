@@ -13,8 +13,7 @@ public class EnemyAttackState : EnemyBaseState
     }    
 
     public override void Enter()
-    {
-        alreadyAppliedForce = false;
+    {        
         alreadyAppliedDealing = false;
 
         stateMachine.MovementSpeedModifier = 0;
@@ -42,7 +41,7 @@ public class EnemyAttackState : EnemyBaseState
             if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_Start_TransitionTime)
             {                
                 stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage);
-                stateMachine.Enemy.Weapon.gameObject.SetActive(true);                             
+                stateMachine.Enemy.Weapon.gameObject.SetActive(true);                            
             }            
 
         }

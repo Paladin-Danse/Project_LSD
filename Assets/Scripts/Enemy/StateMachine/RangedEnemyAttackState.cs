@@ -35,12 +35,12 @@ public class RangedEnemyAttackState : RangedEnemyBaseState
         base.Update();
 
         float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
-        Debug.Log(normalizedTime + "/" + IsInAttackRange());
+        
         if (0 < normalizedTime)
         {
             if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.Data.Dealing_Start_TransitionTime)
             {
-                stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage);                
+                stateMachine.Enemy.Weapon.SetAttack(stateMachine.Enemy.Data.Damage);                                
             }
 
             if (!IsInAttackRange())

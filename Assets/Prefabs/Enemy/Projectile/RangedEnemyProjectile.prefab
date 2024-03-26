@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2623689643573656045}
   - component: {fileID: 8159722129334005405}
   m_Layer: 0
-  m_Name: ScifiMechLighCanonProjectile
+  m_Name: RangedEnemyProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c2afb6a1bd6544180eb0eba903befb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!136 &2623689643573656045
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -161,5 +162,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  m_Constraints: 112
+  m_CollisionDetection: 2

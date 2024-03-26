@@ -8,12 +8,21 @@ public class RangedEnemyWeapon : EnemyProjectile
     public Transform muzzlePos;
     public int projectileSpeed;    
     public Transform target;
-    RangedEnemyStateMachine stateMachine;
-    
-    public void Use()
+    WaitForSeconds WFS;
+    RangedEnemy rangedEnemy;
+    private void Awake()
+    {
+        rangedEnemy = GetComponentInParent<RangedEnemy>();        
+    }
+
+    private void Start()
+    {
+        WFS = new WaitForSeconds(rangedEnemy.stateMachine.Enemy.Data.AttackRate);        
+    }    
+    public void StartShot()
     {
         StartCoroutine("Shot");
-    }
+    }    
 
     IEnumerator Shot()
     {
@@ -21,7 +30,7 @@ public class RangedEnemyWeapon : EnemyProjectile
         GameObject instantProjectile = Instantiate(projectilePrefab, muzzlePos.position, muzzlePos.rotation);
         Rigidbody projectileRigid = instantProjectile.GetComponent<Rigidbody>();
         projectileRigid.velocity = muzzlePos.forward * projectileSpeed;
-        yield return null;
+        yield return WFS;               
     }    
 
     void LookTarget()

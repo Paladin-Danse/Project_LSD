@@ -67,7 +67,7 @@ public class RangedEnemyBaseState : IState
         RangedEnemy enemy = stateMachine.Enemy;
         float movementSpeed = GetMovementSpeed();
         //Debug.Log(direction + "/" + movementSpeed);
-        Debug.Log(stateMachine.Enemy.Animator.GetBool("@Attack"));
+        //Debug.Log(stateMachine.Enemy.Animator.GetBool("@Attack"));
         enemy.GetComponent<Rigidbody>().MovePosition(enemy.transform.position + ((direction * movementSpeed) * Time.deltaTime));
     }
 

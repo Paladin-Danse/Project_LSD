@@ -18,7 +18,7 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] private GameObject bulletBox;
     [SerializeField] private GameObject firstAidKit;
 
-    private RangedEnemyStateMachine stateMachine;
+    public RangedEnemyStateMachine stateMachine;
 
     void Awake()
     {
@@ -35,7 +35,7 @@ public class RangedEnemy : MonoBehaviour
     {
         stateMachine.ChangeState(stateMachine.IdlingState);
         health.OnDie += OnDie;
-        health.OnTakeDamage += OnHit;
+        health.OnTakeDamage += OnHit;                
     }
 
     private void Update()
