@@ -15,7 +15,8 @@ MonoBehaviour:
   <PlayerChasingRange>k__BackingField: 30
   <AttackRange>k__BackingField: 15
   <AttackRate>k__BackingField: 1.5
-  <Damage>k__BackingField: 20
+  <ProjectileDistance>k__BackingField: 10
+  <Damage>k__BackingField: 50
   <Dealing_Start_TransitionTime>k__BackingField: 0.25
   <Dealing_End_TransitionTime>k__BackingField: 0.5
   <GroundedData>k__BackingField:
