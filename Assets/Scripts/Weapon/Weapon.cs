@@ -120,17 +120,17 @@ public class Weapon : MonoBehaviour
     }
     public Vector3 RandomSpread()
     {
-        /*
-        Camera curCam = Camera.main;
+        Camera curCam = playerCharacter_.FPCamera;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, rayDistance);
+        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.position.z);
         //RandomSpread * Recoil
-        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * stateMachine.defaultSpread * (stateMachine.curRecoil * 0.01f);
+        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.01f);
+
         Ray shotRay = curCam.ScreenPointToRay(centerPos + randomSpreadCircle);
         RaycastHit hit;
         Vector3 hitPos;
 
-        Debug.DrawRay(shotRay.origin, shotRay.direction, Color.red, rayDistance);
+        Debug.DrawRay(shotRay.origin, shotRay.GetPoint(rayDistance), Color.red, rayDistance);
 
         if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
         {
@@ -138,16 +138,16 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            hitPos = curCam.ScreenToWorldPoint(shotRay.origin);
-            hitPos.z += rayDistance;
+            hitPos = shotRay.GetPoint(rayDistance);
         }
         
         return hitPos;
-        */
         
+        /*
         //RandomSpread * Recoil
         Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.01f);
         return -firePos.forward + randomSpreadCircle;
+        */
         
     }
     public void WeaponSet()
