@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {        
     private EnemyProjectileMovementTransform movement;
-    float projectileDistance = 15f;
-    private int damage;
+    float projectileDistance;
+    float damage;
     public Transform target;
     
     public void Setup(Vector3 position)
@@ -47,15 +47,16 @@ public class EnemyProjectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+            collision.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
             Debug.Log(damage);
             Debug.Log("Player Hit");
             Destroy(gameObject);
         }
     }
-
-    public void SetDamage(int damage)
+    
+    public void InitProjectile(RangedEnemyWeapon weapon)
     {
-        this.damage = damage;
+        this.damage = weapon.projectileDamage;
+        this.projectileDistance = weapon.projectileDistance;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangedEnemyAttackState : RangedEnemyBaseState
 {    
-    private bool alreadyAppliedDealing;
+    //private bool alreadyAppliedDealing;
 
     public RangedEnemyAttackState(RangedEnemyStateMachine ememyStateMachine) : base(ememyStateMachine)
     {
@@ -12,7 +12,7 @@ public class RangedEnemyAttackState : RangedEnemyBaseState
 
     public override void Enter()
     {        
-        alreadyAppliedDealing = false;
+        //alreadyAppliedDealing = false;
 
         stateMachine.MovementSpeedModifier = 0;
         base.Enter();
@@ -36,10 +36,10 @@ public class RangedEnemyAttackState : RangedEnemyBaseState
         
         if (0 < normalizedTime)
         {
-            if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.RData.Dealing_Start_TransitionTime)
-            {
-                stateMachine.Enemy.Weapon.SetDamage(stateMachine.Enemy.RData.Damage);
-            }
+            //if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.RData.Dealing_Start_TransitionTime)
+            //{
+            //    stateMachine.Enemy.Projectile.SetDamage(stateMachine.Enemy.RData.Damage);
+            //}
 
             if (!IsInAttackRange())
             {

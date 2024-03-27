@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c2afb6a1bd6544180eb0eba903befb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
   target: {fileID: 8496106446693382973, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
 --- !u!136 &2623689643573656045
 CapsuleCollider:

@@ -6,7 +6,9 @@ public class RangedEnemy : MonoBehaviour
 {
     [field: Header("References")]
     [field: SerializeField] public EnemySO RData { get; private set; }
-    [field: SerializeField] public RangedEnemyWeapon Weapon { get; private set; }    
+    [field: SerializeField] public WeaponStatSO WSData { get; private set; }
+    //[field: SerializeField] public RangedEnemyWeapon Weapon { get; private set; }
+    [field: SerializeField] public EnemyProjectile Projectile { get; set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
