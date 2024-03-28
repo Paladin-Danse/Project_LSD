@@ -18,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour
 
     private IEnumerator OnMove(Vector3 targetPosition)
     {
-        LookTarget();
+        //LookTarget();
         Vector3 start = transform.position;
         
         movement.MoveTo((targetPosition-transform.position).normalized);

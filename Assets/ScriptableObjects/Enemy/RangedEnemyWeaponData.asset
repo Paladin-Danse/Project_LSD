@@ -28,7 +28,7 @@ MonoBehaviour:
       attackStatFlag: 0
       damage: 10
       range: 15
-      bulletSpeed: 50
+      bulletSpeed: 100
       explosionRange: 0
       maxExplosionDamageRange: 0
       IsKnockbackEnable: 0
