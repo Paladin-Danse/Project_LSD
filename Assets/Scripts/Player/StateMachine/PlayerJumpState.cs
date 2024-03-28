@@ -10,23 +10,20 @@ public class PlayerJumpState : PlayerAirState
 
     public override void Enter()
     {
-        bool isGround = stateMachine.player.isGrounded;
-        if (isGround)
+        
+        if (stateMachine.player.isGrounded && stateMachine.player.isJump)
         {
-            float jumpForce = stateMachine.player.Data.airData.JumpForce *
-                              stateMachine.player.Data.airData.JumpForceModifier;
-            stateMachine.player.rigidbody_.velocity = new Vector3(0, jumpForce, 0);
-            stateMachine.player.isGrounded = false;
+            SetAnimation(stateMachine.player.AnimationData.JumpParameterHash);
+            SetAnimation(stateMachine.player.AnimationData.GroundParameterHash, false);
+            stateMachine.player.Jump();
         }
         base.Enter();
 
-        //(stateMachine.player.AnimationData.JumpParameterHash);
+        
     }
     public override void Exit()
     {
         base.Exit();
-
-        //StopAnimation(stateMachine.player.AnimationData.JumpParameterHash);
     }
     public override void Update()
     {
@@ -36,8 +33,7 @@ public class PlayerJumpState : PlayerAirState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        if (stateMachine.player.rigidbody_.velocity.y <= 0)
+        if (stateMachine.player.rigidbody_.velocity.y < 0)
         {
             stateMachine.ChangeState(stateMachine.FallState);
             return;

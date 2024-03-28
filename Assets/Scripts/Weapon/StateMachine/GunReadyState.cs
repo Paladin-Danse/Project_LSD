@@ -33,7 +33,7 @@ public class GunReadyState : GunBaseState
 
         curWeapon.isFiring = true;
 
-        if (!curWeapon.isAuto && !curWeapon.isEmpty)
+        if (!curWeapon.isAuto && !curWeapon.isEmpty && curWeapon.isShotable)
         {
             curWeapon.ShotCoroutinePlay(curWeapon.Shot());
         }
@@ -51,7 +51,7 @@ public class GunReadyState : GunBaseState
     {
         Weapon curWeapon = stateMachine.Gun;
 
-        if (curWeapon.isFiring && !curWeapon.isEmpty)
+        if (curWeapon.isFiring && !curWeapon.isEmpty && curWeapon.isShotable)
         {
             curWeapon.ShotCoroutinePlay(curWeapon.Shot());
         }

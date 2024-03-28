@@ -12,7 +12,7 @@ public class GunStateMachine : StateMachine<GunBaseState>
     public GunReadyState ReadyState { get; }
     public GunEmptyState EmptyState { get; }
     public GunReloadState ReloadState { get; }
-    
+    public Vector2 playerMovementInput { get; private set; }
     public GunStateMachine(Weapon Gun)
     {
         this.Gun = Gun;

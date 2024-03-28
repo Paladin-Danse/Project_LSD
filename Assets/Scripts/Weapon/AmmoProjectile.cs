@@ -63,8 +63,7 @@ public class AmmoProjectile : MonoBehaviour
                 }
             }
             rigidbody_.velocity = Vector3.zero;
-            gameObject.SetActive(false);
-        }
+            gameObject.SetActive(false);        }
     }
     
     private void DisableProjectile()

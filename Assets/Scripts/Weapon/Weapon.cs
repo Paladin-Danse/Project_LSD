@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     public string WeaponName;
     public bool isAuto;
     public bool isFiring;
+    public bool isShotable;
     public int maxMagazine;
     public string maxMagazineText { get { return maxMagazine.ToString(); } }
     public int curMagazine;
@@ -36,10 +37,12 @@ public class Weapon : MonoBehaviour
 
     public Quaternion weaponTargetRotation { get; private set; }
 
+    //WaitForSeconds
     public WaitForSeconds weaponAttackDelay;
     public WaitForSeconds weaponReloadDelay;
     public WaitForSeconds whileRestTimeSeconds;
 
+    //IEnumerator
     public IEnumerator ShotCoroutine = null;
     public IEnumerator RecoilCoroutine = null;
     public IEnumerator ReloadCoroutine = null;
@@ -93,8 +96,11 @@ public class Weapon : MonoBehaviour
         projectiles = new GameObject("Projectiles");
         mods = new List<Mod>();
 
+        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
+
         baseStat = Instantiate(baseStatSO).weaponStat;
         GetWeaponStat = () => { return baseStat; };
+        isShotable = true;
     }
 
     private void Update()
@@ -122,7 +128,7 @@ public class Weapon : MonoBehaviour
     {
         Camera curCam = playerCharacter_.FPCamera;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.position.z);
+        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.localPosition.z);
         //RandomSpread * Recoil
         Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.01f);
 
@@ -130,17 +136,17 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         Vector3 hitPos;
 
-        Debug.DrawRay(shotRay.origin, shotRay.GetPoint(rayDistance), Color.red, rayDistance);
-
         if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
         {
             hitPos = hit.point;
+            Debug.DrawRay(shotRay.origin, hitPos, Color.red, rayDistance);
         }
         else
         {
             hitPos = shotRay.GetPoint(rayDistance);
+            Debug.DrawRay(shotRay.origin, shotRay.GetPoint(rayDistance), Color.red, rayDistance);
         }
-        
+
         return hitPos;
         
         /*
@@ -156,7 +162,7 @@ public class Weapon : MonoBehaviour
         weaponReloadDelay = new WaitForSeconds(baseStatSO.weaponStat.reloadDelay);
         whileRestTimeSeconds = new WaitForSeconds(0.03f);
         maxMagazine = curWeaponStat.magazine;
-        curMagazine = math.max(0, maxMagazine);//����� 0���� �Ǿ��ִ� ���� ���߿� �κ��丮 ���� ������ �ִ� ź���� ������ ���� ��.
+        curMagazine = math.max(0, maxMagazine);//zero is remaining ammo to Inventory & soon develop(math.max -> math.min)
         maxRecoil = curWeaponStat.recoil * 2f;
         defaultSpread = curWeaponStat.spread * 0.01f;
         maxSpread = defaultSpread * 2f;
@@ -174,14 +180,6 @@ public class Weapon : MonoBehaviour
         WeaponSet();
         PlayClip(cock_AudioClip, cock_Volume);
         stateMachine.ChangeState(stateMachine.ReadyState);
-
-        //transform.rotation = WeaponForward();
-    }
-
-    public Quaternion WeaponForward()
-    {
-        Ray ray = playerCharacter_.FPCamera.ScreenPointToRay(new Vector3(playerCharacter_.FPCamera.pixelWidth * 0.5f, playerCharacter_.FPCamera.pixelWidth * 0.5f, 0));
-        return Quaternion.LookRotation(ray.GetPoint(curWeaponStat.attackStat.range));
     }
 
     public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List, AmmoProjectile obj)
