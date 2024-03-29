@@ -78,6 +78,7 @@ public class Weapon : MonoBehaviour
         WeaponSet();
         CurrentWeaponEquip();
         stateMachine.currentState.AddInputActionsCallbacks();
+        animationData.Initialize();
     }
 
     protected void Awake()
@@ -130,7 +131,7 @@ public class Weapon : MonoBehaviour
         float rayDistance = curWeaponStat.attackStat.range;
         Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.localPosition.z);
         //RandomSpread * Recoil
-        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.01f);
+        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.1f);
 
         Ray shotRay = curCam.ScreenPointToRay(centerPos + randomSpreadCircle);
         RaycastHit hit;
@@ -193,9 +194,8 @@ public class Weapon : MonoBehaviour
     }
     public void PlayClip(AudioClip newClip, float volume)
     {
-        audioSource.clip = newClip;
         audioSource.volume = volume;
-        audioSource.Play();
+        audioSource.PlayOneShot(newClip);
     }
 
     protected void ProjectilePooling(AmmoProjectile projectile)
@@ -277,10 +277,18 @@ public class Weapon : MonoBehaviour
     {
         PlayClip(reload_start_AudioClip, reload_Volume);
         animator.SetInteger(animationData.reloadParameterHash, 1);
+        while(!animator.GetCurrentAnimatorStateInfo(0).IsTag("Reload"))
+        {
+            yield return null;
+        }
+        float reloadAnimTime = animator.GetCurrentAnimatorStateInfo(0).length;
+        animator.speed = (reloadAnimTime / baseStatSO.weaponStat.reloadDelay) * 0.9f;//0.9f is For the naturalness of animation
+
+        animator.SetInteger(animationData.reloadParameterHash, -1);
 
         yield return weaponReloadDelay;
         PlayClip(reload_end_AudioClip, reload_Volume);
-        animator.SetInteger(animationData.reloadParameterHash, -1);
+        animator.speed = 1;
         curMagazine = maxMagazine;
         playerCharacter_.playerUIEventInvoke();
         ReloadCoroutine = null;
