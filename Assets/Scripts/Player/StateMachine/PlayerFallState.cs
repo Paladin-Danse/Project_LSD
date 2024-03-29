@@ -10,17 +10,10 @@ public class PlayerFallState : PlayerAirState
     public override void Update()
     {
         base.Update();
-        Vector3 origin = stateMachine.player.transform.position;
-        RaycastHit hit;
-        LayerMask layerMask = stateMachine.player.layerMask_GroundCheck;
-        float RayDistance = stateMachine.player.Data.airData.GroundCheckRay_Distance;
-
-        Debug.DrawRay(origin, Vector3.down, Color.red,RayDistance);
-        if (Physics.Raycast(new Ray(origin, Vector3.down), out hit, RayDistance, layerMask) && !stateMachine.player.isGrounded)
+        if(stateMachine.player.Falling())
         {
-            stateMachine.player.isGrounded = true;
+            SetAnimation(stateMachine.player.AnimationData.GroundParameterHash, true);
             stateMachine.ChangeState(stateMachine.IdleState);
-            Debug.Log("IsGround");
         }
     }
 }

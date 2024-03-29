@@ -41,8 +41,15 @@ public class PlayerGroundedState : PlayerBaseState
         stateMachine.ChangeState(stateMachine.WalkState);
     }
 
+    protected override void OnRun(InputAction.CallbackContext context)
+    {
+        base.OnRun(context);
+        stateMachine.ChangeState(stateMachine.RunState);
+    }
+
     protected override void OnJump(InputAction.CallbackContext callbackContext)
     {
-        stateMachine.ChangeState(stateMachine.JumpState);
+        if(stateMachine.player.isJump)
+            stateMachine.ChangeState(stateMachine.JumpState);
     }
 }

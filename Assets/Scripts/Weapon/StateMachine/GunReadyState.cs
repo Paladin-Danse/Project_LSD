@@ -13,19 +13,32 @@ public class GunReadyState : GunBaseState
     public override void Enter()
     {
         base.Enter();
-        if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
         stateMachine.Gun.isFiring = false;
+        stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.fireParameterHash, -1);
+        if (stateMachine.Gun.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
     }
     public override void Exit()
     {
         base.Exit();
+        stateMachine.Gun.isFiring = false;
+        stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.fireParameterHash, -1);
     }
     public override void Update()
     {
         base.Update();
-        if(stateMachine.Gun.isAuto && stateMachine.Gun.isFiring && !stateMachine.isEmpty) AutoFire();
+        if(stateMachine.Gun.isAuto && stateMachine.Gun.isFiring && !stateMachine.Gun.isEmpty) AutoFire();
     }
-
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+        PlayerStateMachine playerStateMachine = stateMachine.Gun.playerCharacter_.stateMachine;
+        int playerState = (playerStateMachine.currentState == playerStateMachine.WalkState ? 1 :
+                           playerStateMachine.currentState == playerStateMachine.RunState ? 3 : 0);
+        if(!stateMachine.Gun.isFiring)
+            stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.movementSpeedParameterHash, playerState);
+        else
+            stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.movementSpeedParameterHash, 0);
+    }
     protected override void OnFire(InputAction.CallbackContext callbackContext)
     {
         base.OnFire(callbackContext);
@@ -33,10 +46,11 @@ public class GunReadyState : GunBaseState
 
         curWeapon.isFiring = true;
 
-        if (!curWeapon.isAuto && stateMachine.ShotCoroutine == null && !stateMachine.isEmpty)
+        if (!curWeapon.isAuto && !curWeapon.isEmpty && curWeapon.isShotable)
         {
-            stateMachine.ShotCoroutine = Shot();
-            curWeapon.StartCoroutine(stateMachine.ShotCoroutine);
+            curWeapon.animator.SetInteger(curWeapon.animationData.fireParameterHash, 1);
+            curWeapon.ShotCoroutinePlay(curWeapon.Shot());
+            curWeapon.animator.SetInteger(curWeapon.animationData.fireParameterHash, -1);
         }
     }
 
@@ -45,44 +59,33 @@ public class GunReadyState : GunBaseState
         base.StopFire(callbackContext);
         Weapon curWeapon = stateMachine.Gun;
 
-        if (curWeapon.isFiring) curWeapon.isFiring = false;
+        if (curWeapon.isFiring)
+        {
+            curWeapon.isFiring = false;
+            curWeapon.animator.SetInteger(curWeapon.animationData.fireParameterHash, -1);
+            curWeapon.animator.SetInteger(curWeapon.animationData.movementSpeedParameterHash, 0);
+        }
     }
 
     protected void AutoFire()
     {
         Weapon curWeapon = stateMachine.Gun;
 
-        if (stateMachine.ShotCoroutine == null && curWeapon.isFiring && !stateMachine.isEmpty)
+        if (curWeapon.isFiring && !curWeapon.isEmpty && curWeapon.isShotable)
         {
-            stateMachine.ShotCoroutine = Shot();
-            curWeapon.StartCoroutine(stateMachine.ShotCoroutine);
+            curWeapon.animator.SetInteger(curWeapon.animationData.fireParameterHash, 2);
+            curWeapon.ShotCoroutinePlay(curWeapon.Shot());
         }
     }
     protected override void OnReload(InputAction.CallbackContext callbackContext)
     {
         base.OnReload(callbackContext);
+        Weapon curWeapon = stateMachine.Gun;
         //재장전 하기 전 남은 잔탄을 현재 가지고 있는 전체 탄에 더할 것.
-        if(stateMachine.curMagazine != stateMachine.maxMagazine)
+        if (curWeapon.curMagazine != curWeapon.maxMagazine)
         {
+            curWeapon.isFiring = false;
             stateMachine.ChangeState(stateMachine.ReloadState);
         }
-    }
-    protected IEnumerator Shot()
-    {
-        stateMachine.curMagazine--;
-        stateMachine.Gun.PlayClip(stateMachine.Gun.shot_AudioClip, stateMachine.Gun.shot_Volume);
-        stateMachine.playerStateMachine_.player.playerUIEventInvoke();
-
-        //Projectile Create
-        ProjectilePooling(stateMachine.Gun.ammoProjectile);
-        //Recoil
-        if (stateMachine.RecoilCoroutine != null) stateMachine.Gun.StopCoroutine(stateMachine.RecoilCoroutine);
-        stateMachine.RecoilCoroutine = OnRecoil();
-        stateMachine.Gun.StartCoroutine(stateMachine.RecoilCoroutine);
-        //Empty Check
-        if (stateMachine.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
-        //shoot CoolTime
-        yield return stateMachine.weaponAttackDelay;
-        stateMachine.ShotCoroutine = null;
     }
 }

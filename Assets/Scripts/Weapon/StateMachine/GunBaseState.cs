@@ -65,51 +65,8 @@ public class GunBaseState : IState
     {
 
     }
-
-    protected void ProjectilePooling(AmmoProjectile projectile)
-    {
-        AmmoProjectile newProjectile;
-        if (stateMachine.Gun.weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-            newProjectile = stateMachine.Gun.weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-        else
-            newProjectile = stateMachine.Gun.CreateObject(stateMachine.Gun.weaponProjectile_List, projectile);
-
-        newProjectile.transform.position = stateMachine.Gun.firePos.position;
-        newProjectile.transform.rotation = Quaternion.LookRotation(stateMachine.Gun.RandomSpread());
-        newProjectile.OnInit(stateMachine.Gun);
-    }
     protected virtual void OnReload(InputAction.CallbackContext callbackContext)
     {
         
-    }
-    protected IEnumerator OnRecoil()
-    {
-        stateMachine.targetRecoil = math.min(stateMachine.curRecoil + stateMachine.Gun.curWeaponStat.recoil, stateMachine.maxRecoil);
-
-        PlayerStateMachine playerStateMachine = stateMachine.playerStateMachine_;
-        Transform camTransform = playerStateMachine.playerCamTransform;
-        int cnt = 0;
-        while (stateMachine.curRecoil < stateMachine.targetRecoil - 0.1f)
-        {
-            stateMachine.curRecoil = math.lerp(stateMachine.curRecoil, stateMachine.targetRecoil, 0.4f);
-            
-            cnt++;
-            if (cnt > 100) break;
-            
-            yield return stateMachine.whileRestTimeSeconds;
-        }
-        cnt = 0;
-        while(stateMachine.curRecoil > 0.1f)
-        {
-            if(stateMachine.Gun.isFiring) stateMachine.curRecoil = math.lerp(stateMachine.curRecoil, 0, 0.1f);
-            else stateMachine.curRecoil = math.lerp(stateMachine.curRecoil, 0, 0.4f);
-            cnt++;
-            if(cnt > 100) break;
-
-            yield return stateMachine.whileRestTimeSeconds;
-        }
-        stateMachine.RecoilCoroutine = null;
-        Debug.Log("Coroutine end");
-        yield break;
     }
 }

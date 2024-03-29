@@ -12,24 +12,18 @@ public class GunEmptyState : GunBaseState
     protected override void OnFire(InputAction.CallbackContext callbackContext)
     {
         base.OnFire(callbackContext);
-        if (stateMachine.ShotCoroutine == null)
+        if (stateMachine.Gun.ShotCoroutine == null)
         {
-            stateMachine.ShotCoroutine = DryFire();
-            stateMachine.Gun.StartCoroutine(stateMachine.ShotCoroutine);
+            stateMachine.Gun.ShotCoroutinePlay(stateMachine.Gun.DryFire());
         }
     }
 
-    IEnumerator DryFire()
-    {
-        stateMachine.Gun.PlayClip(stateMachine.Gun.dry_AudioClip, stateMachine.Gun.dry_Volume);
-        yield return null;
-        stateMachine.ShotCoroutine = null;
-    }
+    
 
     protected override void OnReload(InputAction.CallbackContext callbackContext)
     {
         base.OnReload(callbackContext);
-        if (stateMachine.curMagazine != stateMachine.maxMagazine)
+        if (stateMachine.Gun.curMagazine != stateMachine.Gun.maxMagazine)
         {
             stateMachine.ChangeState(stateMachine.ReloadState);
         }
