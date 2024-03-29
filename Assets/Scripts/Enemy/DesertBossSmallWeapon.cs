@@ -27,12 +27,12 @@ public class DesertBossSmallWeapon : MonoBehaviour
     {
         WFS = new WaitForSeconds(desertBoss.stateMachine.Enemy.RData.AttackRate);
     }
-    public void FirstShot()
+    public void SFirstShot()
     {
         StartCoroutine("FShot");
     }
 
-    public void SecondShot()
+    public void SSecondShot()
     {
         StartCoroutine("SShot");
     }

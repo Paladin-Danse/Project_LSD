@@ -7,13 +7,18 @@ public class EnemyProjectile : MonoBehaviour
     private EnemyProjectileMovementTransform movement;
     float projectileDistance;
     float damage;
-    public Transform target;
-    
+    private Transform target;
+
+    private void Awake()
+    {
+        target = GameObject.Find("PlayerCharacter").transform;
+    }
     public void Setup(Vector3 position)
     {
         movement = GetComponent<EnemyProjectileMovementTransform>();
         
         StartCoroutine("OnMove", position);
+        
     }
 
     private IEnumerator OnMove(Vector3 targetPosition)

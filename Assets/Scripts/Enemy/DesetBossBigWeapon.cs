@@ -44,10 +44,10 @@ public class DesetBossBigWeapon : MonoBehaviour
         
         Rigidbody projectileRigid1 = instantProjectile1.GetComponent<Rigidbody>();
         Rigidbody projectileRigid2 = instantProjectile2.GetComponent<Rigidbody>();
-        
+
         projectileRigid1.velocity = muzzlePos1.forward * projectileSpeed;
         projectileRigid2.velocity = muzzlePos2.forward * projectileSpeed;
-        
+
         desertBoss.Projectile = instantProjectile1.GetComponent<EnemyProjectile>();
         desertBoss.Projectile = instantProjectile2.GetComponent<EnemyProjectile>();
         
@@ -62,10 +62,10 @@ public class DesetBossBigWeapon : MonoBehaviour
         
         Rigidbody projectileRigid3 = instantProjectile3.GetComponent<Rigidbody>();
         Rigidbody projectileRigid4 = instantProjectile4.GetComponent<Rigidbody>();
-        
+
         projectileRigid3.velocity = muzzlePos3.forward * projectileSpeed;
         projectileRigid4.velocity = muzzlePos4.forward * projectileSpeed;
-        
+
         desertBoss.Projectile = instantProjectile3.GetComponent<EnemyProjectile>();
         desertBoss.Projectile = instantProjectile4.GetComponent<EnemyProjectile>();
         //desertBoss.Projectile.InitProjectile(this);
