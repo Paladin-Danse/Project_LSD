@@ -14,11 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PlayerChasingRange>k__BackingField: 20
   <AttackRange>k__BackingField: 2
-  <ForceTransitionTime>k__BackingField: 0.2
-  <Force>k__BackingField: 0.1
   <Damage>k__BackingField: 20
   <Dealing_Start_TransitionTime>k__BackingField: 0.25
-  <Dealing_End_TransitionTime>k__BackingField: 0.35
+  <Dealing_End_TransitionTime>k__BackingField: 0.5
   <GroundedData>k__BackingField:
     <BaseSpeed>k__BackingField: 5
     <BaseRotationDamping>k__BackingField: 8
