@@ -37,11 +37,6 @@ public class Weapon : MonoBehaviour
 
     public Quaternion weaponTargetRotation { get; private set; }
 
-    //WaitForSeconds
-    public WaitForSeconds weaponAttackDelay;
-    public WaitForSeconds weaponReloadDelay;
-    public WaitForSeconds whileRestTimeSeconds;
-
     //IEnumerator
     public IEnumerator ShotCoroutine = null;
     public IEnumerator RecoilCoroutine = null;
@@ -159,9 +154,6 @@ public class Weapon : MonoBehaviour
     }
     public void WeaponSet()
     {
-        weaponAttackDelay = new WaitForSeconds(baseStatSO.weaponStat.fireDelay);
-        weaponReloadDelay = new WaitForSeconds(baseStatSO.weaponStat.reloadDelay);
-        whileRestTimeSeconds = new WaitForSeconds(0.03f);
         maxMagazine = curWeaponStat.magazine;
         curMagazine = math.max(0, maxMagazine);//zero is remaining ammo to Inventory & soon develop(math.max -> math.min)
         maxRecoil = curWeaponStat.recoil * 2f;
@@ -235,7 +227,7 @@ public class Weapon : MonoBehaviour
         //Empty Check
         if (isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
         //shoot CoolTime
-        yield return weaponAttackDelay;
+        yield return YieldCacher.WaitForSeconds(curWeaponStat.fireDelay);
         ShotCoroutine = null;
     }
 
@@ -257,7 +249,7 @@ public class Weapon : MonoBehaviour
             cnt++;
             if (cnt > 100) break;
 
-            yield return whileRestTimeSeconds;
+            yield return YieldCacher.WaitForSeconds(0.03f);
         }
         cnt = 0;
         while (curRecoil > 0.1f)
@@ -267,7 +259,7 @@ public class Weapon : MonoBehaviour
             cnt++;
             if (cnt > 100) break;
 
-            yield return whileRestTimeSeconds;
+            yield return YieldCacher.WaitForSeconds(0.03f);
         }
         RecoilCoroutine = null;
         Debug.Log("Coroutine end");
@@ -286,7 +278,7 @@ public class Weapon : MonoBehaviour
 
         animator.SetInteger(animationData.reloadParameterHash, -1);
 
-        yield return weaponReloadDelay;
+        yield return YieldCacher.WaitForSeconds(curWeaponStat.reloadDelay);
         PlayClip(reload_end_AudioClip, reload_Volume);
         animator.speed = 1;
         curMagazine = maxMagazine;
