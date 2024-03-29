@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 5626529274517367728}
   - component: {fileID: 5296585982093912490}
   - component: {fileID: 6369900971327263328}
-  - component: {fileID: -2099434569977640217}
   - component: {fileID: 4206766133559148824}
   - component: {fileID: 5293535149826344170}
   - component: {fileID: 5263050898044544992}
-  m_Layer: 0
+  - component: {fileID: -4243238764210590933}
+  m_Layer: 10
   m_Name: DesertBossSmallProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,18 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-2099434569977640217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 309353638689228500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80c2afb6a1bd6544180eb0eba903befb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4206766133559148824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +151,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!114 &-4243238764210590933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309353638689228500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428de3ac87f75d4428a7ecb58241a697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Boom1: {fileID: 1007127540951276732, guid: 3ace37360f306cb4aac03640550fa9ef, type: 3}
+  Boom2: {fileID: 1620140131458704099, guid: 57e5b83dfee152a47aedf7d83c83e9f5, type: 3}
+  Boom3: {fileID: 560014183069458990, guid: 621e45f610d611746802ad828f66b094, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 264
