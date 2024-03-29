@@ -16,6 +16,7 @@ public class GunReloadState : GunBaseState
         {
             stateMachine.Gun.ReloadCoroutine = stateMachine.Gun.Reload();
             stateMachine.Gun.StartCoroutine(stateMachine.Gun.ReloadCoroutine);
+            stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.movementSpeedParameterHash, 0);
         }
         else
         {

@@ -10,7 +10,7 @@ public class PlayerWalkState : PlayerGroundedState
 
     public override void Enter()
     {
-        stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
+        stateMachine.player.MovementSpeedModifier = groundData.WalkSpeedModifier;
         base.Enter();
     }
     public override void Exit()
@@ -20,6 +20,11 @@ public class PlayerWalkState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
         SetAnimation(stateMachine.player.AnimationData.DirectionParameterHash, stateMachine.MovementInput.x / 2);
         SetAnimation(stateMachine.player.AnimationData.SpeedParameterHash, stateMachine.MovementInput.y / 2);
     }
