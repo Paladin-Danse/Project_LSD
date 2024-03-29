@@ -7,5 +7,6 @@ using UnityEngine;
 public class PlayerGroundData
 {
     public float BaseSpeed;
-    public float BaseRotationDamping;
+    public float WalkSpeedModifier;
+    public float RunSpeedModifier;
 }

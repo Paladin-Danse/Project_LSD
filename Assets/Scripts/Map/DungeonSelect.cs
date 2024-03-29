@@ -1,45 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class DungeonSelect : MonoBehaviour
 {
-    public GameObject GreenLine;    
-    public GameObject dungeonEntrancePanel;
-    public TextMeshProUGUI dungeonNameOfPanel;
-    public DungeonData[] SelectedDungeon;
-    public GameObject dungeonTooltip;
+    public GameObject GreenLine;
+    public GameObject dungeonTooltipPanel;
+    public DungeonData dungeonData;
+
+    DungeonSelectedManager dungeonSelectedManager;
+    DungeonTooltip dungeonTooltip;
+
+    private void Awake()
+    {
+        dungeonTooltip = dungeonTooltipPanel.GetComponent<DungeonTooltip>();
+        dungeonSelectedManager = FindObjectOfType<DungeonSelectedManager>();
+    }
 
     public void MouseOverUI()
     {
         GreenLine.SetActive(true);
+        dungeonTooltip.OnTooltip(dungeonSelectedManager.SelectedDungeon[dungeonData.dungeonNumber]);
+        dungeonTooltipPanel.SetActive(true);
     }
 
     public void MouseExitUI()
     {
         GreenLine.SetActive(false);
-    }
-
-    public void OnDungeonEntrancePanel(int dungeonNum)
-    {
-        dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].dungeonName;
-        dungeonEntrancePanel.SetActive(true);
-    }
-
-    public void OffDungeonEntrancePanel()
-    {
-        dungeonEntrancePanel.SetActive(false);
-    }
-
-    public void ShowTooltip()
-    {
-        dungeonTooltip.SetActive(true);
-    }
-
-    public void HideTooltip()
-    {
-        dungeonTooltip.SetActive(false);
+        dungeonTooltipPanel.SetActive(false);
     }
 }

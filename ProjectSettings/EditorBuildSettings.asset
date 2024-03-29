@@ -4,5 +4,12 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SafeZoneScene.unity
+    guid: f84cb01355f578442a98a8e22821f385
+  - enabled: 1
+    path: Assets/Scenes/DungeonScene.unity
+    guid: df3e94ea402a52f4b96af358b5f3336a
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 4bbba5e99128beb42be91b6bea4858fc, type: 2}

@@ -26,4 +26,10 @@ public class PlayerIdleState : PlayerGroundedState
             return;
         }
     }
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+        SetAnimation(stateMachine.player.AnimationData.DirectionParameterHash, 0f);
+        SetAnimation(stateMachine.player.AnimationData.SpeedParameterHash, 0f);
+    }
 }

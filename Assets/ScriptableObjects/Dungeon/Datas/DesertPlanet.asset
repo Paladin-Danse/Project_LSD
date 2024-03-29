@@ -18,3 +18,4 @@ MonoBehaviour:
     \uC0AC\uB9C9\uD589\uC131\uC774\uB2E4. \n\uB2E4\uB9CC \uC5D0\uB108\uC9C0\uC6D0\uC73C\uB85C
     \uC0AC\uC6A9\uB418\uB294 \uD76C\uADC0 \uAD11\uC11D\uC774 \uB9CE\uC774 \uB9E4\uC7A5\uB418\uC5B4\uC788\uB2E4."
   dungeonNumber: 0
+  dungeonPrefab: {fileID: 4888475042204524659, guid: a214819a160fecd45a7d6ddf0d6773f4, type: 3}

@@ -8,18 +8,21 @@ TagManager:
   - Weapon
   - FPWeaponLayer
   - AI
+  - Terrain
+  - Fire
+  - InteractableObject
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - DungeonEntrance
+  - Enemy
+  - Terrain
   - Weapon
-  - 
+  - Projectile
   - 
   - 
   - 

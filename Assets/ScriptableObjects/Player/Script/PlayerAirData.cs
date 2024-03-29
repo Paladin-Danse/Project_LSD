@@ -8,4 +8,5 @@ public class PlayerAirData
 {
     public float JumpForce;
     public float JumpForceModifier;
+    public float GroundCheckRay_Distance;
 }

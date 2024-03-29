@@ -1,35 +1,65 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public PlayerStateMachine stateMachine { get; private set; }
-    public PlayerInput input { get; private set; }
-    [field: SerializeField] public PlayerData Data { get; private set; }
-    public Rigidbody rigidbody { get; private set; }
+    public PlayerInput _input { get; private set; }
+    
+    public Inventory inventory;
+    public PlayerUI playerUI;
+
+    public PlayerCharacter playerCharacter;
 
     private void Awake()
     {
-        stateMachine = new PlayerStateMachine(this);
-        rigidbody = GetComponent<Rigidbody>();
-        input = GetComponent<PlayerInput>();
+        _input = transform.AddComponent<PlayerInput>();
+        inventory = GetComponent<Inventory>();
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        stateMachine.ChangeState(stateMachine.IdleState);
+        Possess(playerCharacter);
     }
 
     private void Update()
     {
-        stateMachine.HandleInput();
-        stateMachine.Update();
     }
 
     private void FixedUpdate()
     {
-        stateMachine.PhysicsUpdate();
+
+    }
+
+    public void Possess(PlayerCharacter playerCharacter)
+    {
+        this.playerCharacter = playerCharacter;
+        OnControllCharacter();
+        playerCharacter.playerUIEventInvoke();
+    }
+
+    public void UnPossessed(PlayerCharacter playerCharacter) 
+    {
+        this.playerCharacter = null;
+        playerCharacter.playerUIEventInvoke();
+    }
+
+    public void OnControllCharacter() 
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        playerCharacter.input = _input;
+        playerCharacter.OnPossessCharacter();
+    }
+
+    public void OnControllUI() 
+    {
+        Cursor.lockState = CursorLockMode.None;
+        playerCharacter.input = null;
+        playerCharacter.OnUnpossessCharacter();
     }
 }

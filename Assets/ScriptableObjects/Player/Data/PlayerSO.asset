@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
   groundData:
-    BaseSpeed: 15
-    BaseRotationDamping: 1
+    BaseSpeed: 16
+    WalkSpeedModifier: 1
+    RunSpeedModifier: 2
   airData:
-    JumpForce: 0
-    JumpForceModifier: 0
-  LookRotateSpeed: 10
+    JumpForce: 10
+    JumpForceModifier: 1
+    GroundCheckRay_Distance: 2
+  LookRotateSpeed: 5
   LookRotateModifier: 1
+  UpdownMaxAngle: 80
