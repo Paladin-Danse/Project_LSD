@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
   groundData:
-    BaseSpeed: 16
+    BaseSpeed: 8
     WalkSpeedModifier: 1
     RunSpeedModifier: 2
   airData:
