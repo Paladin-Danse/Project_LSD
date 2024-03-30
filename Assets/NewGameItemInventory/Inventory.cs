@@ -7,6 +7,11 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
 
+public interface IObjectCrash
+{
+    void TakePhysicalCrashAmmo(AmmoType ammoType, int count);
+}
+
 // 아이템 슬롯 클래스
 public class ItemSlot
 {
@@ -15,7 +20,7 @@ public class ItemSlot
 }
 
 // 인벤토리를 표현하기 위한 클래스
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IObjectCrash
 {
     public ItemSlotUI[] uiSlots; // ui 슬롯
     public ItemSlot[] slots; // item 슬롯
@@ -34,6 +39,11 @@ public class Inventory : MonoBehaviour
     public GameObject equipButton; // 착용 버튼
     public GameObject unEquipButton; // 해제 버튼
     public GameObject dropButton; // 버림 버튼
+
+    private int rifleAmmoCount; // 남은 라이플탄약
+    private int pistolAmmoCount; // 남은 피스톨탄약
+    public TextMeshProUGUI rifleAmmoCountText; 
+    public TextMeshProUGUI pistolAmmoCountText;
 
     private int curEquipIndex; // ???
 
@@ -63,7 +73,8 @@ public class Inventory : MonoBehaviour
             uiSlots[i].index = i;
             uiSlots[i].Clear();
         }
-
+        rifleAmmoCount = 100;
+        pistolAmmoCount = 100;
         ClearSeletecItemWindow();
     }
 
@@ -83,6 +94,7 @@ public class Inventory : MonoBehaviour
             inventoryWindow.SetActive(false); // 인벤토리창을 끈다
             onCloseInventory?.Invoke(); // 인벤토리창 끄기 인보크
             //controller.ToggleCursor(false); // 컨트롤러.커서 잠금
+            UpdateAmmoUI();
             Cursor.lockState = CursorLockMode.Locked; // 커서 잠금
         }
         else
@@ -99,6 +111,35 @@ public class Inventory : MonoBehaviour
         return inventoryWindow.activeInHierarchy;
     }
 
+    [System.Obsolete]
+    public void TakePhysicalCrashAmmo(AmmoType ammoType, int count)
+    {
+        switch (ammoType)
+        {
+            case AmmoType.Rifle:
+                AddAmmo(ref rifleAmmoCount, count);
+                break;
+            case AmmoType.Pistol:
+                AddAmmo(ref pistolAmmoCount, count);
+                break;
+        }
+        if (inventoryWindow.active) // 인벤토리를 열고있다면
+        {
+            UpdateAmmoUI();
+        }
+    }
+
+    void AddAmmo(ref int ammo,int count)
+    {
+        ammo += count;
+        if (ammo > 999) ammo = 999;
+    }
+
+    void UpdateAmmoUI()
+    {
+        rifleAmmoCountText.text = rifleAmmoCount.ToString();
+        pistolAmmoCountText.text = pistolAmmoCount.ToString();
+    }
     // 인벤토리에 아이템 추가
     public void AddItem(ItemData item)
     {
