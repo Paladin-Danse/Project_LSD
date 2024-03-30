@@ -104,9 +104,9 @@ public class PlayerBaseState : IState
     {
         stateMachine.MovementInput = stateMachine.player.input.playerActions.Move.ReadValue<Vector2>();
     }
-    private void Move()
+    protected virtual void Move()
     {
-        stateMachine.player.Move();
+        
     }
     private void Rotate()
     {

@@ -36,6 +36,11 @@ public class PlayerGroundedState : PlayerBaseState
 
         base.OnMovementCanceled(context);
     }
+    protected override void Move()
+    {
+        base.Move();
+        stateMachine.player.Move();
+    }
     protected virtual void OnMove()
     {
         stateMachine.ChangeState(stateMachine.WalkState);
@@ -50,6 +55,8 @@ public class PlayerGroundedState : PlayerBaseState
     protected override void OnJump(InputAction.CallbackContext callbackContext)
     {
         if(stateMachine.player.isJump)
+        {
             stateMachine.ChangeState(stateMachine.JumpState);
+        }   
     }
 }

@@ -162,7 +162,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 1
+  isJump: 1
   inventory: {fileID: 7861501597850789122}
+  JumpCoolTime: 0
+  playerCamTransform: {fileID: 0}
+  camXRotate: 0
   firePos: {fileID: 3601009417266366776}
   fireRateDelay: 0
   curWeapon: {fileID: 0}
