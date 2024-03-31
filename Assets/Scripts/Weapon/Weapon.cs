@@ -43,10 +43,9 @@ public class Weapon : MonoBehaviour
     public IEnumerator ReloadCoroutine = null;
 
     public List<Mod> mods { get; private set; }
+
     [Header("Projectile")]
-    public List<AmmoProjectile> weaponProjectile_List;//poolingList
-    protected GameObject projectiles;//InGame Projectile Parent Object
-    public AmmoProjectile ammoProjectile;//InGame Projectile
+    public GameObject projectilePrefab;//InGame Projectile
     public Transform firePos;
 
     [Header("Audio")]
@@ -88,8 +87,6 @@ public class Weapon : MonoBehaviour
 
         stateMachine = new GunStateMachine(this);
         if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        weaponProjectile_List = new List<AmmoProjectile>();
-        projectiles = new GameObject("Projectiles");
         mods = new List<Mod>();
 
         if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
@@ -120,37 +117,11 @@ public class Weapon : MonoBehaviour
     {
         mods.Remove(mod);
     }
+
     public Vector3 RandomSpread()
     {
-        Camera curCam = playerCharacter_.FPCamera;
-        float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.localPosition.z);
-        //RandomSpread * Recoil
         Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.1f);
-
-        Ray shotRay = curCam.ScreenPointToRay(centerPos + randomSpreadCircle);
-        RaycastHit hit;
-        Vector3 hitPos;
-
-        if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
-        {
-            hitPos = hit.point;
-            Debug.DrawRay(shotRay.origin, hitPos, Color.red, rayDistance);
-        }
-        else
-        {
-            hitPos = shotRay.GetPoint(rayDistance);
-            Debug.DrawRay(shotRay.origin, shotRay.GetPoint(rayDistance), Color.red, rayDistance);
-        }
-
-        return hitPos;
-        
-        /*
-        //RandomSpread * Recoil
-        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.01f);
-        return -firePos.forward + randomSpreadCircle;
-        */
-        
+        return randomSpreadCircle;
     }
     public void WeaponSet()
     {
@@ -159,12 +130,6 @@ public class Weapon : MonoBehaviour
         maxRecoil = curWeaponStat.recoil * 2f;
         defaultSpread = curWeaponStat.spread * 0.01f;
         maxSpread = defaultSpread * 2f;
-
-        if (weaponProjectile_List.Find(x => x == ammoProjectile) == null)
-        {
-            for (int i = 0; i < maxMagazine; i++)
-                CreateObject(weaponProjectile_List, ammoProjectile).gameObject.SetActive(false);
-        }
     }
 
     public void CurrentWeaponEquip()
@@ -175,32 +140,10 @@ public class Weapon : MonoBehaviour
         stateMachine.ChangeState(stateMachine.ReadyState);
     }
 
-    public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List, AmmoProjectile obj)
-    {
-        AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
-
-        if(projectiles == null) projectiles = new GameObject("Projectiles");
-        newProjectile.transform.parent = projectiles.transform;
-        pooling_List.Add(newProjectile);
-        return newProjectile;
-    }
     public void PlayClip(AudioClip newClip, float volume)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(newClip);
-    }
-
-    protected void ProjectilePooling(AmmoProjectile projectile)
-    {
-        AmmoProjectile newProjectile;
-        if (weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-            newProjectile = weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-        else
-            newProjectile = CreateObject(weaponProjectile_List, projectile);
-
-        newProjectile.transform.position = firePos.position;
-        newProjectile.transform.rotation = Quaternion.LookRotation(RandomSpread());
-        newProjectile.OnInit(stateMachine.Gun);
     }
 
     public void ShotCoroutinePlay(IEnumerator shotOrDryfire)
@@ -219,13 +162,20 @@ public class Weapon : MonoBehaviour
         playerCharacter_.playerUIEventInvoke();
 
         //Projectile Create
-        ProjectilePooling(ammoProjectile);
+        AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
+        ammoProjectile.transform.position = firePos.position;
+        ammoProjectile.transform.forward = playerCharacter_.FPCamera.transform.forward;
+        ammoProjectile.OnInit(stateMachine.Gun);
+
         //Recoil
         if (RecoilCoroutine != null) StopCoroutine(RecoilCoroutine);
         RecoilCoroutine = OnRecoil();
         StartCoroutine(RecoilCoroutine);
+
         //Empty Check
+
         if (isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
+
         //shoot CoolTime
         yield return YieldCacher.WaitForSeconds(curWeaponStat.fireDelay);
         ShotCoroutine = null;

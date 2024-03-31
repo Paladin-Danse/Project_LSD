@@ -16,7 +16,6 @@ public static class YieldCacher
         {
             _WaitForSecondsDic.Add(seconds, wfs = new WaitForSeconds(seconds));
         }
-        Debug.Log(_WaitForSecondsDic.Count);
         return wfs;
     }
 
