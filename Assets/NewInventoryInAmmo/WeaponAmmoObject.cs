@@ -20,7 +20,7 @@ public class WeaponAmmoObject : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out IObjectCrash objCrash))
         {
-            objCrash.TakePhysicalCrashAmmo(ammoType, ammoCount);
+            objCrash.TakeAmmoItemColliderCrash(ammoType, ammoCount);
             Destroy(gameObject);
         }
     }

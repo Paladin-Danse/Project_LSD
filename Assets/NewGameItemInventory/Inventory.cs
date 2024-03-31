@@ -9,7 +9,7 @@ using static UnityEditor.Progress;
 
 public interface IObjectCrash
 {
-    void TakePhysicalCrashAmmo(AmmoType ammoType, int count);
+    void TakeAmmoItemColliderCrash(AmmoType ammoType, int count);
 }
 
 // 아이템 슬롯 클래스
@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
     }
 
     [System.Obsolete]
-    public void TakePhysicalCrashAmmo(AmmoType ammoType, int count)
+    public void TakeAmmoItemColliderCrash(AmmoType ammoType, int count)
     {
         switch (ammoType)
         {
