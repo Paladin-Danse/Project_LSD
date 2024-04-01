@@ -23,13 +23,15 @@ public class PlayerCharacter : MonoBehaviour
     public float MovementSpeed { get; private set; }
     public float MovementSpeedModifier { get; set; }
     public float JumpCoolTime = 1.0f;
+    private Vector3 jumpDirection;
+    private float jumpSpeed;
 
     [field: Header("Camera")]
     public Camera FPCamera { get; private set; }
     public Transform playerCamTransform;
     public float camXRotate = 0f;
 
-    [field: Header("Camera")]
+    [field: Header("Weapon")]
     public Transform firePos;
     public float fireRateDelay;
 
@@ -127,7 +129,16 @@ public class PlayerCharacter : MonoBehaviour
     {
         Vector3 movementDirection = GetMovementDirection();
         float movementSpeed = GetMovementSpeed();
-        GetComponent<Rigidbody>().MovePosition(transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+    }
+    public void JumpMove()
+    {
+        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.deltaTime));
+    }
+    public void JumpMoveSetting()
+    {
+        jumpDirection = stateMachine.player.GetMovementDirection();
+        jumpSpeed = stateMachine.player.GetMovementSpeed();
     }
     //InputAction Event
     public void Rotate(InputAction.CallbackContext callbackContext)

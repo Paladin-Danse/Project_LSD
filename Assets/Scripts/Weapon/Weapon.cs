@@ -120,8 +120,26 @@ public class Weapon : MonoBehaviour
 
     public Vector3 RandomSpread()
     {
+        Camera curCam = playerCharacter_.FPCamera;
+        float rayDistance = curWeaponStat.attackStat.range;
+        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
+        //RandomSpread * Recoil
         Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.1f);
-        return randomSpreadCircle;
+        
+        Ray shotRay = new Ray(curCam.ScreenToWorldPoint(centerPos + randomSpreadCircle), curCam.transform.forward);
+        RaycastHit hit;
+        Vector3 hitPos;
+
+        if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
+        {
+            hitPos = hit.point;
+        }
+        else
+        {
+            hitPos = shotRay.GetPoint(rayDistance);
+        }
+        Debug.DrawRay(shotRay.origin, hitPos - shotRay.origin, Color.red, rayDistance);
+        return hitPos;
     }
     public void WeaponSet()
     {
@@ -164,7 +182,7 @@ public class Weapon : MonoBehaviour
         //Projectile Create
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
         ammoProjectile.transform.position = firePos.position;
-        ammoProjectile.transform.forward = playerCharacter_.FPCamera.transform.forward;
+        ammoProjectile.transform.transform.LookAt(RandomSpread());
         ammoProjectile.OnInit(stateMachine.Gun);
 
         //Recoil
