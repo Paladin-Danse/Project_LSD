@@ -174,7 +174,15 @@ public class PlayerCharacter : MonoBehaviour
         camTransform.localRotation = Quaternion.Euler(new Vector3(player.camXRotate - player.curWeapon.curRecoil, 0, 0));
         rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
     }
-
+    public void WeaponSwap()
+    {
+        if(primaryWeapon != null && secondaryWeapon != null)
+        {
+            
+            if(curWeapon == primaryWeapon) EquipWeapon(secondaryWeapon);
+            else EquipWeapon(primaryWeapon);
+        }
+    }
     public void Jump()
     {
         float jumpForce = Data.airData.JumpForce * Data.airData.JumpForceModifier;
@@ -212,10 +220,47 @@ public class PlayerCharacter : MonoBehaviour
         AnimHashFloats[ParameterHash] = math.lerp(AnimHashFloats[ParameterHash], setFloat, 0.1f);
         stateMachine.player.animator.SetFloat(ParameterHash, AnimHashFloats[ParameterHash]);
     }
+    public void InventoryWeaponEquip(Weapon weapon)
+    {
+        if(primaryWeapon == null)
+        {
+            primaryWeapon = weapon;
+        }
+        else if(secondaryWeapon == null)
+        {
+            secondaryWeapon = weapon;
+        }
+
+        if (curWeapon == null)
+        {
+            EquipWeapon(weapon);
+        }
+    }
+    public void InventoryWeaponUnequip(bool isPrimary)
+    {
+        if (isPrimary)
+        {
+            if(curWeapon == primaryWeapon)
+            {
+                UnequipWeapon(primaryWeapon);
+            }
+            primaryWeapon = null;
+        }
+        else
+        {
+            if(curWeapon == secondaryWeapon)
+            {
+                UnequipWeapon(secondaryWeapon);
+            }
+            secondaryWeapon = null;
+        }
+    }
     public void EquipWeapon(Weapon weapon)
     {
+        weapon.gameObject.SetActive(true);
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
+        curWeapon.CurrentWeaponEquip();
         curWeapon.Init(this);
     }
 
@@ -223,6 +268,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         weaponStatHandler.UnequipWeapon();
         curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
+        curWeapon.CurrentWeaponUnEquip();
         curWeapon.input_ = null;
         curWeapon = null;
     }
