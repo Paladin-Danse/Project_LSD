@@ -55,11 +55,13 @@ public class Weapon : MonoBehaviour
     public AudioClip cock_AudioClip;
     public AudioClip reload_start_AudioClip;
     public AudioClip reload_end_AudioClip;
+    public AudioClip putAway_AudioClip;
 
     public float shot_Volume;
     public float dry_Volume;
     public float cock_Volume;
     public float reload_Volume;
+    public float putAway_Volume;
 
     [Header("Animation")]
     public Animator animator;
@@ -69,8 +71,6 @@ public class Weapon : MonoBehaviour
     {
         playerCharacter_ = playerCharacter;
         input_ = playerCharacter_.input;
-        WeaponSet();
-        CurrentWeaponEquip();
         stateMachine.currentState.AddInputActionsCallbacks();
         animationData.Initialize();
     }
@@ -120,17 +120,26 @@ public class Weapon : MonoBehaviour
 
     public Vector3 RandomSpread()
     {
+        //RandomSpread * Recoil
+        Vector3 randomSpreadCircle = UnityEngine.Random.insideUnitCircle * math.min((defaultSpread + (curRecoil * 0.01f)), maxSpread);
+        return randomSpreadCircle;
+    }
+    public Vector3 GetRaycastHitPosition()
+    {
         Camera curCam = playerCharacter_.FPCamera;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
-        //RandomSpread * Recoil
-        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.1f);
+        Vector3 centerPos = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
+        Vector3 centerWorldPos = curCam.ScreenToWorldPoint(centerPos);
+
+        Ray shotRay = new Ray(centerWorldPos, curCam.transform.forward + RandomSpread());
+        Debug.DrawRay(shotRay.origin, curCam.transform.forward + RandomSpread(), Color.red, rayDistance);
+
+        //return shotRay.GetPoint(rayDistance);
         
-        Ray shotRay = new Ray(curCam.ScreenToWorldPoint(centerPos + randomSpreadCircle), curCam.transform.forward);
         RaycastHit hit;
         Vector3 hitPos;
 
-        if(Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Projectile")))
+        if (Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Projectile")))
         {
             hitPos = hit.point;
         }
@@ -138,7 +147,6 @@ public class Weapon : MonoBehaviour
         {
             hitPos = shotRay.GetPoint(rayDistance);
         }
-        Debug.DrawRay(shotRay.origin, hitPos - shotRay.origin, Color.red, rayDistance);
         return hitPos;
     }
     public void WeaponSet()
@@ -149,7 +157,7 @@ public class Weapon : MonoBehaviour
         defaultSpread = curWeaponStat.spread * 0.01f;
         maxSpread = defaultSpread * 2f;
     }
-
+    
     public void CurrentWeaponEquip()
     {
         gameObject.SetActive(true);
@@ -157,7 +165,11 @@ public class Weapon : MonoBehaviour
         PlayClip(cock_AudioClip, cock_Volume);
         stateMachine.ChangeState(stateMachine.ReadyState);
     }
-
+    public void CurrentWeaponUnEquip()
+    {
+        PlayClip(putAway_AudioClip, putAway_Volume);
+        gameObject.SetActive(false);
+    }
     public void PlayClip(AudioClip newClip, float volume)
     {
         audioSource.volume = volume;
@@ -182,7 +194,7 @@ public class Weapon : MonoBehaviour
         //Projectile Create
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
         ammoProjectile.transform.position = firePos.position;
-        ammoProjectile.transform.transform.LookAt(RandomSpread());
+        ammoProjectile.transform.transform.LookAt(GetRaycastHitPosition());
         ammoProjectile.OnInit(stateMachine.Gun);
 
         //Recoil
@@ -191,7 +203,6 @@ public class Weapon : MonoBehaviour
         StartCoroutine(RecoilCoroutine);
 
         //Empty Check
-
         if (isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
 
         //shoot CoolTime
