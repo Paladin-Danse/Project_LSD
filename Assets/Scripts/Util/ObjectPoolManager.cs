@@ -137,6 +137,7 @@ public class ObjectPoolManager
         {
             pool.ClearPool();
         }
+        _pools.Clear();
     }
 }
 

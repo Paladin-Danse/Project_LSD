@@ -130,7 +130,7 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         Vector3 hitPos;
 
-        if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
+        if(Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Projectile")))
         {
             hitPos = hit.point;
         }
