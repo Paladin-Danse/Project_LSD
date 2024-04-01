@@ -124,25 +124,23 @@ public class Weapon : MonoBehaviour
     {
         Camera curCam = playerCharacter_.FPCamera;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.localPosition.z);
+        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
         //RandomSpread * Recoil
         Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.1f);
-
-        Ray shotRay = curCam.ScreenPointToRay(centerPos + randomSpreadCircle);
+        
+        Ray shotRay = new Ray(curCam.ScreenToWorldPoint(centerPos + randomSpreadCircle), curCam.transform.forward);
         RaycastHit hit;
         Vector3 hitPos;
 
         if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
         {
             hitPos = hit.point;
-            Debug.DrawRay(shotRay.origin, hitPos, Color.red, rayDistance);
         }
         else
         {
             hitPos = shotRay.GetPoint(rayDistance);
-            Debug.DrawRay(shotRay.origin, shotRay.GetPoint(rayDistance), Color.red, rayDistance);
         }
-
+        Debug.DrawRay(shotRay.origin, hitPos - shotRay.origin, Color.red, rayDistance);
         return hitPos;
         
         /*
@@ -199,7 +197,9 @@ public class Weapon : MonoBehaviour
             newProjectile = CreateObject(weaponProjectile_List, projectile);
 
         newProjectile.transform.position = firePos.position;
-        newProjectile.transform.rotation = Quaternion.LookRotation(RandomSpread());
+        //When creating rotation values, you need to clearly decide who should be looking at whom.
+        //If you use Quaternion.LookRotation(), it will return an incorrect value if you move away from the origin because it is calculated based on the origin.
+        newProjectile.transform.LookAt(RandomSpread());
         newProjectile.OnInit(stateMachine.Gun);
     }
 

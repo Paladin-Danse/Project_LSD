@@ -15,6 +15,8 @@ public class PlayerJumpState : PlayerAirState
         {
             SetAnimation(stateMachine.player.AnimationData.JumpParameterHash);
             SetAnimation(stateMachine.player.AnimationData.GroundParameterHash, false);
+
+            stateMachine.player.JumpMoveSetting();
             stateMachine.player.Jump();
         }
         base.Enter();
@@ -28,7 +30,6 @@ public class PlayerJumpState : PlayerAirState
     public override void Update()
     {
         base.Update();
-        
     }
     public override void PhysicsUpdate()
     {
