@@ -9,12 +9,13 @@ public class BossProjectile : MonoBehaviour
     float projectileDistance;
     float damage;
     //public Transform target;
+    private ParticleSystem Boom;
     public GameObject Boom1;
     public GameObject Boom2;
     public GameObject Boom3;
     public LayerMask layerMask;
-    public float explosionRadius;
-
+    public float explosionRadius;    
+    
     public void Setup(Vector3 position)
     {
         movement = GetComponent<EnemyProjectileMovementTransform>();
@@ -65,63 +66,70 @@ public class BossProjectile : MonoBehaviour
             Destroy(gameObject);
             int per = Random.Range(0, 99);
             if(per < 33)
-            {
-                GameObject B1 = Instantiate(Boom1, transform.position, Quaternion.identity);
+            {                                
+                GameObject B1 = Instantiate(Boom1, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
+                this.Boom = B1_Effect;
                 Destroy(B1, 2f);
+                
             }
             else if(per >= 33 && per < 66)
             {
-                GameObject B2 = Instantiate(Boom2, transform.position, Quaternion.identity);
+                GameObject B2 = Instantiate(Boom2, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                ParticleSystem B2_Effect = B2.GetComponent<ParticleSystem>();
+                this.Boom = B2_Effect;                
                 Destroy(B2, 2f);
             }
             else if(per >= 66)
             {
-                GameObject B3 = Instantiate(Boom3, transform.position, Quaternion.identity);
+                GameObject B3 = Instantiate(Boom3, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                ParticleSystem B3_Effect = B3.GetComponent<ParticleSystem>();
+                this.Boom = B3_Effect;                
                 Destroy(B3, 2f);
             }
-            
+            Boom.Play();
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
-            ExplosionDamage(transform.position, explosionRadius, layerMask, damage);
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius, layerMask);
-
-            foreach (Collider hitCollider in hitColliders)
-            {
-                // 여기에 데미지를 입히는 코드를 추가하세요.
-                Health health = hitCollider.gameObject.GetComponent<Health>();
-                if (health != null)
-                {
-                    // 피해를 입히는 로직을 추가합니다.
-                    health.TakeDamage(damage);
-                }
-            }
+            ExplosionDamage(transform.position, explosionRadius, layerMask, damage);            
 
             Destroy(gameObject);
             int per = Random.Range(0, 99);
             if (per < 33)
             {
-                GameObject B1 = Instantiate(Boom1, transform.position, Quaternion.identity);
-                Destroy(B1, 2f);
+                GameObject B1 = Instantiate(Boom1, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
+                this.Boom = B1_Effect;
+                Destroy(B1, 2f);                
             }
             else if (per >= 33 && per < 66)
             {
-                GameObject B2 = Instantiate(Boom2, transform.position, Quaternion.identity);
+                GameObject B2 = Instantiate(Boom2, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                ParticleSystem B2_Effect = B2.GetComponent<ParticleSystem>();
+                this.Boom = B2_Effect;                
                 Destroy(B2, 2f);
             }
             else if (per >= 66)
             {
-                GameObject B3 = Instantiate(Boom3, transform.position, Quaternion.identity);
+                GameObject B3 = Instantiate(Boom3, transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                ParticleSystem B3_Effect = B3.GetComponent<ParticleSystem>();
+                this.Boom = B3_Effect;                
                 Destroy(B3, 2f);
             }
-
+            Boom.Play();
         }
-
+                
         Destroy(gameObject, 3f);
     }
 
-    public void InitProjectile(RangedEnemyWeapon weapon)
+    public void BInitProjectile(DesertBossBigWeapon weapon)
+    {
+        this.damage = weapon.projectileDamage;
+        this.projectileDistance = weapon.projectileDistance;
+    }
+
+    public void SInitProjectile(DesertBossSmallWeapon weapon)
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;

@@ -12,6 +12,7 @@ public class DesertBossAttackState : DesertBossBaseState
     {        
         stateMachine.MovementSpeedModifier = 0;
         base.Enter();
+        StartAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.BigAttackParameterHash);
         StartAnimation(stateMachine.Enemy.AnimationData.SmallAttackParameterHash);
     }
@@ -19,6 +20,7 @@ public class DesertBossAttackState : DesertBossBaseState
     public override void Exit()
     {
         base.Exit();
+        StopAnimation(stateMachine.Enemy.AnimationData.AttackParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.BigAttackParameterHash);
         StopAnimation(stateMachine.Enemy.AnimationData.SmallAttackParameterHash);
 
@@ -28,21 +30,21 @@ public class DesertBossAttackState : DesertBossBaseState
     {
         base.Update();
 
-        //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
+        float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
 
-        //if (0 < normalizedTime)
-        //{            
-        //    if (!IsInAttackRange())
-        //    {
-        //        stateMachine.ChangeState(stateMachine.ChasingState);
-        //        return;
-        //    }
-        //}
-
-        if (!IsInAttackRange())
+        if (0 < normalizedTime)
         {
-            stateMachine.ChangeState(stateMachine.ChasingState);
-            return;
+            if (!IsInAttackRange())
+            {
+                stateMachine.ChangeState(stateMachine.ChasingState);
+                return;
+            }
         }
+
+        //if (!IsInAttackRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.ChasingState);
+        //    return;
+        //}
     }
 }
