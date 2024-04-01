@@ -14,8 +14,8 @@ public class BossProjectile : MonoBehaviour
     public GameObject Boom2;
     public GameObject Boom3;
     public LayerMask layerMask;
-    public float explosionRadius;
-
+    public float explosionRadius;    
+    
     public void Setup(Vector3 position)
     {
         movement = GetComponent<EnemyProjectileMovementTransform>();
@@ -119,7 +119,7 @@ public class BossProjectile : MonoBehaviour
             }
             Boom.Play();
         }
-
+                
         Destroy(gameObject, 3f);
     }
 

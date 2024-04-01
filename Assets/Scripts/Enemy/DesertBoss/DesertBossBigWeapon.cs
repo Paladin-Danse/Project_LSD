@@ -5,10 +5,17 @@ using UnityEngine;
 public class DesertBossBigWeapon : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public ParticleSystem boomSmoke1;
+    public ParticleSystem boomSmoke2;
+    public ParticleSystem boomSmoke3;
+    public ParticleSystem boomSmoke4;
     public Transform muzzlePos1;
     public Transform muzzlePos2;
     public Transform muzzlePos3;
     public Transform muzzlePos4;
+    public AudioSource audioSource;
+    public AudioClip Cannon1;
+    public AudioClip Cannon2;
     [HideInInspector] public float projectileSpeed;
     [HideInInspector] public float projectileDamage;
     [HideInInspector] public float projectileDistance;
@@ -18,6 +25,7 @@ public class DesertBossBigWeapon : MonoBehaviour
     private void Awake()
     {
         desertBoss = GetComponent<DesertBoss>();
+        audioSource = GetComponent<AudioSource>();
         projectileSpeed = desertBoss.WSData.weaponStat.attackStat.bulletSpeed;
         projectileDamage = desertBoss.WSData.weaponStat.attackStat.damage;
         projectileDistance = desertBoss.WSData.weaponStat.attackStat.range;
@@ -70,5 +78,21 @@ public class DesertBossBigWeapon : MonoBehaviour
         desertBoss.Projectile = instantProjectile4.GetComponent<BossProjectile>();
         desertBoss.Projectile.BInitProjectile(this);
         yield return WFS;
+    }
+
+    public void FBoomSmoke()
+    {
+        boomSmoke1.Play();
+        boomSmoke2.Play();
+        audioSource.PlayOneShot(Cannon1);
+        audioSource.PlayOneShot(Cannon2);
+    }
+
+    public void SBoomSmoke()
+    {
+        boomSmoke3.Play();
+        boomSmoke4.Play();
+        audioSource.PlayOneShot(Cannon1);
+        audioSource.PlayOneShot(Cannon2);
     }
 }

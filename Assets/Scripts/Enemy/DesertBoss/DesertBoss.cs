@@ -20,6 +20,8 @@ public class DesertBoss : MonoBehaviour
     [SerializeField] private GameObject firstAidKit;
 
     public DesertBossStateMachine stateMachine;
+    public AudioSource audioSource;
+    public AudioClip dieSound;
 
     void Awake()
     {
@@ -30,6 +32,8 @@ public class DesertBoss : MonoBehaviour
         health = GetComponent<Health>();
 
         stateMachine = new DesertBossStateMachine(this);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -64,5 +68,7 @@ public class DesertBoss : MonoBehaviour
         {
             Instantiate(firstAidKit, transform.position, transform.rotation);
         }
+
+        audioSource.PlayOneShot(dieSound);
     }    
 }
