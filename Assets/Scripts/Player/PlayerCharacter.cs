@@ -53,6 +53,7 @@ public class PlayerCharacter : MonoBehaviour
 
     //Coroutine
     IEnumerator JumpCoolTimeCoroutine;
+    IEnumerator SwapCoroutine = null;
 
     private void Awake()
     {
@@ -144,43 +145,33 @@ public class PlayerCharacter : MonoBehaviour
     public void Rotate(InputAction.CallbackContext callbackContext)
     {
         Vector2 rotateDirection = callbackContext.ReadValue<Vector2>();
+        float recoil = curWeapon ? curWeapon.curRecoil : 0f;
 
-        PlayerCharacter player = stateMachine.player;
-        PlayerData SOData = player.Data;
-        Transform camTransform = player.playerCamTransform;
-        Rigidbody rigidbody = stateMachine.player.rigidbody_;
+        camXRotate += rotateDirection.y * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime * -1;
+        camXRotate = Mathf.Clamp(camXRotate, -Data.UpdownMaxAngle, Data.UpdownMaxAngle);
+        stateMachine.playerYRotate += rotateDirection.x * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime;
 
-
-        player.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
-        player.camXRotate = Mathf.Clamp(player.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
-        stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
-
-        camTransform.localRotation = Quaternion.Euler(new Vector3(player.camXRotate - player.curWeapon.curRecoil, 0, 0));
-        rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
+        playerCamTransform.localRotation = Quaternion.Euler(new Vector3(camXRotate - recoil, 0, 0));
+        rigidbody_.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
     }
     public void Rotate()
     {
-        PlayerCharacter player = stateMachine.player;
-        Vector2 rotateDirection = player.input.playerActions.Look.ReadValue<Vector2>();
+        Vector2 rotateDirection = input.playerActions.Look.ReadValue<Vector2>();
+        float recoil = curWeapon ? curWeapon.curRecoil : 0f;
 
-        PlayerData SOData = player.Data;
-        Transform camTransform = player.playerCamTransform;
-        Rigidbody rigidbody = player.rigidbody_;
+        camXRotate += rotateDirection.y * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime * -1;
+        camXRotate = Mathf.Clamp(camXRotate, -Data.UpdownMaxAngle, Data.UpdownMaxAngle);
+        stateMachine.playerYRotate += rotateDirection.x * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime;
 
-        player.camXRotate += rotateDirection.y * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime * -1;
-        player.camXRotate = Mathf.Clamp(player.camXRotate, -SOData.UpdownMaxAngle, SOData.UpdownMaxAngle);
-        stateMachine.playerYRotate += rotateDirection.x * (SOData.LookRotateSpeed * SOData.LookRotateModifier) * Time.deltaTime;
-
-        camTransform.localRotation = Quaternion.Euler(new Vector3(player.camXRotate - player.curWeapon.curRecoil, 0, 0));
-        rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
+        playerCamTransform.localRotation = Quaternion.Euler(new Vector3(camXRotate - recoil, 0, 0));
+        rigidbody_.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
     }
     public void WeaponSwap()
     {
-        if(primaryWeapon != null && secondaryWeapon != null)
+        if(primaryWeapon != null && secondaryWeapon != null && SwapCoroutine == null)
         {
-            
-            if(curWeapon == primaryWeapon) EquipWeapon(secondaryWeapon);
-            else EquipWeapon(primaryWeapon);
+            SwapCoroutine = Swapping();
+            StartCoroutine(SwapCoroutine);
         }
     }
     public void Jump()
@@ -260,8 +251,8 @@ public class PlayerCharacter : MonoBehaviour
         weapon.gameObject.SetActive(true);
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
-        curWeapon.CurrentWeaponEquip();
         curWeapon.Init(this);
+        curWeapon.CurrentWeaponEquip();
     }
 
     public void UnequipWeapon(Weapon weapon)
@@ -301,5 +292,19 @@ public class PlayerCharacter : MonoBehaviour
         yield return new WaitForSeconds(JumpCoolTime);
         isJump = true;
         JumpCoolTimeCoroutine = null;
+    }
+    public IEnumerator Swapping()
+    {
+        Weapon beforeWeapon = curWeapon;
+        UnequipWeapon(curWeapon);
+        while(beforeWeapon.gameObject.activeSelf)
+        {
+            yield return null;
+        }
+        if (beforeWeapon == primaryWeapon) EquipWeapon(secondaryWeapon);
+        else EquipWeapon(primaryWeapon);
+
+        yield return YieldCacher.WaitForSeconds(curWeapon.animator.GetCurrentAnimatorStateInfo(0).length);
+        SwapCoroutine = null;
     }
 }
