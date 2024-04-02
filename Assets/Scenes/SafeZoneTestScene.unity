@@ -484,6 +484,11 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &158626163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 140038347347399527, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
+  m_PrefabInstance: {fileID: 3591601660437286561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &165659827
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,6 +3215,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 140038347347496709, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
   m_PrefabInstance: {fileID: 3591601660437286561}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1401490761 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 140038347337916617, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
+  m_PrefabInstance: {fileID: 3591601660437286561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1401490762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158626163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962b824a66a40ca49961d673c3240194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1401490761}
 --- !u!1001 &1432200210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5658,6 +5681,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1631195491775858324, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
+      propertyPath: _maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 7730582739967322888, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
       propertyPath: target
       value: 
@@ -5683,7 +5710,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 140038347347496709, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 966730340}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 140038347347399527, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1401490762}
   m_SourcePrefab: {fileID: 100100000, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
 --- !u!114 &3595942146893653501
 MonoBehaviour:
