@@ -41,9 +41,9 @@ public class PlayerCharacter : MonoBehaviour
     private WeaponStatHandler weaponStatHandler;
     public Action<PlayerStateMachine> SetWeaponEvent;
     [SerializeField]
-    private Weapon primaryWeapon;
+    public Weapon primaryWeapon;
     [SerializeField]
-    private Weapon secondaryWeapon;
+    public Weapon secondaryWeapon;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
