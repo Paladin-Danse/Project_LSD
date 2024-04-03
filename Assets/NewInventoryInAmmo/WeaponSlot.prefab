@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 1831626988074535887}
   - component: {fileID: 4986703861597411674}
   - component: {fileID: 7302146894470171883}
+  - component: {fileID: 2790767956059667493}
   - component: {fileID: 7681326037848939053}
-  - component: {fileID: 6524035858276376824}
   - component: {fileID: 7083425048533968538}
   m_Layer: 0
   m_Name: WeaponSlot
@@ -172,6 +172,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2790767956059667493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886251915974144841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547f76b651e26d74c98aa824f9a288fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 7302146894470171883}
+  icon: {fileID: 8091166390121875388}
+  nameText: {fileID: 9202266790194840948}
+  index: 0
+  equipped: 0
 --- !u!114 &7681326037848939053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,24 +219,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6524035858276376824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886251915974144841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 680bf152c0dcd614b87e74da4f91014c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 7302146894470171883}
-  icon: {fileID: 8091166390121875388}
-  quatityText: {fileID: 0}
-  nameText: {fileID: 9202266790194840948}
-  index: 0
-  equipped: 0
 --- !u!114 &7083425048533968538
 MonoBehaviour:
   m_ObjectHideFlags: 0
