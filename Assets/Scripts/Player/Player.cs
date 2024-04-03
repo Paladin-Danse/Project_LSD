@@ -9,6 +9,26 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    private static Player instance;
+    public static Player Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Player>();
+
+                if (instance == null)
+                {
+                    GameObject obj = new GameObject(typeof(Player).GetType().Name);
+                    instance = obj.AddComponent<Player>();
+                    DontDestroyOnLoad(obj);
+                }
+            }
+            return instance;
+        }
+    }
+
     public PlayerInput _input { get; private set; }
     
     public Inventory inventory;
