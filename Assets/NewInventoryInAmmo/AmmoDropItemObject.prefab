@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3842173965835042026}
   - component: {fileID: 1484829369435869532}
   m_Layer: 0
-  m_Name: AmmoDropCube
+  m_Name: AmmoDropItemObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
