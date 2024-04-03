@@ -32,20 +32,36 @@ public class RangedEnemyAttackState : RangedEnemyBaseState
     {
         base.Update();
 
-        float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
-        
-        if (0 < normalizedTime)
-        {
-            //if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.RData.Dealing_Start_TransitionTime)
-            //{
-            //    stateMachine.Enemy.Projectile.SetDamage(stateMachine.Enemy.RData.Damage);
-            //}
+        //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
 
-            if (!IsInAttackRange())
-            {
-                stateMachine.ChangeState(stateMachine.ChasingState);
-                return;
-            }
-        }        
+        //if (0 < normalizedTime)
+        //{
+        //    //if (!alreadyAppliedDealing && normalizedTime >= stateMachine.Enemy.RData.Dealing_Start_TransitionTime)
+        //    //{
+        //    //    stateMachine.Enemy.Projectile.SetDamage(stateMachine.Enemy.RData.Damage);
+        //    //}
+
+        //    if (!IsInAttackRange())
+        //    {
+        //        stateMachine.ChangeState(stateMachine.ChasingState);
+        //        return;
+        //    }
+        //}
+        //
+        if (!IsInChaseRange() && !IsInAttackRange())
+        {
+            //stateMachine.ChangeState(stateMachine.IdlingState);
+            return;
+        }
+        else if (IsInChaseRange() && IsInAttackRange())
+        {
+            //stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
+        else if (!IsInAttackRange() && IsInChaseRange())
+        {
+            stateMachine.ChangeState(stateMachine.ChasingState);
+            return;
+        }
     }
 }

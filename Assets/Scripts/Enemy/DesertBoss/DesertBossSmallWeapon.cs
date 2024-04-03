@@ -48,10 +48,10 @@ public class DesertBossSmallWeapon : MonoBehaviour
         projectileRigid1.velocity = muzzlePos1.forward * projectileSpeed;
         projectileRigid2.velocity = muzzlePos2.forward * projectileSpeed;
 
-        desertBoss.Projectile = instantProjectile1.GetComponent<BossProjectile>();
-        desertBoss.Projectile = instantProjectile2.GetComponent<BossProjectile>();
+        desertBoss.SProjectile = instantProjectile1.GetComponent<BossSmallProjectile>();
+        desertBoss.SProjectile = instantProjectile2.GetComponent<BossSmallProjectile>();
 
-        desertBoss.Projectile.SInitProjectile(this);
+        desertBoss.SProjectile.SInitProjectile(this);
         yield return WFS;
     }
 
@@ -66,9 +66,10 @@ public class DesertBossSmallWeapon : MonoBehaviour
         projectileRigid3.velocity = muzzlePos3.forward * projectileSpeed;
         projectileRigid4.velocity = muzzlePos4.forward * projectileSpeed;
 
-        desertBoss.Projectile = instantProjectile3.GetComponent<BossProjectile>();
-        desertBoss.Projectile = instantProjectile4.GetComponent<BossProjectile>();
-        desertBoss.Projectile.SInitProjectile(this);
+        desertBoss.SProjectile = instantProjectile3.GetComponent<BossSmallProjectile>();
+        desertBoss.SProjectile = instantProjectile4.GetComponent<BossSmallProjectile>();
+
+        desertBoss.SProjectile.SInitProjectile(this);
         yield return WFS;
     }
 }
