@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
     public bool isAuto;
     public bool isFiring;
     public bool isShotable;
+    public bool isSwap;
     public int maxMagazine;
     public string maxMagazineText { get { return maxMagazine.ToString(); } }
     public int curMagazine;
@@ -41,8 +42,9 @@ public class Weapon : MonoBehaviour
     public IEnumerator ShotCoroutine = null;
     public IEnumerator RecoilCoroutine = null;
     public IEnumerator ReloadCoroutine = null;
-
+    public IEnumerator TakeCoroutine = null;
     public List<Mod> mods { get; private set; }
+    
 
     [Header("Projectile")]
     public GameObject projectilePrefab;//InGame Projectile
@@ -55,13 +57,13 @@ public class Weapon : MonoBehaviour
     public AudioClip cock_AudioClip;
     public AudioClip reload_start_AudioClip;
     public AudioClip reload_end_AudioClip;
-    public AudioClip putAway_AudioClip;
+    public AudioClip takeOut_AudioClip;
 
     public float shot_Volume;
     public float dry_Volume;
     public float cock_Volume;
     public float reload_Volume;
-    public float putAway_Volume;
+    public float takeOut_Volume;
 
     [Header("Animation")]
     public Animator animator;
@@ -70,30 +72,29 @@ public class Weapon : MonoBehaviour
     public void Init(PlayerCharacter playerCharacter)
     {
         playerCharacter_ = playerCharacter;
-        input_ = playerCharacter_.input;
-        stateMachine.currentState.AddInputActionsCallbacks();
+        
+        animationData = new WeaponAnimationData();
         animationData.Initialize();
-    }
 
-    protected void Awake()
-    {
         if (baseStatSO != null)
         {
             baseStat = Instantiate(baseStatSO).weaponStat;
         }
-
-        if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
-        animationData = new WeaponAnimationData();
-
-        stateMachine = new GunStateMachine(this);
-        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        mods = new List<Mod>();
-
-        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
-
         baseStat = Instantiate(baseStatSO).weaponStat;
         GetWeaponStat = () => { return baseStat; };
+        mods = new List<Mod>();
+        WeaponSet();
+    }
+
+    protected void Awake()
+    {
+        if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
+        stateMachine = new GunStateMachine(this);
+        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
+        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
+
         isShotable = true;
+        isSwap = false;
     }
 
     private void Update()
@@ -160,15 +161,14 @@ public class Weapon : MonoBehaviour
     
     public void CurrentWeaponEquip()
     {
-        gameObject.SetActive(true);
-        WeaponSet();
-        PlayClip(cock_AudioClip, cock_Volume);
-        stateMachine.ChangeState(stateMachine.ReadyState);
+        input_ = playerCharacter_.input;
+        playerCharacter_.playerUIEventInvoke();
+        stateMachine.ChangeState(stateMachine.EnterState);
+        //stateMachine.currentState.AddInputActionsCallbacks();
     }
     public void CurrentWeaponUnEquip()
     {
-        PlayClip(putAway_AudioClip, putAway_Volume);
-        gameObject.SetActive(false);
+        stateMachine.ChangeState(stateMachine.ExitState);
     }
     public void PlayClip(AudioClip newClip, float volume)
     {
@@ -184,6 +184,22 @@ public class Weapon : MonoBehaviour
             StartCoroutine(ShotCoroutine);
         }
     }
+    public void TakeInCoroutinePlay()
+    {
+        if (TakeCoroutine == null)
+        {
+            TakeCoroutine = TakeIn();
+            StartCoroutine(TakeCoroutine);
+        }
+    }
+    public void TakeOutCoroutinePlay()
+    {
+        if(TakeCoroutine == null)
+        {
+            TakeCoroutine = TakeOut();
+            StartCoroutine(TakeCoroutine);
+        }
+    }
 
     public IEnumerator Shot()
     {
@@ -195,7 +211,7 @@ public class Weapon : MonoBehaviour
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
         ammoProjectile.transform.position = firePos.position;
         ammoProjectile.transform.transform.LookAt(GetRaycastHitPosition());
-        ammoProjectile.OnInit(stateMachine.Gun);
+        ammoProjectile.OnInit(stateMachine.gun);
 
         //Recoil
         if (RecoilCoroutine != null) StopCoroutine(RecoilCoroutine);
@@ -264,5 +280,26 @@ public class Weapon : MonoBehaviour
         playerCharacter_.playerUIEventInvoke();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);
+    }
+    
+    public IEnumerator TakeIn()
+    {
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        TakeCoroutine = null;
+        stateMachine.ChangeState(stateMachine.ReadyState);
+    }
+    public IEnumerator TakeOut()
+    {
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        TakeCoroutine = null;
+        gameObject.SetActive(false);
     }
 }

@@ -5605,12 +5605,12 @@ MonoBehaviour:
   cock_AudioClip: {fileID: 8300000, guid: adc3400a823b48444bbdf591543f1cdc, type: 3}
   reload_start_AudioClip: {fileID: 8300000, guid: 05a51e063197fd1469bae48e78534280, type: 3}
   reload_end_AudioClip: {fileID: 8300000, guid: 2818f9036a3f74b4c8c1589ae2758054, type: 3}
-  putAway_AudioClip: {fileID: 8300000, guid: d4c43cc4b7871ec41913aa50e475765b, type: 3}
+  takeOut_AudioClip: {fileID: 8300000, guid: d4c43cc4b7871ec41913aa50e475765b, type: 3}
   shot_Volume: 0.7
   dry_Volume: 1
   cock_Volume: 1
   reload_Volume: 1
-  putAway_Volume: 1
+  takeOut_Volume: 0
   animator: {fileID: 0}
 --- !u!82 &202057173180895889
 AudioSource:

@@ -7,20 +7,23 @@ public class PlayerAnimationData
     [SerializeField] private string groundParameterName = "IsGrounded";
     [SerializeField] private string crouchParameterName = "IsCrouching";
     [SerializeField] private string DirectionParameterName = "Direction";
-    [SerializeField] private string SpeedParameterName = "Speed";
-    [SerializeField] private string JumpParameterName = "OnJump";
+    [SerializeField] private string speedParameterName = "Speed";
+    [SerializeField] private string jumpParameterName = "OnJump";
+    [SerializeField] private string deathParameterName = "OnDeath";
 
     public int GroundParameterHash { get; private set; }
     public int CrouchParameterHash { get; private set; }
     public int DirectionParameterHash { get; private set; }
     public int SpeedParameterHash { get; private set; }
     public int JumpParameterHash { get; private set; }
+    public int DeathParameterHash {  get; private set; }
     public void Initialize()
     {
         GroundParameterHash = Animator.StringToHash(groundParameterName);
         CrouchParameterHash = Animator.StringToHash(crouchParameterName);
         DirectionParameterHash = Animator.StringToHash(DirectionParameterName);
-        SpeedParameterHash = Animator.StringToHash(SpeedParameterName);
-        JumpParameterHash = Animator.StringToHash(JumpParameterName);
+        SpeedParameterHash = Animator.StringToHash(speedParameterName);
+        JumpParameterHash = Animator.StringToHash(jumpParameterName);
+        DeathParameterHash = Animator.StringToHash(deathParameterName);
     }
 }
