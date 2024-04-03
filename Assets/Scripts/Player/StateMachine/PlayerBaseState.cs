@@ -19,6 +19,7 @@ public class PlayerBaseState : IState
     }
     public virtual void Enter()
     {
+        stateMachine.DebugCurrentState();
         if(stateMachine.player.input != null)
             AddInputActionsCallbacks();
     }
@@ -38,6 +39,7 @@ public class PlayerBaseState : IState
     {
         Move();
         Rotate();
+        if (stateMachine.player.health.IsDead) stateMachine.ChangeState(stateMachine.DeadState);
     }
 
     public virtual void PhysicsUpdate()

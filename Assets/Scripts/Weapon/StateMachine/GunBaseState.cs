@@ -18,7 +18,7 @@ public class GunBaseState : IState
 
     public virtual void Enter()
     {
-        stateMachine.DebugCurrentState();
+        //stateMachine.DebugCurrentState();
         if(stateMachine.gun.input_ != null)
             AddInputActionsCallbacks();
     }

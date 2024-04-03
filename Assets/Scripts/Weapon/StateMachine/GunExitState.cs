@@ -10,8 +10,14 @@ public class GunExitState : GunBaseState
     public override void Enter()
     {
         stateMachine.gun.PlayClip(stateMachine.gun.takeOut_AudioClip, stateMachine.gun.takeOut_Volume);
+        stateMachine.gun.isSwap = true;
         base.Enter();
         SetAnimation(stateMachine.gun.animationData.takeoutParameterHash);
+    }
+    public override void Exit()
+    {
+        stateMachine.gun.isSwap = false;
+        base.Exit();
     }
     public override void Update()
     {

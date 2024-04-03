@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
     public bool isAuto;
     public bool isFiring;
     public bool isShotable;
+    public bool isSwap;
     public int maxMagazine;
     public string maxMagazineText { get { return maxMagazine.ToString(); } }
     public int curMagazine;
@@ -70,32 +71,30 @@ public class Weapon : MonoBehaviour
 
     public void Init(PlayerCharacter playerCharacter)
     {
-        gameObject.SetActive(true);
         playerCharacter_ = playerCharacter;
-        input_ = playerCharacter_.input;
+        
+        animationData = new WeaponAnimationData();
         animationData.Initialize();
+
+        if (baseStatSO != null)
+        {
+            baseStat = Instantiate(baseStatSO).weaponStat;
+        }
+        baseStat = Instantiate(baseStatSO).weaponStat;
+        GetWeaponStat = () => { return baseStat; };
+        mods = new List<Mod>();
         WeaponSet();
     }
 
     protected void Awake()
     {
-        if (baseStatSO != null)
-        {
-            baseStat = Instantiate(baseStatSO).weaponStat;
-        }
-
         if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
-        animationData = new WeaponAnimationData();
-
         stateMachine = new GunStateMachine(this);
         if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        mods = new List<Mod>();
-
         if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
 
-        baseStat = Instantiate(baseStatSO).weaponStat;
-        GetWeaponStat = () => { return baseStat; };
         isShotable = true;
+        isSwap = false;
     }
 
     private void Update()
@@ -162,9 +161,10 @@ public class Weapon : MonoBehaviour
     
     public void CurrentWeaponEquip()
     {
+        input_ = playerCharacter_.input;
         playerCharacter_.playerUIEventInvoke();
         stateMachine.ChangeState(stateMachine.EnterState);
-        stateMachine.currentState.AddInputActionsCallbacks();
+        //stateMachine.currentState.AddInputActionsCallbacks();
     }
     public void CurrentWeaponUnEquip()
     {
