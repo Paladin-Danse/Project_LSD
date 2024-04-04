@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
     public bool IsDead => curHealth == 0;
 
     public Action OnDie;
+    public Action HealthChanged;
     public Action OnHeal;
     public Action OnTakeDamage;
 
@@ -42,7 +43,8 @@ public class Health : MonoBehaviour
     {
         if (curHealth == 0) return;
 
-        OnTakeDamage?.Invoke();        
+        OnTakeDamage?.Invoke();
+        HealthChanged?.Invoke();
 
         curHealth = Mathf.Max(curHealth - damage, 0);
 
@@ -53,12 +55,14 @@ public class Health : MonoBehaviour
     public void TakeHeal(float addHealth)
     {
         OnHeal?.Invoke();
+        HealthChanged?.Invoke();
         curHealth = MathF.Min(maxHealth, curHealth + addHealth);
     }
 
     private void RegenHealthPerSec()
     {
         if (IsDead) return;
+        HealthChanged?.Invoke();
         curHealth = MathF.Min(maxHealth, curHealth + regenHealthPerSec);
     }
 }

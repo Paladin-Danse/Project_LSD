@@ -24,6 +24,7 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
     [SerializeField]
     protected T baseStat;
     public List<T> statModifiers;
+    public event Action OnStatChanged;
 
     [field : SerializeField]
     public T currentStat { get; protected set; }
@@ -45,12 +46,14 @@ public class StatHandlerBase <T> : MonoBehaviour where T : Stat
     {
         statModifiers.Add(statModifier);
         UpdateStats();
+        OnStatChanged.Invoke();
     }
 
     public void RemoveStatModifier(T statModifier)
     {
         statModifiers.Remove(statModifier);
         UpdateStats();
+        OnStatChanged.Invoke();
     }
 
     public void UpdateStats()

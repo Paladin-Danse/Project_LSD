@@ -33,8 +33,10 @@ public class Player : MonoBehaviour
     
     public Inventory inventory;
     public PlayerUI playerUI;
-
     public PlayerCharacter playerCharacter;
+
+    public event Action OnPossessed;
+    public event Action OnUnPossessed;
 
     private void Awake()
     {
@@ -47,25 +49,18 @@ public class Player : MonoBehaviour
         Possess(playerCharacter);
     }
 
-    private void Update()
-    {
-    }
-
-    private void FixedUpdate()
-    {
-
-    }
-
     public void Possess(PlayerCharacter playerCharacter)
     {
         this.playerCharacter = playerCharacter;
+        OnPossessed.Invoke();
         OnControllCharacter();
         playerCharacter.playerUIEventInvoke();
     }
 
-    public void UnPossessed(PlayerCharacter playerCharacter) 
+    public void UnPossess(PlayerCharacter playerCharacter) 
     {
         this.playerCharacter = null;
+        OnUnPossessed.Invoke();
         playerCharacter.playerUIEventInvoke();
     }
 

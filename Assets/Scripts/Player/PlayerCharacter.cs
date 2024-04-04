@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCharacter : MonoBehaviour
+public class PlayerCharacter : CharacterStatHandler
 {
     public PlayerStateMachine stateMachine { get; private set; }
     [HideInInspector]
@@ -57,6 +57,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Awake()
     {
+        base.Awake();
         stateMachine = new PlayerStateMachine(this);
         rigidbody_ = GetComponent<Rigidbody>();
         dungeonInteract = GetComponent<DungeonInteract>();
@@ -90,6 +91,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Start()
     {
+        base.Start();
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
@@ -141,11 +143,11 @@ public class PlayerCharacter : MonoBehaviour
     {
         Vector3 movementDirection = GetMovementDirection();
         float movementSpeed = GetMovementSpeed();
-        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * currentStat.moveSpeed * Time.fixedDeltaTime));
     }
     public void JumpMove()
     {
-        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.fixedDeltaTime));
     }
     public void JumpMoveSetting()
     {
