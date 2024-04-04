@@ -58,6 +58,7 @@ public class Health : MonoBehaviour
 
     private void RegenHealthPerSec()
     {
+        if (IsDead) return;
         curHealth = MathF.Min(maxHealth, curHealth + regenHealthPerSec);
     }
 }
