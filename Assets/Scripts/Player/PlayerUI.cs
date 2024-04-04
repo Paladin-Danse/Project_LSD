@@ -5,24 +5,29 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    private Text CurrentWeaponNameText;
+    private Text currentWeaponNameText;
     private Text currentMagazineTxt;
     private Text maxMagazineTxt;
 
     public void InitSetting()
     {
-        if(!transform.Find("HUDCanvas/Components/Weapon/Weapon Name").TryGetComponent(out CurrentWeaponNameText))
+        GameObject textFinder;
+
+        textFinder = transform.Find("HUDCanvas/Components/Weapon/Weapon Name").gameObject;
+        if (textFinder.TryGetComponent(out currentWeaponNameText))
             Debug.Log("Player(CurrentWeaponNameText) : Wrong path");
-        if (!transform.Find("HUDCanvas/Components/Weapon/Weapon Bullet Count").TryGetComponent(out currentMagazineTxt))
+        textFinder = transform.Find("HUDCanvas/Components/Weapon/Weapon Bullet Count").gameObject;
+        if (textFinder.TryGetComponent(out currentMagazineTxt))
             Debug.Log("Player(currentMagazineTxt) : Wrong path");
-        if (!transform.Find("HUDCanvas/Components/Weapon/Weapon Clip Count").TryGetComponent(out maxMagazineTxt))
+        textFinder = transform.Find("HUDCanvas/Components/Weapon/Weapon Clip Count").gameObject;
+        if (textFinder.TryGetComponent(out maxMagazineTxt))
             Debug.Log("Player(maxMagazineTxt) : Wrong path");
     }
 
     public void UITextUpdate(PlayerCharacter player)
     {
-        //CurrentWeaponNameText.text = player.curWeapon.WeaponName;
-        currentMagazineTxt.text = player.curWeapon.curMagazineText;
-        maxMagazineTxt.text = player.curWeapon.maxMagazineText;
+        if(currentWeaponNameText) currentWeaponNameText.text = player.curWeapon.WeaponName;
+        if(currentMagazineTxt) currentMagazineTxt.text = player.curWeapon.curMagazineText;
+        if(maxMagazineTxt) maxMagazineTxt.text = player.curWeapon.maxMagazineText;
     }
 }

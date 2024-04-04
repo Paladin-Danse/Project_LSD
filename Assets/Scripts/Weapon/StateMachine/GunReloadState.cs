@@ -12,7 +12,7 @@ public class GunReloadState : GunBaseState
     public override void Enter()
     {
         base.Enter();
-        if (stateMachine.gun.ReloadCoroutine == null)
+        if (stateMachine.gun.ReloadCoroutine == null && stateMachine.gun.CheckInventoryAmmo())
         {
             SetAnimation(stateMachine.gun.animationData.movementSpeedParameterHash, 0);
             stateMachine.gun.ReloadCoroutine = stateMachine.gun.Reload();

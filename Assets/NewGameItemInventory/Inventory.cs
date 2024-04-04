@@ -134,11 +134,56 @@ public class Inventory : MonoBehaviour, IObjectCrash
             UpdateAmmoUI();
         }
     }
-
+    public int LostorUsedAmmo(AmmoType ammoType, int count)
+    {
+        int useAmmo;
+        switch (ammoType)
+        {
+            case AmmoType.Rifle:
+                useAmmo = UseAmmo(ref rifleAmmoCount, count);
+                break;
+            case AmmoType.Pistol:
+                useAmmo = UseAmmo(ref pistolAmmoCount, count);
+                break;
+            default:
+                useAmmo = count;
+                Debug.Log("Error(Inventory) : AmmoType is not set!!");
+                break;
+        }
+        if (inventoryWindow.activeSelf) // 인벤토리를 열고있다면
+        {
+            UpdateAmmoUI();
+        }
+        return useAmmo;
+    }
+    public int InventoryAmmoCheck(AmmoType ammoType)
+    {
+        int ammo;
+        switch (ammoType)
+        {
+            case AmmoType.Rifle:
+                ammo = rifleAmmoCount;
+                break;
+            case AmmoType.Pistol:
+                ammo = pistolAmmoCount;
+                break;
+            default:
+                ammo = 0;
+                Debug.Log("Error(Inventory) : AmmoType is not set!!");
+                break;
+        }
+        return ammo;
+    }
     void AddAmmo(ref int ammo,int count)
     {
         ammo += count;
         if (ammo > 999) ammo = 999;
+    }
+    int UseAmmo(ref int ammo, int count)
+    {
+        int leftAmmo = ammo < count ? ammo : count;
+        ammo -= leftAmmo;
+        return leftAmmo;
     }
 
     void UpdateAmmoUI()
