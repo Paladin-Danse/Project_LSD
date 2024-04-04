@@ -141,11 +141,11 @@ public class PlayerCharacter : MonoBehaviour
     {
         Vector3 movementDirection = GetMovementDirection();
         float movementSpeed = GetMovementSpeed();
-        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * Time.fixedDeltaTime));
     }
     public void JumpMove()
     {
-        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.fixedDeltaTime));
     }
     public void JumpMoveSetting()
     {

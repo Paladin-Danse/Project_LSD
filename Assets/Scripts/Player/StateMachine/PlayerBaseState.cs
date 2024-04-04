@@ -37,14 +37,13 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        Move();
-        Rotate();
         if (stateMachine.player.health.IsDead) stateMachine.ChangeState(stateMachine.DeadState);
     }
 
     public virtual void PhysicsUpdate()
     {
-        
+        Move();
+        Rotate();
     }
     protected void SetAnimation(int ParameterHash)
     {
