@@ -11,6 +11,6 @@ public class AmmoBoxObject: MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 }
