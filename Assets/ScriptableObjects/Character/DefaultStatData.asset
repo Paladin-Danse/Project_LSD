@@ -15,7 +15,7 @@ MonoBehaviour:
   characterStat:
     statModifyType: 2
     characterStatFlag: -1
-    maxHealth: 100
+    maxHealth: 100000
     defense: 10
     defenseRate: 100
     regenHealthPerSec: 1

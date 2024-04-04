@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116f96c95ffbcc945afaa7d280e234bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
+  moveSpeed: 2
   moveDirection: {x: 0, y: 0, z: 0}
 --- !u!136 &5293535149826344170
 CapsuleCollider:
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  Fire1: {fileID: 8524720578854897586, guid: 85f7143e43935bb48b9d5932fb43ce49, type: 3}
+  firePrefab: {fileID: 688393811863123115, guid: bb2c6e74489153d4595fb9d75e42dcc1, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 264

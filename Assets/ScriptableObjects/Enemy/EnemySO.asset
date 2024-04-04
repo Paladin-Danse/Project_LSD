@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemySO
   m_EditorClassIdentifier: 
   <PlayerChasingRange>k__BackingField: 20
-  <AttackRange>k__BackingField: 2.5
+  <AttackRange>k__BackingField: 2.3
   <AttackRate>k__BackingField: 0
   <ProjectileDistance>k__BackingField: 0
   <Damage>k__BackingField: 20
