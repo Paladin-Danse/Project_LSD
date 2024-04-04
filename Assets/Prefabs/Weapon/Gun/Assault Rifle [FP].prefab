@@ -5434,7 +5434,7 @@ Transform:
   - {fileID: 6307585393008745571}
   - {fileID: 6307558927540356643}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &6256412959122962831
 Animator:
@@ -5593,6 +5593,7 @@ MonoBehaviour:
   isAuto: 1
   isFiring: 0
   isShotable: 0
+  isSwap: 0
   maxMagazine: 0
   curMagazine: 0
   maxRecoil: 0

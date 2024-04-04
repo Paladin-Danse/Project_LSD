@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class WeaponObject : MonoBehaviour, IInteractable
 {
-    public Weapon weapon; // 무기 정보
+    public GameObject weaponObj; // 무기 정보
+    private Weapon weapon;
 
+    public string displayName;
+    public string description;
+    public Sprite icon;
+    public GameObject dropPrefab;
+    private void Awake()
+    {
+        weapon = GetComponent<Weapon>();
+    }
     public string GetInteractPrompt()
     {
-        return string.Format("Pickup {0}", weapon.name);
+        return string.Format("Pickup {0}", displayName);
     }
 
     public void OnInteract()
