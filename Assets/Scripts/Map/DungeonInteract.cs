@@ -49,10 +49,11 @@ public class DungeonInteract : MonoBehaviour
                 {
                     curInteractGameobject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
-                    if(entranceObject.isDungeonSelectedUI == false)
-                    {
-                        SetPromptText();
-                    }                    
+                    //if(entranceObject.isDungeonSelectedUI == false)
+                    //{
+                    //    SetPromptText();
+                    //}
+                    SetPromptText();
                 }
             }
             else

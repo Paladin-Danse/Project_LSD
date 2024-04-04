@@ -127,13 +127,7 @@ public class BossProjectile : MonoBehaviour
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;
-    }
-
-    public void SInitProjectile(DesertBossSmallWeapon weapon)
-    {
-        this.damage = weapon.projectileDamage;
-        this.projectileDistance = weapon.projectileDistance;
-    }
+    }    
 
     void ExplosionDamage(Vector3 center, float radius, LayerMask layerMask, float damage)
     {

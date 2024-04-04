@@ -45,10 +45,14 @@ public class Inventory : MonoBehaviour, IObjectCrash
     public TextMeshProUGUI rifleAmmoCountText; 
     public TextMeshProUGUI pistolAmmoCountText;
 
+
+    public WeaponSlotUI weaponSlotUI1;
+    public WeaponSlotUI weaponSlotUI2;
+
     private int curEquipIndex; // ???
 
-    private PlayerController controller; // 플레이어 컨트롤러
-    private PlayerConditions condition; // 플레이어 상황
+
+    private PlayerCharacter character;
 
     [Header("Events")]
     public UnityEvent onOpenInventory; // 인벤토리 오픈 이벤트
@@ -58,8 +62,8 @@ public class Inventory : MonoBehaviour, IObjectCrash
     void Awake()
     {
         instance = this;
-        controller = GetComponent<PlayerController>();
-        condition = GetComponent<PlayerConditions>();
+
+        character = GetComponent<PlayerCharacter>();
     }
 
     private void Start()
@@ -94,11 +98,13 @@ public class Inventory : MonoBehaviour, IObjectCrash
             inventoryWindow.SetActive(false); // 인벤토리창을 끈다
             onCloseInventory?.Invoke(); // 인벤토리창 끄기 인보크
             //controller.ToggleCursor(false); // 컨트롤러.커서 잠금
-            UpdateAmmoUI();
             Cursor.lockState = CursorLockMode.Locked; // 커서 잠금
         }
         else
         {
+            UpdateAmmoUI();
+            weaponSlotUI1.nameText.text = character.primaryWeapon.name;
+            weaponSlotUI2.nameText.text = character.secondaryWeapon.name;
             inventoryWindow.SetActive(true);
             onOpenInventory?.Invoke();
             //controller.ToggleCursor(true);
@@ -140,6 +146,12 @@ public class Inventory : MonoBehaviour, IObjectCrash
         rifleAmmoCountText.text = rifleAmmoCount.ToString();
         pistolAmmoCountText.text = pistolAmmoCount.ToString();
     }
+
+    public void AddWeapon(Weapon weapon)
+    {
+        character.primaryWeapon = weapon;
+    }
+
     // 인벤토리에 아이템 추가
     public void AddItem(ItemData item)
     {

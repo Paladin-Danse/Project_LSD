@@ -30,21 +30,37 @@ public class DesertBossAttackState : DesertBossBaseState
     {
         base.Update();
 
-        float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
+        //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
 
-        if (0 < normalizedTime)
-        {
-            if (!IsInAttackRange())
-            {
-                stateMachine.ChangeState(stateMachine.ChasingState);
-                return;
-            }
-        }
+        //if (0 < normalizedTime)
+        //{
+        //    if (!IsInAttackRange())
+        //    {
+        //        stateMachine.ChangeState(stateMachine.ChasingState);
+        //        return;
+        //    }
+        //}
 
         //if (!IsInAttackRange())
         //{
         //    stateMachine.ChangeState(stateMachine.ChasingState);
         //    return;
         //}
+
+        if (!IsInChaseRange() && !IsInAttackRange())
+        {
+            //stateMachine.ChangeState(stateMachine.IdlingState);
+            return;
+        }
+        else if (IsInChaseRange() && IsInAttackRange())
+        {
+            //stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
+        else if (!IsInAttackRange() && IsInChaseRange())
+        {
+            stateMachine.ChangeState(stateMachine.ChasingState);
+            return;
+        }
     }
 }

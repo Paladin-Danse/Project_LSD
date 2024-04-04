@@ -18,15 +18,28 @@ public class GunBaseState : IState
 
     public virtual void Enter()
     {
-        stateMachine.DebugCurrentState();
-        if(stateMachine.Gun.input_ != null)
+        //stateMachine.DebugCurrentState();
+        if(stateMachine.gun.input_ != null)
             AddInputActionsCallbacks();
     }
 
     public virtual void Exit()
     {
-        if (stateMachine.Gun.input_ != null)
+        if (stateMachine.gun.input_ != null)
             RemoveInputActionsCallbacks();
+    }
+    
+    protected void SetAnimation(int ParameterHash)
+    {
+        stateMachine.gun.animator.SetTrigger(ParameterHash);
+    }
+    protected void SetAnimation(int ParameterHash, bool setBool)
+    {
+        stateMachine.gun.animator.SetBool(ParameterHash, setBool);
+    }
+    protected void SetAnimation(int ParameterHash, int setInt)
+    {
+        stateMachine.gun.animator.SetInteger(ParameterHash, setInt);
     }
 
     public virtual void HandleInput()
@@ -40,7 +53,7 @@ public class GunBaseState : IState
     }
     public virtual void AddInputActionsCallbacks()
     {
-        PlayerInput input = stateMachine.Gun.input_;
+        PlayerInput input = stateMachine.gun.input_;
         
         input.playerActions.Shoot.started += OnFire;
         input.playerActions.Shoot.canceled += StopFire;
@@ -50,7 +63,7 @@ public class GunBaseState : IState
     
     public virtual void RemoveInputActionsCallbacks()
     {
-        PlayerInput input = stateMachine.Gun.input_;
+        PlayerInput input = stateMachine.gun.input_;
         
         input.playerActions.Shoot.started -= OnFire;
         input.playerActions.Shoot.canceled -= StopFire;

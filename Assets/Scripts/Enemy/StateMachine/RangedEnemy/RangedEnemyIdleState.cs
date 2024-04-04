@@ -26,7 +26,23 @@ public class RangedEnemyIdleState : RangedEnemyBaseState
 
     public override void Update()
     {
-        if (IsInChaseRange())
+        //if (IsInChaseRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.ChasingState);
+        //    return;
+        //}
+
+        if (!IsInChaseRange() && !IsInAttackRange())
+        {
+            //stateMachine.ChangeState(stateMachine.IdlingState);
+            return;
+        }
+        else if (IsInChaseRange() && IsInAttackRange())
+        {
+            stateMachine.ChangeState(stateMachine.AttackState);
+            return;
+        }
+        else if (!IsInAttackRange() && IsInChaseRange())
         {
             stateMachine.ChangeState(stateMachine.ChasingState);
             return;

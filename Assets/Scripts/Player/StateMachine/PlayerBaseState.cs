@@ -19,6 +19,7 @@ public class PlayerBaseState : IState
     }
     public virtual void Enter()
     {
+        stateMachine.DebugCurrentState();
         if(stateMachine.player.input != null)
             AddInputActionsCallbacks();
     }
@@ -38,6 +39,7 @@ public class PlayerBaseState : IState
     {
         Move();
         Rotate();
+        if (stateMachine.player.health.IsDead) stateMachine.ChangeState(stateMachine.DeadState);
     }
 
     public virtual void PhysicsUpdate()
@@ -71,6 +73,10 @@ public class PlayerBaseState : IState
 
         //Inventory
         input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
+
+        //Equipment
+        input.playerActions.WeaponSwap.started += OnSwap;
+        input.playerActions.WeaponSwapWheeling.started += OnSwap;
     }
 
     public virtual void RemoveInputActionsCallbacks()
@@ -85,6 +91,10 @@ public class PlayerBaseState : IState
         input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
         //Inventory
         input.playerActions.Inventory.started -= stateMachine.player.inventory.Toggle;
+
+        //Equipment
+        input.playerActions.WeaponSwap.started -= OnSwap;
+        input.playerActions.WeaponSwapWheeling.started -= OnSwap;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {
@@ -98,6 +108,10 @@ public class PlayerBaseState : IState
     protected virtual void OnRun(InputAction.CallbackContext context)
     {
 
+    }
+    protected virtual void OnSwap(InputAction.CallbackContext context)
+    {
+        stateMachine.player.WeaponSwap();
     }
 
     private void ReadMovementInput()
