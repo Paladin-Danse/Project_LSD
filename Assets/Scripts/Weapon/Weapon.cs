@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
     public bool isAuto;
     public bool isFiring;
     public bool isShotable;
+    public bool isSwap;
     public int maxMagazine;
     public string maxMagazineText { get { return maxMagazine.ToString(); } }
     public int curMagazine;
@@ -41,12 +42,12 @@ public class Weapon : MonoBehaviour
     public IEnumerator ShotCoroutine = null;
     public IEnumerator RecoilCoroutine = null;
     public IEnumerator ReloadCoroutine = null;
-
+    public IEnumerator TakeCoroutine = null;
     public List<Mod> mods { get; private set; }
+    
+
     [Header("Projectile")]
-    public List<AmmoProjectile> weaponProjectile_List;//poolingList
-    protected GameObject projectiles;//InGame Projectile Parent Object
-    public AmmoProjectile ammoProjectile;//InGame Projectile
+    public GameObject projectilePrefab;//InGame Projectile
     public Transform firePos;
 
     [Header("Audio")]
@@ -56,11 +57,13 @@ public class Weapon : MonoBehaviour
     public AudioClip cock_AudioClip;
     public AudioClip reload_start_AudioClip;
     public AudioClip reload_end_AudioClip;
+    public AudioClip takeOut_AudioClip;
 
     public float shot_Volume;
     public float dry_Volume;
     public float cock_Volume;
     public float reload_Volume;
+    public float takeOut_Volume;
 
     [Header("Animation")]
     public Animator animator;
@@ -69,34 +72,29 @@ public class Weapon : MonoBehaviour
     public void Init(PlayerCharacter playerCharacter)
     {
         playerCharacter_ = playerCharacter;
-        input_ = playerCharacter_.input;
-        WeaponSet();
-        CurrentWeaponEquip();
-        stateMachine.currentState.AddInputActionsCallbacks();
+        
+        animationData = new WeaponAnimationData();
         animationData.Initialize();
-    }
 
-    protected void Awake()
-    {
         if (baseStatSO != null)
         {
             baseStat = Instantiate(baseStatSO).weaponStat;
         }
-
-        if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
-        animationData = new WeaponAnimationData();
-
-        stateMachine = new GunStateMachine(this);
-        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        weaponProjectile_List = new List<AmmoProjectile>();
-        projectiles = new GameObject("Projectiles");
-        mods = new List<Mod>();
-
-        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
-
         baseStat = Instantiate(baseStatSO).weaponStat;
         GetWeaponStat = () => { return baseStat; };
+        mods = new List<Mod>();
+        WeaponSet();
+    }
+
+    protected void Awake()
+    {
+        if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
+        stateMachine = new GunStateMachine(this);
+        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
+        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
+
         isShotable = true;
+        isSwap = false;
     }
 
     private void Update()
@@ -120,37 +118,37 @@ public class Weapon : MonoBehaviour
     {
         mods.Remove(mod);
     }
+
     public Vector3 RandomSpread()
+    {
+        //RandomSpread * Recoil
+        Vector3 randomSpreadCircle = UnityEngine.Random.insideUnitCircle * math.min((defaultSpread + (curRecoil * 0.01f)), maxSpread);
+        return randomSpreadCircle;
+    }
+    public Vector3 GetRaycastHitPosition()
     {
         Camera curCam = playerCharacter_.FPCamera;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(curCam.pixelWidth * 0.5f, curCam.pixelHeight * 0.5f, firePos.localPosition.z);
-        //RandomSpread * Recoil
-        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.1f);
+        Vector3 centerPos = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
+        Vector3 centerWorldPos = curCam.ScreenToWorldPoint(centerPos);
 
-        Ray shotRay = curCam.ScreenPointToRay(centerPos + randomSpreadCircle);
+        Ray shotRay = new Ray(centerWorldPos, curCam.transform.forward + RandomSpread());
+        Debug.DrawRay(shotRay.origin, curCam.transform.forward + RandomSpread(), Color.red, rayDistance);
+
+        //return shotRay.GetPoint(rayDistance);
+        
         RaycastHit hit;
         Vector3 hitPos;
 
-        if(Physics.Raycast(shotRay, out hit, rayDistance, ammoProjectile.TargetLayer))
+        if (Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Projectile")))
         {
             hitPos = hit.point;
-            Debug.DrawRay(shotRay.origin, hitPos, Color.red, rayDistance);
         }
         else
         {
             hitPos = shotRay.GetPoint(rayDistance);
-            Debug.DrawRay(shotRay.origin, shotRay.GetPoint(rayDistance), Color.red, rayDistance);
         }
-
         return hitPos;
-        
-        /*
-        //RandomSpread * Recoil
-        Vector3 randomSpreadCircle = new Vector3(UnityEngine.Random.insideUnitCircle.normalized.x, UnityEngine.Random.insideUnitCircle.normalized.y, 0) * defaultSpread * (curRecoil * 0.01f);
-        return -firePos.forward + randomSpreadCircle;
-        */
-        
     }
     public void WeaponSet()
     {
@@ -159,48 +157,23 @@ public class Weapon : MonoBehaviour
         maxRecoil = curWeaponStat.recoil * 2f;
         defaultSpread = curWeaponStat.spread * 0.01f;
         maxSpread = defaultSpread * 2f;
-
-        if (weaponProjectile_List.Find(x => x == ammoProjectile) == null)
-        {
-            for (int i = 0; i < maxMagazine; i++)
-                CreateObject(weaponProjectile_List, ammoProjectile).gameObject.SetActive(false);
-        }
     }
-
+    
     public void CurrentWeaponEquip()
     {
-        gameObject.SetActive(true);
-        WeaponSet();
-        PlayClip(cock_AudioClip, cock_Volume);
-        stateMachine.ChangeState(stateMachine.ReadyState);
+        input_ = playerCharacter_.input;
+        playerCharacter_.playerUIEventInvoke();
+        stateMachine.ChangeState(stateMachine.EnterState);
+        //stateMachine.currentState.AddInputActionsCallbacks();
     }
-
-    public AmmoProjectile CreateObject(List<AmmoProjectile> pooling_List, AmmoProjectile obj)
+    public void CurrentWeaponUnEquip()
     {
-        AmmoProjectile newProjectile = Instantiate(obj, firePos.position, Quaternion.LookRotation(-firePos.forward)).GetComponent<AmmoProjectile>();
-
-        if(projectiles == null) projectiles = new GameObject("Projectiles");
-        newProjectile.transform.parent = projectiles.transform;
-        pooling_List.Add(newProjectile);
-        return newProjectile;
+        stateMachine.ChangeState(stateMachine.ExitState);
     }
     public void PlayClip(AudioClip newClip, float volume)
     {
         audioSource.volume = volume;
         audioSource.PlayOneShot(newClip);
-    }
-
-    protected void ProjectilePooling(AmmoProjectile projectile)
-    {
-        AmmoProjectile newProjectile;
-        if (weaponProjectile_List.Exists(x => x.gameObject.activeSelf == false))
-            newProjectile = weaponProjectile_List.Find(x => x.gameObject.activeSelf == false);
-        else
-            newProjectile = CreateObject(weaponProjectile_List, projectile);
-
-        newProjectile.transform.position = firePos.position;
-        newProjectile.transform.rotation = Quaternion.LookRotation(RandomSpread());
-        newProjectile.OnInit(stateMachine.Gun);
     }
 
     public void ShotCoroutinePlay(IEnumerator shotOrDryfire)
@@ -211,6 +184,22 @@ public class Weapon : MonoBehaviour
             StartCoroutine(ShotCoroutine);
         }
     }
+    public void TakeInCoroutinePlay()
+    {
+        if (TakeCoroutine == null)
+        {
+            TakeCoroutine = TakeIn();
+            StartCoroutine(TakeCoroutine);
+        }
+    }
+    public void TakeOutCoroutinePlay()
+    {
+        if(TakeCoroutine == null)
+        {
+            TakeCoroutine = TakeOut();
+            StartCoroutine(TakeCoroutine);
+        }
+    }
 
     public IEnumerator Shot()
     {
@@ -219,13 +208,19 @@ public class Weapon : MonoBehaviour
         playerCharacter_.playerUIEventInvoke();
 
         //Projectile Create
-        ProjectilePooling(ammoProjectile);
+        AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
+        ammoProjectile.transform.position = firePos.position;
+        ammoProjectile.transform.transform.LookAt(GetRaycastHitPosition());
+        ammoProjectile.OnInit(stateMachine.gun);
+
         //Recoil
         if (RecoilCoroutine != null) StopCoroutine(RecoilCoroutine);
         RecoilCoroutine = OnRecoil();
         StartCoroutine(RecoilCoroutine);
+
         //Empty Check
         if (isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
+
         //shoot CoolTime
         yield return YieldCacher.WaitForSeconds(curWeaponStat.fireDelay);
         ShotCoroutine = null;
@@ -285,5 +280,26 @@ public class Weapon : MonoBehaviour
         playerCharacter_.playerUIEventInvoke();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);
+    }
+    
+    public IEnumerator TakeIn()
+    {
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        TakeCoroutine = null;
+        stateMachine.ChangeState(stateMachine.ReadyState);
+    }
+    public IEnumerator TakeOut()
+    {
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        TakeCoroutine = null;
+        gameObject.SetActive(false);
     }
 }

@@ -26,15 +26,31 @@ public class RangedEnemyChasingState : RangedEnemyBaseState
     {
         base.Update();
 
-        if (!IsInChaseRange())
+        //if (!IsInChaseRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.IdlingState);
+        //    return;
+        //}
+        //if (IsInAttackRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.AttackState);            
+        //    return;
+        //}
+        //
+        if (!IsInChaseRange() && !IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.IdlingState);
             return;
         }
-        if (IsInAttackRange())
+        else if (IsInChaseRange() && IsInAttackRange())
         {
-            stateMachine.ChangeState(stateMachine.AttackState);            
+            stateMachine.ChangeState(stateMachine.AttackState);
             return;
-        }        
+        }
+        else if (!IsInAttackRange() && IsInChaseRange())
+        {
+            //stateMachine.ChangeState(stateMachine.ChasingState);
+            return;
+        }
     }
 }

@@ -504,6 +504,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.2173913
+        functionName: GunShotSound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e833649624ea89c4099d1319ad4bc1b2, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.21938775
         functionName: StartShot
         data: 

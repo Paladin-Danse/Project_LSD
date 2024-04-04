@@ -29,16 +29,38 @@ public class DesertBossChasingState : DesertBossBaseState
     public override void Update()
     {
         base.Update();
-
-        if (!IsInChaseRange())
+        Debug.Log(IsInAttackRange()+"/"+IsInChaseRange());
+        if (!IsInChaseRange() && !IsInAttackRange())
         {
             stateMachine.ChangeState(stateMachine.IdlingState);
             return;
         }
-        if (IsInAttackRange())
+        else if (IsInChaseRange() && IsInAttackRange())
         {            
             stateMachine.ChangeState(stateMachine.AttackState);
             return;
         }
+        else if (!IsInAttackRange() && IsInChaseRange())
+        {
+            //stateMachine.ChangeState(stateMachine.ChasingState);
+            return;
+        }
+
+        //if (IsInChaseRange())
+        //{
+        //    stateMachine.ChangeState(stateMachine.ChasingState);
+        //    return;
+        //}
+
+        //float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "@Attack");
+
+        //if (0 < normalizedTime)
+        //{
+        //    if (!IsInAttackRange() && IsInChaseRange())
+        //    {
+        //        stateMachine.ChangeState(stateMachine.ChasingState);
+        //        return;
+        //    }
+        //}
     }
 }

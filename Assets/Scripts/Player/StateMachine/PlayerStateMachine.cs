@@ -14,6 +14,7 @@ public class PlayerStateMachine : StateMachine<PlayerBaseState>
     public PlayerRunState RunState { get; }
     public PlayerFallState FallState { get; }
     public PlayerJumpState JumpState { get; }
+    public PlayerDeadState DeadState { get; }
     public Vector2 MovementInput { get; set; }
     public float JumpForce { get; set; }
     public bool IsAttacking { get; set; }
@@ -29,5 +30,10 @@ public class PlayerStateMachine : StateMachine<PlayerBaseState>
         RunState = new PlayerRunState(this);
         FallState = new PlayerFallState(this);
         JumpState = new PlayerJumpState(this);
+        DeadState = new PlayerDeadState(this);
+    }
+    public void DebugCurrentState()
+    {
+        Debug.Log(currentState);
     }
 }

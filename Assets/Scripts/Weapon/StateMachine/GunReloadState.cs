@@ -12,11 +12,11 @@ public class GunReloadState : GunBaseState
     public override void Enter()
     {
         base.Enter();
-        if (stateMachine.Gun.ReloadCoroutine == null)
+        if (stateMachine.gun.ReloadCoroutine == null)
         {
-            stateMachine.Gun.ReloadCoroutine = stateMachine.Gun.Reload();
-            stateMachine.Gun.StartCoroutine(stateMachine.Gun.ReloadCoroutine);
-            stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.movementSpeedParameterHash, 0);
+            SetAnimation(stateMachine.gun.animationData.movementSpeedParameterHash, 0);
+            stateMachine.gun.ReloadCoroutine = stateMachine.gun.Reload();
+            stateMachine.gun.StartCoroutine(stateMachine.gun.ReloadCoroutine);
         }
         else
         {

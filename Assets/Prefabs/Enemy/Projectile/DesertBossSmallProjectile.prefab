@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4206766133559148824}
   - component: {fileID: 5293535149826344170}
   - component: {fileID: 5263050898044544992}
-  - component: {fileID: -4243238764210590933}
+  - component: {fileID: -4511334167307328927}
   m_Layer: 10
   m_Name: DesertBossSmallProjectile
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 309353638689228500}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,7 +151,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &-4243238764210590933
+--- !u!114 &-4511334167307328927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,12 +160,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 309353638689228500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 428de3ac87f75d4428a7ecb58241a697, type: 3}
+  m_Script: {fileID: 11500000, guid: c53d3ea444b9ac04d887829f1c2ce8ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boom1: {fileID: 1007127540951276732, guid: 3ace37360f306cb4aac03640550fa9ef, type: 3}
-  Boom2: {fileID: 1620140131458704099, guid: 57e5b83dfee152a47aedf7d83c83e9f5, type: 3}
-  Boom3: {fileID: 560014183069458990, guid: 621e45f610d611746802ad828f66b094, type: 3}
+  damage: 10
+  Fire1: {fileID: 8524720578854897586, guid: 85f7143e43935bb48b9d5932fb43ce49, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 264
+  explosionRadius: 0

@@ -7,6 +7,11 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
 
+public interface IObjectCrash
+{
+    void TakeAmmoItemColliderCrash(AmmoType ammoType, int count);
+}
+
 // 아이템 슬롯 클래스
 public class ItemSlot
 {
@@ -15,7 +20,7 @@ public class ItemSlot
 }
 
 // 인벤토리를 표현하기 위한 클래스
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IObjectCrash
 {
     public ItemSlotUI[] uiSlots; // ui 슬롯
     public ItemSlot[] slots; // item 슬롯
@@ -35,10 +40,19 @@ public class Inventory : MonoBehaviour
     public GameObject unEquipButton; // 해제 버튼
     public GameObject dropButton; // 버림 버튼
 
+    private int rifleAmmoCount; // 남은 라이플탄약
+    private int pistolAmmoCount; // 남은 피스톨탄약
+    public TextMeshProUGUI rifleAmmoCountText; 
+    public TextMeshProUGUI pistolAmmoCountText;
+
+
+    public WeaponSlotUI weaponSlotUI1;
+    public WeaponSlotUI weaponSlotUI2;
+
     private int curEquipIndex; // ???
 
-    private PlayerController controller; // 플레이어 컨트롤러
-    private PlayerConditions condition; // 플레이어 상황
+
+    private PlayerCharacter character;
 
     [Header("Events")]
     public UnityEvent onOpenInventory; // 인벤토리 오픈 이벤트
@@ -48,8 +62,8 @@ public class Inventory : MonoBehaviour
     void Awake()
     {
         instance = this;
-        controller = GetComponent<PlayerController>();
-        condition = GetComponent<PlayerConditions>();
+
+        character = GetComponent<PlayerCharacter>();
     }
 
     private void Start()
@@ -63,7 +77,8 @@ public class Inventory : MonoBehaviour
             uiSlots[i].index = i;
             uiSlots[i].Clear();
         }
-
+        rifleAmmoCount = 100;
+        pistolAmmoCount = 100;
         ClearSeletecItemWindow();
     }
 
@@ -87,6 +102,9 @@ public class Inventory : MonoBehaviour
         }
         else
         {
+            UpdateAmmoUI();
+            weaponSlotUI1.nameText.text = character.primaryWeapon.name;
+            weaponSlotUI2.nameText.text = character.secondaryWeapon.name;
             inventoryWindow.SetActive(true);
             onOpenInventory?.Invoke();
             //controller.ToggleCursor(true);
@@ -97,6 +115,41 @@ public class Inventory : MonoBehaviour
     public bool IsOpen()
     {
         return inventoryWindow.activeInHierarchy;
+    }
+
+    [System.Obsolete]
+    public void TakeAmmoItemColliderCrash(AmmoType ammoType, int count)
+    {
+        switch (ammoType)
+        {
+            case AmmoType.Rifle:
+                AddAmmo(ref rifleAmmoCount, count);
+                break;
+            case AmmoType.Pistol:
+                AddAmmo(ref pistolAmmoCount, count);
+                break;
+        }
+        if (inventoryWindow.active) // 인벤토리를 열고있다면
+        {
+            UpdateAmmoUI();
+        }
+    }
+
+    void AddAmmo(ref int ammo,int count)
+    {
+        ammo += count;
+        if (ammo > 999) ammo = 999;
+    }
+
+    void UpdateAmmoUI()
+    {
+        rifleAmmoCountText.text = rifleAmmoCount.ToString();
+        pistolAmmoCountText.text = pistolAmmoCount.ToString();
+    }
+
+    public void AddWeapon(Weapon weapon)
+    {
+        character.primaryWeapon = weapon;
     }
 
     // 인벤토리에 아이템 추가

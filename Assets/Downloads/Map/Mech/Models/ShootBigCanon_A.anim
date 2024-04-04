@@ -22070,3 +22070,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: FBoomSmoke
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: cabcf4aff19b39d44b057d9324335da1, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

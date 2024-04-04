@@ -31,9 +31,6 @@ public class AmmoProjectile : MonoBehaviour
         Move();
     }
 
-    void Update()
-    {
-    }
     private void FixedUpdate()
     {
         CollisionCheck();
@@ -44,12 +41,13 @@ public class AmmoProjectile : MonoBehaviour
     {
         rigidbody_.velocity = transform.forward * ProjectileVelocity;
     }
+
     private void CollisionCheck()
     {
-        if(rigidbody_.SweepTest(transform.forward, out hit, ProjectileVelocity * ProjectileSweepCheckModifier))
+        if (rigidbody_.SweepTest(transform.forward, out hit, ProjectileVelocity * ProjectileSweepCheckModifier))
         {
             int objectLayer = 1 << hit.transform.gameObject.layer;
-            
+
             if ((TargetLayer & objectLayer) != 0)
             {
                 if (hit.transform.TryGetComponent<Health>(out Health hit_Object))
@@ -63,16 +61,21 @@ public class AmmoProjectile : MonoBehaviour
                 }
             }
             rigidbody_.velocity = Vector3.zero;
-            gameObject.SetActive(false);        }
+            DestroyProjectile();
+        }
     }
     
     private void DisableProjectile()
     {
         if (Vector3.Distance(transform.position, EnablePos) >= ProjectileMaxDistance)
         {
-            rigidbody_.velocity = Vector3.zero;
-            gameObject.SetActive(false);
+            DestroyProjectile();
         }
+    }
+    
+    private void DestroyProjectile() 
+    {
+        ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 
 }

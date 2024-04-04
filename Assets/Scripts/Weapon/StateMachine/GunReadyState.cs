@@ -13,36 +13,36 @@ public class GunReadyState : GunBaseState
     public override void Enter()
     {
         base.Enter();
-        stateMachine.Gun.isFiring = false;
-        stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.fireParameterHash, -1);
-        if (stateMachine.Gun.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
+        stateMachine.gun.isFiring = false;
+        SetAnimation(stateMachine.gun.animationData.fireParameterHash, -1);
+        if (stateMachine.gun.isEmpty) stateMachine.ChangeState(stateMachine.EmptyState);
     }
     public override void Exit()
     {
         base.Exit();
-        stateMachine.Gun.isFiring = false;
-        stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.fireParameterHash, -1);
+        stateMachine.gun.isFiring = false;
+        SetAnimation(stateMachine.gun.animationData.fireParameterHash, -1);
     }
     public override void Update()
     {
         base.Update();
-        if(stateMachine.Gun.isAuto && stateMachine.Gun.isFiring && !stateMachine.Gun.isEmpty) AutoFire();
+        if(stateMachine.gun.isAuto && stateMachine.gun.isFiring && !stateMachine.gun.isEmpty) AutoFire();
     }
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        PlayerStateMachine playerStateMachine = stateMachine.Gun.playerCharacter_.stateMachine;
+        PlayerStateMachine playerStateMachine = stateMachine.gun.playerCharacter_.stateMachine;
         int playerState = (playerStateMachine.currentState == playerStateMachine.WalkState ? 1 :
                            playerStateMachine.currentState == playerStateMachine.RunState ? 3 : 0);
-        if(!stateMachine.Gun.isFiring)
-            stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.movementSpeedParameterHash, playerState);
+        if(!stateMachine.gun.isFiring)
+            SetAnimation(stateMachine.gun.animationData.movementSpeedParameterHash, playerState);
         else
-            stateMachine.Gun.animator.SetInteger(stateMachine.Gun.animationData.movementSpeedParameterHash, 0);
+            SetAnimation(stateMachine.gun.animationData.movementSpeedParameterHash, 0);
     }
     protected override void OnFire(InputAction.CallbackContext callbackContext)
     {
         base.OnFire(callbackContext);
-        Weapon curWeapon = stateMachine.Gun;
+        Weapon curWeapon = stateMachine.gun;
 
         curWeapon.isFiring = true;
 
@@ -57,7 +57,7 @@ public class GunReadyState : GunBaseState
     protected override void StopFire(InputAction.CallbackContext callbackContext)
     {
         base.StopFire(callbackContext);
-        Weapon curWeapon = stateMachine.Gun;
+        Weapon curWeapon = stateMachine.gun;
 
         if (curWeapon.isFiring)
         {
@@ -69,7 +69,7 @@ public class GunReadyState : GunBaseState
 
     protected void AutoFire()
     {
-        Weapon curWeapon = stateMachine.Gun;
+        Weapon curWeapon = stateMachine.gun;
 
         if (curWeapon.isFiring && !curWeapon.isEmpty && curWeapon.isShotable)
         {
@@ -80,7 +80,7 @@ public class GunReadyState : GunBaseState
     protected override void OnReload(InputAction.CallbackContext callbackContext)
     {
         base.OnReload(callbackContext);
-        Weapon curWeapon = stateMachine.Gun;
+        Weapon curWeapon = stateMachine.gun;
         //재장전 하기 전 남은 잔탄을 현재 가지고 있는 전체 탄에 더할 것.
         if (curWeapon.curMagazine != curWeapon.maxMagazine)
         {
