@@ -406,7 +406,7 @@ Transform:
   m_Children:
   - {fileID: 21269878524244718}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3460815734779253346
 MonoBehaviour:
@@ -420,7 +420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526b05e920cce0347ba6df5a3d387ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  weaponObj: {fileID: 6305645678077168533, guid: d5f6a9b788e092742b30b49d3f69965e, type: 3}
+  displayName: "\uB3CC\uACA9\uC18C\uCD1D"
+  description: "\uB3CC\uACA9\uC18C\uCD1D\uC5D0 \uB300\uD55C \uC124\uBA85"
+  icon: {fileID: 0}
+  dropPrefab: {fileID: 8842644601895612216}
 --- !u!205 &950072922732529086
 LODGroup:
   m_ObjectHideFlags: 0
