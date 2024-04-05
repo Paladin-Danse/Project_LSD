@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 /// <summary> Åº¾à Á¾·ù </summary>
 public enum AmmoType
 {

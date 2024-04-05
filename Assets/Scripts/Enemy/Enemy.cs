@@ -60,11 +60,15 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 2f);
         if (per >= 50)
         {
-            Instantiate(bulletBox, transform.position, transform.rotation);
+            ObjectPoolManager.Instance.Pop(bulletBox);
+            bulletBox.transform.position = transform.position;
+            bulletBox.transform.rotation = transform.rotation;
         }
         else if (per < 50)
         {
-            Instantiate(firstAidKit, transform.position, transform.rotation);
+            ObjectPoolManager.Instance.Pop(firstAidKit);
+            firstAidKit.transform.position = transform.position;
+            firstAidKit.transform.rotation = transform.rotation;
         }
     }
 

@@ -200,6 +200,15 @@ public class Weapon : MonoBehaviour
             StartCoroutine(TakeCoroutine);
         }
     }
+    public bool CheckInventoryAmmo()
+    {
+        return playerCharacter_.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
+    }
+    public int UseInventoryAmmo()
+    {
+        int ammo = playerCharacter_.inventory.LostorUsedAmmo(baseStat.e_useAmmo, maxMagazine - curMagazine);
+        return ammo;
+    }
 
     public IEnumerator Shot()
     {
@@ -276,7 +285,7 @@ public class Weapon : MonoBehaviour
         yield return YieldCacher.WaitForSeconds(curWeaponStat.reloadDelay);
         PlayClip(reload_end_AudioClip, reload_Volume);
         animator.speed = 1;
-        curMagazine = maxMagazine;
+        curMagazine += UseInventoryAmmo();
         playerCharacter_.playerUIEventInvoke();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);

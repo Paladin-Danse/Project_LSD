@@ -12,6 +12,6 @@ public class FirstAidKitObject : MonoBehaviour, IInteractable
     public void OnInteract()
     {
         Player.FindObjectOfType<Health>().curHealth += 30;
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 }
