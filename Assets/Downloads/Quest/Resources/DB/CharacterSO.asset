@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf41833ac8dd495f82b55cbe174a655, type: 3}
+  m_Name: CharacterSO
+  m_EditorClassIdentifier: 
+  Entities:
+  - _id: 1
+    _name: "\uC804\uC0AC"
+    _description: "\uADE0\uD615\uC7A1\uD78C \uADFC\uC811 \uACF5\uACA9 \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4."
+    _spritePath: Sprite/Character/Character_1
+    _hp: 100
+    _mp: 35
+    _atk: 20
+    _def: 13
+  - _id: 2
+    _name: "\uB2E4\uD06C\uB098\uC774\uD2B8"
+    _description: "\uACF5\uACA9\uB825\uC740 \uB0AE\uC9C0\uB9CC \uD2BC\uD2BC\uD558\uACE0
+      \uB2E4\uC591\uD55C \uC8FC\uBB38\uC758 \uD65C\uC6A9\uC774 \uAC00\uB2A5\uD569\uB2C8\uB2E4"
+    _spritePath: Sprite/Character/Character_2
+    _hp: 100
+    _mp: 40
+    _atk: 17
+    _def: 17
+  - _id: 3
+    _name: "\uB808\uC778\uC800"
+    _description: "\uBAA8\uB4E0 \uB2A5\uB825\uCE58\uAC00 \uB0AE\uC9C0\uB9CC \uC6D0\uAC70\uB9AC\uC5D0\uC11C
+      \uACF5\uACA9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+    _spritePath: Sprite/Character/Character_3
+    _hp: 80
+    _mp: 35
+    _atk: 15
+    _def: 10
+  - _id: 4
+    _name: "\uACE0\uBE14\uB9B0"
+    _description: "\uB2A5\uB825\uCE58\uAC00 \uB0AE\uC9C0\uB9CC \uB9E4\uC6B0 \uBE60\uB974\uAC8C
+      \uC6C0\uC9C1\uC77C \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+    _spritePath: Sprite/Character/Character_4
+    _hp: 85
+    _mp: 20
+    _atk: 17
+    _def: 10
+  - _id: 5
+    _name: "\uC624\uD06C"
+    _description: "\uC57C\uC0DD\uC758 \uC624\uD06C\uC785\uB2C8\uB2E4. \uCCB4\uB825\uC774
+      \uB192\uACE0 \uACF5\uACA9\uB825\uC774 \uAC15\uD569\uB2C8\uB2E4."
+    _spritePath: Sprite/Character/Character_5
+    _hp: 130
+    _mp: 15
+    _atk: 25
+    _def: 12
+  - _id: 6
+    _name: "\uC0E4\uD06C\uB9E8"
+    _description: "\uC0E4\uD06C\uB9E8~"
+    _spritePath: Sprite/Character/Character_6
+    _hp: 150
+    _mp: 20
+    _atk: 30
+    _def: 13
