@@ -47,28 +47,26 @@ public class BossSmallProjectile : MonoBehaviour
         //    return;
         //}
         //check = true;        
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
-        //{
+        if (other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+        {
 
-        //    FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
-        //    //CFire();
+            FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+            //CFire();
 
-        //    Destroy(gameObject, 2f);
-            
-        //}
+            Destroy(gameObject, 2f);
+
+        }
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
-
-            FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);            
+            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);                        
 
             Destroy(gameObject, 2f);
         }
-        else
-        {
-            FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
-            Destroy(gameObject, 2f);
-        }
+        //else
+        //{
+        //    FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+        //    Destroy(gameObject, 2f);
+        //}
 
         Destroy(gameObject, 3f);
     }    
