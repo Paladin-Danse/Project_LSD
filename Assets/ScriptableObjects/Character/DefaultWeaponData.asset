@@ -15,6 +15,7 @@ MonoBehaviour:
   weaponStat:
     statModifyType: 2
     weaponStatFlag: -1
+    e_useAmmo: 0
     magazine: 30
     spread: 5
     recoil: 5

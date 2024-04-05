@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     public void Possess(PlayerCharacter playerCharacter)
     {
         this.playerCharacter = playerCharacter;
-        OnPossessed.Invoke();
+        OnPossessed?.Invoke();
         OnControllCharacter();
         playerCharacter.playerUIEventInvoke();
     }
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     public void UnPossess(PlayerCharacter playerCharacter) 
     {
         this.playerCharacter = null;
-        OnUnPossessed.Invoke();
+        OnUnPossessed?.Invoke();
         playerCharacter.playerUIEventInvoke();
     }
 
