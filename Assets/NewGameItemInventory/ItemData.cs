@@ -5,9 +5,8 @@ using UnityEngine;
 // 아이템 종류
 public enum ItemType
 {
-    Resource, // 재료
-    Equipable, // 장비
-    Consumable // 소모품(체력)
+    Weapon, // 무기
+    Equipable // 장비
 }
 
 // 스텟 종류
@@ -34,12 +33,4 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public Sprite icon;
     public GameObject dropPrefab;
-
-    [Header("Stacking")] // 스택
-    public bool canStack;
-    public int maxStackAmount;
-
-    [Header("Consumable")] // 소모품
-    public ItemDataConsumable[] consumables;
-
 }
