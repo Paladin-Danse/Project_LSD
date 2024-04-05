@@ -731,6 +731,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 568746170}
     - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
+      propertyPath: inventorySO
+      value: 
+      objectReference: {fileID: 11400000, guid: 6f334e0f804539f46aa359a94257c58b, type: 2}
+    - target: {fileID: 7861501597850789122, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
       propertyPath: unEquipButton
       value: 
       objectReference: {fileID: 1748198657}
