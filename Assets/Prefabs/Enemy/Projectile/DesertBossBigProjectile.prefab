@@ -169,4 +169,4 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  explosionRadius: 5
+  explosionRadius: 7

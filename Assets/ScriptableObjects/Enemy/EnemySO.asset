@@ -16,7 +16,7 @@ MonoBehaviour:
   <AttackRange>k__BackingField: 2.3
   <AttackRate>k__BackingField: 0
   <ProjectileDistance>k__BackingField: 0
-  <Damage>k__BackingField: 20
+  <Damage>k__BackingField: 5
   <Dealing_Start_TransitionTime>k__BackingField: 0.25
   <Dealing_End_TransitionTime>k__BackingField: 0.5
   <GroundedData>k__BackingField:
@@ -24,3 +24,4 @@ MonoBehaviour:
     <BaseRotationDamping>k__BackingField: 8
     <WalkSpeedModifier>k__BackingField: 0.225
     <RunSpeedModifier>k__BackingField: 1
+  targetNumber: 0
