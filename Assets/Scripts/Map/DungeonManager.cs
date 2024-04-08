@@ -11,7 +11,7 @@ public class DungeonManager : MonoBehaviour
     public int questId_add;
     public QuestType questType;
     public int target;
-    public int count;
+    public int curcount;
 
     private void Awake()
     {
@@ -42,6 +42,6 @@ public class DungeonManager : MonoBehaviour
 
     public void UpdateQuest()
     {
-        QuestManager.Instance.DNotifyQuest(questType, target, count);
+        QuestManager.Instance.DNotifyQuest(questType, target, curcount);        
     }
 }

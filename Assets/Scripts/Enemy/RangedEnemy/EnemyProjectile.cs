@@ -52,6 +52,8 @@ public class EnemyProjectile : MonoBehaviour
             Debug.Log("Ranged - Player Hit" + damage);
             Destroy(gameObject);
         }
+
+        Destroy(gameObject, 3f);
     }
     
     public void InitProjectile(RangedEnemyWeapon weapon)

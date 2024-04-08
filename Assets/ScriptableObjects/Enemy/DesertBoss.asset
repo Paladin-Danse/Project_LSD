@@ -24,3 +24,4 @@ MonoBehaviour:
     <BaseRotationDamping>k__BackingField: 8
     <WalkSpeedModifier>k__BackingField: 0.225
     <RunSpeedModifier>k__BackingField: 1
+  targetNumber: 1101009

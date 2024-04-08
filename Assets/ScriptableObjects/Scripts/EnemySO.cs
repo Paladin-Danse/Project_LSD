@@ -15,4 +15,6 @@ public class EnemySO : ScriptableObject
 
     [field: SerializeField] public EnemyGroundData GroundedData { get; private set; }
 
+    [field: SerializeField] public int targetNumber;
+
 }

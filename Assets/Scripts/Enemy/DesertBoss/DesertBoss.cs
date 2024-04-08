@@ -73,5 +73,6 @@ public class DesertBoss : MonoBehaviour
         }
 
         audioSource.PlayOneShot(dieSound);
+        QuestManager.Instance.DQuestUpdate(1009, 1);
     }    
 }
