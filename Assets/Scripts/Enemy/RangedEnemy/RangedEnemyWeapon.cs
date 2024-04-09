@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputManagerEntry;
 
 public class RangedEnemyWeapon : MonoBehaviour
 {
@@ -11,31 +12,80 @@ public class RangedEnemyWeapon : MonoBehaviour
     [HideInInspector] public float projectileDistance;
     WaitForSeconds WFS;
     RangedEnemy rangedEnemy;
-    
+    public LayerMask layerMask;
+    float attackRange;
+    private Transform target;
+    public float maxR;
+    public float minR;
+    public float maxD;
+    public float minD;
+
     private void Awake()
     {
         rangedEnemy = GetComponent<RangedEnemy>();
         projectileSpeed = rangedEnemy.WSData.weaponStat.attackStat.bulletSpeed;
         projectileDamage = rangedEnemy.WSData.weaponStat.attackStat.damage;
         projectileDistance = rangedEnemy.WSData.weaponStat.attackStat.range;
+        attackRange = rangedEnemy.RData.AttackRange;
     }
 
     private void Start()
     {
-        WFS = new WaitForSeconds(rangedEnemy.stateMachine.Enemy.RData.AttackRate);                
+        WFS = new WaitForSeconds(rangedEnemy.stateMachine.Enemy.RData.AttackRate);
+        InvokeRepeating("UpdateTarget", 0, 0.25f);
     }    
     public void StartShot()
     {
         StartCoroutine("Shot");
-    }    
+    }
+
+    private void Update()
+    {
+        if (target != null)
+        {
+            muzzlePos.transform.LookAt(target, muzzlePos.transform.forward);
+            //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+            //LookTarget();
+        }
+
+    }
+
+    public void LookTarget()
+    {
+        float distance = Vector3.Distance(transform.position, target.position);
+        float nor = Mathf.InverseLerp(minD, maxD, distance);
+        float targetR = Mathf.Lerp(minR, maxR, nor);
+        //targetR = Mathf.Clamp(targetR, minD, maxD);
+        transform.Rotate(0f, targetR, 0f);
+    }
 
     IEnumerator Shot()
     {        
         GameObject instantProjectile = Instantiate(projectilePrefab, muzzlePos.position, muzzlePos.rotation);
         Rigidbody projectileRigid = instantProjectile.GetComponent<Rigidbody>();
-        projectileRigid.velocity = muzzlePos.forward * projectileSpeed;
+        projectileRigid.velocity = muzzlePos.forward * projectileSpeed;        
         rangedEnemy.Projectile = instantProjectile.GetComponent<EnemyProjectile>();
         rangedEnemy.Projectile.InitProjectile(this);
         yield return WFS;               
-    }        
+    }
+
+    void UpdateTarget()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, attackRange, layerMask);
+
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                if (cols[i].gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    target = cols[i].gameObject.transform;
+                }
+            }
+        }
+        else
+        {
+            target = null;
+        }
+    }
 }

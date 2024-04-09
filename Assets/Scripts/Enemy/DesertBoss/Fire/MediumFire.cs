@@ -16,7 +16,7 @@ public class MediumFire : MonoBehaviour
     private void Start()
     {
         currentDurationTime = durationTime;
-        Invoke("SFire", 2.9f);
+        //Invoke("SFire", 2.9f);
     }
 
     void Update()

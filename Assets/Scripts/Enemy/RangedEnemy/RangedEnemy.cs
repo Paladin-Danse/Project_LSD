@@ -54,6 +54,8 @@ public class RangedEnemy : MonoBehaviour
 
     void OnDie()
     {
+        this.GetComponent<CapsuleCollider>().enabled = false;
+        this.GetComponent<Rigidbody>().isKinematic = true;
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
         enabled = false;

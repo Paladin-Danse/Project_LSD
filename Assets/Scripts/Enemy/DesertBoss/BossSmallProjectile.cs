@@ -6,11 +6,11 @@ public class BossSmallProjectile : MonoBehaviour
 {
     private EnemyProjectileMovementTransform movement;
     float projectileDistance;
-    public float damage;    
-    private ParticleSystem Fire;
-    public GameObject Fire1;    
+    public float damage;        
+    public GameObject firePrefab;        
     public LayerMask layerMask;
     public float explosionRadius;
+    private GameObject FireInstance;        
 
     public void Setup(Vector3 position)
     {
@@ -36,35 +36,37 @@ public class BossSmallProjectile : MonoBehaviour
             }
 
             yield return null;
-        }
+        }        
     }    
 
-    private void OnTriggerEnter(Collider other)
-    {        
+    //bool check = false;
+    private void OnTriggerStay(Collider other)
+    {
+        //if(check)
+        //{
+        //    return;
+        //}
+        //check = true;        
         if (other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
-        {                        
-            GameObject B1 = Instantiate(Fire1, transform.position, Quaternion.identity);
-            ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
-            this.Fire = B1_Effect;
-            Destroy(B1, 5f);
+        {
 
-            Fire.Play();
+            FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+            //CFire();
 
-            Destroy(gameObject, 6f);
+            Destroy(gameObject, 2f);
+
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);                        
 
-            GameObject B1 = Instantiate(Fire1, transform.position, Quaternion.identity);
-            ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
-            this.Fire = B1_Effect;
-            Destroy(B1, 5f);
-
-            Fire.Play();
-
-            Destroy(gameObject, 6f);
+            Destroy(gameObject, 2f);
         }
+        //else
+        //{
+        //    FireInstance = Instantiate(firePrefab, transform.position + new Vector3(0, 2f, 0), Quaternion.identity);
+        //    Destroy(gameObject, 2f);
+        //}
 
         Destroy(gameObject, 3f);
     }    
@@ -73,20 +75,5 @@ public class BossSmallProjectile : MonoBehaviour
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;
-    }
-
-    void ExplosionDamage(Vector3 center, float radius, LayerMask layerMask, float damage)
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius, layerMask);
-
-        foreach (Collider hitCollider in hitColliders)
-        {
-            Health health = hitCollider.gameObject.GetComponent<Health>();
-            if (health != null)
-            {
-                health.TakeDamageWithoutDefense(damage);
-            }
-        }
-
-    }
+    }    
 }
