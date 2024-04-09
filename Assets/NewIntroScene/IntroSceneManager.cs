@@ -8,7 +8,8 @@ public class IntroSceneManager : MonoBehaviour
     private Animator animator;
     public GameObject skipButton;
     public GameObject nextButton;
-    public GameObject MainMenuButtons;
+    public GameObject mainMenuButtons;
+    public GameObject settingMenu;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -22,7 +23,7 @@ public class IntroSceneManager : MonoBehaviour
     public void StoryAnimatorStart()
     {
         animator.SetTrigger("Play");
-        MainMenuButtons.SetActive(false);
+        mainMenuButtons.SetActive(false);
         skipButton.SetActive(true);
     }
     public void StoryAnimatorEnd() 
@@ -47,9 +48,11 @@ public class IntroSceneManager : MonoBehaviour
     {
         Debug.Log("Load Game 미구현");
     }
+
+    [System.Obsolete]
     public void GameSetting()
     {
-        Debug.Log("Setting 미구현");
+        settingMenu.SetActive(!settingMenu.active);
     }
 
     public void GameExit()
