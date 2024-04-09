@@ -284,6 +284,11 @@ public class PlayerCharacter : CharacterStatHandler
 
     public void UnequipWeapon(Weapon weapon)
     {
+        if (weapon.ReloadCoroutine != null)
+        {
+            weapon.StopAction(ref weapon.ReloadCoroutine);
+        }
+
         weaponStatHandler.UnequipWeapon();
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
         curWeapon.CurrentWeaponUnEquip();
@@ -323,6 +328,7 @@ public class PlayerCharacter : CharacterStatHandler
     public IEnumerator Swapping()
     {
         Weapon beforeWeapon = curWeapon;
+
         UnequipWeapon(curWeapon);
         while(beforeWeapon.gameObject.activeSelf)
         {

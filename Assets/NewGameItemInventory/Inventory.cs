@@ -138,7 +138,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
             inventoryWindow.SetActive(false); // 인벤토리창을 끈다
             onCloseInventory?.Invoke(); // 인벤토리창 끄기 인보크
             //controller.ToggleCursor(false); // 컨트롤러.커서 잠금
-            Cursor.lockState = CursorLockMode.Locked; // 커서 잠금
+            character.input.SetCursorLock(true);
         }
         else
         {
@@ -154,7 +154,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
             inventoryWindow.SetActive(true);
             onOpenInventory?.Invoke();
             //controller.ToggleCursor(true);
-            Cursor.lockState = CursorLockMode.Confined; // 커서 잠금해제
+            character.input.SetCursorLock(false);
         }
     }
 
