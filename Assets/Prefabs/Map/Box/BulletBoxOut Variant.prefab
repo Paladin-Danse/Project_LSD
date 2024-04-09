@@ -13,16 +13,12 @@ PrefabInstance:
       value: BulletBoxOut Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_TagString
       value: InteractableObject
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_LocalScale.x
@@ -38,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.063705
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.509827
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: db9c3d48a82463141b1df2f05c27fedc, type: 3}
       propertyPath: m_LocalRotation.w

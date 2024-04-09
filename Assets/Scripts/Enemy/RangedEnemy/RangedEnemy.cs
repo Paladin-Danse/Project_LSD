@@ -68,8 +68,6 @@ public class RangedEnemy : MonoBehaviour
         {
             Instantiate(firstAidKit, transform.position, transform.rotation);
         }
-
-        DungeonManager.amountGold += TestGold.plusGold;
     }
 
     void OnHit()

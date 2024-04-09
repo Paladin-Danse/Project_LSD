@@ -70,8 +70,6 @@ public class Enemy : MonoBehaviour
             firstAidKit.transform.position = transform.position;
             firstAidKit.transform.rotation = transform.rotation;
         }
-
-        DungeonManager.amountGold += TestGold.plusGold;
     }
 
     void OnHit()
