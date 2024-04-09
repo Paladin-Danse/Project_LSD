@@ -15,7 +15,6 @@ MonoBehaviour:
   weaponStat:
     statModifyType: 0
     weaponStatFlag: 0
-    e_useAmmo: 0
     magazine: 0
     spread: 0
     recoil: 0
@@ -25,10 +24,10 @@ MonoBehaviour:
     bulletPerFire: 0
     attackStat:
       statModifyType: 0
-      AttackType: 1
+      AttackType: 0
       attackStatFlag: 0
-      damage: 25
-      range: 30
+      damage: 10
+      range: 15
       bulletSpeed: 100
       explosionRange: 0
       maxExplosionDamageRange: 0
