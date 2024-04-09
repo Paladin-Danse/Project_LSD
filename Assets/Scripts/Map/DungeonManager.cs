@@ -12,6 +12,7 @@ public class DungeonManager : MonoBehaviour
     public QuestType questType;
     public int target;
     public int curcount;
+    public static int amountGold = 0;
 
     private void Awake()
     {

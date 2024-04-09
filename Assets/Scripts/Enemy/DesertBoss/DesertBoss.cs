@@ -19,6 +19,7 @@ public class DesertBoss : MonoBehaviour
 
     [SerializeField] private GameObject bulletBox;
     [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private GameObject GoldPrefab;
 
     public DesertBossStateMachine stateMachine;
     public AudioSource audioSource;
@@ -61,8 +62,7 @@ public class DesertBoss : MonoBehaviour
         this.GetComponent<Rigidbody>().isKinematic = true;
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
-        enabled = false;
-        Destroy(gameObject, 2f);
+        enabled = false;        
         if (per >= 50)
         {
             Instantiate(bulletBox, transform.position, transform.rotation);
@@ -74,5 +74,21 @@ public class DesertBoss : MonoBehaviour
 
         audioSource.PlayOneShot(dieSound);
         QuestManager.Instance.DQuestUpdate(1009, 1);
+
+        for(int i = 0; i < TestGold.goldCount;  i++)
+        {
+            int posX = Random.Range(0, 5);
+            int posZ = Random.Range(0, 5);
+            int rot = Random.Range(0, 180);
+            Instantiate(GoldPrefab, transform.position + new Vector3(posX, 0, posZ), transform.rotation * new Quaternion(0,rot,0,0));
+            DungeonManager.amountGold -= TestGold.plusGold;
+            TestGold.goldCount += 1;
+            if(DungeonManager.amountGold <= 0)
+            {
+                TestGold.goldCount -= 1;
+            }
+        }
+
+        Destroy(gameObject, 2f);
     }    
 }
