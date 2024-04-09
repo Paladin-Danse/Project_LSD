@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f65d5cd5521a3e34995014a868b67af8, type: 3}
-  m_Name: AssaultRifle
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  displayName: "\uB3CC\uACA9\uC18C\uCD1D"
+  displayName: "\uAD8C\uCD1D"
   description: 
   type: 0
-  icon: {fileID: 21300000, guid: c327c2a19ba091846b67a35b937fbae1, type: 3}
-  dropPrefab: {fileID: 8842644601895612216, guid: 98ad83cc58823ba4eb0681edfa8a1472, type: 3}
+  icon: {fileID: 21300000, guid: 9c0e52206557b2c4495608edb942218f, type: 3}
+  dropPrefab: {fileID: 4472540382233302706, guid: eb7882d93cbba4a4ab2bbbdf95c89a3c, type: 3}

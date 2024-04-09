@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     WeaponStatSO baseStatSO;
     public WeaponStat baseStat;
+    public ItemData itemData;
 
     public WeaponStat curWeaponStat { get { return GetWeaponStat(); } }
     public Func<WeaponStat> GetWeaponStat;
@@ -76,11 +77,17 @@ public class Weapon : MonoBehaviour
         animationData = new WeaponAnimationData();
         animationData.Initialize();
 
+        WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
         {
-            baseStat = Instantiate(baseStatSO).weaponStat;
+            weaponStatSO = Instantiate(baseStatSO);
+            baseStat = weaponStatSO.weaponStat;
+            itemData = weaponStatSO.weaponItem;
         }
-        baseStat = Instantiate(baseStatSO).weaponStat;
+        weaponStatSO = Instantiate(baseStatSO);
+        baseStat = weaponStatSO.weaponStat;
+        itemData = weaponStatSO.weaponItem;
+
         GetWeaponStat = () => { return baseStat; };
         mods = new List<Mod>();
         WeaponSet();

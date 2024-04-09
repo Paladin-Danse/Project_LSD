@@ -145,11 +145,11 @@ public class Inventory : MonoBehaviour, IObjectCrash
             UpdateAmmoUI();
             if(character.primaryWeapon != null)
             {
-                weaponSlotUI1.nameText.text = character.primaryWeapon.name;
+                weaponSlotUI1.UI_Update(character.primaryWeapon.itemData);
             }
             if(character.secondaryWeapon != null)
             {
-                weaponSlotUI2.nameText.text = character.secondaryWeapon.name;
+                weaponSlotUI2.UI_Update(character.secondaryWeapon.itemData);
             }
             inventoryWindow.SetActive(true);
             onOpenInventory?.Invoke();
@@ -198,7 +198,14 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
     public void AddWeapon(Weapon weapon)
     {
-        character.primaryWeapon = weapon;
+        if (character.primaryWeapon == null || character.secondaryWeapon == null)
+        {
+            character.InventoryWeaponEquip(weapon);
+        }
+        else
+        {
+            AddItem(weapon.itemData);
+        }
     }
 
     // 인벤토리에 아이템 추가

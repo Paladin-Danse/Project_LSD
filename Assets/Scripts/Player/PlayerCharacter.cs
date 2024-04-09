@@ -40,11 +40,7 @@ public class PlayerCharacter : CharacterStatHandler
     [SerializeField] public Weapon curWeapon;
     private WeaponStatHandler weaponStatHandler;
     public Action<PlayerStateMachine> SetWeaponEvent;
-    [SerializeField]
-    public Weapon primaryWeapon;
-    [SerializeField]
-    public Weapon secondaryWeapon;
-
+    
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
 
@@ -54,6 +50,12 @@ public class PlayerCharacter : CharacterStatHandler
     //Coroutine
     IEnumerator JumpCoolTimeCoroutine;
     IEnumerator SwapCoroutine = null;
+
+    //차후 삭제 변수
+    [SerializeField]
+    public Weapon primaryWeapon;
+    [SerializeField]
+    public Weapon secondaryWeapon;
 
     private void Awake()
     {
@@ -263,6 +265,7 @@ public class PlayerCharacter : CharacterStatHandler
             {
                 UnequipWeapon(primaryWeapon);
             }
+            inventory.AddItem(primaryWeapon.itemData);
             primaryWeapon = null;
         }
         else
@@ -271,6 +274,7 @@ public class PlayerCharacter : CharacterStatHandler
             {
                 UnequipWeapon(secondaryWeapon);
             }
+            inventory.AddItem(secondaryWeapon.itemData);
             secondaryWeapon = null;
         }
     }
