@@ -5570,6 +5570,7 @@ MonoBehaviour:
   baseStat:
     statModifyType: 0
     weaponStatFlag: 0
+    e_useAmmo: 0
     magazine: 0
     spread: 0
     recoil: 0
@@ -5611,7 +5612,7 @@ MonoBehaviour:
   dry_Volume: 1
   cock_Volume: 1
   reload_Volume: 1
-  takeOut_Volume: 0
+  takeOut_Volume: 1
   animator: {fileID: 0}
 --- !u!82 &202057173180895889
 AudioSource:

@@ -8,18 +8,26 @@ using UnityEngine;
 public class InventoryData : ScriptableObject
 {
     [Header("Ammo")]
-    public List<AmmoType> maxAmmoType;
-    public List<int> maxAmmoCount;
+    public List<AmmoType> maxAmmoTypes;
+    public List<int> maxAmmoCounts;
 
     public Dictionary<AmmoType, int> maxAmmo;
+    [Header("Item")]
+    public List<string> statNames;
 
+    public Dictionary<string, int> itemStatValues;
     public void init()
     {
         maxAmmo = new Dictionary<AmmoType, int>();
+        itemStatValues = new Dictionary<string, int>();
 
-        for(int idx = 0; idx < maxAmmoType.Count; idx++)
+        for(int idx = 0; idx < maxAmmoTypes.Count; idx++)
         {
-            maxAmmo.Add(maxAmmoType[idx], maxAmmoCount[idx]);
+            maxAmmo.Add(maxAmmoTypes[idx], maxAmmoCounts[idx]);
+        }
+        for (int idx = 0; idx < statNames.Count; idx++)
+        {
+            itemStatValues.Add(statNames[idx], 0);
         }
     }
 }
