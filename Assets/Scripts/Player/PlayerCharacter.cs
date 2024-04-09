@@ -92,6 +92,7 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
+        Instantiate(inventory.inventoryWindow).SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }

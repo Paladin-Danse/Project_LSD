@@ -20,19 +20,38 @@ public class ItemSlot
     public ItemData item;
     public int index;
 
-    public ItemSlot(int _index)
+    public ItemSlot(int _index, ItemSlotUI _slotUI)
     {
         index = _index;
-        slotUI = new ItemSlotUI(_index);
+        slotUI = _slotUI;
+        slotUI.Init(this);
+    }
+    public void OnClick()
+    {
+        //itemEquip
+    }
+    public void Set()
+    {
+        slotUI.Set(this);
+    }
+    public void Clear()
+    {
+        slotUI.Clear();
+    }
+    public void Equip()
+    {
+        //장착하면 해당 아이템은 인벤토리에 사라지고 장비슬롯에 등장.
+        slotUI.Clear();
     }
 }
 
 // 인벤토리를 표현하기 위한 클래스
 public class Inventory : MonoBehaviour, IObjectCrash
 {
-    public ItemSlotUI[] uiSlots; // ui 슬롯
+    public ItemSlotUI uiSlot; // ui 슬롯
     public ItemSlot[] slots; // item 슬롯
-
+    public Transform slotParent;
+    
     public InventoryData inventorySO;
     public GameObject inventoryWindow; // 인벤토리 켜기
     public Transform dropPosition; // 아이템 버리기 위치
@@ -41,12 +60,12 @@ public class Inventory : MonoBehaviour, IObjectCrash
     private ItemSlot selectedItem; // 선택한 아이템
     private int selectedItemIndex; // 선택한 아이템 인덱스
     public TextMeshProUGUI selectedItemName; // 이름
-    public TextMeshProUGUI selectedItemDescription; // 설명
-    public TextMeshProUGUI selectedItemStatNames; // 스텟
-    public TextMeshProUGUI selectedItemStatValues; // 스텟 값
-    public GameObject equipButton; // 착용 버튼
-    public GameObject unEquipButton; // 해제 버튼
-    public GameObject dropButton; // 버림 버튼
+    //public TextMeshProUGUI selectedItemDescription; // 설명
+    //public TextMeshProUGUI selectedItemStatNames; // 스텟
+    public Dictionary<string, TextMeshProUGUI> selectedItemStatValues; // 스텟 값
+    //public GameObject equipButton; // 착용 버튼
+    //public GameObject unEquipButton; // 해제 버튼
+    //public GameObject dropButton; // 버림 버튼
 
     private Dictionary<AmmoType, int> inventoryAmmo;
     public TextMeshProUGUI rifleAmmoCountText;
@@ -56,6 +75,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
     public WeaponSlotUI weaponSlotUI2;
 
     private int curEquipIndex; // ???
+    public int itemSlotCount;
 
     private PlayerCharacter character;
 
@@ -65,32 +85,41 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
     void Awake()
     {
-        inventoryWindow = new Inventory().gameObject;
         character = GetComponent<PlayerCharacter>();
-        slots = new ItemSlot[uiSlots.Length]; // 아이템 슬롯
+        slots = new ItemSlot[itemSlotCount]; // 아이템 슬롯
+        slotParent = inventoryWindow.transform.Find("Inventory/Scroll View/Viewport/Slots");
+
         inventorySO.init();
         inventoryAmmo = new Dictionary<AmmoType, int>();
-
+        
         foreach (AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
             inventoryAmmo.Add(ammo, 0);
     }
 
     private void Start()
     {
-        inventoryWindow.SetActive(false); // 인벤토리 꺼두기
-        
-
         for (int i = 0; i < slots.Length; i++) // 슬롯 초기화
         {
-            slots[i] = new ItemSlot(i);
-            uiSlots[i] = new ItemSlotUI(i);
-            uiSlots[i].Clear();
+            slots[i] = new ItemSlot(i, Instantiate(uiSlot, slotParent));
+            slots[i].Clear();
         }
         foreach(AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
         {
             inventoryAmmo[ammo] = inventorySO.maxAmmo[ammo];
         }
+
+        GameObject itemName = inventoryWindow.transform.Find("Inventory/InfoBG/ItemName").gameObject;
+        selectedItemName = itemName?.GetComponent<TextMeshProUGUI>();
+        GameObject itemStatValues = inventoryWindow.transform.Find("Inventory/InfoBG/ItemStatValues").gameObject;
+        selectedItemStatValues = new Dictionary<string, TextMeshProUGUI>();
+        for(int i = 0; i < inventorySO.itemStatValues.Count; i++)
+        {
+            GameObject textObj = itemStatValues.transform.Find($"{inventorySO.statNames[i]}/StatValue").gameObject;
+            selectedItemStatValues.Add(inventorySO.statNames[i], textObj?.GetComponent<TextMeshProUGUI>());
+        }
+
         ClearSeletecItemWindow();
+        inventoryWindow.SetActive(false); // 인벤토리 꺼두기
     }
 
     public void OnInventoryButton(InputAction.CallbackContext callbackContext)
@@ -114,8 +143,14 @@ public class Inventory : MonoBehaviour, IObjectCrash
         else
         {
             UpdateAmmoUI();
-            weaponSlotUI1.nameText.text = character.primaryWeapon.name;
-            weaponSlotUI2.nameText.text = character.secondaryWeapon.name;
+            if(character.primaryWeapon != null)
+            {
+                weaponSlotUI1.nameText.text = character.primaryWeapon.name;
+            }
+            if(character.secondaryWeapon != null)
+            {
+                weaponSlotUI2.nameText.text = character.secondaryWeapon.name;
+            }
             inventoryWindow.SetActive(true);
             onOpenInventory?.Invoke();
             //controller.ToggleCursor(true);
@@ -184,6 +219,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
     // 아이템 버림
     void ThrowItem(ItemData item)
     {
+        Poolable dropItem = ObjectPoolManager.Instance.Pop(item.dropPrefab);
+        dropItem.transform.position = dropPosition.position;
+        dropItem.transform.rotation = Quaternion.identity;
         Instantiate(item.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360f));
     }
 
@@ -193,9 +231,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].item != null) // 슬롯에 아이템이 있다면
-                uiSlots[i].Set(slots[i]); // 세팅
+                slots[i].Set(); // 세팅
             else
-                uiSlots[i].Clear(); // 없다면 클리어
+                slots[i].Clear(); // 없다면 클리어
         }
     }
 
@@ -221,15 +259,13 @@ public class Inventory : MonoBehaviour, IObjectCrash
         selectedItemIndex = index;
         // 아이템 이름, 정보 표시
         selectedItemName.text = selectedItem.item.displayName;
-        selectedItemDescription.text = selectedItem.item.description;
+        //selectedItemDescription.text = selectedItem.item.description;
         // 아이템 스텟 초기화
-        selectedItemStatNames.text = string.Empty;
-        selectedItemStatValues.text = string.Empty;
-        
-        // 버튼 표시
-        equipButton.SetActive(selectedItem.item.type == ItemType.Equipable && !uiSlots[index].equipped);
-        unEquipButton.SetActive(selectedItem.item.type == ItemType.Equipable && uiSlots[index].equipped);
-        dropButton.SetActive(true);
+        //selectedItemStatNames.text = string.Empty;
+        foreach (TextMeshProUGUI StatValueText in selectedItemStatValues.Values)
+        {
+            StatValueText.text = string.Empty;
+        }
     }
 
     // 인벤토리창에서 아이템 선택 취소하기
@@ -238,20 +274,19 @@ public class Inventory : MonoBehaviour, IObjectCrash
         // 아이템 선택안함 표현
         selectedItem = null;
         selectedItemName.text = string.Empty;
-        selectedItemDescription.text = string.Empty;
+        //selectedItemDescription.text = string.Empty;
         // 아이템 스탯 표시 제거
-        selectedItemStatNames.text = string.Empty;
-        selectedItemStatValues.text = string.Empty;
-        // 버튼 표시 끄기
-        equipButton.SetActive(false);
-        unEquipButton.SetActive(false);
-        dropButton.SetActive(false);
+        //selectedItemStatNames.text = string.Empty;
+        foreach(TextMeshProUGUI StatValueText in selectedItemStatValues.Values)
+        {
+            StatValueText.text = string.Empty;
+        }
     }
 
-    // 아이템 착용 버튼
-    public void OnEquipButton()
+    // 아이템 착용
+    public void OnEquip()
     {
-
+        
     }
 
     // 아이템 착용해제
@@ -260,27 +295,23 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
     }
 
-    // 아이템 착용해제 버튼
-    public void OnUnEquipButton()
-    {
-
-    }
-
-    // 아이템 버림 버튼
-    public void OnDropButton()
+    // 아이템 버림
+    public void OnDrop()
     {
         ThrowItem(selectedItem.item); // 선택아이템 아이템 버림
         RemoveSelectedItem(); // 선택아이템 인벤토리에서 삭제
     }
 
+
     // 선택한 아이템 삭제
     private void RemoveSelectedItem()
     {
+        /* 장비하고 있는 아이템은 인벤토리 내에 없도록 할 예정이라 해당 코드는 보류.
         if (uiSlots[selectedItemIndex].equipped)
         {
             UnEquip(selectedItemIndex);
         }
-
+        */
         selectedItem.item = null;
         ClearSeletecItemWindow();
         

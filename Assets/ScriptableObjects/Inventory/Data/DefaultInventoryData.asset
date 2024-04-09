@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21390895c75539f4a80bf6042bc7cb64, type: 3}
   m_Name: DefaultInventoryData
   m_EditorClassIdentifier: 
-  maxAmmoType: 0000000001000000
-  maxAmmoCount: 2c01000078000000
+  maxAmmoTypes: 0000000001000000
+  maxAmmoCounts: 2c01000078000000
+  statNames:
+  - Damage
+  - Accuracy
+  - FireRate
+  - MaxMagazine
