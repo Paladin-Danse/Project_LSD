@@ -54,7 +54,7 @@ public class BossSmallProjectile : MonoBehaviour
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);                        
+            other.gameObject.GetComponent<Health>().TakeDamage(damage);                        
 
             GameObject B1 = Instantiate(Fire1, transform.position, Quaternion.identity);
             ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
@@ -84,7 +84,7 @@ public class BossSmallProjectile : MonoBehaviour
             Health health = hitCollider.gameObject.GetComponent<Health>();
             if (health != null)
             {
-                health.TakeDamageWithoutDefense(damage);
+                health.TakeDamage(damage);
             }
         }
 

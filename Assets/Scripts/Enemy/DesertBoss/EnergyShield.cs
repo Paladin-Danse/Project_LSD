@@ -21,7 +21,7 @@ public class EnergyShield : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * forceAmount, ForceMode.Impulse);
-            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
+            other.gameObject.GetComponent<Health>().TakeDamage(damage);
             GameObject Electric = Instantiate(sparkParticle, other.gameObject.transform.position, Quaternion.identity);
             ParticleSystem electricSpark = Electric.GetComponent<ParticleSystem>();
             this.spark = electricSpark;

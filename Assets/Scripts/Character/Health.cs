@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
         InvokeRepeating("RegenHealthPerSec", 0f, 1.0f);
     }    
 
-    public void TakeDamageWithoutDefense(float damage)
+    private void TakeDamageWithoutDefense(float damage)
     {
         if (curHealth == 0) return;
 

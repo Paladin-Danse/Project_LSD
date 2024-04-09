@@ -91,7 +91,7 @@ public class BossProjectile : MonoBehaviour
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
+            other.gameObject.GetComponent<Health>().TakeDamage(damage);
             ExplosionDamage(transform.position, explosionRadius, layerMask, damage);            
 
             Destroy(gameObject);
@@ -138,7 +138,7 @@ public class BossProjectile : MonoBehaviour
             Health health = hitCollider.gameObject.GetComponent<Health>();
             if (health != null)
             {                
-                health.TakeDamageWithoutDefense(damage);
+                health.TakeDamage(damage);
             }
         }
 
