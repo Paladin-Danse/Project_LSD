@@ -210,6 +210,12 @@ public class Weapon : MonoBehaviour
         return ammo;
     }
 
+    public void StopAction(ref IEnumerator coroutine)
+    {
+        StopCoroutine(coroutine);
+        coroutine = null;
+    }
+
     public IEnumerator Shot()
     {
         curMagazine--;
