@@ -1330,11 +1330,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d114b23c889da4aa67e9676146dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   maxR: 5
   minR: 25
   maxD: 35
   minD: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &140038347347399527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
@@ -1465,7 +1467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RData>k__BackingField: {fileID: 11400000, guid: 0efc637d53d3402468ce69ac5dd80713, type: 2}
-  <WSData>k__BackingField: {fileID: 11400000, guid: 4f97b7b35b4ad934d8d04d09c8d41458, type: 2}
+  <WSData>k__BackingField: {fileID: 11400000, guid: 178d2e64b50a11446bc587051a846769, type: 2}
   <AnimationData>k__BackingField:
     groundParameterName: '@Ground'
     idleParameterName: Idle

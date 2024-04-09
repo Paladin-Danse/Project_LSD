@@ -5110,11 +5110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a75b21fa77e09794abb2a6ad97a80de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2045167070 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8496106446693382973, guid: 8ab4ebb44c8111d4a855671511894c29, type: 3}
-  m_PrefabInstance: {fileID: 1202446365}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2085618868
 GameObject:
   m_ObjectHideFlags: 0
@@ -5738,10 +5733,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: mech
       objectReference: {fileID: 0}
-    - target: {fileID: 140038347347399527, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 140038347347496709, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -5786,10 +5777,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7730582739967322888, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 2045167070}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
