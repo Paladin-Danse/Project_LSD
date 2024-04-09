@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
@@ -18,6 +19,7 @@ public class Weapon : MonoBehaviour
 
     public WeaponStat curWeaponStat { get { return GetWeaponStat(); } }
     public Func<WeaponStat> GetWeaponStat;
+    public Action OnMagChanged;
 
     [Header("Weapon")]
     public string WeaponName;
@@ -162,7 +164,6 @@ public class Weapon : MonoBehaviour
     public void CurrentWeaponEquip()
     {
         input_ = playerCharacter_.input;
-        playerCharacter_.playerUIEventInvoke();
         stateMachine.ChangeState(stateMachine.EnterState);
         //stateMachine.currentState.AddInputActionsCallbacks();
     }
@@ -220,7 +221,7 @@ public class Weapon : MonoBehaviour
     {
         curMagazine--;
         PlayClip(shot_AudioClip, shot_Volume);
-        playerCharacter_.playerUIEventInvoke();
+        OnMagChanged?.Invoke();
 
         //Projectile Create
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
@@ -292,7 +293,6 @@ public class Weapon : MonoBehaviour
         PlayClip(reload_end_AudioClip, reload_Volume);
         animator.speed = 1;
         curMagazine += UseInventoryAmmo();
-        playerCharacter_.playerUIEventInvoke();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);
     }

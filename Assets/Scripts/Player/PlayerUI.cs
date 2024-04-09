@@ -5,29 +5,37 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    private Text currentWeaponNameText;
-    private Text currentMagazineTxt;
-    private Text maxMagazineTxt;
+    public Text playerHealthText;
+    public Text playerWeaponMagText;
 
-    public void InitSetting()
+
+    public void BindUI() 
     {
-        GameObject textFinder;
+        Player.Instance.playerCharacter.health.HealthChanged += RefreshHPUI;
+        Player.Instance.playerCharacter.OnStatChanged += RefreshHPUI;
+        Player.Instance.playerCharacter.weaponStatHandler.OnStatChanged += RefreshWeaponUI;
+        Player.Instance.playerCharacter.curWeapon.OnMagChanged += RefreshWeaponUI;
 
-        textFinder = transform.Find("HUDCanvas/Components/Weapon/Weapon Name").gameObject;
-        if (textFinder.TryGetComponent(out currentWeaponNameText))
-            Debug.Log("Player(CurrentWeaponNameText) : Wrong path");
-        textFinder = transform.Find("HUDCanvas/Components/Weapon/Weapon Bullet Count").gameObject;
-        if (textFinder.TryGetComponent(out currentMagazineTxt))
-            Debug.Log("Player(currentMagazineTxt) : Wrong path");
-        textFinder = transform.Find("HUDCanvas/Components/Weapon/Weapon Clip Count").gameObject;
-        if (textFinder.TryGetComponent(out maxMagazineTxt))
-            Debug.Log("Player(maxMagazineTxt) : Wrong path");
+        RefreshHPUI();
+        RefreshWeaponUI();
     }
 
-    public void UITextUpdate(PlayerCharacter player)
+    public void UnBindUI() 
     {
-        if(currentWeaponNameText) currentWeaponNameText.text = player.curWeapon.WeaponName;
-        if(currentMagazineTxt) currentMagazineTxt.text = player.curWeapon.curMagazineText;
-        if(maxMagazineTxt) maxMagazineTxt.text = player.curWeapon.maxMagazineText;
+        Player.Instance.playerCharacter.health.HealthChanged -= RefreshHPUI;
+        Player.Instance.playerCharacter.OnStatChanged -= RefreshHPUI;
+        Player.Instance.playerCharacter.weaponStatHandler.OnStatChanged -= RefreshWeaponUI;
+        Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
+    }
+
+    void RefreshHPUI() 
+    {
+        playerHealthText.text = $"{Player.Instance.playerCharacter.health.curHealth}/{Player.Instance.playerCharacter.currentStat.maxHealth}";
+    }
+
+    void RefreshWeaponUI()
+    {
+        if(Player.Instance.playerCharacter.curWeapon != null)
+            playerWeaponMagText.text = $"{Player.Instance.playerCharacter.curWeapon.curMagazine}/{Player.Instance.playerCharacter.curWeapon.curWeaponStat.magazine}";
     }
 }

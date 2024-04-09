@@ -53,28 +53,27 @@ public class Player : MonoBehaviour
     {
         this.playerCharacter = playerCharacter;
         OnPossessed?.Invoke();
-        OnControllCharacter();
-        playerCharacter.playerUIEventInvoke();
+        playerCharacter.OnPossessCharacter(this);
+        playerUI.BindUI();
     }
 
-    public void UnPossess(PlayerCharacter playerCharacter) 
+    public void UnPossess() 
     {
-        this.playerCharacter = null;
+        playerUI.UnBindUI();
+        playerCharacter.OnUnpossessCharacter();
         OnUnPossessed?.Invoke();
-        playerCharacter.playerUIEventInvoke();
+        this.playerCharacter = null;
     }
 
     public void OnControllCharacter() 
     {
         Cursor.lockState = CursorLockMode.Locked;
-        playerCharacter.input = _input;
-        playerCharacter.OnPossessCharacter();
+        _input.enabled = true;
     }
 
     public void OnControllUI() 
     {
         Cursor.lockState = CursorLockMode.None;
-        playerCharacter.input = null;
-        playerCharacter.OnUnpossessCharacter();
+        _input.enabled = false;
     }
 }
