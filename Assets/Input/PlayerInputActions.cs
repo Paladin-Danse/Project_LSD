@@ -116,15 +116,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""WeaponSwapWheeling"",
-                    ""type"": ""Value"",
-                    ""id"": ""0f250195-741e-4e74-8729-fd8d14495034"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -294,15 +285,37 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""e8a61998-3095-4a0d-8499-b8b6a1d3bbc6"",
-                    ""path"": ""<Mouse>/scroll/y"",
+                    ""name"": ""Wheeling"",
+                    ""id"": ""0a8f8ea8-1ec7-4064-801d-d783c0275aaf"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponSwapWheeling"",
-                    ""isComposite"": false,
+                    ""action"": ""WeaponSwap"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""fd0376d2-244b-442e-8851-bbf39b8456c3"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSwap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""41769e14-1313-4df9-93bd-af993ebcdeef"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSwap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -321,7 +334,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_WeaponSwap = m_Player.FindAction("WeaponSwap", throwIfNotFound: true);
-        m_Player_WeaponSwapWheeling = m_Player.FindAction("WeaponSwapWheeling", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -393,7 +405,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_WeaponSwap;
-    private readonly InputAction m_Player_WeaponSwapWheeling;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -408,7 +419,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @WeaponSwap => m_Wrapper.m_Player_WeaponSwap;
-        public InputAction @WeaponSwapWheeling => m_Wrapper.m_Player_WeaponSwapWheeling;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -448,9 +458,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @WeaponSwap.started += instance.OnWeaponSwap;
             @WeaponSwap.performed += instance.OnWeaponSwap;
             @WeaponSwap.canceled += instance.OnWeaponSwap;
-            @WeaponSwapWheeling.started += instance.OnWeaponSwapWheeling;
-            @WeaponSwapWheeling.performed += instance.OnWeaponSwapWheeling;
-            @WeaponSwapWheeling.canceled += instance.OnWeaponSwapWheeling;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -485,9 +492,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @WeaponSwap.started -= instance.OnWeaponSwap;
             @WeaponSwap.performed -= instance.OnWeaponSwap;
             @WeaponSwap.canceled -= instance.OnWeaponSwap;
-            @WeaponSwapWheeling.started -= instance.OnWeaponSwapWheeling;
-            @WeaponSwapWheeling.performed -= instance.OnWeaponSwapWheeling;
-            @WeaponSwapWheeling.canceled -= instance.OnWeaponSwapWheeling;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -517,6 +521,5 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnInventory(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnWeaponSwap(InputAction.CallbackContext context);
-        void OnWeaponSwapWheeling(InputAction.CallbackContext context);
     }
 }

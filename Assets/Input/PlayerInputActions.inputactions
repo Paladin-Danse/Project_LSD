@@ -94,15 +94,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "WeaponSwapWheeling",
-                    "type": "Value",
-                    "id": "0f250195-741e-4e74-8729-fd8d14495034",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -272,15 +263,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "e8a61998-3095-4a0d-8499-b8b6a1d3bbc6",
-                    "path": "<Mouse>/scroll/y",
+                    "name": "Wheeling",
+                    "id": "0a8f8ea8-1ec7-4064-801d-d783c0275aaf",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponSwapWheeling",
-                    "isComposite": false,
+                    "action": "WeaponSwap",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "fd0376d2-244b-442e-8851-bbf39b8456c3",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSwap",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "41769e14-1313-4df9-93bd-af993ebcdeef",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponSwap",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
