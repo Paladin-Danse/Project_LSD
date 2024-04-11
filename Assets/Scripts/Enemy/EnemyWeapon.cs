@@ -11,6 +11,7 @@ public class EnemyWeapon : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
+            DungeonManager.Instance.receivedDamage += damage;
         }        
     }
 

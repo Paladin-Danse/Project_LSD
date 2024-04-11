@@ -58,8 +58,7 @@ public class RangedEnemy : MonoBehaviour
         this.GetComponent<Rigidbody>().isKinematic = true;
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
-        enabled = false;
-        Destroy(gameObject, 2f);
+        
         if (per >= 50)
         {
             Instantiate(bulletBox, transform.position, transform.rotation);
@@ -68,6 +67,16 @@ public class RangedEnemy : MonoBehaviour
         {
             Instantiate(firstAidKit, transform.position, transform.rotation);
         }
+
+        DungeonManager.Instance.killedEneies += 1;
+        
+        float goldPosX = Random.Range(0, 5);
+        float goldPosZ = Random.Range(0, 5);
+        float goldRot = Random.Range(0, 180);
+        Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 5f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+
+        enabled = false;
+        Destroy(gameObject, 2f);
     }
 
     void OnHit()

@@ -40,7 +40,7 @@ public class BossSmallProjectile : MonoBehaviour
     }    
 
     //bool check = false;
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         //if(check)
         //{
@@ -58,7 +58,8 @@ public class BossSmallProjectile : MonoBehaviour
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);                        
+            other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
+            DungeonManager.Instance.receivedDamage += damage;
 
             Destroy(gameObject, 2f);
         }

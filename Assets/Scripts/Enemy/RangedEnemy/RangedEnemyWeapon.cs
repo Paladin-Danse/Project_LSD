@@ -14,11 +14,7 @@ public class RangedEnemyWeapon : MonoBehaviour
     RangedEnemy rangedEnemy;
     public LayerMask layerMask;
     float attackRange;
-    private Transform target;
-    public float maxR;
-    public float minR;
-    public float maxD;
-    public float minD;
+    private Transform target;    
 
     private void Awake()
     {
@@ -43,21 +39,10 @@ public class RangedEnemyWeapon : MonoBehaviour
     {
         if (target != null)
         {
-            muzzlePos.transform.LookAt(target, muzzlePos.transform.forward);
-            //transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-            //LookTarget();
+            muzzlePos.transform.LookAt(target, muzzlePos.transform.forward);            
         }
 
-    }
-
-    public void LookTarget()
-    {
-        float distance = Vector3.Distance(transform.position, target.position);
-        float nor = Mathf.InverseLerp(minD, maxD, distance);
-        float targetR = Mathf.Lerp(minR, maxR, nor);
-        //targetR = Mathf.Clamp(targetR, minD, maxD);
-        transform.Rotate(0f, targetR, 0f);
-    }
+    }    
 
     IEnumerator Shot()
     {        

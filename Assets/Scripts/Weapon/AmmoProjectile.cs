@@ -54,6 +54,7 @@ public class AmmoProjectile : MonoBehaviour
                 {
                     Debug.Log("Target Hit & Damaged!!");
                     hit_Object.TakeDamage(ProjectileDamage);
+                    DungeonManager.Instance.totalDamage += ProjectileDamage;
                 }
                 else
                 {
