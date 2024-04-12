@@ -174,7 +174,7 @@ Transform:
   - {fileID: 6241565147527886410}
   - {fileID: 2643921186223289536}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &7728274037642359275
 AudioSource:
@@ -185,7 +185,7 @@ AudioSource:
   m_GameObject: {fileID: 2917989534520319805}
   m_Enabled: 0
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1873,6 +1873,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8190333094529541566, guid: e6cdd55069b5b4f84b75b20af0fc4d97, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 8327934882137387940, guid: e6cdd55069b5b4f84b75b20af0fc4d97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0.0000008537736
@@ -2425,6 +2429,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -21.113604
       objectReference: {fileID: 0}
+    - target: {fileID: 3337151968701757999, guid: 684a643199ae64f198c1b2f051cf4d69, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 3354966288909705942, guid: 684a643199ae64f198c1b2f051cf4d69, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -3181,6 +3189,10 @@ PrefabInstance:
       propertyPath: _FPWeaponLayer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4283348920086539381, guid: 86dbe96a5cb204054afabe4e7b490a4d, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 4283348920086539382, guid: 86dbe96a5cb204054afabe4e7b490a4d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -6605,6 +6617,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7894666657946018021, guid: 950372cd7a39a494083b37dd6d42df7f, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 8000719791695870445, guid: 950372cd7a39a494083b37dd6d42df7f, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -7075,6 +7091,10 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6243265024915311061, guid: d5f6a9b788e092742b30b49d3f69965e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 6305645678077168533, guid: d5f6a9b788e092742b30b49d3f69965e, type: 3}
       propertyPath: m_Name
       value: Assault Rifle [FP]
@@ -7713,6 +7733,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3921619859690127991, guid: 12eaf39bb558e03499fe0362144c84d1, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 4092781336288372521, guid: 12eaf39bb558e03499fe0362144c84d1, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -8413,6 +8437,10 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 500735882833398005, guid: 8fd8dd664c9c2d340b1df780497f5fb4, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 500735882833398007, guid: 8fd8dd664c9c2d340b1df780497f5fb4, type: 3}
       propertyPath: m_Name
       value: Pistol [FP]
