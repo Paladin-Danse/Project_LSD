@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196457ef338df4e76a0bfda13fdc88a1, type: 3}
+  m_Name: ItemSO
+  m_EditorClassIdentifier: 
+  Entities:
+  - _id: 10001001
+    _name: "\uB871\uC18C\uB4DC"
+    _description: "\uADE0\uD615\uC7A1\uD78C \uD55C\uC190\uAC80\uC785\uB2C8\uB2E4."
+    _value: 10
+    _type: 0
+    _grade: 0
+    _spritePath: Sprite/Item/Weapon/Sword_1
+  - _id: 10001002
+    _name: "\uAE30\uC0AC\uAC80 \uAC80"
+    _description: "\uC870\uAE08 \uBB34\uAC81\uC9C0\uB9CC \uADF8\uB9CC\uD07C \uAC15\uD55C
+      \uACF5\uACA9\uB825\uC744 \uAC00\uC9C4 \uAC80\uC785\uB2C8\uB2E4."
+    _value: 14
+    _type: 0
+    _grade: 1
+    _spritePath: Sprite/Item/Weapon/Sword_2
+  - _id: 10001003
+    _name: "\uBE14\uB799\uC18C\uB4DC"
+    _description: "\uC7A5\uC778\uC758 \uC791\uD488\uC73C\uB85C \uAC15\uD558\uACE0
+      \uBE60\uB978 \uACF5\uACA9\uC774 \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+    _value: 23
+    _type: 0
+    _grade: 2
+    _spritePath: Sprite/Item/Weapon/Sword_3
+  - _id: 10001004
+    _name: "\uADF8\uB808\uC774\uD2B8\uC18C\uB4DC"
+    _description: "\uC5C4\uCCAD \uBB34\uAC81\uC2B5\uB2C8\uB2E4. \uC5C4\uCCAD \uAC15\uD569\uB2C8\uB2E4."
+    _value: 30
+    _type: 0
+    _grade: 3
+    _spritePath: Sprite/Item/Weapon/Sword_4
+  - _id: 10002001
+    _name: "\uC190\uB3C4\uB07C"
+    _description: "\uB9C8\uC744 \uC8FC\uBCC0\uC5D0 \uB3CC\uC544\uB2E4\uB2C8\uBA74
+      \uD55C\uB450\uAC1C\uC529 \uBCF4\uC774\uB294 \uB3C4\uB07C\uC785\uB2C8\uB2E4."
+    _value: 13
+    _type: 0
+    _grade: 0
+    _spritePath: Sprite/Item/Weapon/Axe_1
+  - _id: 10002002
+    _name: "\uC591\uB0A0\uB3C4\uB07C"
+    _description: "\uC624\uD06C\uAC00 \uC790\uC8FC \uC0AC\uC6A9\uD558\uB294 \uBB34\uAE30\uC785\uB2C8\uB2E4."
+    _value: 19
+    _type: 0
+    _grade: 1
+    _spritePath: Sprite/Item/Weapon/Axe_2
+  - _id: 10002003
+    _name: "\uADF8\uB808\uC774\uD2B8\uC561\uC2A4"
+    _description: "\uBCF4\uBA74 \uB3C4\uB9DD\uAC00\uC138\uC694."
+    _value: 28
+    _type: 0
+    _grade: 2
+    _spritePath: Sprite/Item/Weapon/Axe_3
+  - _id: 20001001
+    _name: "\uB808\uB354\uC544\uBA38"
+    _description: "\uC9C8\uAE34 \uAC00\uC8FD\uC73C\uB85C \uB9CC\uB4E4\uC5B4\uC9C4
+      \uAC11\uC637\uC785\uB2C8\uB2E4. \uBC29\uC5B4\uB825\uC740 \uCDA9\uBD84\uD569\uB2C8\uB2E4!"
+    _value: 7
+    _type: 1
+    _grade: 0
+    _spritePath: Sprite/Item/Armor/Armor_1
+  - _id: 20001002
+    _name: "\uB77C\uC774\uD2B8\uC544\uBA38"
+    _description: "\uAC00\uBCBC\uC6B4 \uBB34\uAC8C\uB85C \uD3B8\uC548\uD558\uAC8C
+      \uCC29\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    _value: 10
+    _type: 1
+    _grade: 1
+    _spritePath: Sprite/Item/Armor/Armor_2
+  - _id: 20001003
+    _name: "\uD50C\uB808\uC774\uD2B8\uC544\uBA38"
+    _description: "\uD50C\uB808\uC774\uD2B8\uC544\uBA38\uB9CC\uD07C \uD2BC\uD2BC\uD55C\uAC74
+      \uC5C6\uC8E0"
+    _value: 15
+    _type: 1
+    _grade: 2
+    _spritePath: Sprite/Item/Armor/Armor_3
+  - _id: 20001004
+    _name: "\uB85C\uC584\uC544\uBA38"
+    _description: "\uC5B4\uB9C8\uC5B4\uB9C8\uD558\uAC8C \uBE44\uC2FC \uAC11\uC637\uC785\uB2C8\uB2E4."
+    _value: 22
+    _type: 1
+    _grade: 3
+    _spritePath: Sprite/Item/Armor/Armor_4
+  - _id: 20002001
+    _name: "\uAC00\uC8FD \uD22C\uAD6C"
+    _description: "\uC785\uB300\uD558\uBA74 \uC8FC\uB294 \uD22C\uAD6C."
+    _value: 5
+    _type: 1
+    _grade: 0
+    _spritePath: Sprite/Item/Armor/Helm_1
+  - _id: 20002002
+    _name: "\uC57C\uB9CC\uC804\uC0AC\uC758 \uD22C\uAD6C"
+    _description: "\uC57C\uB9CC\uC804\uC0AC\uC758 \uB300\uC7A5\uC774 \uCC29\uC6A9\uD558\uB294
+      \uD22C\uAD6C"
+    _value: 9
+    _type: 1
+    _grade: 1
+    _spritePath: Sprite/Item/Armor/Helm_2
+  - _id: 20002003
+    _name: "\uAE30\uC0AC\uC758 \uD22C\uAD6C"
+    _description: "\uBA38\uB9AC\uB97C \uB9DE\uC544\uB3C4 \uC548\uC2EC\uC785\uB2C8\uB2E4."
+    _value: 14
+    _type: 1
+    _grade: 2
+    _spritePath: Sprite/Item/Armor/Helm_3
+  - _id: 70001001
+    _name: "\uC0AC\uACFC"
+    _description: "\uB9DB\uC788\uB294 \uACFC\uC77C\uC785\uB2C8\uB2E4. \uCCB4\uB825\uC744
+      \uC18C\uB7C9 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+    _value: 20
+    _type: 2
+    _grade: 0
+    _spritePath: Sprite/Item/Consume/Consume_1
+  - _id: 70001002
+    _name: "\uD3EC\uC158"
+    _description: "\uD68C\uBCF5\uC744 \uC704\uD55C \uC5D0\uB108\uC9C0 \uB4DC\uB9C1\uD06C!!
+      \uCCB4\uB825\uC744 50 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    _value: 50
+    _type: 2
+    _grade: 1
+    _spritePath: Sprite/Item/Consume/Consume_2
+  - _id: 70002001
+    _name: "\uB9E5\uC8FC"
+    _description: "\uD798\uCC2C \uD558\uB8E8\uB97C \uBCF4\uB0B8 \uB2F9\uC2E0\uC744
+      \uC704\uD55C \uC120\uBB3C. MP \uB97C 30 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    _value: 30
+    _type: 2
+    _grade: 1
+    _spritePath: Sprite/Item/Consume/Consume_3

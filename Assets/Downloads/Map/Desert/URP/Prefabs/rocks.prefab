@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: -0.42410758, y: -0.09695384, z: 0.045725986, w: 0.89924514}
   m_LocalPosition: {x: -0.39170223, y: -0.000037804926, z: 0.53799653}
   m_LocalScale: {x: 1.2557806, y: 1.2557809, z: 1.2557809}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1260032358032735754}
   m_RootOrder: 1
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -91,10 +93,18 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171190350527079068}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
+  serializedVersion: 5
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3720551589674065424, guid: c3e39fc348495dcf7ab5ac0de5c4ea01, type: 3}
 --- !u!205 &2534905330736610038
@@ -146,6 +156,7 @@ Transform:
   m_LocalRotation: {x: -0.21972358, y: 0.23762804, z: 0.30166352, w: 0.8968019}
   m_LocalPosition: {x: 0.26427445, y: 0.55212027, z: 0.08969489}
   m_LocalScale: {x: 0.47192082, y: 0.47192073, z: 0.47192076}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1260032358032735754}
   m_RootOrder: 0
@@ -169,6 +180,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -207,10 +219,18 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2417552445287907379}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
+  serializedVersion: 5
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8683706554321225031, guid: c3e39fc348495dcf7ab5ac0de5c4ea01, type: 3}
 --- !u!205 &2565481565716362749
@@ -262,6 +282,7 @@ Transform:
   m_LocalRotation: {x: 5.4699568e-17, y: -0.44665608, z: -5.469961e-17, w: 0.8947058}
   m_LocalPosition: {x: 0.7928233, y: -0.000018002345, z: 0.29731235}
   m_LocalScale: {x: 0.7930158, y: 0.79301554, z: 0.7930158}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1260032358032735754}
   m_RootOrder: 3
@@ -285,6 +306,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -323,10 +345,18 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4071623845020128914}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
+  serializedVersion: 5
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3720551589674065424, guid: c3e39fc348495dcf7ab5ac0de5c4ea01, type: 3}
 --- !u!205 &8591761618801725104
@@ -374,13 +404,14 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4296090914067930648}
   - {fileID: 4500400774814386662}
   - {fileID: 1617353376679803369}
   - {fileID: 1636237759437028840}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6063625328481282850
 GameObject:
@@ -412,6 +443,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.41019425, y: 0, z: -0.2962178}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1260032358032735754}
   m_RootOrder: 2
@@ -435,6 +467,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -473,10 +506,18 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6063625328481282850}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
+  serializedVersion: 5
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7029217267309058765, guid: c3e39fc348495dcf7ab5ac0de5c4ea01, type: 3}
 --- !u!205 &3600958171017580159
