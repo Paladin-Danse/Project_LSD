@@ -8,12 +8,12 @@ using TMPro;
 public class LoadingSceneManager : MonoBehaviour
 {
     AsyncOperation asyncOperation;
-    public TMP_Text text;
+    public TMP_Text progressText;
     public Image filledImage;
 
     private void Awake()
     {
-        text = SceneLoader.Instance.loadingCanvasController.progressText;
+        progressText = SceneLoader.Instance.loadingCanvasController.progressText;
         filledImage = SceneLoader.Instance.loadingCanvasController.progressImage;
     }
 
@@ -30,12 +30,23 @@ public class LoadingSceneManager : MonoBehaviour
         while(!asyncOperation.isDone) 
         {
             RefreshProgressUI(asyncOperation.progress);
+
+            if (asyncOperation.progress >= 0.9f) 
+            {
+                ChangeProgressText("¾À ·Îµù ¿Ï·á");
+                RefreshProgressUI(1.0f);
+                asyncOperation.allowSceneActivation = true;
+                yield return YieldCacher.WaitForSeconds(1.0f);
+                UIController.Instance.Pop();
+            }
+
             yield return null;
         }
-        asyncOperation.allowSceneActivation = true;
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)SceneLoader.Instance.loadSceneContext));
-        Destroy(SceneLoader.Instance.loadingCanvasController.gameObject);
+    }
+    
+    void ChangeProgressText(string text) 
+    {
+        this.progressText.text = text;
     }
 
     void RefreshProgressUI(float progress) 

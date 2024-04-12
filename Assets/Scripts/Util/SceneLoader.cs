@@ -25,7 +25,8 @@ public class SceneLoader
 
         if(loadingCanvasController == null)
         {
-            loadingCanvasController = Addressables.InstantiateAsync("LoadingCanvas").WaitForCompletion().GetComponent<LoadingCanvasController>();
+            UIController.Instance.Push("LoadingCanvas");
+            loadingCanvasController = UIController.Instance.Peek().GetComponent<LoadingCanvasController>();
         }
 
         loadSceneContext = scene;

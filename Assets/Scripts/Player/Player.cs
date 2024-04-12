@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject(typeof(Player).GetType().Name);
+                    GameObject obj = new GameObject(typeof(Player).Name);
                     instance = obj.AddComponent<Player>();
                     DontDestroyOnLoad(obj);
                 }
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Possess(playerCharacter);
+        // Possess(playerCharacter);
     }
 
     public void Possess(PlayerCharacter playerCharacter)
@@ -54,12 +54,14 @@ public class Player : MonoBehaviour
         this.playerCharacter = playerCharacter;
         OnPossessed?.Invoke();
         playerCharacter.OnPossessCharacter(this);
-        playerUI.BindUI();
+        // playerCharacter.OnPossessCharacter에서 Inventory 정보를 받아와서 무기 장착 할 것
+        OnControllCharacter();
+        // playerUI.BindUI();
     }
 
     public void UnPossess() 
     {
-        playerUI.UnBindUI();
+        // playerUI.UnBindUI();
         playerCharacter.OnUnpossessCharacter();
         OnUnPossessed?.Invoke();
         this.playerCharacter = null;
@@ -68,12 +70,22 @@ public class Player : MonoBehaviour
     public void OnControllCharacter() 
     {
         Cursor.lockState = CursorLockMode.Locked;
-        _input.enabled = true;
+        _input.playerActions.Enable();
     }
 
     public void OnControllUI() 
     {
         Cursor.lockState = CursorLockMode.None;
-        _input.enabled = false;
+        _input.playerActions.Disable();
+    }
+
+    public void LoadData() 
+    {
+        // load Inventory data
+    }
+
+    public void SaveData() 
+    {
+        // save Inventory data
     }
 }
