@@ -15,9 +15,9 @@ public class SettingSoundMenu : MonoBehaviour
         SoundManager.instance.audioMixer.GetFloat("Master", out float m1);
         SoundManager.instance.audioMixer.GetFloat("SFX", out float m2);
         SoundManager.instance.audioMixer.GetFloat("BGM", out float m3);
-        masterAudioSlider.value = (m1 + 80) / 100;
-        SFXAudioSlider.value = (m2 + 80) / 100;
-        BGMAudioSlider.value = (m3 + 80) / 100;
+        masterAudioSlider.value = (m1 + 20) / 40;
+        SFXAudioSlider.value = (m2 + 20) / 40;
+        BGMAudioSlider.value = (m3 + 20) / 40;
         masterAudioSlider.onValueChanged.AddListener(val => OnSoundSliderValChanged("Master", val));
         SFXAudioSlider.onValueChanged.AddListener(val => OnSoundSliderValChanged("SFX", val));
         BGMAudioSlider.onValueChanged.AddListener(val => OnSoundSliderValChanged("BGM", val));
@@ -25,7 +25,8 @@ public class SettingSoundMenu : MonoBehaviour
 
     private void OnSoundSliderValChanged(string name, float val)
     {
-        SoundManager.instance.audioMixer.SetFloat(name, val * 100 - 80);
-        Debug.Log($"{name} : {val * 100 - 80}");
+        float v = val > 0.01f ? (val * 40) - 20 : -80f;
+        SoundManager.instance.audioMixer.SetFloat(name, v);
+        Debug.Log($"{name} : {v}");
     }
 }
