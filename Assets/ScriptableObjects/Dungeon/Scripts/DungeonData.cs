@@ -14,4 +14,5 @@ public class DungeonData : ScriptableObject
     [TextArea] public string dungeonEx;
     public int dungeonNumber;
     public GameObject dungeonPrefab;
+    public int QuestID;
 }
