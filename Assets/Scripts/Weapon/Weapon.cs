@@ -87,6 +87,11 @@ public class Weapon : MonoBehaviour
         weaponStatSO = Instantiate(baseStatSO);
         baseStat = weaponStatSO.weaponStat;
         itemData = weaponStatSO.weaponItem;
+        itemData.Init();
+        itemData.AddStat("Damage", (int)baseStat.attackStat.damage);
+        itemData.AddStat("Accuracy", 100 - (int)baseStat.spread);
+        itemData.AddStat("FireRate", (int)(1 - baseStat.fireDelay) * 50);
+        itemData.AddStat("MaxMagazine", baseStat.magazine);
 
         GetWeaponStat = () => { return baseStat; };
         mods = new List<Mod>();
@@ -209,11 +214,11 @@ public class Weapon : MonoBehaviour
     }
     public bool CheckInventoryAmmo()
     {
-        return playerCharacter_.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
+        return Player.Instance.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
     }
     public int UseInventoryAmmo()
     {
-        int ammo = playerCharacter_.inventory.LostorUsedAmmo(baseStat.e_useAmmo, maxMagazine - curMagazine);
+        int ammo = Player.Instance.inventory.LostorUsedAmmo(baseStat.e_useAmmo, maxMagazine - curMagazine);
         return ammo;
     }
 
@@ -279,7 +284,6 @@ public class Weapon : MonoBehaviour
             yield return YieldCacher.WaitForSeconds(0.03f);
         }
         RecoilCoroutine = null;
-        Debug.Log("Coroutine end");
         yield break;
     }
     public IEnumerator Reload()

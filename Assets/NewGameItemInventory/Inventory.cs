@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Reflection;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -17,14 +19,19 @@ public interface IObjectCrash
 public class ItemSlot
 {
     public ItemSlotUI slotUI;
-    public ItemData item;
+    public ItemData data;
     public int index;
-
+    public bool isEmpty
+    {
+        get { return data.displayName == null; }
+    }
     public ItemSlot(int _index, ItemSlotUI _slotUI)
     {
         index = _index;
         slotUI = _slotUI;
         slotUI.Init(this);
+        data = new ItemData();
+        //data.itemStatValues = new Dictionary<string, int>();
     }
     public void OnClick()
     {
@@ -48,36 +55,33 @@ public class ItemSlot
 // 인벤토리를 표현하기 위한 클래스
 public class Inventory : MonoBehaviour, IObjectCrash
 {
-    public ItemSlotUI uiSlot; // ui 슬롯
+    public InventoryUI inventoryUI;
+
     public ItemSlot[] slots; // item 슬롯
     public Transform slotParent;
     
     public InventoryData inventorySO;
-    public GameObject inventoryWindow; // 인벤토리 켜기
     public Transform dropPosition; // 아이템 버리기 위치
 
+    public Dictionary<AmmoType, int> inventoryAmmo { get; private set; }
+
     [Header("Selected Item")]
-    private ItemSlot selectedItem; // 선택한 아이템
+    private ItemSlot selectedItem = null; // 선택한 아이템
     private int selectedItemIndex; // 선택한 아이템 인덱스
-    public TextMeshProUGUI selectedItemName; // 이름
-    //public TextMeshProUGUI selectedItemDescription; // 설명
-    //public TextMeshProUGUI selectedItemStatNames; // 스텟
-    public Dictionary<string, TextMeshProUGUI> selectedItemStatValues; // 스텟 값
-    //public GameObject equipButton; // 착용 버튼
-    //public GameObject unEquipButton; // 해제 버튼
-    //public GameObject dropButton; // 버림 버튼
 
-    private Dictionary<AmmoType, int> inventoryAmmo;
-    public TextMeshProUGUI rifleAmmoCountText;
-    public TextMeshProUGUI pistolAmmoCountText;
-
-    public WeaponSlotUI weaponSlotUI1;
-    public WeaponSlotUI weaponSlotUI2;
-
-    private int curEquipIndex; // ???
-    public int itemSlotCount;
-
-    private PlayerCharacter character;
+    private int _playerMoney;
+    private int _playerMaxMoney;
+    public int money
+    {
+        get { return _playerMoney; }
+        set
+        {
+            _playerMoney = value;
+            _playerMoney = math.clamp(_playerMoney, 0, _playerMaxMoney);
+            inventoryUI.MoneyUI_Update();
+        }
+    }
+    //public PlayerCharacter character{ get; private set; }
 
     [Header("Events")]
     public UnityEvent onOpenInventory; // 인벤토리 오픈 이벤트
@@ -85,22 +89,26 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
     void Awake()
     {
-        character = GetComponent<PlayerCharacter>();
-        slots = new ItemSlot[itemSlotCount]; // 아이템 슬롯
-        slotParent = inventoryWindow.transform.Find("Inventory/Scroll View/Viewport/Slots");
-
         inventorySO.init();
         inventoryAmmo = new Dictionary<AmmoType, int>();
-        
+        _playerMaxMoney = inventorySO.maxMoney;
+
         foreach (AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
             inventoryAmmo.Add(ammo, 0);
+
+        inventoryUI = GetComponent<InventoryUI>();
+        inventoryUI.Init(this);
+
+        slots = new ItemSlot[inventorySO.itemSlotCount]; // 아이템 슬롯
+        slotParent = inventoryUI.inventoryWindow.transform.Find("Inventory/Scroll View/Viewport/Slots");
     }
 
     private void Start()
     {
         for (int i = 0; i < slots.Length; i++) // 슬롯 초기화
         {
-            slots[i] = new ItemSlot(i, Instantiate(uiSlot, slotParent));
+            slots[i] = new ItemSlot(i, Instantiate(inventoryUI.uiSlot, slotParent));
+            slots[i].data.Init(inventorySO);
             slots[i].Clear();
         }
         foreach(AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
@@ -108,18 +116,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
             inventoryAmmo[ammo] = inventorySO.maxAmmo[ammo];
         }
 
-        GameObject itemName = inventoryWindow.transform.Find("Inventory/InfoBG/ItemName").gameObject;
-        selectedItemName = itemName?.GetComponent<TextMeshProUGUI>();
-        GameObject itemStatValues = inventoryWindow.transform.Find("Inventory/InfoBG/ItemStatValues").gameObject;
-        selectedItemStatValues = new Dictionary<string, TextMeshProUGUI>();
-        for(int i = 0; i < inventorySO.itemStatValues.Count; i++)
-        {
-            GameObject textObj = itemStatValues.transform.Find($"{inventorySO.statNames[i]}/StatValue").gameObject;
-            selectedItemStatValues.Add(inventorySO.statNames[i], textObj?.GetComponent<TextMeshProUGUI>());
-        }
-
-        ClearSeletecItemWindow();
-        inventoryWindow.SetActive(false); // 인벤토리 꺼두기
+        money += inventorySO.playerStartMoney;
+        //ClearSeletecItemWindow();
+        inventoryUI.inventoryWindow.SetActive(false); // 인벤토리 꺼두기
     }
 
     public void OnInventoryButton(InputAction.CallbackContext callbackContext)
@@ -133,34 +132,26 @@ public class Inventory : MonoBehaviour, IObjectCrash
     // 인벤토리 열고 닫기 토글
     public void Toggle(InputAction.CallbackContext callbackContext)
     {
-        if (inventoryWindow.activeInHierarchy) // 하이어라키상에서 켜져있나?
+        if (inventoryUI.inventoryWindow.activeInHierarchy) // 하이어라키상에서 켜져있나?
         {
-            inventoryWindow.SetActive(false); // 인벤토리창을 끈다
+            inventoryUI.inventoryWindow.SetActive(false); // 인벤토리창을 끈다
             onCloseInventory?.Invoke(); // 인벤토리창 끄기 인보크
             //controller.ToggleCursor(false); // 컨트롤러.커서 잠금
-            character.input.SetCursorLock(true);
+            Player.Instance.playerCharacter.input.SetCursorLock(true);
         }
         else
         {
-            UpdateAmmoUI();
-            if(character.primaryWeapon != null)
-            {
-                weaponSlotUI1.UI_Update(character.primaryWeapon.itemData);
-            }
-            if(character.secondaryWeapon != null)
-            {
-                weaponSlotUI2.UI_Update(character.secondaryWeapon.itemData);
-            }
-            inventoryWindow.SetActive(true);
+            
+            inventoryUI.inventoryWindow.SetActive(true);
             onOpenInventory?.Invoke();
             //controller.ToggleCursor(true);
-            character.input.SetCursorLock(false);
+            Player.Instance.playerCharacter.input.SetCursorLock(false);
         }
     }
 
     public bool IsOpen()
     {
-        return inventoryWindow.activeInHierarchy;
+        return inventoryUI.inventoryWindow.activeInHierarchy;
     }
 
     [System.Obsolete]
@@ -169,9 +160,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
         inventoryAmmo[ammoType] += count;
         if (inventoryAmmo[ammoType] > inventorySO.maxAmmo[ammoType]) inventoryAmmo[ammoType] = inventorySO.maxAmmo[ammoType];
 
-        if (inventoryWindow.active) // 인벤토리를 열고있다면
+        if (inventoryUI.inventoryWindow.active) // 인벤토리를 열고있다면
         {
-            UpdateAmmoUI();
+            inventoryUI.AmmoUI_Update();
         }
     }
     public int LostorUsedAmmo(AmmoType ammoType, int count)
@@ -179,9 +170,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
         int leftAmmo = inventoryAmmo[ammoType] < count ? inventoryAmmo[ammoType] : count;
         inventoryAmmo[ammoType] -= leftAmmo;
 
-        if (inventoryWindow.activeSelf) // 인벤토리를 열고있다면
+        if (inventoryUI.inventoryWindow.activeSelf) // 인벤토리를 열고있다면
         {
-            UpdateAmmoUI();
+            inventoryUI.AmmoUI_Update();
         }
         return leftAmmo;
     }
@@ -190,17 +181,13 @@ public class Inventory : MonoBehaviour, IObjectCrash
         return inventoryAmmo[ammoType];
     }
 
-    void UpdateAmmoUI()
-    {
-        rifleAmmoCountText.text = inventoryAmmo[AmmoType.Rifle].ToString();
-        pistolAmmoCountText.text = inventoryAmmo[AmmoType.Pistol].ToString();
-    }
+    
 
     public void AddWeapon(Weapon weapon)
     {
-        if (character.primaryWeapon == null || character.secondaryWeapon == null)
+        if (Player.Instance.playerCharacter.primaryWeapon == null || Player.Instance.playerCharacter.primaryWeapon == null)
         {
-            character.InventoryWeaponEquip(weapon);
+            Player.Instance.playerCharacter.InventoryWeaponEquip(weapon);
         }
         else
         {
@@ -215,7 +202,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
         if (emptySlot != null) // 비어있는 슬롯이 있다면
         {
-            emptySlot.item = item;
+            emptySlot.data = item;
             UpdateUI();
             return;
         }
@@ -237,7 +224,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item != null) // 슬롯에 아이템이 있다면
+            if (slots[i].data != null) // 슬롯에 아이템이 있다면
                 slots[i].Set(); // 세팅
             else
                 slots[i].Clear(); // 없다면 클리어
@@ -249,7 +236,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item == null)
+            if (slots[i].isEmpty)
                 return slots[i];
         }
 
@@ -259,20 +246,13 @@ public class Inventory : MonoBehaviour, IObjectCrash
     // 인덱스로 인벤토리창에서 아이템 가져오기
     public void SelectItem(int index)
     {
-        if (slots[index].item == null)
+        if (slots[index].isEmpty)
             return;
         // 선택한 아이템 변수에 대입
         selectedItem = slots[index];
         selectedItemIndex = index;
         // 아이템 이름, 정보 표시
-        selectedItemName.text = selectedItem.item.displayName;
-        //selectedItemDescription.text = selectedItem.item.description;
-        // 아이템 스텟 초기화
-        //selectedItemStatNames.text = string.Empty;
-        foreach (TextMeshProUGUI StatValueText in selectedItemStatValues.Values)
-        {
-            StatValueText.text = string.Empty;
-        }
+        inventoryUI.SelectedItemUI_Update(selectedItem);
     }
 
     // 인벤토리창에서 아이템 선택 취소하기
@@ -280,14 +260,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
     {
         // 아이템 선택안함 표현
         selectedItem = null;
-        selectedItemName.text = string.Empty;
-        //selectedItemDescription.text = string.Empty;
-        // 아이템 스탯 표시 제거
-        //selectedItemStatNames.text = string.Empty;
-        foreach(TextMeshProUGUI StatValueText in selectedItemStatValues.Values)
-        {
-            StatValueText.text = string.Empty;
-        }
+        inventoryUI.SelectedItemUI_Update(selectedItem);
     }
 
     // 아이템 착용
@@ -305,7 +278,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
     // 아이템 버림
     public void OnDrop()
     {
-        ThrowItem(selectedItem.item); // 선택아이템 아이템 버림
+        ThrowItem(selectedItem.data); // 선택아이템 아이템 버림
         RemoveSelectedItem(); // 선택아이템 인벤토리에서 삭제
     }
 
@@ -319,13 +292,15 @@ public class Inventory : MonoBehaviour, IObjectCrash
             UnEquip(selectedItemIndex);
         }
         */
-        selectedItem.item = null;
+        selectedItem.data.displayName = null;
+        /*
+        foreach (string key in selectedItem.data.itemStatValues.Keys)
+            selectedItem.data.itemStatValues[key] = 0;
+        */
         ClearSeletecItemWindow();
         
-
         UpdateUI();
     }
-
     // 아이템 삭제
     public void RemoveItem(ItemData item)
     {
