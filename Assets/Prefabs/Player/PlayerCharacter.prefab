@@ -429,9 +429,17 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1404579864057891258}
-  m_RootOrder: -1
+
+  m_Children:
+  - {fileID: 4603355558430234811}
+  - {fileID: 3601009417266366776}
+  - {fileID: 4721132650358045687}
+  - {fileID: 6555084489318409380}
+  - {fileID: 6241565147527886410}
+  - {fileID: 2643921186223289536}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -444,9 +452,97 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1016964445223472663}
-  m_CullTransparentMesh: 1
---- !u!114 &3383016535740675634
+  m_GameObject: {fileID: 2917989534520319805}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &3571600458208927356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4984,6 +5080,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8190333094529541566, guid: e6cdd55069b5b4f84b75b20af0fc4d97, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 8327934882137387940, guid: e6cdd55069b5b4f84b75b20af0fc4d97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0.0000008537736
@@ -5536,6 +5636,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -21.113604
       objectReference: {fileID: 0}
+    - target: {fileID: 3337151968701757999, guid: 684a643199ae64f198c1b2f051cf4d69, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 3354966288909705942, guid: 684a643199ae64f198c1b2f051cf4d69, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -6292,6 +6396,10 @@ PrefabInstance:
       propertyPath: _FPWeaponLayer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4283348920086539381, guid: 86dbe96a5cb204054afabe4e7b490a4d, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 4283348920086539382, guid: 86dbe96a5cb204054afabe4e7b490a4d, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -9749,6 +9857,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7894666657946018021, guid: 950372cd7a39a494083b37dd6d42df7f, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 8000719791695870445, guid: 950372cd7a39a494083b37dd6d42df7f, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -10219,6 +10331,10 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6243265024915311061, guid: d5f6a9b788e092742b30b49d3f69965e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 6305645678077168533, guid: d5f6a9b788e092742b30b49d3f69965e, type: 3}
       propertyPath: m_Name
       value: Assault Rifle [FP]
@@ -10857,6 +10973,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3921619859690127991, guid: 12eaf39bb558e03499fe0362144c84d1, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 4092781336288372521, guid: 12eaf39bb558e03499fe0362144c84d1, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -11557,6 +11677,10 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 500735882833398005, guid: 8fd8dd664c9c2d340b1df780497f5fb4, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
     - target: {fileID: 500735882833398007, guid: 8fd8dd664c9c2d340b1df780497f5fb4, type: 3}
       propertyPath: m_Name
       value: Pistol [FP]
