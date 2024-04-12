@@ -187,6 +187,8 @@ MonoBehaviour:
   button: {fileID: 7302146894470171883}
   icon: {fileID: 8091166390121875388}
   nameText: {fileID: 9202266790194840948}
+  index: 0
+  equipped: 0
 --- !u!114 &7681326037848939053
 MonoBehaviour:
   m_ObjectHideFlags: 0

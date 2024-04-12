@@ -12,21 +12,16 @@ public class WeaponSlotUI : MonoBehaviour
     public TextMeshProUGUI nameText;
     private WeaponSlot curWeapon;
 
+    public int index;
+    public bool equipped;
+
     // 아이템 셋팅
-    public void UI_Update(ItemData data)
+    public void Set(WeaponSlot slot)
     {
-        if (data != null)
-        {
-            //curWeapon = slot; // 슬롯에 들어간 무기
-            icon.gameObject.SetActive(true); // 아이콘 표시
-            icon.sprite = data.icon; // 아이콘 스프라이트 설정
-            nameText.text = data.displayName; // 텍스트 표현
-        }
-        else
-        {
-            icon.gameObject.SetActive(false);
-            nameText.text = string.Empty;
-        }
+        curWeapon = slot; // 슬롯에 들어간 무기
+        icon.gameObject.SetActive(true); // 아이콘 표시
+        icon.sprite = slot.item.icon; // 아이콘 스프라이트 설정
+        nameText.text = slot.item.displayName; // 텍스트 표현
     }
 
     // 아이템 클리어

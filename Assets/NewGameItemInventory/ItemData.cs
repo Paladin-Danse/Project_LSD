@@ -15,6 +15,14 @@ public enum ConsumableType
     Health // 체력
 }
 
+// 회복되는 스텟 과 값
+[System.Serializable]
+public class ItemDataConsumable
+{
+    public ConsumableType type;
+    public float value;
+}
+
 // 스크립터블 오브젝트 상속하기(ScriptableObject)
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
 public class ItemData : ScriptableObject
@@ -25,20 +33,4 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public Sprite icon;
     public GameObject dropPrefab;
-    public Dictionary<string, int> itemStatValues;
-
-    public void Init(InventoryData inventorySO)
-    {
-        itemStatValues = new Dictionary<string, int>();
-        foreach (string key in inventorySO.itemStatValues.Keys)
-            itemStatValues.Add(key, 0);
-    }
-    public void Init()
-    {
-        itemStatValues = new Dictionary<string, int>();
-    }
-    public void AddStat(string name, int value)
-    {
-        itemStatValues.Add(name, value);
-    }
 }

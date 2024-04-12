@@ -30,14 +30,14 @@ public class PlayerGroundedState : PlayerBaseState
         base.AddInputActionsCallbacks();
         PlayerInput input = stateMachine.player.input;
         //Inventory
-        input.playerActions.Inventory.started += Player.Instance.inventory.Toggle;
+        input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
     }
     public override void RemoveInputActionsCallbacks()
     {
         base.RemoveInputActionsCallbacks();
         PlayerInput input = stateMachine.player.input;
         //Inventory
-        input.playerActions.Inventory.started -= Player.Instance.inventory.Toggle;
+        input.playerActions.Inventory.started -= stateMachine.player.inventory.Toggle;
     }
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {

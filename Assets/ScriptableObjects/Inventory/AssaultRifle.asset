@@ -16,4 +16,4 @@ MonoBehaviour:
   description: 
   type: 0
   icon: {fileID: 21300000, guid: c327c2a19ba091846b67a35b937fbae1, type: 3}
-  dropPrefab: {fileID: 8842644601895612216, guid: 98ad83cc58823ba4eb0681edfa8a1472, type: 3}
+  dropPrefab: {fileID: 285864682099490366, guid: 5b142573005704890bbfa656f7c66d8b, type: 3}

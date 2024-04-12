@@ -23,7 +23,7 @@ public class PlayerCharacter : CharacterStatHandler
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     public bool isJump = true;
-    //public Inventory inventory;
+    public Inventory inventory;
     public float MovementSpeed { get; private set; }
     public float MovementSpeedModifier { get; set; }
     public float JumpCoolTime = 1.0f;
@@ -40,7 +40,11 @@ public class PlayerCharacter : CharacterStatHandler
     [SerializeField] public Weapon curWeapon;
     private WeaponStatHandler weaponStatHandler;
     public Action<PlayerStateMachine> SetWeaponEvent;
-    
+    [SerializeField]
+    public Weapon primaryWeapon;
+    [SerializeField]
+    public Weapon secondaryWeapon;
+
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
 
@@ -51,12 +55,6 @@ public class PlayerCharacter : CharacterStatHandler
     IEnumerator JumpCoolTimeCoroutine;
     IEnumerator SwapCoroutine = null;
 
-    //차후 삭제 변수
-    [SerializeField]
-    public Weapon primaryWeapon;
-    [SerializeField]
-    public Weapon secondaryWeapon;
-
     private void Awake()
     {
         base.Awake();
@@ -64,7 +62,7 @@ public class PlayerCharacter : CharacterStatHandler
         rigidbody_ = GetComponent<Rigidbody>();
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
-        //inventory = GetComponent<Inventory>();
+        inventory = GetComponent<Inventory>();
         playerCamTransform = transform.Find("FPCamera");
         fpsBody = transform.Find("FPSBody").gameObject;
         fullBody = transform.Find("FullBody").gameObject;
@@ -94,7 +92,7 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
-        //Instantiate(inventory.inventoryWindow).SetActive(false);
+        Instantiate(inventory.inventoryWindow).SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
@@ -265,7 +263,6 @@ public class PlayerCharacter : CharacterStatHandler
             {
                 UnequipWeapon(primaryWeapon);
             }
-            Player.Instance.inventory.AddItem(primaryWeapon.itemData);
             primaryWeapon = null;
         }
         else
@@ -274,7 +271,6 @@ public class PlayerCharacter : CharacterStatHandler
             {
                 UnequipWeapon(secondaryWeapon);
             }
-            Player.Instance.inventory.AddItem(secondaryWeapon.itemData);
             secondaryWeapon = null;
         }
     }
