@@ -41,7 +41,7 @@ public class IntroSceneManager : MonoBehaviour
     public void GameStart()
     {
         Debug.Log("Game Start");
-        // SceneManager.LoadScene("SafeZoneScene");
+        SceneManager.LoadScene("SafeZoneScene");
     }
 
     public void GameLoad()

@@ -41,14 +41,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SFXPlay(string sfxName, AudioClip clip)
-    {
-        GameObject go = new GameObject(sfxName + "Sound");
-        AudioSource audioSource = go.AddComponent<AudioSource>();
-        audioSource.clip = clip;
-
-        Destroy(go, clip.length); // 재생끝날시 오브젝트 파괴
-    }
+    
 
     public void BgSoundPlay(AudioClip clip)
     {
