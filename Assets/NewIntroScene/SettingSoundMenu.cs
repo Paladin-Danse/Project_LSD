@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class SettingSoundMenu : MonoBehaviour
 {
-    public Slider masterAudioSlider; // ¸¶½ºÅÍ º¼·ý ½½¶óÀÌ´õ
-    public Slider SFXAudioSlider; // È¿°úÀ½ ½½¶óÀÌ´õ
-    public Slider BGMAudioSlider; // ¹è°æÀ½ ½½¶óÀÌ´õ
+    public Slider masterAudioSlider; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+    public Slider SFXAudioSlider; // È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+    public Slider BGMAudioSlider; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
 
     void Start()
     {
         SoundManager.instance.audioMixer.GetFloat("Master", out float m1);
         SoundManager.instance.audioMixer.GetFloat("SFX", out float m2);
         SoundManager.instance.audioMixer.GetFloat("BGM", out float m3);
-        masterAudioSlider.value = m1 > -80f ? (m1 + 20) / 40 : -80f;
-        SFXAudioSlider.value = m2 > -80f ? (m2 + 20) / 40 : -80f;
-        BGMAudioSlider.value = m3 > -80f ? (m3 + 20) / 40 : -80f;
+        masterAudioSlider.value = (m1 + 80) / 100;
+        SFXAudioSlider.value = (m2 + 80) / 100;
+        BGMAudioSlider.value = (m3 + 80) / 100;
         masterAudioSlider.onValueChanged.AddListener(val => OnSoundSliderValChanged("Master", val));
         SFXAudioSlider.onValueChanged.AddListener(val => OnSoundSliderValChanged("SFX", val));
         BGMAudioSlider.onValueChanged.AddListener(val => OnSoundSliderValChanged("BGM", val));
