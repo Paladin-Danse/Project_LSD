@@ -33,15 +33,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "90df88fa-c827-4d17-9473-be1c2225c350",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Run",
                     "type": "Button",
                     "id": "630a1d6b-7cad-43b9-b55f-4e50458f9673",
@@ -63,15 +54,6 @@
                     "name": "Aim",
                     "type": "Button",
                     "id": "c5c397d9-846a-472b-b44f-1f9e0ce2645e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "27cc4e81-bb77-448e-bb71-cf7d3f544860",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -176,17 +158,6 @@
                 },
                 {
                     "name": "",
-                    "id": "86dad80f-cdb1-45c3-86e5-6d0f66df4546",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5b0ff7d9-7d1e-4faa-aa03-f52893e470cd",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
@@ -215,17 +186,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3d5c4ec-c52d-483c-8231-f6cca8fac953",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -294,6 +254,74 @@
                     "action": "WeaponSwap",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "PlayerUI",
+            "id": "7a36b4ea-4f9f-4eb9-8f85-73767a6833dc",
+            "actions": [
+                {
+                    "name": "Debug",
+                    "type": "Button",
+                    "id": "15b5bf07-328f-4865-8a17-5f1ba039d0ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "df7f0026-6d95-46c0-91f9-7be65f95b314",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "aaef99ed-7882-405d-8ba6-cd9f7178947d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "88dfd935-eef7-4630-8c17-6630a30ce7af",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4053c15a-8c49-4b2d-a492-4ece4d964195",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76f1dc5e-9fd8-4de4-a28a-9c630723d44c",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
