@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private GameObject firstAidKit;    
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }        
@@ -71,11 +71,15 @@ public class Enemy : MonoBehaviour
         }
 
         DungeonManager.Instance.killedEneies += 1;
-        
-        float goldPosX = Random.Range(0, 5);
-        float goldPosZ = Random.Range(0, 5);
-        float goldRot = Random.Range(0, 180);        
-        Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 5f, goldPosZ), Quaternion.Euler(0,goldRot,0));
+
+        float gper = Random.Range(0, 99);
+        if(gper >= 50)
+        {
+            float goldPosX = Random.Range(0, 1f);
+            float goldPosZ = Random.Range(0, 1f);
+            float goldRot = Random.Range(0, 180f);
+            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 1f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+        }        
 
         enabled = false;
         Destroy(gameObject, 2f);

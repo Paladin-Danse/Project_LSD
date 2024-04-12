@@ -80,10 +80,10 @@ public class DesertBoss : MonoBehaviour
         int gCount = Random.Range(3, 10);
         for(int i = 0; i < gCount;  i++)
         {
-            float goldPosX = Random.Range(0, 5);
-            float goldPosZ = Random.Range(0, 5);
-            float goldRot = Random.Range(0, 180);
-            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 5f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+            float goldPosX = Random.Range(0, 2f);
+            float goldPosZ = Random.Range(0, 2f);
+            float goldRot = Random.Range(0, 180f);
+            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 0f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
         }        
 
         SmallShip.SetActive(true);        

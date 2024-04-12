@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2717322213483894135}
   - component: {fileID: 1847122998539440927}
   - component: {fileID: 1989703224567197887}
-  - component: {fileID: -4023315254574767694}
-  m_Layer: 0
+  - component: {fileID: 2162140280516833076}
+  m_Layer: 8
   m_Name: rock8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1847122998539440927
 MeshFilter:
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &-4023315254574767694
+--- !u!64 &2162140280516833076
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
