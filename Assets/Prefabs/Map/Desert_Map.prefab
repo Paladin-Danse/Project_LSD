@@ -21295,7 +21295,7 @@ Transform:
   - {fileID: 5247388862343615448}
   - {fileID: 4128007708469580507}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4921065883261769181
 GameObject:
@@ -50171,6 +50171,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1429541347718739159, guid: e16306067b112bb489f6ad6b7dc9cc10, type: 3}
+      propertyPath: SmallShip
+      value: 
+      objectReference: {fileID: 7865626979760035926}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

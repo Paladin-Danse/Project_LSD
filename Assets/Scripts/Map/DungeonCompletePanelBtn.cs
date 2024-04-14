@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TestSceneLoad : MonoBehaviour
+public class DungeonCompletePanelBtn : MonoBehaviour
 {
+    public GameObject dungeonCompletePanel;
     DungeonMissionBoard missionBoard;
 
     private void Awake()
@@ -37,5 +38,14 @@ public class TestSceneLoad : MonoBehaviour
     IEnumerator LoadSafeZoneScene()
     {
         yield return SceneManager.LoadSceneAsync("SafeZoneTestScene");
+    }
+
+    public void OnPanel()
+    {
+        dungeonCompletePanel.SetActive(true);
+    }
+    public void OffPanel()
+    {
+        dungeonCompletePanel.SetActive(false);
     }
 }
