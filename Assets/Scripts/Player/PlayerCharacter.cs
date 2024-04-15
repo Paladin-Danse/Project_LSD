@@ -25,7 +25,6 @@ public class PlayerCharacter : CharacterStatHandler
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     public bool isJump = true;
-    public Inventory inventory;
     public float MovementSpeed { get; private set; }
     public float MovementSpeedModifier { get; set; }
     public float JumpCoolTime = 1.0f;
@@ -64,7 +63,6 @@ public class PlayerCharacter : CharacterStatHandler
         rigidbody_ = GetComponent<Rigidbody>();
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
-        inventory = GetComponent<Inventory>();
         playerCamTransform = transform.Find("FPCamera");
         fpsBody = transform.Find("FPSBody").gameObject;
         fullBody = transform.Find("FullBody").gameObject;
@@ -87,7 +85,7 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
-        Instantiate(inventory.inventoryWindow).SetActive(false);
+        Instantiate(Player.Instance.inventory.inventoryUI.inventoryWindow).SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
