@@ -5,4 +5,13 @@ using UnityEngine;
 public class Defines
 {
     public const int DEFAULT_POOL_SIZE = 20;
+
+    public enum EScene 
+    {
+        Unknown = -1,
+        Title,
+        SafeZone,
+        Dungeon,
+        Test
+    }
 }

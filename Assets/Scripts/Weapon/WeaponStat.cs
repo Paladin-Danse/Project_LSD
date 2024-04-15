@@ -25,6 +25,7 @@ public class WeaponStat : Stat
     public WeaponStatFlag weaponStatFlag;
 
     [Header("Default Weapon Stat")]
+    public AmmoType e_useAmmo;
     public int magazine;
     public float spread;
     public float recoil;

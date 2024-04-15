@@ -23,7 +23,7 @@ public class CharacterStatHandler : StatHandlerBase<CharacterStat>
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         health.TakeDamage = TakeDamageWithDefense;
         health.MaxHealth = () => { return currentStat.maxHealth; };
@@ -38,11 +38,12 @@ public class CharacterStatHandler : StatHandlerBase<CharacterStat>
         }
     }
 
-    public void TakeDamageWithDefense(float damage) 
+    public void TakeDamageWithDefense(float damage)
     {
-        health.OnTakeDamage?.Invoke();
-
         if (health.curHealth == 0) return;
+
+        health.OnTakeDamage?.Invoke();
+        health.HealthChanged?.Invoke();
 
         health.curHealth = Mathf.Max(health.curHealth - (Mathf.Max(0, (damage - currentStat.defense) * currentStat.defenseRateMultiplyConverted)), 0);
 

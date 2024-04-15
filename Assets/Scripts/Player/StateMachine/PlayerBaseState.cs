@@ -37,14 +37,13 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        Move();
-        Rotate();
         if (stateMachine.player.health.IsDead) stateMachine.ChangeState(stateMachine.DeadState);
     }
 
     public virtual void PhysicsUpdate()
     {
-        
+        Move();
+        Rotate();
     }
     protected void SetAnimation(int ParameterHash)
     {
@@ -69,14 +68,10 @@ public class PlayerBaseState : IState
         input.playerActions.Run.started += OnRun;
 
         //Interact
-        input.playerActions.Interact.started += stateMachine.player.dungeonInteract.OnInteractInput;
-
-        //Inventory
-        input.playerActions.Inventory.started += stateMachine.player.inventory.Toggle;
+        input.playerUIActions.Interact.started += stateMachine.player.ownedPlayer.playerInteract.OnInteractInput;
 
         //Equipment
         input.playerActions.WeaponSwap.started += OnSwap;
-        input.playerActions.WeaponSwapWheeling.started += OnSwap;
     }
 
     public virtual void RemoveInputActionsCallbacks()
@@ -88,13 +83,10 @@ public class PlayerBaseState : IState
         input.playerActions.Run.started -= OnRun;
 
         //Interact
-        input.playerActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
-        //Inventory
-        input.playerActions.Inventory.started -= stateMachine.player.inventory.Toggle;
-
+        input.playerUIActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
+        
         //Equipment
         input.playerActions.WeaponSwap.started -= OnSwap;
-        input.playerActions.WeaponSwapWheeling.started -= OnSwap;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {

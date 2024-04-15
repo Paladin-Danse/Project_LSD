@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a6b0db1a1b88b4c8d93a9c4ed1bf58, type: 3}
   m_Name: DesertBoss
   m_EditorClassIdentifier: 
-  <PlayerChasingRange>k__BackingField: 20
-  <AttackRange>k__BackingField: 15
+  <PlayerChasingRange>k__BackingField: 45
+  <AttackRange>k__BackingField: 35
   <AttackRate>k__BackingField: 0
   <ProjectileDistance>k__BackingField: 0
   <Damage>k__BackingField: 10

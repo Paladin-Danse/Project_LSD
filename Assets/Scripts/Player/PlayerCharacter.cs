@@ -7,11 +7,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCharacter : MonoBehaviour
+public class PlayerCharacter : CharacterStatHandler
 {
+    public Player ownedPlayer { get; private set; }
+    public PlayerInput input { get; private set; }
+
     public PlayerStateMachine stateMachine { get; private set; }
     [HideInInspector]
-    public PlayerInput input;
     [field: SerializeField] public PlayerData Data { get; private set; }
     public GameObject fpsBody { get; private set; }
     public GameObject fullBody { get; private set; }
@@ -23,7 +25,6 @@ public class PlayerCharacter : MonoBehaviour
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     public bool isJump = true;
-    public Inventory inventory;
     public float MovementSpeed { get; private set; }
     public float MovementSpeedModifier { get; set; }
     public float JumpCoolTime = 1.0f;
@@ -38,8 +39,11 @@ public class PlayerCharacter : MonoBehaviour
     public Transform firePos;
     public float fireRateDelay;
     [SerializeField] public Weapon curWeapon;
-    private WeaponStatHandler weaponStatHandler;
+    public WeaponStatHandler weaponStatHandler;
+
     public Action<PlayerStateMachine> SetWeaponEvent;
+    public Action OnWeaponSwapped;
+
     [SerializeField]
     public Weapon primaryWeapon;
     [SerializeField]
@@ -48,20 +52,17 @@ public class PlayerCharacter : MonoBehaviour
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
 
-    //UI
-    public PlayerUI playerUI;
-
     //Coroutine
     IEnumerator JumpCoolTimeCoroutine;
     IEnumerator SwapCoroutine = null;
 
     private void Awake()
     {
+        base.Awake();
         stateMachine = new PlayerStateMachine(this);
         rigidbody_ = GetComponent<Rigidbody>();
         dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
-        inventory = GetComponent<Inventory>();
         playerCamTransform = transform.Find("FPCamera");
         fpsBody = transform.Find("FPSBody").gameObject;
         fullBody = transform.Find("FullBody").gameObject;
@@ -69,13 +70,6 @@ public class PlayerCharacter : MonoBehaviour
         health = GetComponent<Health>();
 
         if (!TryGetComponent(out weaponStatHandler)) Debug.Log("WeaponStatHandler : weaponStatHandler is not Found!");
-        //UI
-        if (!TryGetComponent<PlayerUI>(out playerUI)) Debug.Log("Player : PlayerUI is not Found!");
-        else
-        {
-            playerUI.InitSetting();
-            stateMachine.playerUIEvent += playerUI.UITextUpdate;
-        }
 
         Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
         foreach (Animator anim in anim_temp)
@@ -90,15 +84,19 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Start()
     {
+        base.Start();
+        Instantiate(Player.Instance.inventory.inventoryUI.inventoryWindow).SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
 
-    public void OnPossessCharacter()
+    public void OnPossessCharacter(Player player)
     {
+        input = player._input;
+        ownedPlayer = player;
+
         if (stateMachine.currentState == null)
             stateMachine.ChangeState(stateMachine.IdleState);
-        stateMachine.currentState.AddInputActionsCallbacks();
 
         if (primaryWeapon) primaryWeapon.Init(this);
         if (secondaryWeapon) secondaryWeapon.Init(this);
@@ -117,18 +115,22 @@ public class PlayerCharacter : MonoBehaviour
             {
                 // todo : 무기 없을 경우에 주먹?
             }
+            curWeapon.input_ = input;
         }
     }
 
     public void OnUnpossessCharacter() 
     {
         stateMachine.currentState.RemoveInputActionsCallbacks();
+        input = null;
         curWeapon.input_ = null;
+        ownedPlayer = null;
     }
 
     private void Update()
     {
-        stateMachine.HandleInput();
+        if(input != null)
+            stateMachine.HandleInput();
         stateMachine.Update();
     }
 
@@ -141,11 +143,11 @@ public class PlayerCharacter : MonoBehaviour
     {
         Vector3 movementDirection = GetMovementDirection();
         float movementSpeed = GetMovementSpeed();
-        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (movementDirection * movementSpeed * currentStat.moveSpeed * Time.fixedDeltaTime));
     }
     public void JumpMove()
     {
-        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.deltaTime));
+        rigidbody_.MovePosition(transform.position + (jumpDirection * jumpSpeed * Time.fixedDeltaTime));
     }
     public void JumpMoveSetting()
     {
@@ -277,20 +279,22 @@ public class PlayerCharacter : MonoBehaviour
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
         curWeapon.CurrentWeaponEquip();
+        OnWeaponSwapped?.Invoke();
     }
 
     public void UnequipWeapon(Weapon weapon)
     {
+        if (weapon.ReloadCoroutine != null)
+        {
+            weapon.StopAction(ref weapon.ReloadCoroutine);
+        }
+
         weaponStatHandler.UnequipWeapon();
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
         curWeapon.CurrentWeaponUnEquip();
         curWeapon.input_ = null;
         curWeapon = null;
-    }
-
-    public void playerUIEventInvoke()
-    {
-        if (playerUI) stateMachine.playerUIEvent(this);
+        OnWeaponSwapped?.Invoke();
     }
     public float GetMovementSpeed()
     {
@@ -320,6 +324,7 @@ public class PlayerCharacter : MonoBehaviour
     public IEnumerator Swapping()
     {
         Weapon beforeWeapon = curWeapon;
+
         UnequipWeapon(curWeapon);
         while(beforeWeapon.gameObject.activeSelf)
         {

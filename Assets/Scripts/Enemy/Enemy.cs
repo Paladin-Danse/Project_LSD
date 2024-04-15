@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private GameObject firstAidKit;    
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }        
@@ -52,18 +52,37 @@ public class Enemy : MonoBehaviour
 
     void OnDie()
     {
+        this.GetComponent<CapsuleCollider>().enabled = false;
+        this.GetComponent<Rigidbody>().isKinematic = true;
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
-        enabled = false;
-        Destroy(gameObject, 2f);
+        
         if (per >= 50)
         {
-            Instantiate(bulletBox, transform.position, transform.rotation);
+            ObjectPoolManager.Instance.Pop(bulletBox);
+            bulletBox.transform.position = transform.position;
+            bulletBox.transform.rotation = transform.rotation;
         }
         else if (per < 50)
         {
-            Instantiate(firstAidKit, transform.position, transform.rotation);
+            ObjectPoolManager.Instance.Pop(firstAidKit);
+            firstAidKit.transform.position = transform.position;
+            firstAidKit.transform.rotation = transform.rotation;
         }
+
+        DungeonManager.Instance.killedEneies += 1;
+
+        float gper = Random.Range(0, 99);
+        if(gper >= 50)
+        {
+            float goldPosX = Random.Range(0, 1f);
+            float goldPosZ = Random.Range(0, 1f);
+            float goldRot = Random.Range(0, 180f);
+            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 1f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+        }        
+
+        enabled = false;
+        Destroy(gameObject, 2f);
     }
 
     void OnHit()

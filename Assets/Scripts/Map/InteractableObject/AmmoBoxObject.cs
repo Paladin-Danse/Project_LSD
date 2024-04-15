@@ -9,8 +9,8 @@ public class AmmoBoxObject: MonoBehaviour, IInteractable
         return string.Format("ÃÑ¾Ë È¹µæ");
     }
 
-    public void OnInteract()
+    public void OnInteract(Player player)
     {
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 }

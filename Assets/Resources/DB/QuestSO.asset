@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c297314184ea4663b8d523ea0c07aa8, type: 3}
+  m_Name: QuestSO
+  m_EditorClassIdentifier: 
+  Entities:
+  - _id: 1001
+    _name: "\uC544\uC774\uD15C\uC744 \uC5BB\uC790!!"
+    _description: "\uC544\uC774\uD15C\uC744 \uC5BB\uC790!!"
+    _type: 0
+    _target: 10001001
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 70001001
+    _rewardCount_1: 5
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1002
+    _name: "\uC544\uC774\uD15C\uC744 \uC0AC\uC6A9\uD558\uC790!!"
+    _description: "\uC544\uC774\uD15C\uC744 \uC0AC\uC6A9\uD558\uC790!!"
+    _type: 1
+    _target: 70001001
+    _count: 3
+    _exp: 100
+    _gold: 3000
+    _reward_1: 70001001
+    _rewardCount_1: 5
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1003
+    _name: "\uBAAC\uC2A4\uD130\uB97C \uC7A1\uC790"
+    _description: "\uBAAC\uC2A4\uD130\uB97C \uC7A1\uC790"
+    _type: 2
+    _target: 500000
+    _count: 5
+    _exp: 100
+    _gold: 3000
+    _reward_1: 70001001
+    _rewardCount_1: 5
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1004
+    _name: "NPC \uB300\uD654"
+    _description: "NPC \uB300\uD654"
+    _type: 3
+    _target: 100
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 70001001
+    _rewardCount_1: 5
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1005
+    _name: "\uC2A4\uD14C\uC774\uC9C0 \uC785\uC7A5"
+    _description: "\uC2A4\uD14C\uC774\uC9C0 \uC785\uC7A5"
+    _type: 4
+    _target: 1000
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 70001001
+    _rewardCount_1: 5
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1006
+    _name: "\uD074\uB9AC\uC5B4"
+    _description: "\uD074\uB9AC\uC5B4"
+    _type: 5
+    _target: 1000
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 0
+    _rewardCount_1: 0
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1007
+    _name: "UI \uC5F4\uAE30"
+    _description: "UI \uC5F4\uAE30"
+    _type: 6
+    _target: 2000
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 0
+    _rewardCount_1: 0
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1008
+    _name: "\uC544\uC774\uD15C\uC744 \uC5BB\uC790!! - \uBC29\uC5B4\uAD6C\uD3B8"
+    _description: "\uB4E0\uB4E0\uD574\uC84C\uB2E4"
+    _type: 0
+    _target: 20001001
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 0
+    _rewardCount_1: 0
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0
+  - _id: 1009
+    _name: "\uBCF5\uC218"
+    _description: "\uB3C4\uB9DD\uCE5C \uC601\uC8FC\uB97C \uCC3E\uC544 \uC0AC\uC0B4\uD574\uB77C"
+    _type: 2
+    _target: 1101009
+    _count: 1
+    _exp: 100
+    _gold: 3000
+    _reward_1: 0
+    _rewardCount_1: 0
+    _reward_2: 0
+    _rewardCount_2: 0
+    _reward_3: 0
+    _rewardCount_3: 0

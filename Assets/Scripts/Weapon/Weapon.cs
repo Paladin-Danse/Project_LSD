@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 
 public class Weapon : MonoBehaviour
@@ -15,9 +16,11 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     WeaponStatSO baseStatSO;
     public WeaponStat baseStat;
+    public ItemData itemData;
 
     public WeaponStat curWeaponStat { get { return GetWeaponStat(); } }
     public Func<WeaponStat> GetWeaponStat;
+    public Action OnMagChanged;
 
     [Header("Weapon")]
     public string WeaponName;
@@ -76,11 +79,23 @@ public class Weapon : MonoBehaviour
         animationData = new WeaponAnimationData();
         animationData.Initialize();
 
+        WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
         {
-            baseStat = Instantiate(baseStatSO).weaponStat;
+            weaponStatSO = Instantiate(baseStatSO);
+            baseStat = weaponStatSO.weaponStat;
+            itemData = weaponStatSO.weaponItem;
         }
-        baseStat = Instantiate(baseStatSO).weaponStat;
+        weaponStatSO = Instantiate(baseStatSO);
+        baseStat = weaponStatSO.weaponStat;
+        itemData = weaponStatSO.weaponItem;
+
+        itemData.Init();
+        itemData.AddStat("Damage", (int)baseStat.attackStat.damage);
+        itemData.AddStat("Accuracy", 100 - (int)baseStat.spread);
+        itemData.AddStat("FireRate", (int)(1 - baseStat.fireDelay) * 50);
+        itemData.AddStat("MaxMagazine", baseStat.magazine);
+
         GetWeaponStat = () => { return baseStat; };
         mods = new List<Mod>();
         WeaponSet();
@@ -162,7 +177,6 @@ public class Weapon : MonoBehaviour
     public void CurrentWeaponEquip()
     {
         input_ = playerCharacter_.input;
-        playerCharacter_.playerUIEventInvoke();
         stateMachine.ChangeState(stateMachine.EnterState);
         //stateMachine.currentState.AddInputActionsCallbacks();
     }
@@ -200,12 +214,27 @@ public class Weapon : MonoBehaviour
             StartCoroutine(TakeCoroutine);
         }
     }
+    public bool CheckInventoryAmmo()
+    {
+        return Player.Instance.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
+    }
+    public int UseInventoryAmmo()
+    {
+        int ammo = Player.Instance.inventory.LostorUsedAmmo(baseStat.e_useAmmo, maxMagazine - curMagazine);
+        return ammo;
+    }
+
+    public void StopAction(ref IEnumerator coroutine)
+    {
+        StopCoroutine(coroutine);
+        coroutine = null;
+    }
 
     public IEnumerator Shot()
     {
         curMagazine--;
         PlayClip(shot_AudioClip, shot_Volume);
-        playerCharacter_.playerUIEventInvoke();
+        OnMagChanged?.Invoke();
 
         //Projectile Create
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
@@ -276,8 +305,7 @@ public class Weapon : MonoBehaviour
         yield return YieldCacher.WaitForSeconds(curWeaponStat.reloadDelay);
         PlayClip(reload_end_AudioClip, reload_Volume);
         animator.speed = 1;
-        curMagazine = maxMagazine;
-        playerCharacter_.playerUIEventInvoke();
+        curMagazine += UseInventoryAmmo();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);
     }

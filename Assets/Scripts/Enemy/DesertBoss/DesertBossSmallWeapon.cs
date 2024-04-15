@@ -25,7 +25,7 @@ public class DesertBossSmallWeapon : MonoBehaviour
 
     private void Start()
     {
-        WFS = new WaitForSeconds(desertBoss.stateMachine.Enemy.RData.AttackRate);
+        WFS = YieldCacher.WaitForSeconds(desertBoss.stateMachine.Enemy.RData.AttackRate);
     }
     public void SFirstShot()
     {

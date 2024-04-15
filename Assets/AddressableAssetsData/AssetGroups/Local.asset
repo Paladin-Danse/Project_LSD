@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Local
+  m_EditorClassIdentifier: 
+  m_GroupName: Local
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a6429f7aec6b0d347a3efb2c2a913137
+  m_SerializeEntries:
+  - m_GUID: cd4d71b46cdbcf44e9ae4a2e0a81326d
+    m_Address: LoadingCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f141f406a20f7bc46a8c70fdc680f6f4
+    m_Address: Assets/Prefabs/Weapon/Projectile/ScifiMechLighCanonProjectile.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f86d4b7ca0ca87f4fb96fe7876bf588d
+    m_Address: InvantoryCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a214819a160fecd45a7d6ddf0d6773f4
+    m_Address: Desert_Map
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ab4ebb44c8111d4a855671511894c29
+    m_Address: Assets/Prefabs/Player/PlayerCharacter.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerCharacter
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40f4826f1e0402348ad26438e94bd2b8
+    m_Address: PopUpCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54d7a7865f0944343a05e923f4115a72
+    m_Address: PlayerCharacter
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerCharacter
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f60a7a33d1eead4289aa4c45ff4fb50
+    m_Address: HUDCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: cacb559963f73b146b2af7015c334e10, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 69693778894af0546a57810b0c091fe3, type: 2}
+    - {fileID: 11400000, guid: 52b714a4b6ba5134abcb41d5922b4d3c, type: 2}

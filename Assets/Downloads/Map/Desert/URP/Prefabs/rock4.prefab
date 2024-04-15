@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4746667320050888036}
   - component: {fileID: 2141780360320288311}
   - component: {fileID: 2553697244448070376}
-  - component: {fileID: -2962405054218052670}
   - component: {fileID: 9136601804672393069}
-  m_Layer: 0
+  - component: {fileID: 8012128065197314677}
+  m_Layer: 8
   m_Name: rock4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2141780360320288311
 MeshFilter:
@@ -85,7 +85,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &-2962405054218052670
+--- !u!205 &9136601804672393069
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2286829328776184999}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.03491068, y: -0.05681312, z: -0.07082391}
+  m_Size: 1.8204472
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.06470919
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2553697244448070376}
+  m_Enabled: 1
+--- !u!64 &8012128065197314677
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,22 +126,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 96621212903710399, guid: c3e39fc348495dcf7ab5ac0de5c4ea01, type: 3}
---- !u!205 &9136601804672393069
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2286829328776184999}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.03491068, y: -0.05681312, z: -0.07082391}
-  m_Size: 1.8204472
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.06470919
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2553697244448070376}
-  m_Enabled: 1

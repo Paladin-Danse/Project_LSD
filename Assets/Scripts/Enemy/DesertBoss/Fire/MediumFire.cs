@@ -16,7 +16,7 @@ public class MediumFire : MonoBehaviour
     private void Start()
     {
         currentDurationTime = durationTime;
-        Invoke("SFire", 2.9f);
+        //Invoke("SFire", 2.9f);
     }
 
     void Update()
@@ -45,7 +45,7 @@ public class MediumFire : MonoBehaviour
         {
             if (currentDamageRate <= 0)
             {
-                other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
+                other.gameObject.GetComponent<Health>().TakeDamage(damage);
                 currentDamageRate = damageRate;
             }
         }

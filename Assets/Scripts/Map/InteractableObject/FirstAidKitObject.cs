@@ -9,9 +9,9 @@ public class FirstAidKitObject : MonoBehaviour, IInteractable
         return string.Format("체력 회복");
     }
 
-    public void OnInteract()
+    public void OnInteract(Player player)
     {
         Player.FindObjectOfType<Health>().curHealth += 30;
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 }

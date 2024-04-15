@@ -1801,6 +1801,7 @@ MonoBehaviour:
   baseStat:
     statModifyType: 0
     weaponStatFlag: -1
+    e_useAmmo: 0
     magazine: 0
     spread: 0
     recoil: 0
@@ -1824,6 +1825,7 @@ MonoBehaviour:
   isAuto: 0
   isFiring: 0
   isShotable: 0
+  isSwap: 0
   maxMagazine: 0
   curMagazine: 0
   maxRecoil: 0
@@ -1841,7 +1843,7 @@ MonoBehaviour:
   dry_Volume: 1
   cock_Volume: 1
   reload_Volume: 1
-  takeOut_Volume: 0
+  takeOut_Volume: 1
   animator: {fileID: 0}
 --- !u!1 &500735882844024727
 GameObject:

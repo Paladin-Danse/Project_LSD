@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  Fire1: {fileID: 8524720578854897586, guid: 85f7143e43935bb48b9d5932fb43ce49, type: 3}
+  firePrefab: {fileID: 4335326950970458524, guid: bb2c6e74489153d4595fb9d75e42dcc1, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 264

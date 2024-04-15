@@ -5434,7 +5434,7 @@ Transform:
   - {fileID: 6307585393008745571}
   - {fileID: 6307558927540356643}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &6256412959122962831
 Animator:
@@ -5570,6 +5570,7 @@ MonoBehaviour:
   baseStat:
     statModifyType: 0
     weaponStatFlag: 0
+    e_useAmmo: 0
     magazine: 0
     spread: 0
     recoil: 0
@@ -5593,6 +5594,7 @@ MonoBehaviour:
   isAuto: 1
   isFiring: 0
   isShotable: 0
+  isSwap: 0
   maxMagazine: 0
   curMagazine: 0
   maxRecoil: 0
@@ -5610,7 +5612,7 @@ MonoBehaviour:
   dry_Volume: 1
   cock_Volume: 1
   reload_Volume: 1
-  takeOut_Volume: 0
+  takeOut_Volume: 1
   animator: {fileID: 0}
 --- !u!82 &202057173180895889
 AudioSource:
