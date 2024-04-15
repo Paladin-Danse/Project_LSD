@@ -17,7 +17,7 @@ public class BigFire : MonoBehaviour
     private void Start()
     {
         currentDurationTime = durationTime;
-        Invoke("MFire", 4.9f);
+        //Invoke("MFire", 4.9f);
     }
 
     void Update()

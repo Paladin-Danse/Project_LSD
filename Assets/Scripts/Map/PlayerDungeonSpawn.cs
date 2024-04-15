@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerDungeonSpawn : MonoBehaviour
 {
-    public Transform dungeonSpawnPosition;
+    public Transform playerSpawnPosition;
 
     PlayerCharacter player;
     private void Awake()
@@ -14,7 +14,7 @@ public class PlayerDungeonSpawn : MonoBehaviour
 
     private void Start()
     {
-        player.transform.position = dungeonSpawnPosition.position;
+        player.transform.position = playerSpawnPosition.position;
         Cursor.lockState = CursorLockMode.Locked;
     }
 }
