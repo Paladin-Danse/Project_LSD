@@ -11,7 +11,7 @@ public class DungeonEntranceObject : MonoBehaviour, IInteractable
         return string.Format("던전 창 오픈");
     }
 
-    public void OnInteract()
+    public void OnInteract(Player player)
     {
         dungeonSelectedUI.SetActive(true);
         isDungeonSelectedUI = true;

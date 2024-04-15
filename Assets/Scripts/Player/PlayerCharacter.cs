@@ -9,9 +9,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : CharacterStatHandler
 {
+    public Player ownedPlayer { get; private set; }
+    public PlayerInput input { get; private set; }
+
     public PlayerStateMachine stateMachine { get; private set; }
     [HideInInspector]
-    public PlayerInput input;
     [field: SerializeField] public PlayerData Data { get; private set; }
     public GameObject fpsBody { get; private set; }
     public GameObject fullBody { get; private set; }
@@ -38,8 +40,11 @@ public class PlayerCharacter : CharacterStatHandler
     public Transform firePos;
     public float fireRateDelay;
     [SerializeField] public Weapon curWeapon;
-    private WeaponStatHandler weaponStatHandler;
+    public WeaponStatHandler weaponStatHandler;
+
     public Action<PlayerStateMachine> SetWeaponEvent;
+    public Action OnWeaponSwapped;
+
     [SerializeField]
     public Weapon primaryWeapon;
     [SerializeField]
@@ -47,9 +52,6 @@ public class PlayerCharacter : CharacterStatHandler
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
-
-    //UI
-    public PlayerUI playerUI;
 
     //Coroutine
     IEnumerator JumpCoolTimeCoroutine;
@@ -70,13 +72,6 @@ public class PlayerCharacter : CharacterStatHandler
         health = GetComponent<Health>();
 
         if (!TryGetComponent(out weaponStatHandler)) Debug.Log("WeaponStatHandler : weaponStatHandler is not Found!");
-        //UI
-        if (!TryGetComponent<PlayerUI>(out playerUI)) Debug.Log("Player : PlayerUI is not Found!");
-        else
-        {
-            playerUI.InitSetting();
-            stateMachine.playerUIEvent += playerUI.UITextUpdate;
-        }
 
         Animator[] anim_temp = transform.GetComponentsInChildren<Animator>();
         foreach (Animator anim in anim_temp)
@@ -97,11 +92,13 @@ public class PlayerCharacter : CharacterStatHandler
         AnimationData.Initialize();
     }
 
-    public void OnPossessCharacter()
+    public void OnPossessCharacter(Player player)
     {
+        input = player._input;
+        ownedPlayer = player;
+
         if (stateMachine.currentState == null)
             stateMachine.ChangeState(stateMachine.IdleState);
-        stateMachine.currentState.AddInputActionsCallbacks();
 
         if (primaryWeapon) primaryWeapon.Init(this);
         if (secondaryWeapon) secondaryWeapon.Init(this);
@@ -120,18 +117,22 @@ public class PlayerCharacter : CharacterStatHandler
             {
                 // todo : 무기 없을 경우에 주먹?
             }
+            curWeapon.input_ = input;
         }
     }
 
     public void OnUnpossessCharacter() 
     {
         stateMachine.currentState.RemoveInputActionsCallbacks();
+        input = null;
         curWeapon.input_ = null;
+        ownedPlayer = null;
     }
 
     private void Update()
     {
-        stateMachine.HandleInput();
+        if(input != null)
+            stateMachine.HandleInput();
         stateMachine.Update();
     }
 
@@ -280,6 +281,7 @@ public class PlayerCharacter : CharacterStatHandler
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
         curWeapon.CurrentWeaponEquip();
+        OnWeaponSwapped?.Invoke();
     }
 
     public void UnequipWeapon(Weapon weapon)
@@ -294,11 +296,7 @@ public class PlayerCharacter : CharacterStatHandler
         curWeapon.CurrentWeaponUnEquip();
         curWeapon.input_ = null;
         curWeapon = null;
-    }
-
-    public void playerUIEventInvoke()
-    {
-        if (playerUI) stateMachine.playerUIEvent(this);
+        OnWeaponSwapped?.Invoke();
     }
     public float GetMovementSpeed()
     {

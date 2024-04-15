@@ -11,7 +11,7 @@ public class ItemEntranceObject : MonoBehaviour, IInteractable
         return string.Format("Pickup {0}", item.displayName);
     }
 
-    public void OnInteract()
+    public void OnInteract(Player player)
     {
         //Inventory.instance.AddItem(item); // 인벤토리(싱클톤화)에 아이템 추가하기
         Destroy(gameObject); // 아이템 제거

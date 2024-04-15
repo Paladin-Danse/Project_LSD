@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,24 +6,32 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
-public class DungeonInteract : MonoBehaviour
+public interface IInteractable
+{
+    string GetInteractPrompt();
+
+    void OnInteract(Player player);
+}
+
+public class PlayerInteract : MonoBehaviour
 {
     public float checkRate = 0.05f;
     private float lastCheckTime;
     public float maxCheckDistance;
     public LayerMask layerMask;
-
-    private GameObject curInteractGameobject;
     private IInteractable curInteractable;
 
-    public TextMeshProUGUI promptText;
     private Camera camera;
-    DungeonEntranceObject entranceObject;
+
+    public Action<string> OnInteractableChanged;
+
+    Player player;
 
     private void Awake()
     {
-        entranceObject = FindObjectOfType<DungeonEntranceObject>();
+        layerMask = LayerMask.GetMask("Interactable");
     }
+
     void Start()
     {
         camera = Camera.main;
@@ -39,31 +48,21 @@ public class DungeonInteract : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
             {
-                if (hit.collider.gameObject != curInteractGameobject)
+                if (hit.collider.TryGetComponent<IInteractable>(out IInteractable nowInteractable))
                 {
-                    curInteractGameobject = hit.collider.gameObject;
-                    curInteractable = hit.collider.GetComponent<IInteractable>();
-                    if (hit.collider.TryGetComponent(out WeaponObject weaponObj)
-                        || hit.collider.TryGetComponent(out ItemEntranceObject itemObj)
-                        || entranceObject.isDungeonSelectedUI == false)
+                    if(nowInteractable != curInteractable) 
                     {
-                        SetPromptText();
+                        curInteractable = nowInteractable;
+                        OnInteractableChanged?.Invoke(curInteractable.GetInteractPrompt());
                     }
                 }
             }
             else
             {
-                curInteractGameobject = null;
                 curInteractable = null;
-                promptText.gameObject.SetActive(false);
+                OnInteractableChanged?.Invoke(String.Empty);
             }
         }
-    }
-
-    private void SetPromptText()
-    {
-        promptText.gameObject.SetActive(true);
-        promptText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt());
     }
 
     public void OnInteractInput(InputAction.CallbackContext callbackContext)
@@ -71,9 +70,12 @@ public class DungeonInteract : MonoBehaviour
         if(curInteractable != null)
         {
             curInteractable.OnInteract(Player.Instance);
-            curInteractGameobject = null;
-            curInteractable = null;
-            promptText.gameObject.SetActive(false);            
+            curInteractable = null; 
         }        
-    }    
+    }
+
+    public void RegisterPlayer(Player player) 
+    {
+        this.player = player;
+    }
 }

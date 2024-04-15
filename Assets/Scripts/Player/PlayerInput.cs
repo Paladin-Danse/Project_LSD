@@ -7,12 +7,15 @@ public class PlayerInput : MonoBehaviour
 {
     public PlayerInputActions inputAction { get; private set; }
     public PlayerInputActions.PlayerActions playerActions { get; private set; }
+    public PlayerInputActions.PlayerUIActions playerUIActions { get; private set; }
 
     private void Awake()
     {
         inputAction = new PlayerInputActions();
         playerActions = inputAction.Player;
+        playerUIActions = inputAction.PlayerUI;
     }
+
     private void OnEnable()
     {
         inputAction.Enable();
@@ -21,6 +24,7 @@ public class PlayerInput : MonoBehaviour
     {
         inputAction.Disable();
     }
+
     public void SetCursorLock(bool setBool)
     {
         if (setBool)
