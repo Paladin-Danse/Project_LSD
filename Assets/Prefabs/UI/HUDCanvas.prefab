@@ -1914,6 +1914,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c9fdefd9586e74da175095c4868bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthUI: {fileID: 3654443844198330022}
+  weaponUI: {fileID: 2105030559075901239}
+  skillUI: {fileID: 448901587396546482}
+  missionUI: {fileID: 3830939212912745051}
+  crosshairUI: {fileID: 2737432628063932556}
+  interactUI: {fileID: 7282779157767653135}
 --- !u!1 &6777663961486737170
 GameObject:
   m_ObjectHideFlags: 0

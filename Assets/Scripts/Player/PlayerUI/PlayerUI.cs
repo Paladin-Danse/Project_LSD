@@ -7,19 +7,21 @@ using UnityEngine.UI;
 public interface IPlayerUIInterface 
 {
     public void BindUI(PlayerCharacter character);
-    public void UnbindUI(PlayerCharacter character);
+    public void UnbindUI();
 
     public void RefreshUI();
+
+    public PlayerCharacter playerCharacter { get; set; }
 }
 
 public class PlayerUI : MonoBehaviour
 {
-    PlayerHealthUI healthUI;
-    PlayerWeaponUI weaponUI;
-    PlayerSkillUI skillUI;
-    PlayerMissionUI missionUI;
-    PlayerCrosshairUI crosshairUI;
-    PlayerInteractUI interactUI;
+    public PlayerHealthUI healthUI;
+    public PlayerWeaponUI weaponUI;
+    public PlayerSkillUI skillUI;
+    public PlayerMissionUI missionUI;
+    public PlayerCrosshairUI crosshairUI;
+    public PlayerInteractUI interactUI;
 
     PlayerCharacter bindedPlayerCharacter;
 
@@ -45,8 +47,8 @@ public class PlayerUI : MonoBehaviour
 
     void UnBindUI() 
     {
-        healthUI.UnbindUI(bindedPlayerCharacter);
-        weaponUI.UnbindUI(bindedPlayerCharacter);
-        interactUI.UnbindUI(bindedPlayerCharacter);
+        healthUI.UnbindUI();
+        weaponUI.UnbindUI();
+        interactUI.UnbindUI();
     }
 }

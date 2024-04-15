@@ -10,23 +10,25 @@ public class PlayerHealthUI : MonoBehaviour, IPlayerUIInterface
     public TMP_Text playerHealthText;
     public Image playerHealthHorizontalBar;
 
+    public PlayerCharacter playerCharacter { get; set; }
+
     public void BindUI(PlayerCharacter character)
     {
-        character.health.HealthChanged += RefreshUI;
-        character.OnStatChanged += RefreshUI;
+        playerCharacter = character;
+        playerCharacter.health.HealthChanged += RefreshUI;
+        playerCharacter.OnStatChanged += RefreshUI;
         RefreshUI();
     }
 
-    public void UnbindUI(PlayerCharacter character)
+    public void UnbindUI()
     {
-        character.health.HealthChanged -= RefreshUI;
-        character.OnStatChanged -= RefreshUI;
+        playerCharacter.health.HealthChanged -= RefreshUI;
+        playerCharacter.OnStatChanged -= RefreshUI;
     }
 
     public void RefreshUI()
     {
-        playerHealthText.text = $"{Player.Instance.playerCharacter.health.curHealth}";
-        playerHealthHorizontalBar.fillAmount = Player.Instance.playerCharacter.health.curHealth / Player.Instance.playerCharacter.currentStat.maxHealth;
+        playerHealthText.text = $"{playerCharacter.health.curHealth}";
+        playerHealthHorizontalBar.fillAmount = playerCharacter.health.curHealth / playerCharacter.currentStat.maxHealth;
     }
-
 }

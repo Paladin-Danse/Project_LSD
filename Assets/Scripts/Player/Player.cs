@@ -55,7 +55,6 @@ public class Player : MonoBehaviour
     public void Possess(PlayerCharacter playerCharacter)
     {
         this.playerCharacter = playerCharacter;
-        OnPossessed?.Invoke();
         playerCharacter.OnPossessCharacter(this);
         // playerCharacter.OnPossessCharacter에서 Inventory 정보를 받아와서 무기 장착 할 것
         OnControllCharacter();
@@ -66,7 +65,6 @@ public class Player : MonoBehaviour
     {
         playerUI.ReleasePlayerCharacter();
         playerCharacter.OnUnpossessCharacter();
-        OnUnPossessed?.Invoke();
         this.playerCharacter = null;
     }
 

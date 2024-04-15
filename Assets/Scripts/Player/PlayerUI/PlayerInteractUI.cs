@@ -8,9 +8,12 @@ public class PlayerInteractUI : MonoBehaviour, IPlayerUIInterface
 {
     public TMP_Text promptText;
 
+    public PlayerCharacter playerCharacter { get; set; }
+
     public void BindUI(PlayerCharacter character)
     {
-        character.ownedPlayer.playerInteract.OnInteractableChanged += SetPromptText;
+        playerCharacter = character;
+        playerCharacter.ownedPlayer.playerInteract.OnInteractableChanged += SetPromptText;
         RefreshUI();
     }
 
@@ -19,9 +22,9 @@ public class PlayerInteractUI : MonoBehaviour, IPlayerUIInterface
         SetPromptText(string.Empty);
     }
 
-    public void UnbindUI(PlayerCharacter character)
+    public void UnbindUI()
     {
-        character.ownedPlayer.playerInteract.OnInteractableChanged -= SetPromptText;
+        playerCharacter.ownedPlayer.playerInteract.OnInteractableChanged -= SetPromptText;
     }
 
     void SetPromptText(string text) 

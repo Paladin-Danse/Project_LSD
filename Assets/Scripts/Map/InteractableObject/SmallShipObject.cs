@@ -11,7 +11,7 @@ public class SmallShipObject : MonoBehaviour, IInteractable
         return string.Format("던전 결과창 열기");
     }
 
-    public void OnInteract()
+    public void OnInteract(Player player)
     {
         DungeonManager.Instance.missionBoard.DungeonCompletePanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;

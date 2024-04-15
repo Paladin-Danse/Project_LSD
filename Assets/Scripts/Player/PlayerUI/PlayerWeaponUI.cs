@@ -10,18 +10,21 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public TMP_Text playerWeaponMagText;
     public TMP_Text playerInventoryAmmoText;
 
+    public PlayerCharacter playerCharacter { get; set; }
+
     public void BindUI(PlayerCharacter character)
     {
+        playerCharacter = character;
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
-        character.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
-        character.curWeapon.OnMagChanged += RefreshWeaponMagText;
+        playerCharacter.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
+        playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
     }
 
-    public void UnbindUI(PlayerCharacter character)
+    public void UnbindUI()
     {
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
-        character.weaponStatHandler.OnStatChanged -= RefreshInventoryAmmoText;
-        character.curWeapon.OnMagChanged -= RefreshWeaponMagText;
+        playerCharacter.weaponStatHandler.OnStatChanged -= RefreshInventoryAmmoText;
+        playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;
         // Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
     }
     public void RefreshUI()
@@ -32,7 +35,7 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshWeaponMagText()
     {
-        playerWeaponMagText.text = $"{Player.Instance.playerCharacter.curWeapon.curMagazine}";
+        playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
     }
 
     void RefreshInventoryAmmoText()
