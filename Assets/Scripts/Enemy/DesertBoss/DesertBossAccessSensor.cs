@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-public class MeleeEnemySensor : MonoBehaviour
+public class DesertBossAccessSensor : MonoBehaviour
 {
-    public Enemy meleeEnemy;    
+    public DesertBoss desertBoss;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            meleeEnemy.enabled = true;            
+            desertBoss.enabled = true;
         }
     }
 
@@ -18,7 +17,7 @@ public class MeleeEnemySensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            meleeEnemy.enabled = false;
+            desertBoss.enabled = false;
         }
     }
 }

@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-public class MeleeEnemySensor : MonoBehaviour
+public class RangedEnemySensor : MonoBehaviour
 {
-    public Enemy meleeEnemy;    
+    public RangedEnemy rangedEnemy;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            meleeEnemy.enabled = true;            
+            rangedEnemy.enabled = true;
         }
     }
 
@@ -18,7 +17,7 @@ public class MeleeEnemySensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            meleeEnemy.enabled = false;
+            rangedEnemy.enabled = false;
         }
     }
 }
