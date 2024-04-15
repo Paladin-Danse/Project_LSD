@@ -8,14 +8,11 @@ public class IntroSceneManager : MonoBehaviour
     private Animator animator;
     public GameObject skipButton;
     public GameObject nextButton;
-    public GameObject MainMenuButtons;
-    AudioSource audioSource;
-    public AudioClip introStroySound;
-    public GameObject stotyBackGround;
+    public GameObject mainMenuButtons;
+    public GameObject settingMenu;
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -26,38 +23,36 @@ public class IntroSceneManager : MonoBehaviour
     public void StoryAnimatorStart()
     {
         animator.SetTrigger("Play");
-        audioSource.PlayOneShot(introStroySound);
-        MainMenuButtons.SetActive(false);
+        mainMenuButtons.SetActive(false);
         skipButton.SetActive(true);
-        stotyBackGround.SetActive(true);
     }
     public void StoryAnimatorEnd() 
     {
         Debug.Log("스토리 애니메이션 종료");
         nextButton.SetActive(true);
         skipButton.SetActive(false);
-        stotyBackGround.SetActive(false);
     }
 
     public void SkipButton()
     {
         animator.SetTrigger("Skip");
-        audioSource.Stop();
     }
 
     public void GameStart()
     {
         Debug.Log("Game Start");
-        // SceneManager.LoadScene("SafeZoneScene");
+        SceneManager.LoadScene("SafeZoneScene");
     }
 
     public void GameLoad()
     {
         Debug.Log("Load Game 미구현");
     }
+
+    [System.Obsolete]
     public void GameSetting()
     {
-        Debug.Log("Setting 미구현");
+        settingMenu.SetActive(!settingMenu.active);
     }
 
     public void GameExit()
