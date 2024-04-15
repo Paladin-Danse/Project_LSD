@@ -25,6 +25,8 @@ public class PlayerInteract : MonoBehaviour
 
     public Action<string> OnInteractableChanged;
 
+    Player player;
+
     private void Awake()
     {
         layerMask = LayerMask.GetMask("Interactable");
@@ -70,5 +72,10 @@ public class PlayerInteract : MonoBehaviour
             curInteractable.OnInteract(Player.Instance);
             curInteractable = null; 
         }        
-    }    
+    }
+
+    public void RegisterPlayer(Player player) 
+    {
+        this.player = player;
+    }
 }

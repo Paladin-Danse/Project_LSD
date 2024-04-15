@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         // PlayerData ·Îµå
+        playerInteract.RegisterPlayer(this);
     }
 
     public void Possess(PlayerCharacter playerCharacter)
