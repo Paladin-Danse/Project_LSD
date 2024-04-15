@@ -9,9 +9,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacter : CharacterStatHandler
 {
+    public Player ownedPlayer { get; private set; }
+    public PlayerInput input { get; private set; }
+
     public PlayerStateMachine stateMachine { get; private set; }
     [HideInInspector]
-    public PlayerInput input;
     [field: SerializeField] public PlayerData Data { get; private set; }
     public GameObject fpsBody { get; private set; }
     public GameObject fullBody { get; private set; }
@@ -93,6 +95,7 @@ public class PlayerCharacter : CharacterStatHandler
     public void OnPossessCharacter(Player player)
     {
         input = player._input;
+        ownedPlayer = player;
 
         if (stateMachine.currentState == null)
             stateMachine.ChangeState(stateMachine.IdleState);
@@ -123,6 +126,7 @@ public class PlayerCharacter : CharacterStatHandler
         stateMachine.currentState.RemoveInputActionsCallbacks();
         input = null;
         curWeapon.input_ = null;
+        ownedPlayer = null;
     }
 
     private void Update()

@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public Inventory inventory;
     public PlayerUI playerUI;
     public PlayerCharacter playerCharacter;
+    public PlayerInteract playerInteract;
 
     public event Action OnPossessed;
     public event Action OnUnPossessed;
@@ -42,11 +43,12 @@ public class Player : MonoBehaviour
     {
         _input = transform.AddComponent<PlayerInput>();
         inventory = GetComponent<Inventory>();
+        playerInteract = transform.AddComponent<PlayerInteract>();
     }
 
     private void Start()
     {
-        // Possess(playerCharacter);
+        // PlayerData 로드
     }
 
     public void Possess(PlayerCharacter playerCharacter)
@@ -56,12 +58,12 @@ public class Player : MonoBehaviour
         playerCharacter.OnPossessCharacter(this);
         // playerCharacter.OnPossessCharacter에서 Inventory 정보를 받아와서 무기 장착 할 것
         OnControllCharacter();
-        // playerUI.BindUI();
+        playerUI.BindPlayerCharacter(playerCharacter);
     }
 
     public void UnPossess() 
     {
-        // playerUI.UnBindUI();
+        playerUI.ReleasePlayerCharacter();
         playerCharacter.OnUnpossessCharacter();
         OnUnPossessed?.Invoke();
         this.playerCharacter = null;
