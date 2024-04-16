@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
         playerCharacter.OnPossessCharacter(this);
         // playerCharacter.OnPossessCharacter에서 Inventory 정보를 받아와서 무기 장착 할 것
         OnControllCharacter();
+        playerUI = playerCharacter.transform.Find("HUDCanvas").GetComponent<PlayerUI>();
         playerUI.BindPlayerCharacter(playerCharacter);
     }
 
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         _input.playerActions.Disable();
+        _input.weaponActions.Disable();
     }
 
     public void LoadData() 
