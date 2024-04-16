@@ -1009,9 +1009,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skipButton: {fileID: 654894315}
   nextButton: {fileID: 1745942877}
-  MainMenuButtons: {fileID: 1124737870}
-  introStroySound: {fileID: 8300000, guid: 0f61673394366f843ac5109b306e023f, type: 3}
-  stotyBackGround: {fileID: 513132088}
+  mainMenuButtons: {fileID: 1124737870}
+  settingMenu: {fileID: 0}
 --- !u!4 &758685472
 Transform:
   m_ObjectHideFlags: 0
