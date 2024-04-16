@@ -7,10 +7,16 @@ public class DungeonCompletePanelBtn : MonoBehaviour
 {
     public GameObject dungeonCompletePanel;
     DungeonMissionBoard missionBoard;
+    public AudioSource retryAudioSource;
+    public AudioSource ExitAudioSource;
+    public AudioClip retryBtnSound;
+    public AudioClip ExitBtnSound;
+    WaitForSeconds WFS;
 
     private void Awake()
     {
         missionBoard = GetComponent<DungeonMissionBoard>();
+        WFS = new WaitForSeconds(0.1f);
     }
     public void DungeonEntrance()
     {
@@ -23,6 +29,8 @@ public class DungeonCompletePanelBtn : MonoBehaviour
 
     IEnumerator LoadScene()
     {
+        retryAudioSource.PlayOneShot(retryBtnSound);
+        yield return WFS;
         yield return SceneManager.LoadSceneAsync("DungeonScene");
     }
 
@@ -37,6 +45,8 @@ public class DungeonCompletePanelBtn : MonoBehaviour
 
     IEnumerator LoadSafeZoneScene()
     {
+        ExitAudioSource.PlayOneShot(ExitBtnSound);
+        yield return WFS;
         yield return SceneManager.LoadSceneAsync("SafeZoneTestScene");
     }
 
