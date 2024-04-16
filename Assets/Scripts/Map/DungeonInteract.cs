@@ -5,12 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
-public interface IInteractable
-{
-    string GetInteractPrompt();
-
-    void OnInteract();
-}
 public class DungeonInteract : MonoBehaviour
 {
     public float checkRate = 0.05f;
@@ -76,7 +70,7 @@ public class DungeonInteract : MonoBehaviour
     {
         if(curInteractable != null)
         {
-            curInteractable.OnInteract();
+            curInteractable.OnInteract(Player.Instance);
             curInteractGameobject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);            

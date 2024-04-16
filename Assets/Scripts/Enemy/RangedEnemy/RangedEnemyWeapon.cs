@@ -27,7 +27,7 @@ public class RangedEnemyWeapon : MonoBehaviour
 
     private void Start()
     {
-        WFS = new WaitForSeconds(rangedEnemy.stateMachine.Enemy.RData.AttackRate);
+        WFS = YieldCacher.WaitForSeconds(rangedEnemy.stateMachine.Enemy.RData.AttackRate);
         InvokeRepeating("UpdateTarget", 0, 0.25f);
     }    
     public void StartShot()

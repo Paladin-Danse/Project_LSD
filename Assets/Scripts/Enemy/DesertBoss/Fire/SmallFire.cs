@@ -42,7 +42,7 @@ public class SmallFire : MonoBehaviour
         {
             if (currentDamageRate <= 0)
             {
-                other.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
+                other.gameObject.GetComponent<Health>().TakeDamage(damage);
                 currentDamageRate = damageRate;
             }
         }

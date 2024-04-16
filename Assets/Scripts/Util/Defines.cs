@@ -12,5 +12,6 @@ public class Defines
         Title,
         SafeZone,
         Dungeon,
+        Test
     }
 }

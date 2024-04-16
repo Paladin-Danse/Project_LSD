@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: a6429f7aec6b0d347a3efb2c2a913137
   m_currentHash:
     serializedVersion: 2
-    Hash: ff62fd3ed15825eec4e1c706608a9933
+    Hash: 72d078882cdef72d65bd01d245420706
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -88,6 +88,8 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - UI
+    - Map
+    - PlayerCharacter
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: f9162b33325512f44bf8e291b606b9b8, type: 2}
