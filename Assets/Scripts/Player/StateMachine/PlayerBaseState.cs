@@ -71,7 +71,7 @@ public class PlayerBaseState : IState
         input.playerUIActions.Interact.started += stateMachine.player.ownedPlayer.playerInteract.OnInteractInput;
 
         //Equipment
-        input.playerActions.WeaponSwap.started += OnSwap;
+        input.weaponActions.WeaponSwap.started += OnSwap;
     }
 
     public virtual void RemoveInputActionsCallbacks()
@@ -86,7 +86,7 @@ public class PlayerBaseState : IState
         input.playerUIActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
         
         //Equipment
-        input.playerActions.WeaponSwap.started -= OnSwap;
+        input.weaponActions.WeaponSwap.started -= OnSwap;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {

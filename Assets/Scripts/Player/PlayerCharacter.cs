@@ -85,7 +85,8 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
-        Instantiate(Player.Instance.inventory.inventoryUI.inventoryWindow).SetActive(false);
+        Player.Instance.Possess(this);
+        Player.Instance.inventory.inventoryUI.inventoryWindow.SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
@@ -114,6 +115,7 @@ public class PlayerCharacter : CharacterStatHandler
             else
             {
                 // todo : 무기 없을 경우에 주먹?
+                input.weaponActions.Disable();
             }
             curWeapon.input_ = input;
         }

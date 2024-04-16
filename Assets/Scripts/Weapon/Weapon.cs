@@ -86,10 +86,15 @@ public class Weapon : MonoBehaviour
             baseStat = weaponStatSO.weaponStat;
             itemData = weaponStatSO.weaponItem;
         }
+        else
+        {
+            Debug.LogError("Error(Weapon) : baseStatSO is not Found!");
+        }
+        /*
         weaponStatSO = Instantiate(baseStatSO);
         baseStat = weaponStatSO.weaponStat;
         itemData = weaponStatSO.weaponItem;
-
+        */
         itemData.Init();
         itemData.AddStat("Damage", (int)baseStat.attackStat.damage);
         itemData.AddStat("Accuracy", 100 - (int)baseStat.spread);
@@ -177,11 +182,13 @@ public class Weapon : MonoBehaviour
     public void CurrentWeaponEquip()
     {
         input_ = playerCharacter_.input;
+        input_.weaponActions.Enable();
         stateMachine.ChangeState(stateMachine.EnterState);
         //stateMachine.currentState.AddInputActionsCallbacks();
     }
     public void CurrentWeaponUnEquip()
     {
+        input_.weaponActions.Disable();
         stateMachine.ChangeState(stateMachine.ExitState);
     }
     public void PlayClip(AudioClip newClip, float volume)
