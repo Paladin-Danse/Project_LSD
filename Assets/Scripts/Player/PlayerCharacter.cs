@@ -39,6 +39,17 @@ public class PlayerCharacter : CharacterStatHandler
     public Transform firePos;
     public float fireRateDelay;
     [SerializeField] public Weapon curWeapon;
+    public AmmoType curWeapon_AmmoType
+    {
+        get
+        {
+            if(curWeapon)
+            {
+                return curWeapon.baseStat.e_useAmmo;
+            }
+            return AmmoType.None;
+        }
+    }
     public WeaponStatHandler weaponStatHandler;
 
     public Action<PlayerStateMachine> SetWeaponEvent;
@@ -86,6 +97,7 @@ public class PlayerCharacter : CharacterStatHandler
     {
         base.Start();
         Player.Instance.Possess(this);
+        input.playerUIActions.Inventory.started += Player.Instance.inventory.Toggle;
         Player.Instance.inventory.inventoryUI.inventoryWindow.SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
@@ -222,6 +234,8 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public void Death()
     {
+        input.playerUIActions.Inventory.started -= Player.Instance.inventory.Toggle;
+
         input = null;
         curWeapon.input_ = null;
         curWeapon.gameObject.SetActive(false);

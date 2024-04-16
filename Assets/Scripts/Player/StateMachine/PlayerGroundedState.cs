@@ -25,21 +25,6 @@ public class PlayerGroundedState : PlayerBaseState
     {
         base.PhysicsUpdate();
     }
-    public override void AddInputActionsCallbacks()
-    {
-        base.AddInputActionsCallbacks();
-        PlayerInput input = stateMachine.player.input;
-        //Inventory
-        input.playerUIActions.Inventory.started += Player.Instance.inventory.Toggle;
-    }
-    public override void RemoveInputActionsCallbacks()
-    {
-        base.RemoveInputActionsCallbacks();
-        PlayerInput input = stateMachine.player.input;
-        //Inventory
-        input.playerUIActions.Inventory.started -= Player.Instance.inventory.Toggle;
-
-    }
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {
         if (stateMachine.MovementInput == Vector2.zero)
