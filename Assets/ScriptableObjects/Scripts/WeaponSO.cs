@@ -6,4 +6,5 @@ using UnityEngine;
 public class WeaponStatSO : ScriptableObject
 {
     public WeaponStat weaponStat;
+    public ItemData weaponItem;
 }

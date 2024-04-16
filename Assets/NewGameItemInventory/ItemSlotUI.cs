@@ -38,7 +38,7 @@ public class ItemSlotUI : MonoBehaviour
     public void Set(ItemSlot slot)
     {
         icon.gameObject.SetActive(true); // 아이콘 표시
-        icon.sprite = slot.item.icon; // 아이콘 스프라이트 설정
+        icon.sprite = slot.data.icon; // 아이콘 스프라이트 설정
         /*
         if (outline != null) // 아웃라인이 있다면
         {

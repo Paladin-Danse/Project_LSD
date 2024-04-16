@@ -9769,6 +9769,7 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
+  itemData: {fileID: 0}
   WeaponName: 
   isAuto: 0
   isFiring: 0
@@ -33857,7 +33858,6 @@ GameObject:
   - component: {fileID: 5159636668725104728}
   - component: {fileID: 6353203035049000009}
   - component: {fileID: 4217681133812322403}
-  - component: {fileID: 4499120120198454047}
   - component: {fileID: 6650133871354668617}
   - component: {fileID: 3614651846814163041}
   m_Layer: 3
@@ -33886,7 +33886,7 @@ Transform:
   - {fileID: 5063741124102798547}
   - {fileID: 3017671742717237943}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &7451290469371153406
 AudioSource:
@@ -34017,7 +34017,6 @@ MonoBehaviour:
     criticalDamageRate: 0
   baseStatSO: {fileID: 11400000, guid: 028a64f5da49d7a4bb720e2f57b782d7, type: 2}
   health: {fileID: 0}
-  input: {fileID: 0}
   <Data>k__BackingField: {fileID: 11400000, guid: f2315190e0898db42bcd1bf278913ac5, type: 2}
   dungeonInteract: {fileID: 0}
   layerMask_GroundCheck:
@@ -34025,16 +34024,15 @@ MonoBehaviour:
     m_Bits: 256
   isGrounded: 1
   isJump: 1
-  inventory: {fileID: 4499120120198454047}
   JumpCoolTime: 0
   playerCamTransform: {fileID: 0}
   camXRotate: 0
   firePos: {fileID: 1863816635905487500}
   fireRateDelay: 0
   curWeapon: {fileID: 0}
+  weaponStatHandler: {fileID: 0}
   primaryWeapon: {fileID: 5020570232269595741}
   secondaryWeapon: {fileID: 1584354137709281357}
-  playerUI: {fileID: 0}
 --- !u!114 &6793288105693867886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34163,35 +34161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c9fdefd9586e74da175095c4868bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4499120120198454047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7557859198692815484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a75b21fa77e09794abb2a6ad97a80de9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiSlot: {fileID: 6524035858276376824, guid: 45e646a91afbc8940a562a4e9506dce1, type: 3}
-  slotParent: {fileID: 0}
-  inventorySO: {fileID: 11400000, guid: 6f334e0f804539f46aa359a94257c58b, type: 2}
-  inventoryWindow: {fileID: 0}
-  dropPosition: {fileID: 5063741124102798547}
-  selectedItemName: {fileID: 0}
-  rifleAmmoCountText: {fileID: 0}
-  pistolAmmoCountText: {fileID: 0}
-  weaponSlotUI1: {fileID: 0}
-  weaponSlotUI2: {fileID: 0}
-  itemSlotCount: 20
-  onOpenInventory:
-    m_PersistentCalls:
-      m_Calls: []
-  onCloseInventory:
-    m_PersistentCalls:
-      m_Calls: []
+  healthUI: {fileID: 0}
+  weaponUI: {fileID: 0}
+  skillUI: {fileID: 0}
+  missionUI: {fileID: 0}
+  crosshairUI: {fileID: 0}
+  interactUI: {fileID: 0}
 --- !u!114 &6650133871354668617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42808,6 +42783,7 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
+  itemData: {fileID: 0}
   WeaponName: 
   isAuto: 1
   isFiring: 0
