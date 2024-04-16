@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour
         }        
 
         enabled = false;
-        Destroy(gameObject, 2f);
+        //Destroy(gameObject, 2f);
     }
 
     void OnHit()

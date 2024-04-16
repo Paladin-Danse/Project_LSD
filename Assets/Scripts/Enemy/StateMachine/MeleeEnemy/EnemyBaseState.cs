@@ -66,7 +66,7 @@ public class EnemyBaseState : IState
     {
         Enemy enemy = stateMachine.Enemy;
         
-        enemy.GetComponent<Rigidbody>().MovePosition(enemy.transform.position + new Vector3(direction.x, 0f, direction.z)/10f);
+        enemy.GetComponent<Rigidbody>().MovePosition(enemy.transform.position/* + new Vector3(direction.x, 0f, direction.z)/10f*/);
     }
 
     private void Rotate(Vector3 direction)
