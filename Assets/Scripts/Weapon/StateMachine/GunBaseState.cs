@@ -55,9 +55,9 @@ public class GunBaseState : IState
     {
         PlayerInput input = stateMachine.gun.input_;
         
-        input.playerActions.Shoot.started += OnFire;
-        input.playerActions.Shoot.canceled += StopFire;
-        input.playerActions.Reload.started += OnReload;
+        input.weaponActions.Shoot.started += OnFire;
+        input.weaponActions.Shoot.canceled += StopFire;
+        input.weaponActions.Reload.started += OnReload;
     }
 
     
@@ -65,9 +65,9 @@ public class GunBaseState : IState
     {
         PlayerInput input = stateMachine.gun.input_;
         
-        input.playerActions.Shoot.started -= OnFire;
-        input.playerActions.Shoot.canceled -= StopFire;
-        input.playerActions.Reload.started -= OnReload;
+        input.weaponActions.Shoot.started -= OnFire;
+        input.weaponActions.Shoot.canceled -= StopFire;
+        input.weaponActions.Reload.started -= OnReload;
     }
 
     protected virtual void OnFire(InputAction.CallbackContext callbackContext)
