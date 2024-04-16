@@ -33,4 +33,20 @@ public class ItemData : ScriptableObject
     public ItemType type;
     public Sprite icon;
     public GameObject dropPrefab;
+    public Dictionary<string, int> itemStatValues;
+
+    public void Init(InventoryData inventorySO)
+    {
+        itemStatValues = new Dictionary<string, int>();
+        foreach (string key in inventorySO.itemStatValues.Keys)
+            itemStatValues.Add(key, 0);
+    }
+    public void Init()
+    {
+        itemStatValues = new Dictionary<string, int>();
+    }
+    public void AddStat(string name, int value)
+    {
+        itemStatValues.Add(name, value);
+    }
 }
