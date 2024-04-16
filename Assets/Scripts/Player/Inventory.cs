@@ -83,10 +83,6 @@ public class Inventory : MonoBehaviour, IObjectCrash
     }
     //public PlayerCharacter character{ get; private set; }
 
-    [Header("Events")]
-    public UnityEvent onOpenInventory; // 인벤토리 오픈 이벤트
-    public UnityEvent onCloseInventory; // 인벤토리 닫기 이벤트
-
     void Awake()
     {
         inventorySO.init();
@@ -97,6 +93,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
             inventoryAmmo.Add(ammo, 0);
 
         inventoryUI = GetComponent<InventoryUI>();
+        Debug.Log(inventoryUI);
         inventoryUI.Init(this);
 
         slots = new ItemSlot[inventorySO.itemSlotCount]; // 아이템 슬롯
@@ -135,7 +132,6 @@ public class Inventory : MonoBehaviour, IObjectCrash
         if (inventoryUI.inventoryWindow.activeInHierarchy) // 하이어라키상에서 켜져있나?
         {
             inventoryUI.inventoryWindow.SetActive(false); // 인벤토리창을 끈다
-            onCloseInventory?.Invoke(); // 인벤토리창 끄기 인보크
             //controller.ToggleCursor(false); // 컨트롤러.커서 잠금
             Player.Instance.playerCharacter.input.SetCursorLock(true);
         }
@@ -143,7 +139,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
         {
 
             inventoryUI.inventoryWindow.SetActive(true);
-            onOpenInventory?.Invoke();
+            inventoryUI.UI_All_Update?.Invoke();
             //controller.ToggleCursor(true);
             Player.Instance.playerCharacter.input.SetCursorLock(false);
         }

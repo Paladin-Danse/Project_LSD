@@ -79,6 +79,9 @@ public class Weapon : MonoBehaviour
         animationData = new WeaponAnimationData();
         animationData.Initialize();
 
+        audioSource = GetComponent<AudioSource>();
+        //audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixer.FindMatchingGroups("Master")[0];
+
         WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
         {
@@ -115,6 +118,11 @@ public class Weapon : MonoBehaviour
 
         isShotable = true;
         isSwap = false;
+    }
+
+    private void Start()
+    {
+        //audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixer.FindMatchingGroups("Master")[0];
     }
 
     private void Update()
