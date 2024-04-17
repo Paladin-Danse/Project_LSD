@@ -59,6 +59,8 @@ public class PlayerCharacter : CharacterStatHandler
     public Weapon primaryWeapon;
     [SerializeField]
     public Weapon secondaryWeapon;
+    [SerializeField]
+    public Weapon emptyWeapon;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
@@ -96,9 +98,6 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
-        Player.Instance.Possess(this);
-        input.playerUIActions.Inventory.started += Player.Instance.inventory.Toggle;
-        Player.Instance.inventory.inventoryUI.inventoryWindow.SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
@@ -126,10 +125,10 @@ public class PlayerCharacter : CharacterStatHandler
             }
             else
             {
-                // todo : 무기 없을 경우에 주먹?
+                EquipWeapon(emptyWeapon);
+                curWeapon.Init(this);
                 input.weaponActions.Disable();
             }
-            curWeapon.input_ = input;
         }
     }
 

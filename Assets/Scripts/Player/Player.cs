@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour
     {
         // PlayerData 로드
         playerInteract.RegisterPlayer(this);
+        _input.playerUIActions.Inventory.started += Toggle;
+        Possess(playerCharacter);
     }
 
     public void Possess(PlayerCharacter playerCharacter)
@@ -58,8 +61,12 @@ public class Player : MonoBehaviour
         playerCharacter.OnPossessCharacter(this);
         // playerCharacter.OnPossessCharacter에서 Inventory 정보를 받아와서 무기 장착 할 것
         OnControllCharacter();
-        playerUI = playerCharacter.transform.Find("HUDCanvas").GetComponent<PlayerUI>();
-        playerUI.BindPlayerCharacter(playerCharacter);
+
+        // temp codes
+        if(UIController.Instance.Push<PlayerUI>("HUDCanvas", out playerUI)) 
+        {
+            playerUI.BindPlayerCharacter(playerCharacter);
+        }
     }
 
     public void UnPossess() 
@@ -73,6 +80,7 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         _input.playerActions.Enable();
+        _input.weaponActions.Enable();
     }
 
     public void OnControllUI() 
@@ -90,5 +98,24 @@ public class Player : MonoBehaviour
     public void SaveData() 
     {
         // save Inventory data
+    }
+
+    public void Toggle(InputAction.CallbackContext callbackContext)
+    {
+        if(UIController.Instance.Peek(out GameObject gameObject)) 
+        {
+            if(gameObject.TryGetComponent(out InventoryUI inventoryUI)) 
+            {
+                UIController.Instance.Pop();
+                Player.Instance.OnControllCharacter();
+            }
+        }
+        else 
+        {
+            UIController.Instance.Push("InventoryCanvas");
+            // todo : sync inventoryUI with inventory
+            // inventoryUI.Init(inventory);
+            Player.Instance.OnControllUI();
+        }
     }
 }
