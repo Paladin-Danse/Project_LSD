@@ -65,6 +65,36 @@ public class UIController : MonoBehaviour
         uiObject.transform.parent = instance.transform;
     }
 
+    public bool Push<T>(string uiName, out T component, EUIShowMode eUIShowMode = EUIShowMode.Additive) where T : Component
+    {
+        component = null;
+
+        AssetReference assetReference = new AssetReference(uiName);
+        if (!uiCacheDic.TryGetValue(assetReference, out GameObject uiObject))
+        {
+            uiObject = Addressables.InstantiateAsync(assetReference).WaitForCompletion();
+            uiCacheDic.Add(assetReference, uiObject);
+            uiObject.transform.parent = this.transform;
+        }
+
+        if (eUIShowMode == EUIShowMode.Single)
+        {
+            if (uiStack.TryPeek(out GameObject gameObject))
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        uiStack.Push(uiObject);
+        uiObject.SetActive(true);
+        uiObject.transform.parent = instance.transform;
+
+        component = uiObject.GetComponent<T>();
+        if(component) return true;
+        return false;
+    }
+
+
     public void Pop() 
     {
         if (uiStack.TryPeek(out GameObject gameObject))
@@ -85,6 +115,31 @@ public class UIController : MonoBehaviour
         if(uiStack.TryPeek(out GameObject gameObject))
             return gameObject;
         return null;
+    }
+
+    public bool Peek(out GameObject gameObject) 
+    {
+        gameObject = null;
+
+        if (uiStack.TryPeek(out GameObject obj)) 
+        {
+            gameObject = obj;
+            return true;
+        }
+        return false;
+    }
+
+    public bool Peek<T>(out T component) where T : Component
+    {
+        component = null;
+
+        if(Peek(out GameObject go)) 
+        {
+            component = go.GetComponent<T>();
+            return true;
+        }
+
+        return false;
     }
 
     public void Clear() 

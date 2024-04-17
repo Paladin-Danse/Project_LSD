@@ -31,7 +31,12 @@ public class PlayerInteractUI : MonoBehaviour, IPlayerUIInterface
     {
         if(text != string.Empty) 
         {
+            promptText.gameObject.SetActive(true);
             promptText.text = $"<b>[F]</b> : {text}";
+        }
+        else 
+        {
+            promptText.gameObject.SetActive(false);
         }
     }
 }
