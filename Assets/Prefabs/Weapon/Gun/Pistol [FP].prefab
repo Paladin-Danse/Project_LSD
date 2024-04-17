@@ -1821,6 +1821,7 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
+  itemData: {fileID: 11400000, guid: e1f76517584835144ab2c4a74190996c, type: 2}
   WeaponName: 
   isAuto: 0
   isFiring: 0

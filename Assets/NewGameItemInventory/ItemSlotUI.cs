@@ -10,15 +10,9 @@ public class ItemSlotUI : MonoBehaviour
     public ItemSlot itemSlot;
     public Button button;
     public Image icon;
-    private Outline outline;
 
     public int index;
-    //public bool equipped;
 
-    private void Awake()
-    {
-        outline = GetComponent<Outline>();
-    }
     public void Init(ItemSlot _itemSlot)
     {
         Transform componentFinder;
@@ -55,7 +49,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void OnButtonClick()
     {
-        Debug.Log($"인벤토리 {index}번 슬롯 클릭");
+        //Debug.Log($"인벤토리 {index}번 슬롯 클릭");
         itemSlot.OnClick();
     }
 }
