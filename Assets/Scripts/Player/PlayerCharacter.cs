@@ -233,7 +233,7 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public void Death()
     {
-        input.playerUIActions.Inventory.started -= Player.Instance.inventory.Toggle;
+        input.playerUIActions.Inventory.started -= Player.Instance.ToggleInventory;
 
         input = null;
         curWeapon.input_ = null;

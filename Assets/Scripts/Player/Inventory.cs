@@ -141,25 +141,6 @@ public class Inventory : MonoBehaviour, IObjectCrash
         }
     }
 
-    // 인벤토리 열고 닫기 토글
-    public void Toggle(InputAction.CallbackContext callbackContext)
-    {
-        if (inventoryUI.inventoryWindow.activeInHierarchy) // 하이어라키상에서 켜져있나?
-        {
-            inventoryUI.inventoryWindow.SetActive(false); // 인벤토리창을 끈다
-            //controller.ToggleCursor(false); // 컨트롤러.커서 잠금
-            Player.Instance.playerCharacter.input.SetCursorLock(true);
-        }
-        else
-        {
-
-            inventoryUI.inventoryWindow.SetActive(true);
-            inventoryUI.UI_All_Update?.Invoke();
-            //controller.ToggleCursor(true);
-            Player.Instance.playerCharacter.input.SetCursorLock(false);
-        }
-    }
-
     public bool IsOpen()
     {
         return inventoryUI.inventoryWindow.activeInHierarchy;

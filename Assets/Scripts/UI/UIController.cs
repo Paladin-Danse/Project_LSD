@@ -34,7 +34,7 @@ public class UIController : MonoBehaviour
     }
 
     Stack<GameObject> uiStack = new Stack<GameObject>();
-    Dictionary<AssetReference, GameObject> uiCacheDic = new Dictionary<AssetReference, GameObject>();
+    Dictionary<string, GameObject> uiCacheDic = new Dictionary<string, GameObject>();
     PopUpUI popupUI;
 
     private void Awake()
@@ -44,11 +44,10 @@ public class UIController : MonoBehaviour
 
     public void Push(string uiName, EUIShowMode eUIShowMode = EUIShowMode.Additive) 
     {
-        AssetReference assetReference = new AssetReference(uiName);
-        if (! uiCacheDic.TryGetValue(assetReference, out GameObject uiObject)) 
+        if (!uiCacheDic.TryGetValue(uiName, out GameObject uiObject)) 
         { 
-            uiObject = Addressables.InstantiateAsync(assetReference).WaitForCompletion();
-            uiCacheDic.Add(assetReference, uiObject);
+            uiObject = Addressables.InstantiateAsync(uiName).WaitForCompletion();
+            uiCacheDic.Add(uiName, uiObject);
             uiObject.transform.parent = this.transform;
         }
         
@@ -69,11 +68,10 @@ public class UIController : MonoBehaviour
     {
         component = null;
 
-        AssetReference assetReference = new AssetReference(uiName);
-        if (!uiCacheDic.TryGetValue(assetReference, out GameObject uiObject))
+        if (!uiCacheDic.TryGetValue(uiName, out GameObject uiObject))
         {
-            uiObject = Addressables.InstantiateAsync(assetReference).WaitForCompletion();
-            uiCacheDic.Add(assetReference, uiObject);
+            uiObject = Addressables.InstantiateAsync(uiName).WaitForCompletion();
+            uiCacheDic.Add(uiName, uiObject);
             uiObject.transform.parent = this.transform;
         }
 
@@ -97,9 +95,9 @@ public class UIController : MonoBehaviour
 
     public void Pop() 
     {
-        if (uiStack.TryPeek(out GameObject gameObject))
+        if (uiStack.TryPeek(out GameObject go))
         {
-            gameObject.SetActive(false);
+            go.SetActive(false);
             Debug.Log("UIPOP!");
             uiStack.Pop();
         }
@@ -151,8 +149,7 @@ public class UIController : MonoBehaviour
 
         foreach(var i in uiCacheDic) 
         {
-            i.Key.ReleaseInstance(i.Value);
-            i.Key.ReleaseAsset();
+            Destroy(i.Value);
         }
 
         uiCacheDic.Clear();

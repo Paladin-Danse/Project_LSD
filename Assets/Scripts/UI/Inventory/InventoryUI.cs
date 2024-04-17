@@ -14,8 +14,10 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI selectedItemName; // ÀÌ¸§
     public Dictionary<string, TextMeshProUGUI> selectedItemStatValues; // ½ºÅÝ °ª
 
-    
+    [field: SerializeField]
     public WeaponSlotUI weaponSlotUI1 { get; private set;}
+
+    [field: SerializeField]
     public WeaponSlotUI weaponSlotUI2 { get; private set; }
 
     public TextMeshProUGUI moneyText;

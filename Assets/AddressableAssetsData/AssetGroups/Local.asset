@@ -29,7 +29,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f86d4b7ca0ca87f4fb96fe7876bf588d
-    m_Address: InvantoryCanvas
+    m_Address: InventoryCanvas
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
