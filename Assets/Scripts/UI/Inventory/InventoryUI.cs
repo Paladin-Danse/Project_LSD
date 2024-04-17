@@ -36,8 +36,21 @@ public class InventoryUI : MonoBehaviour
         _inventory = inventory;
         inventoryWindow = GameObject.Find("InventoryCanvas").transform.Find("Inventory").gameObject;
         moneyText = inventoryWindow.transform.Find("Money/Text").GetComponent<TextMeshProUGUI>();
+        
         weaponSlotUI1 = inventoryWindow.transform.Find("WeaponSlot 1").GetComponent<WeaponSlotUI>();
         weaponSlotUI2 = inventoryWindow.transform.Find("WeaponSlot 2").GetComponent<WeaponSlotUI>();
+
+        if(Player.Instance.playerCharacter)
+        {
+            PlayerCharacter character = Player.Instance.playerCharacter;
+            WeaponSlotUI_Update();
+        }
+
+        weaponSlotUI1?.button.onClick.AddListener(() => _inventory.UnEquip(1));
+        weaponSlotUI1?.button.onClick.AddListener(weaponSlotUI1.Clear);
+        weaponSlotUI2?.button.onClick.AddListener(() => _inventory.UnEquip(2));
+        weaponSlotUI2?.button.onClick.AddListener(weaponSlotUI2.Clear);
+
         AmmoSlots = inventoryWindow.transform.Find("AmmoSlots");
 
         rifleAmmoCountText = AmmoSlots.Find("Rifle/Count").GetComponent<TextMeshProUGUI>();

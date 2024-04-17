@@ -72,6 +72,11 @@ public class Weapon : MonoBehaviour
     public Animator animator;
     public WeaponAnimationData animationData;
 
+    public Weapon(ItemData data)
+    {
+        itemData = data;
+    }
+
     public void Init(PlayerCharacter playerCharacter)
     {
         playerCharacter_ = playerCharacter;

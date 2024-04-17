@@ -20,6 +20,7 @@ public class ItemSlot
 {
     public ItemSlotUI slotUI;
     public ItemData data;
+    public GameObject itemObject;
     public int index;
     public bool isEmpty
     {
@@ -35,7 +36,20 @@ public class ItemSlot
     }
     public void OnClick()
     {
-        //itemEquip
+        Weapon weapon;
+        //Equipment
+        
+        switch (data.type)
+        {
+            case ItemType.Weapon:
+                Player.Instance.playerCharacter.InventoryWeaponEquip(new Weapon(data));
+                break;
+            case ItemType.Equipable:
+                break;
+            default:
+                break;
+        }
+        
     }
     public void Set()
     {
@@ -110,7 +124,8 @@ public class Inventory : MonoBehaviour, IObjectCrash
         }
         foreach (AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
         {
-            inventoryAmmo[ammo] = inventorySO.maxAmmo[ammo];
+            if(ammo != AmmoType.None)
+                inventoryAmmo[ammo] = inventorySO.maxAmmo[ammo];
         }
 
         money += inventorySO.playerStartMoney;
@@ -266,9 +281,29 @@ public class Inventory : MonoBehaviour, IObjectCrash
     }
 
     // 아이템 착용해제
-    void UnEquip(int index)
+    public void UnEquip(int index)
     {
+        ItemData unEquipItem;
 
+        switch (index)
+        {
+            case 1:
+                unEquipItem = inventoryUI.weaponSlotUI1.weaponItemData;
+                Player.Instance.playerCharacter.InventoryWeaponUnequip(true);
+                break;
+            case 2:
+                unEquipItem = inventoryUI.weaponSlotUI2.weaponItemData;
+                Player.Instance.playerCharacter.InventoryWeaponUnequip(false);
+                break;
+            default:
+                unEquipItem = null;
+                break;
+        }
+
+        if(unEquipItem)
+        {
+            AddItem(unEquipItem);
+        }
     }
 
     // 아이템 버림
