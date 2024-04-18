@@ -164,9 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428de3ac87f75d4428a7ecb58241a697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boom1: {fileID: 1007127540951276732, guid: 3ace37360f306cb4aac03640550fa9ef, type: 3}
-  Boom2: {fileID: 1620140131458704099, guid: 57e5b83dfee152a47aedf7d83c83e9f5, type: 3}
-  Boom3: {fileID: 560014183069458990, guid: 621e45f610d611746802ad828f66b094, type: 3}
+  Boom1: {fileID: 1943942001556896697, guid: 0373f555f1e7bfa4eac1a6a1a6956cda, type: 3}
+  Boom2: {fileID: 4740682691515797609, guid: 42c3f96e5bc3bf04e998863142eef180, type: 3}
+  Boom3: {fileID: 4811211231737810106, guid: 28e1c67848fded642b819a33cef52bde, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 8
