@@ -2592,7 +2592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 G
+  m_text: 1500 G
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2792,7 +2792,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryWindow: {fileID: 4549518704842474791}
-  uiSlot: {fileID: 6524035858276376824, guid: 45e646a91afbc8940a562a4e9506dce1, type: 3}
+  slotParent: {fileID: 3363235265150441137}
+  uiSlot: {fileID: 3051406349433127761, guid: 45e646a91afbc8940a562a4e9506dce1, type: 3}
+  slots: []
   selectedItemName: {fileID: 6116477924382240134}
   <weaponSlotUI1>k__BackingField: {fileID: 3305557123642160568}
   <weaponSlotUI2>k__BackingField: {fileID: 7197375215226435324}
@@ -4689,6 +4691,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponSlot 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2790767956059667493, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: weaponItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1047747ffdec87741bd25764d7df7032, type: 2}
+    - target: {fileID: 7302146894470171883, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091166390121875388, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c327c2a19ba091846b67a35b937fbae1, type: 3}
+    - target: {fileID: 9202266790194840948, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: m_text
+      value: "\uB3CC\uACA9\uC18C\uCD1D"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4954,6 +4972,22 @@ PrefabInstance:
     - target: {fileID: 1886251915974144841, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
       propertyPath: m_Name
       value: WeaponSlot 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790767956059667493, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: weaponItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: e1f76517584835144ab2c4a74190996c, type: 2}
+    - target: {fileID: 7302146894470171883, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091166390121875388, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c0e52206557b2c4495608edb942218f, type: 3}
+    - target: {fileID: 9202266790194840948, guid: a9a2e4e278b3c3d428a64ef839318da0, type: 3}
+      propertyPath: m_text
+      value: "\uAD8C\uCD1D"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
