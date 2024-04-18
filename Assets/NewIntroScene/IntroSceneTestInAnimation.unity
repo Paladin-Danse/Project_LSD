@@ -288,7 +288,6 @@ Transform:
   m_Children:
   - {fileID: 1928179935}
   - {fileID: 862146731}
-  - {fileID: 1992638281}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -16.797, y: 53.249516, z: 340.923}
@@ -391,6 +390,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1031042080, guid: abc00000000003150402195996271070, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2820595343226710706, guid: abc00000000003150402195996271070, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694535826277785281, guid: abc00000000003150402195996271070, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321511766660414336, guid: abc00000000003150402195996271070, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329441407894775796, guid: abc00000000003150402195996271070, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -1514,6 +1529,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1031042100, guid: abc00000000013259342420854373678, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 160031060634486983, guid: abc00000000013259342420854373678, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625652768882358847, guid: abc00000000013259342420854373678, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034448660555531872, guid: abc00000000013259342420854373678, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183922130945498379, guid: abc00000000013259342420854373678, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -2855,9 +2886,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1500
-  m_Range: 75.15
+  m_Color: {r: 1, g: 0.98866653, b: 0.8443396, a: 1}
+  m_Intensity: 2078
+  m_Range: 102.13
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2913,13 +2944,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992638279}
-  m_LocalRotation: {x: -0.534476, y: 0.4731347, z: -0.27599052, w: -0.6436679}
-  m_LocalPosition: {x: 77.23389, y: 51.799488, z: -22.84056}
+  m_LocalRotation: {x: 0.4176669, y: -0.13829716, z: 0.064485036, w: 0.8956952}
+  m_LocalPosition: {x: 17.49284, y: 25.799442, z: 133.06682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 196971654}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &1992638282
 MonoBehaviour:
