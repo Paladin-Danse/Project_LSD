@@ -17,10 +17,13 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform t_MuzzlePos3;
     [SerializeField] Transform t_MuzzlePos4;
     [SerializeField] WeaponStatSO turretStat;
+    [SerializeField] GameObject destroyPre;
+
     float curFireRate;
 
     Transform target = null;
     Animator anim;
+    public Animator dieAnim;
     AudioSource audioSource;
     public AudioClip t_ShotSound;
     public AudioClip dieSound;
@@ -35,12 +38,13 @@ public class Turret : MonoBehaviour
         fireRate = turretStat.weaponStat.fireDelay;
         t_ProjectileSpeed = turretStat.weaponStat.attackStat.bulletSpeed;
         t_ProjectileDamage = turretStat.weaponStat.attackStat.damage;
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();        
         health = GetComponent<Health>();
     }
 
     void Start()
     {
+        dieAnim.enabled = false;
         curFireRate = fireRate;
         health.OnDie += TOnDie;
         InvokeRepeating("SearchEnemy", 0f, 0.5f);
@@ -94,9 +98,14 @@ public class Turret : MonoBehaviour
         target = shortestTarget;
     }
 
-    public void TurretShot()
+    void TurretShot()
     {
         StartCoroutine("TShot");
+    }
+
+    void STurretShot()
+    {
+        StopCoroutine("TShot");
     }
 
     IEnumerator TShot()
@@ -136,12 +145,22 @@ public class Turret : MonoBehaviour
         this.GetComponent<CapsuleCollider>().enabled = false;
         this.GetComponent<Rigidbody>().isKinematic = true;
         
-        //anim.SetTrigger("Die");        
-        
-        audioSource.PlayOneShot(dieSound);        
-        //DungeonManager.Instance.killedEneies += 1;
+        STurretShot();
 
         enabled = false;
-        Destroy(gameObject, 2f);
-    }
+        anim.enabled = false;
+        dieAnim.enabled = true;
+
+        audioSource.PlayOneShot(dieSound);        
+        //DungeonManager.Instance.killedEneies += 1;
+        GameObject dP = Instantiate(destroyPre, transform.position + new Vector3(2.5f,0.5f,0), Quaternion.identity);
+        GameObject dP2 = Instantiate(destroyPre, transform.position + new Vector3(-2.5f, 0.5f, 0), Quaternion.identity);
+        GameObject dP3 = Instantiate(destroyPre, transform.position + new Vector3(0, 0.5f, 2.5f), Quaternion.identity);
+        GameObject dP4 = Instantiate(destroyPre, transform.position + new Vector3(0, 0.5f, -2.5f), Quaternion.identity);
+        Destroy(dP, 2f);
+        Destroy(dP2, 2f);
+        Destroy(dP3, 2f);
+        Destroy(dP4, 2f);
+        Destroy(gameObject, 3f);
+    }    
 }
