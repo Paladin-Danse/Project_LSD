@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerWalkState : PlayerGroundedState
 {
@@ -28,4 +29,10 @@ public class PlayerWalkState : PlayerGroundedState
         SetAnimation(stateMachine.player.AnimationData.DirectionParameterHash, stateMachine.MovementInput.x / 2);
         SetAnimation(stateMachine.player.AnimationData.SpeedParameterHash, stateMachine.MovementInput.y / 2);
     }
+    protected override void OnRun(InputAction.CallbackContext context)
+    {
+        base.OnRun(context);
+        stateMachine.ChangeState(stateMachine.RunState);
+    }
+
 }
