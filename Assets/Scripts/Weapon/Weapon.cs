@@ -246,8 +246,17 @@ public class Weapon : MonoBehaviour
 
     public void StopAction(ref IEnumerator coroutine)
     {
+        if (coroutine == null) return;
         StopCoroutine(coroutine);
         coroutine = null;
+    }
+
+    public void CancelReload()
+    {
+        StopAction(ref ReloadCoroutine);
+        animator.speed = 1;
+        animator.SetInteger(animationData.reloadParameterHash, -1);
+        stateMachine.ChangeState(stateMachine.ReadyState);
     }
 
     public IEnumerator Shot()

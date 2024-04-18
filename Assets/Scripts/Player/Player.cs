@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     {
         // PlayerData ·Îµå
         playerInteract.RegisterPlayer(this);
-        _input.playerUIActions.Inventory.started += ToggleInventory;
+        _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
         Possess(playerCharacter);
     }
 
@@ -113,8 +113,17 @@ public class Player : MonoBehaviour
                 return;
             }
         }
-
         UIController.Instance.Push("InventoryCanvas");
+
+        if(UIController.Instance.Peek(out GameObject inventoryObject))
+        {
+            if(inventoryObject.TryGetComponent(out InventoryUI inventoryUI))
+            {
+                inventory.inventoryUI = inventoryUI;
+                inventory.inventoryUI.Init(inventory);
+            }
+        }
+
         // todo : sync inventoryUI with inventory
         // inventoryUI.Init(inventory);
         Player.Instance.OnControllUI();

@@ -9,8 +9,10 @@ public class InventoryUI : MonoBehaviour
 {
     private Inventory _inventory;
 
-    public GameObject inventoryWindow; // 인벤토리 켜기
+    //public GameObject inventoryWindow; // 인벤토리 켜기
+    public Transform slotParent;
     public ItemSlotUI uiSlot; // ui 슬롯
+    public ItemSlotUI[] slots; // item 슬롯
     public TextMeshProUGUI selectedItemName; // 이름
     public Dictionary<string, TextMeshProUGUI> selectedItemStatValues; // 스텟 값
 
@@ -36,12 +38,7 @@ public class InventoryUI : MonoBehaviour
     public void Init(Inventory inventory)
     {
         _inventory = inventory;
-        inventoryWindow = GameObject.Find("InventoryCanvas").transform.Find("Inventory").gameObject;
-        moneyText = inventoryWindow.transform.Find("Money/Text").GetComponent<TextMeshProUGUI>();
         
-        weaponSlotUI1 = inventoryWindow.transform.Find("WeaponSlot 1").GetComponent<WeaponSlotUI>();
-        weaponSlotUI2 = inventoryWindow.transform.Find("WeaponSlot 2").GetComponent<WeaponSlotUI>();
-
         if(Player.Instance.playerCharacter)
         {
             PlayerCharacter character = Player.Instance.playerCharacter;
@@ -53,14 +50,11 @@ public class InventoryUI : MonoBehaviour
         weaponSlotUI2?.button.onClick.AddListener(() => _inventory.UnEquip(2));
         weaponSlotUI2?.button.onClick.AddListener(weaponSlotUI2.Clear);
 
-        AmmoSlots = inventoryWindow.transform.Find("AmmoSlots");
+        //지우기 애매... 나중에 다른 탄이 추가될 때를 대비하여 남겨둠.
+        //rifleAmmoCountText = AmmoSlots.Find("Rifle/Count").GetComponent<TextMeshProUGUI>();
+        //pistolAmmoCountText = AmmoSlots.Find("Pistol/Count").GetComponent<TextMeshProUGUI>();
 
-        rifleAmmoCountText = AmmoSlots.Find("Rifle/Count").GetComponent<TextMeshProUGUI>();
-        pistolAmmoCountText = AmmoSlots.Find("Pistol/Count").GetComponent<TextMeshProUGUI>();
-
-        GameObject itemName = inventoryWindow.transform.Find("InfoBG/ItemName").gameObject;
-        selectedItemName = itemName?.GetComponent<TextMeshProUGUI>();
-        GameObject itemStatValues = inventoryWindow.transform.Find("InfoBG/ItemStatValues").gameObject;
+        GameObject itemStatValues = transform.Find("Inventory/InfoBG/ItemStatValues").gameObject;
         selectedItemStatValues = new Dictionary<string, TextMeshProUGUI>();
         for (int i = 0; i < inventory.inventorySO.itemStatValues.Count; i++)
         {
@@ -68,7 +62,21 @@ public class InventoryUI : MonoBehaviour
             selectedItemStatValues.Add(inventory.inventorySO.statNames[i], textObj?.GetComponent<TextMeshProUGUI>());
         }
 
-        /*
+        slots = new ItemSlotUI[inventory.inventorySO.itemSlotCount]; // 아이템 슬롯
+
+        for (int i = 0; i < slots.Length; i++) // 슬롯 초기화
+        {
+            slots[i] = Instantiate(uiSlot, slotParent);
+            slots[i].Init(i, new ItemSlot());
+            slots[i].Clear();
+        }
+
+        UI_All_Update += AmmoUI_Update;
+        UI_All_Update += MoneyUI_Update;
+        UI_All_Update += WeaponSlotUI_Update;
+
+        /*위와 마찬가지의 이유로 다른 탄이 추가되었을 때 Dictionary 변수에 Text를 저장하는 용도로 사용하기 위해 만듦.
+        다만 위와 마찬가지로 현재 방식을 사용한 채로 8개 가량의 탄을 모두 인스펙터에서 관리한다면 둘 다 지울 것을 추천.
         foreach (AmmoType type in Enum.GetValues(typeof(AmmoType)))
         {
             Instantiate(AmmoSlotUI, AmmoSlots);
@@ -91,9 +99,6 @@ public class InventoryUI : MonoBehaviour
             AmmoCountText.Add(type, text);
         }
         */
-        UI_All_Update += AmmoUI_Update;
-        UI_All_Update += MoneyUI_Update;
-        UI_All_Update += WeaponSlotUI_Update;
     }
     
     public void AmmoUI_Update()
@@ -133,6 +138,42 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+    // 인벤토리창 업데이트
+    public void UpdateSlotUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].itemSlot.data != null) // 슬롯에 아이템이 있다면
+                slots[i].UI_Update(); // 세팅
+            else
+                slots[i].Clear(); // 없다면 클리어
+        }
+    }
+
+    // 비어있는 아이템 슬롯 가져오기
+    public ItemSlot GetEmptySlot()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].itemSlot.isEmpty)
+                return slots[i].itemSlot;
+        }
+
+        return null;
+    }
+    /*
+    // 인덱스로 인벤토리창에서 아이템 가져오기
+    public void SelectItem(int index)
+    {
+        if (slots[index].isEmpty)
+            return;
+        // 선택한 아이템 변수에 대입
+        selectedItem = slots[index];
+        selectedItemIndex = index;
+        // 아이템 이름, 정보 표시
+        inventoryUI.SelectedItemUI_Update(selectedItem);
+    }
+    */
     public void MoneyUI_Update()
     {
         moneyText.text = Player.Instance.inventory.money.ToString() + " G";

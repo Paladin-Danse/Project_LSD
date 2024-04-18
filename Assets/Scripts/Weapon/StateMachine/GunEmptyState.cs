@@ -9,6 +9,17 @@ public class GunEmptyState : GunBaseState
     {
     }
 
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+        PlayerStateMachine playerStateMachine = stateMachine.gun.playerCharacter_.stateMachine;
+        int playerState = (playerStateMachine.currentState == playerStateMachine.WalkState ? 1 :
+                           playerStateMachine.currentState == playerStateMachine.RunState ? 3 : 0);
+        if (!stateMachine.gun.isFiring)
+            SetAnimation(stateMachine.gun.animationData.movementSpeedParameterHash, playerState);
+        else
+            SetAnimation(stateMachine.gun.animationData.movementSpeedParameterHash, 0);
+    }
     protected override void OnFire(InputAction.CallbackContext callbackContext)
     {
         base.OnFire(callbackContext);
@@ -17,9 +28,6 @@ public class GunEmptyState : GunBaseState
             stateMachine.gun.ShotCoroutinePlay(stateMachine.gun.DryFire());
         }
     }
-
-    
-
     protected override void OnReload(InputAction.CallbackContext callbackContext)
     {
         base.OnReload(callbackContext);
