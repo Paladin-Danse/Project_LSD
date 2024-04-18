@@ -14,37 +14,12 @@ public class Dungeon
 }
 public class DungeonSelectedManager : MonoBehaviour
 {
-    private static DungeonSelectedManager _instance;
-    public static DungeonSelectedManager instance
-    {
-        get
-        {
-            if(_instance == null)
-            {
-                GameObject gameObject = GameObject.FindObjectOfType<DungeonSelectedManager>().gameObject;
-                if (gameObject == null)
-                {
-                    gameObject = new GameObject("DungeonSelectedManager");
-                    _instance = gameObject.AddComponent<DungeonSelectedManager>();
-                }
-            }
-            return _instance;
-        }
-    }
     public GameObject dungeonEntrancePanel;
     public TextMeshProUGUI dungeonNameOfPanel;
     public Dungeon[] SelectedDungeon; 
     public RectTransform tooltipRectTransform;
     public RectTransform backgroundRectTransform;
-    
-    SelectedDungeonKeep dungeonKeep;
-    Player _player;
-    private void Awake()
-    {
-        dungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
-        _player = FindObjectOfType<Player>();
-    }
-    
+
     private void Update()
     {
         Vector2 tooltipPosition = Input.mousePosition;        
@@ -55,7 +30,7 @@ public class DungeonSelectedManager : MonoBehaviour
     {
         dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].Ddata.dungeonName;
         dungeonEntrancePanel.SetActive(true);
-        dungeonKeep.mapNumber = dungeonNum;
+        SelectedDungeonContext.Instance.mapNumber = dungeonNum;
     }
 
     public void OffDungeonEntrancePanel()
@@ -65,11 +40,18 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
-        StartCoroutine(LoadScene());
+        UIController.Instance.Pop();
+        // todo : 던전으로 변경 필요
+        SceneLoader.Instance.LoadScene(Defines.EScene.SafeZone);
     }
 
     IEnumerator LoadScene()
     {
         yield return SceneManager.LoadSceneAsync("DungeonScene");
+    }
+
+    public void CloseDungeonSelectUI() 
+    {
+        UIController.Instance.Pop();
     }
 }

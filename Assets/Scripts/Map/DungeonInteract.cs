@@ -44,8 +44,7 @@ public class DungeonInteract : MonoBehaviour
                     curInteractGameobject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
                     if (hit.collider.TryGetComponent(out WeaponObject weaponObj)
-                        || hit.collider.TryGetComponent(out ItemEntranceObject itemObj)
-                        || entranceObject.isDungeonSelectedUI == false)
+                        || hit.collider.TryGetComponent(out ItemEntranceObject itemObj))
                     {
                         SetPromptText();
                     }

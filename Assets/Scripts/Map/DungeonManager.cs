@@ -37,7 +37,6 @@ public class DungeonManager : MonoBehaviour
         //        Destroy(this.gameObject);
         //}
 
-        selectedDungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
         missionBoard = FindObjectOfType<DungeonMissionBoard>();
         dungeonMapPrefab = dungeons[selectedDungeonKeep.mapNumber].Ddata.dungeonPrefab;
         questId_add = dungeons[selectedDungeonKeep.mapNumber].Ddata.QuestID;

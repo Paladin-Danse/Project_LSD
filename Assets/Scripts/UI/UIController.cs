@@ -36,6 +36,7 @@ public class UIController : MonoBehaviour
     Stack<GameObject> uiStack = new Stack<GameObject>();
     Dictionary<string, GameObject> uiCacheDic = new Dictionary<string, GameObject>();
     PopUpUI popupUI;
+    public EUIShowMode currentShowMode { get; private set; }
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class UIController : MonoBehaviour
         if (!uiCacheDic.TryGetValue(uiName, out GameObject uiObject)) 
         { 
             uiObject = Addressables.InstantiateAsync(uiName).WaitForCompletion();
+            if (uiObject == null) return;
             uiCacheDic.Add(uiName, uiObject);
             uiObject.transform.parent = this.transform;
         }
@@ -62,6 +64,7 @@ public class UIController : MonoBehaviour
         uiStack.Push(uiObject);
         uiObject.SetActive(true);
         uiObject.transform.parent = instance.transform;
+        currentShowMode = eUIShowMode;
     }
 
     public bool Push<T>(string uiName, out T component, EUIShowMode eUIShowMode = EUIShowMode.Additive) where T : Component
@@ -71,6 +74,7 @@ public class UIController : MonoBehaviour
         if (!uiCacheDic.TryGetValue(uiName, out GameObject uiObject))
         {
             uiObject = Addressables.InstantiateAsync(uiName).WaitForCompletion();
+            if (uiObject == null) return false;
             uiCacheDic.Add(uiName, uiObject);
             uiObject.transform.parent = this.transform;
         }
@@ -88,7 +92,9 @@ public class UIController : MonoBehaviour
         uiObject.transform.parent = instance.transform;
 
         component = uiObject.GetComponent<T>();
-        if(component) return true;
+        currentShowMode = eUIShowMode;
+
+        if (component) return true;
         return false;
     }
 
@@ -104,7 +110,8 @@ public class UIController : MonoBehaviour
 
         if(uiStack.TryPeek(out GameObject next))
         {
-            gameObject.SetActive(true);
+            Debug.Log($"Next! : {next.name}");
+            next.SetActive(true);
         }
     }
 

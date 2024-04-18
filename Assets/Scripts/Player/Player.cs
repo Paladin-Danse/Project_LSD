@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _input = transform.AddComponent<PlayerInput>();
-        inventory = GetComponent<Inventory>();
+        inventory = transform.AddComponent<Inventory>();
         playerInteract = transform.AddComponent<PlayerInteract>();
     }
 
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         // PlayerData 로드
         playerInteract.RegisterPlayer(this);
         _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
+        _input.playerUIActions.Debug.started += Instance.ToggleEscape;
         Possess(playerCharacter);
     }
 
@@ -113,19 +114,25 @@ public class Player : MonoBehaviour
                 return;
             }
         }
-        UIController.Instance.Push("InventoryCanvas");
-
-        if(UIController.Instance.Peek(out GameObject inventoryObject))
+        
+        if(UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui, EUIShowMode.Single)) 
         {
-            if(inventoryObject.TryGetComponent(out InventoryUI inventoryUI))
+            inventory.inventoryUI = inventoryui;
+            inventory.inventoryUI.Init(inventory);
+            Player.Instance.OnControllUI();
+        }
+    }
+
+    public void ToggleEscape(InputAction.CallbackContext callbackContext) 
+    {
+        if(UIController.Instance.Peek(out GameObject gameObject)) 
+        { 
+            if(UIController.Instance.currentShowMode == EUIShowMode.Single) 
             {
-                inventory.inventoryUI = inventoryUI;
-                inventory.inventoryUI.Init(inventory);
+                UIController.Instance.Pop();
             }
         }
 
-        // todo : sync inventoryUI with inventory
-        // inventoryUI.Init(inventory);
-        Player.Instance.OnControllUI();
+        // todo : Setting창 표시
     }
 }
