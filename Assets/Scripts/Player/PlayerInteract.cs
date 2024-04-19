@@ -17,11 +17,11 @@ public class PlayerInteract : MonoBehaviour
 {
     public float checkRate = 0.05f;
     private float lastCheckTime;
-    public float maxCheckDistance;
+    public float maxCheckDistance = 10f;
     public LayerMask layerMask;
     private IInteractable curInteractable;
 
-    private Camera camera;
+    private Camera camera { get { return Camera.main; } }
 
     public Action<string> OnInteractableChanged;
 
@@ -34,7 +34,6 @@ public class PlayerInteract : MonoBehaviour
 
     void Start()
     {
-        camera = Camera.main;
     }
 
     void Update()
@@ -55,13 +54,11 @@ public class PlayerInteract : MonoBehaviour
                         curInteractable = nowInteractable;
                         OnInteractableChanged?.Invoke(curInteractable.GetInteractPrompt());
                     }
+                    return;
                 }
             }
-            else
-            {
-                curInteractable = null;
-                OnInteractableChanged?.Invoke(String.Empty);
-            }
+            curInteractable = null;
+            OnInteractableChanged?.Invoke(String.Empty);
         }
     }
 

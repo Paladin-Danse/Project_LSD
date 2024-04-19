@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
+using UnityEngine.AddressableAssets;
 
 public interface IObjectCrash
 {
@@ -77,6 +78,10 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
     void Awake()
     {
+        if(inventorySO == null) 
+        {
+            inventorySO = Addressables.LoadAssetAsync<InventoryData>("DefaultInventoryData").WaitForCompletion();
+        }
         inventorySO.init();
         inventoryAmmo = new Dictionary<AmmoType, int>();
         _playerMaxMoney = inventorySO.maxMoney;
@@ -105,7 +110,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
         money += inventorySO.playerStartMoney;
         //ClearSeletecItemWindow();
-        inventoryUI.gameObject.SetActive(false); // 인벤토리 꺼두기
+        // inventoryUI.gameObject.SetActive(false); // 인벤토리 꺼두기
     }
 
     [System.Obsolete]

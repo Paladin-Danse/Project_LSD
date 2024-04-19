@@ -34,18 +34,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a214819a160fecd45a7d6ddf0d6773f4
-    m_Address: Desert_Map
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Map
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ab4ebb44c8111d4a855671511894c29
-    m_Address: Assets/Prefabs/Player/PlayerCharacter.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PlayerCharacter
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40f4826f1e0402348ad26438e94bd2b8
     m_Address: PopUpCanvas
     m_ReadOnly: 0
@@ -63,6 +51,24 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 897756e7183462840afa92dc95249f7a
+    m_Address: DungeonSelectCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd7d88496f02ee34281510612818ea80
+    m_Address: Map0
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Map
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f334e0f804539f46aa359a94257c58b
+    m_Address: DefaultInventoryData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Data
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cacb559963f73b146b2af7015c334e10, type: 2}

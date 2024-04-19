@@ -21,7 +21,6 @@ public class PlayerCharacter : CharacterStatHandler
     public Animator animator { get; private set; }
     public PlayerAnimationData AnimationData { get; private set; }
     public Health health { get; private set; }
-    public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     public bool isJump = true;
@@ -74,7 +73,6 @@ public class PlayerCharacter : CharacterStatHandler
         base.Awake();
         stateMachine = new PlayerStateMachine(this);
         rigidbody_ = GetComponent<Rigidbody>();
-        dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
         playerCamTransform = transform.Find("FPCamera");
         fpsBody = transform.Find("FPSBody").gameObject;
