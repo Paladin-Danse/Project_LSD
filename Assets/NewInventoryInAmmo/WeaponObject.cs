@@ -6,6 +6,7 @@ public class WeaponObject : MonoBehaviour, IInteractable
 {
     public GameObject weaponObj; // 무기 정보
     private Weapon weapon;
+    public WeaponStatSO weaponStatSO;
 
     public string displayName;
     public string description;
@@ -13,7 +14,7 @@ public class WeaponObject : MonoBehaviour, IInteractable
     public GameObject dropPrefab;
     private void Awake()
     {
-        weapon = GetComponent<Weapon>();
+        
     }
     public string GetInteractPrompt()
     {
@@ -22,7 +23,7 @@ public class WeaponObject : MonoBehaviour, IInteractable
 
     public void OnInteract(Player player)
     {
-        //player.inventory.AddWeapon(weapon); // 인벤토리에 아이템 추가하기
+        Player.Instance.inventory.AddWeapon(weaponStatSO.weaponItem, weaponStatSO.weaponStat); // 인벤토리에 아이템 추가하기
         Destroy(gameObject); // 아이템 제거
     }
 }

@@ -11,21 +11,30 @@ public class WeaponSlotUI : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI nameText;
     public ItemData weaponItemData;
+    public Weapon weaponData;
 
     public int index;
     public bool equipped;
 
 
     // 아이템 셋팅
-    public void UI_Update(ItemData data)
+    public void InputData(Weapon data)
     {
         if (data != null)
         {
-            icon.gameObject.SetActive(true); // 아이콘 표시
-            weaponItemData = data;
-            icon.sprite = data.icon; // 아이콘 스프라이트 설정
-            nameText.text = data.displayName; // 텍스트 표현
+            weaponData = data;
+            weaponItemData = data.itemData;
             button.enabled = true;
+        }
+    }
+
+    public void UI_Update()
+    {
+        if (weaponData != null)
+        {
+            icon.gameObject.SetActive(true);
+            icon.sprite = weaponItemData.iconSprite;
+            nameText.text = weaponItemData.displayName;
         }
         else
         {
@@ -36,6 +45,8 @@ public class WeaponSlotUI : MonoBehaviour
     // 아이템 클리어
     public void Clear()
     {
+        weaponData = null;
+        weaponItemData = null;
         icon.sprite = null;
         nameText.text = string.Empty;
         button.enabled = false;
