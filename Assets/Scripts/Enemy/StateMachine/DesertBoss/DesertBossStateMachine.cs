@@ -6,7 +6,7 @@ public class DesertBossStateMachine : StateMachine<DesertBossBaseState>
 {
     public DesertBoss Enemy { get; }
 
-    public Health Target { get; set; }
+    public Health Target;
 
     public DesertBossIdleState IdlingState { get; }
     public DesertBossChasingState ChasingState { get; }
