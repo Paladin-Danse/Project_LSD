@@ -7,8 +7,7 @@ public class BossProjectile : MonoBehaviour
 {
     private EnemyProjectileMovementTransform movement;
     float projectileDistance;
-    float damage;
-    //public Transform target;
+    float damage;    
     private ParticleSystem Boom;
     public GameObject Boom1;
     public GameObject Boom2;
@@ -25,8 +24,7 @@ public class BossProjectile : MonoBehaviour
     }
 
     private IEnumerator OnMove(Vector3 targetPosition)
-    {
-        //LookTarget();
+    {        
         Vector3 start = transform.position;
 
         movement.MoveTo((targetPosition - transform.position).normalized);
@@ -42,24 +40,10 @@ public class BossProjectile : MonoBehaviour
 
             yield return null;
         }
-    }
-
-    //public void LookTarget()
-    //{
-    //    Vector3 to = new Vector3(target.position.x, 0, target.position.z);
-    //    Vector3 from = new Vector3(transform.position.x, 0, transform.position.z);
-    //    transform.rotation = Quaternion.LookRotation(to - from);
-    //}
+    }    
 
     private void OnTriggerEnter(Collider other)
-    {
-        //if (collision.gameObject.CompareTag("Player"))
-        //{
-        //    collision.gameObject.GetComponent<Health>().TakeDamageWithoutDefense(damage);
-        //    Debug.Log(damage);
-        //    Debug.Log("Player Hit");
-        //    Destroy(gameObject);
-        //}
+    {        
         if(other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
         {
             ExplosionDamage(transform.position, explosionRadius, layerMask, damage);
