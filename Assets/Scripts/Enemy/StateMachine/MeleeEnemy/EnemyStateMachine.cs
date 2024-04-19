@@ -6,7 +6,7 @@ public class EnemyStateMachine : StateMachine<EnemyBaseState>
 {
     public Enemy Enemy { get; }
 
-    public Health Target { get; private set; }
+    public Health Target { get; set; }
 
     public EnemyIdleState IdlingState { get; }
     public EnemyChasingState ChasingState { get; }
@@ -20,7 +20,7 @@ public class EnemyStateMachine : StateMachine<EnemyBaseState>
     public EnemyStateMachine(Enemy enemy)
     {
         Enemy = enemy;
-        Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        //Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
         IdlingState = new EnemyIdleState(this);
         ChasingState = new EnemyChasingState(this);
