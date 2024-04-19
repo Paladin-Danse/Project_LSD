@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SelectedDungeonContext : MonoBehaviour
 {
-    public DungeonData dungeonData;
     private static SelectedDungeonContext instance;
     public static SelectedDungeonContext Instance
     {
@@ -23,5 +22,10 @@ public class SelectedDungeonContext : MonoBehaviour
             return instance;
         }
     }
-    public int mapNumber;
+    public GameObject selectedDungeon;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
 }

@@ -18,6 +18,7 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
         playerCharacter.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
+        RefreshUI();
     }
 
     public void UnbindUI()

@@ -41,15 +41,9 @@ public class DungeonSelectedManager : MonoBehaviour
     public void DungeonEntrance()
     {
         UIController.Instance.Pop();
-        // todo : 던전으로 변경 필요
-        SceneLoader.Instance.LoadScene(Defines.EScene.SafeZone);
-    }
+        SceneLoader.Instance.LoadScene(Defines.EScene.Dungeon);
 
-    IEnumerator LoadScene()
-    {
-        yield return SceneManager.LoadSceneAsync("DungeonScene");
     }
-
     public void CloseDungeonSelectUI() 
     {
         UIController.Instance.Pop();

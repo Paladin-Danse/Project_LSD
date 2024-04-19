@@ -124,14 +124,6 @@ public class Player : MonoBehaviour
 
     public void ToggleEscape(InputAction.CallbackContext callbackContext) 
     {
-        if(UIController.Instance.Peek(out GameObject gameObject)) 
-        { 
-            if(UIController.Instance.currentShowMode == EUIShowMode.Single) 
-            {
-                UIController.Instance.Pop();
-            }
-        }
-
         // todo : Setting√¢ «•Ω√
     }
 }
