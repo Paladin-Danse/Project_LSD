@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
         playerInteract.RegisterPlayer(this);
         _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
         _input.playerUIActions.Debug.started += Instance.ToggleEscape;
-        Possess(playerCharacter);
     }
 
     public void Possess(PlayerCharacter playerCharacter)
@@ -72,8 +71,8 @@ public class Player : MonoBehaviour
 
     public void UnPossess() 
     {
-        playerUI.ReleasePlayerCharacter();
-        playerCharacter.OnUnpossessCharacter();
+        playerUI?.ReleasePlayerCharacter();
+        playerCharacter?.OnUnpossessCharacter();
         this.playerCharacter = null;
     }
 

@@ -30,7 +30,7 @@ public class DungeonSelectedManager : MonoBehaviour
     {
         dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].Ddata.dungeonName;
         dungeonEntrancePanel.SetActive(true);
-        SelectedDungeonContext.Instance.mapNumber = dungeonNum;
+        SelectedDungeonContext.Instance.selectedDungeon = SelectedDungeon[dungeonNum].Ddata.dungeonPrefab;
     }
 
     public void OffDungeonEntrancePanel()
