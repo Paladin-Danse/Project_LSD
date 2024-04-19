@@ -6,7 +6,7 @@ public class RangedEnemyStateMachine : StateMachine<RangedEnemyBaseState>
 {
     public RangedEnemy Enemy { get; }
 
-    public Health Target { get; set; }
+    public Health Target;
 
     public RangedEnemyIdleState IdlingState { get; }
     public RangedEnemyChasingState ChasingState { get; }
