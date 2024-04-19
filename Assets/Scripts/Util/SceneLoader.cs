@@ -19,16 +19,14 @@ public class SceneLoader
         SceneManagerBase sceneManager = GameObject.FindObjectOfType<SceneManagerBase>();
         if (sceneManager != null)
         {
-            sceneManager.Pause();
-            sceneManager.OnSceneUnloaded();
+            Debug.Log("SceneManager exist");
         }
 
-        if(loadingCanvasController == null)
-        {
-            UIController.Instance.Push("LoadingCanvas");
-            loadingCanvasController = UIController.Instance.Peek().GetComponent<LoadingCanvasController>();
-        }
+        Player.Instance.UnPossess();
+        ObjectPoolManager.Instance.ClearPools();
+        UIController.Instance.Clear();
 
+        UIController.Instance.Push<LoadingCanvasController>("LoadingCanvas", out loadingCanvasController);
         loadSceneContext = scene;
         SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
     }

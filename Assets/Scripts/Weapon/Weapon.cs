@@ -337,6 +337,7 @@ public class Weapon : MonoBehaviour
         curMagazine += UseInventoryAmmo();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);
+        OnMagChanged?.Invoke();
     }
     
     public IEnumerator TakeIn()
