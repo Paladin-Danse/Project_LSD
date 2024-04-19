@@ -6,7 +6,7 @@ public class DesertBossStateMachine : StateMachine<DesertBossBaseState>
 {
     public DesertBoss Enemy { get; }
 
-    public Health Target { get; private set; }
+    public Health Target { get; set; }
 
     public DesertBossIdleState IdlingState { get; }
     public DesertBossChasingState ChasingState { get; }
@@ -20,7 +20,7 @@ public class DesertBossStateMachine : StateMachine<DesertBossBaseState>
     public DesertBossStateMachine(DesertBoss enemy)
     {
         Enemy = enemy;
-        Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        //Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
         IdlingState = new DesertBossIdleState(this);
         ChasingState = new DesertBossChasingState(this);
