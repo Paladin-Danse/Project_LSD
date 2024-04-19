@@ -10,8 +10,10 @@ public class DesertBossAccessSensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            desertBossStateMachine.Target = other.gameObject.GetComponent<Health>();
-            desertBoss.enabled = true;
+            if (other.TryGetComponent<Health>(out desertBoss.stateMachine.Target))
+            {
+                desertBoss.enabled = true;
+            }            
         }
     }
 
@@ -19,8 +21,10 @@ public class DesertBossAccessSensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            desertBossStateMachine.Target = null;
-            desertBoss.enabled = false;
+            if (other.TryGetComponent<Health>(out desertBoss.stateMachine.Target))
+            {
+                desertBoss.enabled = false;
+            }
         }
     }
 }

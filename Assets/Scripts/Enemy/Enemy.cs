@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     public Animator Animator { get; private set; }        
     public Health health { get; private set; }
 
-    private EnemyStateMachine stateMachine;
+    public EnemyStateMachine stateMachine;
 
     void Awake()
     {

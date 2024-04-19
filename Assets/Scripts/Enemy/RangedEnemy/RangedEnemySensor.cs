@@ -10,10 +10,10 @@ public class RangedEnemySensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (other.TryGetComponent<Health>(out rangedEnemy.stateMachine.Target)) 
+            if (other.TryGetComponent<Health>(out rangedEnemy.stateMachine.Target))
             {
                 rangedEnemy.enabled = true;
-            }
+            }            
         }
     }
 
@@ -21,8 +21,10 @@ public class RangedEnemySensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            rangedEnemyStateMachine.Target = null;
-            rangedEnemy.enabled = false;
+            if (other.TryGetComponent<Health>(out rangedEnemy.stateMachine.Target))
+            {
+                rangedEnemy.enabled = false;
+            }
         }
     }
 }
