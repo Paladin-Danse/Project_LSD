@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031060969679701619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.545, y: -0.107, z: 1.465}
+  m_LocalPosition: {x: 0.545, y: -0.107, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -371,8 +371,13 @@ MonoBehaviour:
   t_MuzzlePos3: {fileID: 4583938737911818934}
   t_MuzzlePos4: {fileID: 7030692719242737689}
   turretStat: {fileID: 11400000, guid: 9d856ba4bb925a546b4fac674686215a, type: 2}
+  destroyPre: {fileID: 218192105641300852, guid: a145f69c76b149d45b01ab8dd2187680, type: 3}
+  muzzleShotPar: {fileID: 1992123540784482405, guid: 998def2523b3a9544a73538372d0a8ca, type: 3}
+  dieAnim: {fileID: 7964296819950640821}
   t_ShotSound: {fileID: 8300000, guid: d013b1ae94f48e4439060350f915ab0a, type: 3}
   dieSound: {fileID: 8300000, guid: 8524588a69a4f3e40bb597b6221138f1, type: 3}
+  upSound: {fileID: 8300000, guid: 434255a455bb6114b89536ca11d81805, type: 3}
+  downSound: {fileID: 8300000, guid: 19b9a8e562a53ab4894a0651be7aec93, type: 3}
 --- !u!82 &5554784369581287899
 AudioSource:
   m_ObjectHideFlags: 0
@@ -725,7 +730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5450492624104625218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.545, y: 0.109, z: 1.465}
+  m_LocalPosition: {x: 0.545, y: 0.109, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -756,7 +761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7771163462595820584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.562, y: -0.107, z: 1.465}
+  m_LocalPosition: {x: -0.562, y: -0.107, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -774,6 +779,7 @@ GameObject:
   - component: {fileID: 3422799527407280905}
   - component: {fileID: 2701683611398276456}
   - component: {fileID: 6846480598359302018}
+  - component: {fileID: 7964296819950640821}
   m_Layer: 7
   m_Name: Turret_v1_stand
   m_TagString: Untagged
@@ -849,6 +855,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &7964296819950640821
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852368011642092958}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 63f83df82164e0042aa73f006f043590, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9199675515613758978
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +900,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9199675515613758978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.562, y: 0.121, z: 1.465}
+  m_LocalPosition: {x: -0.562, y: 0.121, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

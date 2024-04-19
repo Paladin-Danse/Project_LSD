@@ -18,6 +18,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform t_MuzzlePos4;
     [SerializeField] WeaponStatSO turretStat;
     [SerializeField] GameObject destroyPre;
+    [SerializeField] GameObject muzzleShotPar;
 
     float curFireRate;
 
@@ -27,6 +28,8 @@ public class Turret : MonoBehaviour
     AudioSource audioSource;
     public AudioClip t_ShotSound;
     public AudioClip dieSound;
+    public AudioClip upSound;
+    public AudioClip downSound;
     Health health;
 
     public TurretProjectile t_Projectile { get; set; }
@@ -115,6 +118,11 @@ public class Turret : MonoBehaviour
         GameObject instantProjectile3 = Instantiate(turretProjectile, t_MuzzlePos3.position, t_MuzzlePos3.rotation);
         GameObject instantProjectile4 = Instantiate(turretProjectile, t_MuzzlePos4.position, t_MuzzlePos4.rotation);
 
+        GameObject particle1 = Instantiate(muzzleShotPar, t_MuzzlePos1.position, t_MuzzlePos1.rotation);
+        GameObject particle2 = Instantiate(muzzleShotPar, t_MuzzlePos2.position, t_MuzzlePos2.rotation);
+        GameObject particle3 = Instantiate(muzzleShotPar, t_MuzzlePos3.position, t_MuzzlePos3.rotation);
+        GameObject particle4 = Instantiate(muzzleShotPar, t_MuzzlePos4.position, t_MuzzlePos4.rotation);
+
         Rigidbody projectileRigid1 = instantProjectile1.GetComponent<Rigidbody>();
         Rigidbody projectileRigid2 = instantProjectile2.GetComponent<Rigidbody>();
         Rigidbody projectileRigid3 = instantProjectile3.GetComponent<Rigidbody>();
@@ -134,6 +142,11 @@ public class Turret : MonoBehaviour
         audioSource.PlayOneShot(t_ShotSound);
         audioSource.PlayOneShot(t_ShotSound);
         audioSource.PlayOneShot(t_ShotSound);
+
+        Destroy(particle1, 0.5f);
+        Destroy(particle2, 0.5f);
+        Destroy(particle3, 0.5f);
+        Destroy(particle4, 0.5f);
 
         t_Projectile.TInitProjectile(this);
 
@@ -162,5 +175,15 @@ public class Turret : MonoBehaviour
         Destroy(dP3, 2f);
         Destroy(dP4, 2f);
         Destroy(gameObject, 3f);
-    }    
+    }   
+    
+    void OnUpSound()
+    {
+        audioSource.PlayOneShot(upSound);
+    }
+
+    void OnDownSound()
+    {
+        audioSource.PlayOneShot(downSound);
+    }
 }
