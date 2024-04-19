@@ -31,7 +31,8 @@ public class ItemData : ScriptableObject
     public string displayName;
     public string description;
     public ItemType type;
-    public Sprite icon;
+    public Sprite iconSprite;
+    public GameObject FP_Object;
     public GameObject dropPrefab;
     public Dictionary<string, int> itemStatValues;
 
@@ -48,5 +49,9 @@ public class ItemData : ScriptableObject
     public void AddStat(string name, int value)
     {
         itemStatValues.Add(name, value);
+    }
+    public void InputStat(string name, int value)
+    {
+        itemStatValues[name] = value;
     }
 }

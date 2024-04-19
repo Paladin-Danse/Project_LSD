@@ -10,6 +10,7 @@ public class ItemSlotUI : MonoBehaviour
     public ItemSlot itemSlot;
     public Button button;
     public Image icon;
+    public WeaponStat weaponStat;
 
     public int index;
 
@@ -18,32 +19,36 @@ public class ItemSlotUI : MonoBehaviour
         index = _index;
         itemSlot = _itemSlot;
         itemSlot.Init(index);
+        weaponStat = null;
     }
-    /*
-    private void OnEnable()
+    public void Set(ItemData data, WeaponStat _weaponStat)
     {
-        outline.enabled = equipped; // 장착했다면 아웃라인을 표시
+        itemSlot.data = data;
+        weaponStat = _weaponStat;
+        UI_Update();
+
+        if(icon.gameObject.activeSelf) button.onClick.AddListener(OnClick);
     }
-    */
-    // 아이템 셋팅
-    public void Set(ItemData data)
-    {
-        
-    }
+    //Equipment추가될 시, Set함수를 오버로딩해서 사용.
 
     public void UI_Update()
     {
-        icon.sprite = itemSlot?.data.icon; // 아이콘 스프라이트 설정
+        if (itemSlot.data == null)
+        {
+            Clear();
+            return;
+        }
+        icon.sprite = itemSlot.data.iconSprite; // 아이콘 스프라이트 설정
         if(icon.sprite) icon.gameObject.SetActive(true); // 아이콘 표시
     }
 
     // 아이템 클리어
     public void Clear()
     {
-        if (itemSlot.data == null)
-        {
-            icon.gameObject.SetActive(false);
-        }
+        button.onClick.RemoveAllListeners();
+        itemSlot.data = null;
+        weaponStat = null;
+        icon.gameObject.SetActive(false);
     }
 
     public void OnButtonClick()
@@ -52,18 +57,28 @@ public class ItemSlotUI : MonoBehaviour
     }
     public void OnClick()
     {
-        Weapon weapon;
-        //Equipment
-
+        bool isEquip;
         switch (itemSlot.data.type)
         {
             case ItemType.Weapon:
-                Player.Instance.playerCharacter.InventoryWeaponEquip(new Weapon(itemSlot.data));
+                isEquip = Player.Instance.inventory.OnEquip(weaponStat);
                 break;
             case ItemType.Equipable:
+                isEquip = false;
                 break;
             default:
+                isEquip = false;
                 break;
+        }
+        if(isEquip)
+        {
+            Clear();
+            UI_Update();
+            Player.Instance.inventory.inventoryUI.WeaponSlotUI_Update();
+        }
+        else
+        {
+            Debug.Log("EquipSlot is Full!!");
         }
     }
 }

@@ -249,23 +249,41 @@ public class PlayerCharacter : CharacterStatHandler
         AnimHashFloats[ParameterHash] = math.lerp(AnimHashFloats[ParameterHash], setFloat, 0.1f);
         stateMachine.player.animator.SetFloat(ParameterHash, AnimHashFloats[ParameterHash]);
     }
-    public void InventoryWeaponEquip(Weapon weapon)
+    public bool InventoryWeaponEquip(WeaponStat _weaponStat)
     {
-        if(primaryWeapon == null)
+        Weapon weapon;
+        switch (_weaponStat.e_useAmmo)
+        {
+            case AmmoType.Rifle:
+                playerCamTransform.Find("Assault Rifle [FP]").TryGetComponent<Weapon>(out weapon);
+                break;
+            case AmmoType.Pistol:
+                playerCamTransform.Find("Pistol [FP]").TryGetComponent<Weapon>(out weapon);
+                break;
+            default:
+                weapon = null;
+                break;
+        }
+
+        if (weapon == null) return false;
+
+        if (primaryWeapon == null)
         {
             primaryWeapon = weapon;
             primaryWeapon.Init(this);
         }
-        else if(secondaryWeapon == null)
+        else if (secondaryWeapon == null)
         {
             secondaryWeapon = weapon;
             secondaryWeapon.Init(this);
         }
+        else return false;
 
         if (curWeapon == null)
         {
             EquipWeapon(weapon);
         }
+        return true;
     }
     public void InventoryWeaponUnequip(bool isPrimary)
     {

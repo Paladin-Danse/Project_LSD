@@ -67,6 +67,11 @@ public class Player : MonoBehaviour
         {
             playerUI.BindPlayerCharacter(playerCharacter);
         }
+        if (UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui))
+        {
+            inventory.Init(inventoryui);
+            UIController.Instance.Pop();
+        }
     }
 
     public void UnPossess() 
@@ -116,8 +121,7 @@ public class Player : MonoBehaviour
         
         if(UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui, EUIShowMode.Single)) 
         {
-            inventory.inventoryUI = inventoryui;
-            inventory.inventoryUI.Init(inventory);
+            Player.instance.inventory.inventoryUI.UI_All_Update();
             Player.Instance.OnControllUI();
         }
     }

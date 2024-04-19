@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponObj: {fileID: 500735882833398007, guid: 8fd8dd664c9c2d340b1df780497f5fb4, type: 3}
+  weaponStatSO: {fileID: 11400000, guid: c3e9fbf9a6244e24ca874615d6501a65, type: 2}
   displayName: "\uAD8C\uCD1D"
   description: "\uAD8C\uCD1D\uC5D0 \uB300\uD55C \uC124\uBA85"
   icon: {fileID: 21300000, guid: 9c0e52206557b2c4495608edb942218f, type: 3}

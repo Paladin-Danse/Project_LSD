@@ -72,9 +72,9 @@ public class Weapon : MonoBehaviour
     public Animator animator;
     public WeaponAnimationData animationData;
 
-    public Weapon(ItemData data)
+    public Weapon(WeaponStatSO _weaponStatSO)
     {
-        itemData = data;
+        baseStatSO = _weaponStatSO;
     }
 
     public void Init(PlayerCharacter playerCharacter)
@@ -123,6 +123,17 @@ public class Weapon : MonoBehaviour
 
         isShotable = true;
         isSwap = false;
+    }
+
+    private void OnEnable()
+    {
+        
+        /*
+        baseStat.attackStat.damage = itemData.itemStatValues["Damage"];
+        baseStat.spread = itemData.itemStatValues["Accuracy"];
+        baseStat.attackStat.damage = itemData.itemStatValues["Damage"];
+        baseStat.attackStat.damage = itemData.itemStatValues["Damage"];
+        */
     }
 
     private void Start()
@@ -195,7 +206,7 @@ public class Weapon : MonoBehaviour
     public void CurrentWeaponEquip()
     {
         input_ = playerCharacter_.input;
-        input_.weaponActions.Enable();
+        if(Cursor.lockState == CursorLockMode.Locked) input_.weaponActions.Enable();
         stateMachine.ChangeState(stateMachine.EnterState);
         //stateMachine.currentState.AddInputActionsCallbacks();
     }
