@@ -21,7 +21,6 @@ public class PlayerCharacter : CharacterStatHandler
     public Animator animator { get; private set; }
     public PlayerAnimationData AnimationData { get; private set; }
     public Health health { get; private set; }
-    public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     public bool isJump = true;
@@ -39,6 +38,17 @@ public class PlayerCharacter : CharacterStatHandler
     public Transform firePos;
     public float fireRateDelay;
     [SerializeField] public Weapon curWeapon;
+    public AmmoType curWeapon_AmmoType
+    {
+        get
+        {
+            if(curWeapon)
+            {
+                return curWeapon.baseStat.e_useAmmo;
+            }
+            return AmmoType.None;
+        }
+    }
     public WeaponStatHandler weaponStatHandler;
 
     public Action<PlayerStateMachine> SetWeaponEvent;
@@ -48,6 +58,8 @@ public class PlayerCharacter : CharacterStatHandler
     public Weapon primaryWeapon;
     [SerializeField]
     public Weapon secondaryWeapon;
+    [SerializeField]
+    public Weapon emptyWeapon;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
@@ -61,7 +73,6 @@ public class PlayerCharacter : CharacterStatHandler
         base.Awake();
         stateMachine = new PlayerStateMachine(this);
         rigidbody_ = GetComponent<Rigidbody>();
-        dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
         playerCamTransform = transform.Find("FPCamera");
         fpsBody = transform.Find("FPSBody").gameObject;
@@ -85,8 +96,6 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
-        Player.Instance.Possess(this);
-        Player.Instance.inventory.inventoryUI.inventoryWindow.SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
         AnimationData.Initialize();
     }
@@ -114,10 +123,10 @@ public class PlayerCharacter : CharacterStatHandler
             }
             else
             {
-                // todo : 무기 없을 경우에 주먹?
+                EquipWeapon(emptyWeapon);
+                curWeapon.Init(this);
                 input.weaponActions.Disable();
             }
-            curWeapon.input_ = input;
         }
     }
 
@@ -222,6 +231,8 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public void Death()
     {
+        input.playerUIActions.Inventory.started -= Player.Instance.ToggleInventory;
+
         input = null;
         curWeapon.input_ = null;
         curWeapon.gameObject.SetActive(false);

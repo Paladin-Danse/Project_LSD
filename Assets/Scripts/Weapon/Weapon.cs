@@ -72,12 +72,20 @@ public class Weapon : MonoBehaviour
     public Animator animator;
     public WeaponAnimationData animationData;
 
+    public Weapon(ItemData data)
+    {
+        itemData = data;
+    }
+
     public void Init(PlayerCharacter playerCharacter)
     {
         playerCharacter_ = playerCharacter;
         
         animationData = new WeaponAnimationData();
         animationData.Initialize();
+
+        audioSource = GetComponent<AudioSource>();
+        //audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixer.FindMatchingGroups("Master")[0];
 
         WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
@@ -115,6 +123,11 @@ public class Weapon : MonoBehaviour
 
         isShotable = true;
         isSwap = false;
+    }
+
+    private void Start()
+    {
+        //audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixer.FindMatchingGroups("Master")[0];
     }
 
     private void Update()
@@ -233,8 +246,17 @@ public class Weapon : MonoBehaviour
 
     public void StopAction(ref IEnumerator coroutine)
     {
+        if (coroutine == null) return;
         StopCoroutine(coroutine);
         coroutine = null;
+    }
+
+    public void CancelReload()
+    {
+        StopAction(ref ReloadCoroutine);
+        animator.speed = 1;
+        animator.SetInteger(animationData.reloadParameterHash, -1);
+        stateMachine.ChangeState(stateMachine.ReadyState);
     }
 
     public IEnumerator Shot()

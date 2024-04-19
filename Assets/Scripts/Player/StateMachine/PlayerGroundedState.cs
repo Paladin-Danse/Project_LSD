@@ -25,21 +25,6 @@ public class PlayerGroundedState : PlayerBaseState
     {
         base.PhysicsUpdate();
     }
-    public override void AddInputActionsCallbacks()
-    {
-        base.AddInputActionsCallbacks();
-        PlayerInput input = stateMachine.player.input;
-        //Inventory
-        input.playerUIActions.Inventory.started += Player.Instance.inventory.Toggle;
-    }
-    public override void RemoveInputActionsCallbacks()
-    {
-        base.RemoveInputActionsCallbacks();
-        PlayerInput input = stateMachine.player.input;
-        //Inventory
-        input.playerUIActions.Inventory.started -= Player.Instance.inventory.Toggle;
-
-    }
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {
         if (stateMachine.MovementInput == Vector2.zero)
@@ -60,13 +45,6 @@ public class PlayerGroundedState : PlayerBaseState
     {
         stateMachine.ChangeState(stateMachine.WalkState);
     }
-
-    protected override void OnRun(InputAction.CallbackContext context)
-    {
-        base.OnRun(context);
-        stateMachine.ChangeState(stateMachine.RunState);
-    }
-
     protected override void OnJump(InputAction.CallbackContext callbackContext)
     {
         if(stateMachine.player.isJump)

@@ -34,8 +34,9 @@ public class UIController : MonoBehaviour
     }
 
     Stack<GameObject> uiStack = new Stack<GameObject>();
-    Dictionary<AssetReference, GameObject> uiCacheDic = new Dictionary<AssetReference, GameObject>();
+    Dictionary<string, GameObject> uiCacheDic = new Dictionary<string, GameObject>();
     PopUpUI popupUI;
+    public EUIShowMode currentShowMode { get; private set; }
 
     private void Awake()
     {
@@ -44,11 +45,11 @@ public class UIController : MonoBehaviour
 
     public void Push(string uiName, EUIShowMode eUIShowMode = EUIShowMode.Additive) 
     {
-        AssetReference assetReference = new AssetReference(uiName);
-        if (! uiCacheDic.TryGetValue(assetReference, out GameObject uiObject)) 
+        if (!uiCacheDic.TryGetValue(uiName, out GameObject uiObject)) 
         { 
-            uiObject = Addressables.InstantiateAsync(assetReference).WaitForCompletion();
-            uiCacheDic.Add(assetReference, uiObject);
+            uiObject = Addressables.InstantiateAsync(uiName).WaitForCompletion();
+            if (uiObject == null) return;
+            uiCacheDic.Add(uiName, uiObject);
             uiObject.transform.parent = this.transform;
         }
         
@@ -63,20 +64,54 @@ public class UIController : MonoBehaviour
         uiStack.Push(uiObject);
         uiObject.SetActive(true);
         uiObject.transform.parent = instance.transform;
+        currentShowMode = eUIShowMode;
     }
+
+    public bool Push<T>(string uiName, out T component, EUIShowMode eUIShowMode = EUIShowMode.Additive) where T : Component
+    {
+        component = null;
+
+        if (!uiCacheDic.TryGetValue(uiName, out GameObject uiObject))
+        {
+            uiObject = Addressables.InstantiateAsync(uiName).WaitForCompletion();
+            if (uiObject == null) return false;
+            uiCacheDic.Add(uiName, uiObject);
+            uiObject.transform.parent = this.transform;
+        }
+
+        if (eUIShowMode == EUIShowMode.Single)
+        {
+            if (uiStack.TryPeek(out GameObject gameObject))
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        uiStack.Push(uiObject);
+        uiObject.SetActive(true);
+        uiObject.transform.parent = instance.transform;
+
+        component = uiObject.GetComponent<T>();
+        currentShowMode = eUIShowMode;
+
+        if (component) return true;
+        return false;
+    }
+
 
     public void Pop() 
     {
-        if (uiStack.TryPeek(out GameObject gameObject))
+        if (uiStack.TryPeek(out GameObject go))
         {
-            gameObject.SetActive(false);
+            go.SetActive(false);
             Debug.Log("UIPOP!");
             uiStack.Pop();
         }
 
         if(uiStack.TryPeek(out GameObject next))
         {
-            gameObject.SetActive(true);
+            Debug.Log($"Next! : {next.name}");
+            next.SetActive(true);
         }
     }
 
@@ -85,6 +120,31 @@ public class UIController : MonoBehaviour
         if(uiStack.TryPeek(out GameObject gameObject))
             return gameObject;
         return null;
+    }
+
+    public bool Peek(out GameObject gameObject) 
+    {
+        gameObject = null;
+
+        if (uiStack.TryPeek(out GameObject obj)) 
+        {
+            gameObject = obj;
+            return true;
+        }
+        return false;
+    }
+
+    public bool Peek<T>(out T component) where T : Component
+    {
+        component = null;
+
+        if(Peek(out GameObject go)) 
+        {
+            component = go.GetComponent<T>();
+            return true;
+        }
+
+        return false;
     }
 
     public void Clear() 
@@ -96,8 +156,7 @@ public class UIController : MonoBehaviour
 
         foreach(var i in uiCacheDic) 
         {
-            i.Key.ReleaseInstance(i.Value);
-            i.Key.ReleaseAsset();
+            Destroy(i.Value);
         }
 
         uiCacheDic.Clear();

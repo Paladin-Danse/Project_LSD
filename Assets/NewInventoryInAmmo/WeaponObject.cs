@@ -22,7 +22,7 @@ public class WeaponObject : MonoBehaviour, IInteractable
 
     public void OnInteract(Player player)
     {
-        //Inventory.instance.AddWeapon(weapon); // 인벤토리에 아이템 추가하기
+        //player.inventory.AddWeapon(weapon); // 인벤토리에 아이템 추가하기
         Destroy(gameObject); // 아이템 제거
     }
 }

@@ -8078,7 +8078,7 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: e1f76517584835144ab2c4a74190996c, type: 2}
   WeaponName: 
   isAuto: 0
   isFiring: 0
@@ -29145,7 +29145,6 @@ GameObject:
   - component: {fileID: 471352814829507996}
   - component: {fileID: 5159636668725104728}
   - component: {fileID: 6353203035049000009}
-  - component: {fileID: 4499120120198454047}
   - component: {fileID: 6650133871354668617}
   - component: {fileID: 3614651846814163041}
   m_Layer: 3
@@ -29321,6 +29320,7 @@ MonoBehaviour:
   weaponStatHandler: {fileID: 0}
   primaryWeapon: {fileID: 5020570232269595741}
   secondaryWeapon: {fileID: 1584354137709281357}
+  emptyWeapon: {fileID: 0}
 --- !u!114 &6793288105693867886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29437,28 +29437,6 @@ MonoBehaviour:
   _maxHealth: 100000
   curHealth: 0
   _regenHealth: 0
---- !u!114 &4499120120198454047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7557859198692815484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a75b21fa77e09794abb2a6ad97a80de9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
-  slotParent: {fileID: 0}
-  inventorySO: {fileID: 11400000, guid: 6f334e0f804539f46aa359a94257c58b, type: 2}
-  dropPosition: {fileID: 5063741124102798547}
-  onOpenInventory:
-    m_PersistentCalls:
-      m_Calls: []
-  onCloseInventory:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6650133871354668617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36986,7 +36964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &786136159282727775
 Transform:
   m_ObjectHideFlags: 0
@@ -37158,7 +37136,7 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 1047747ffdec87741bd25764d7df7032, type: 2}
   WeaponName: 
   isAuto: 1
   isFiring: 0
@@ -37880,6 +37858,10 @@ PrefabInstance:
     - target: {fileID: 6679922790029640637, guid: 1f60a7a33d1eead4289aa4c45ff4fb50, type: 3}
       propertyPath: m_Name
       value: HUDCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679922790029640637, guid: 1f60a7a33d1eead4289aa4c45ff4fb50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6700949550714219242, guid: 1f60a7a33d1eead4289aa4c45ff4fb50, type: 3}
       propertyPath: m_IsActive

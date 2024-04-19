@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DungeonEntranceObject : MonoBehaviour, IInteractable
 {
-    public GameObject dungeonSelectedUI;
-    public bool isDungeonSelectedUI = false;
     public string GetInteractPrompt()
     {
         return string.Format("´øÀü Ã¢ ¿ÀÇÂ");
@@ -13,15 +11,7 @@ public class DungeonEntranceObject : MonoBehaviour, IInteractable
 
     public void OnInteract(Player player)
     {
-        dungeonSelectedUI.SetActive(true);
-        isDungeonSelectedUI = true;
-        Cursor.lockState = CursorLockMode.Confined;
-    }
-
-    public void OffDungeonSelectedUI()
-    {
-        dungeonSelectedUI.SetActive(false);
-        isDungeonSelectedUI = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        UIController.Instance.Push("DungeonSelectCanvas", EUIShowMode.Single);
+        Player.Instance.OnControllUI();
     }
 }

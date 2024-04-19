@@ -18,4 +18,18 @@ public class PlayerAirState : PlayerBaseState
         base.Move();
         stateMachine.player.JumpMove();
     }
+    public override void AddInputActionsCallbacks()
+    {
+        base.AddInputActionsCallbacks();
+        PlayerInput input = stateMachine.player.input;
+        //Inventory
+        input.playerUIActions.Disable();
+    }
+    public override void RemoveInputActionsCallbacks()
+    {
+        base.RemoveInputActionsCallbacks();
+        PlayerInput input = stateMachine.player.input;
+        //Inventory
+        input.playerUIActions.Enable();
+    }
 }

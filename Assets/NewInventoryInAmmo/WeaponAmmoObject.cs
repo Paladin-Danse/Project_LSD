@@ -7,6 +7,7 @@ using UnityEngine;
 /// <summary> 탄약 종류 </summary>
 public enum AmmoType
 {
+    None = 0,
     Rifle, // 라이플
     Pistol, // 피스톨
 }
