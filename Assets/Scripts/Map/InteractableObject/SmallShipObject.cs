@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SmallShipObject : MonoBehaviour, IInteractable
 {
-    public GameObject dungeonCompletePanel;
-
     public string GetInteractPrompt()
     {
         return string.Format("던전 결과창 열기");
@@ -13,8 +11,7 @@ public class SmallShipObject : MonoBehaviour, IInteractable
 
     public void OnInteract(Player player)
     {
-        DungeonManager.Instance.missionBoard.DungeonCompletePanel.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        //ObjectPoolManager.Instance.TryPush(this.gameObject);
+        UIController.Instance.Push("DungeonCompleteUI", EUIShowMode.Single);
+        Player.Instance.OnControllUI();
     }
 }

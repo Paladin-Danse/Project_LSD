@@ -31,11 +31,13 @@ public class IntroSceneManager : MonoBehaviour
         Debug.Log("스토리 애니메이션 종료");
         nextButton.SetActive(true);
         skipButton.SetActive(false);
+        SceneLoader.Instance.LoadScene(Defines.EScene.SafeZone);
     }
 
     public void SkipButton()
     {
         animator.SetTrigger("Skip");
+        SceneLoader.Instance.LoadScene(Defines.EScene.SafeZone);
     }
 
     public void GameStart()

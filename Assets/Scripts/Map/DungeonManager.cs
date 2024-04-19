@@ -23,7 +23,6 @@ public class DungeonManager : MonoBehaviour
     [HideInInspector] public float totalDamage = 0;
     [HideInInspector] public float receivedDamage = 0;
     [HideInInspector] public int earnGold = 0;
-    [HideInInspector] public DungeonMissionBoard missionBoard;
 
     private void Awake()
     {
@@ -37,7 +36,6 @@ public class DungeonManager : MonoBehaviour
         //        Destroy(this.gameObject);
         //}
 
-        missionBoard = FindObjectOfType<DungeonMissionBoard>();
         dungeonMapPrefab = dungeons[selectedDungeonKeep.mapNumber].Ddata.dungeonPrefab;
         questId_add = dungeons[selectedDungeonKeep.mapNumber].Ddata.QuestID;
         missionTime = 0f;

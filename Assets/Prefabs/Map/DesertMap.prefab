@@ -10303,7 +10303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8532205300856355151
 Transform:
   m_ObjectHideFlags: 0
@@ -21237,6 +21237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 988728435300537440}
   - component: {fileID: 7478867445176322682}
+  - component: {fileID: -6529800768092198551}
   m_Layer: 0
   m_Name: DesertMap
   m_TagString: Untagged
@@ -21312,7 +21313,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <spawnPoint>k__BackingField: {fileID: 3365060713100581155}
-  <clearObject>k__BackingField: {fileID: 7865626979760035926}
+--- !u!114 &-6529800768092198551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888475042204524659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fcee128f3580e4ebb342455dfaff55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <spawnPoint>k__BackingField: {fileID: 3365060713100581155}
+  clearObject: {fileID: 0}
 --- !u!1 &4921065883261769181
 GameObject:
   m_ObjectHideFlags: 0
@@ -27200,7 +27214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4a2a362640c4541a2a5b7cc46f4135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonCompletePanel: {fileID: 6224698545542259845, guid: 63d3d4f86d77f00488ca3290c7088dd8, type: 3}
 --- !u!65 &8643746475960534070
 BoxCollider:
   m_ObjectHideFlags: 0
