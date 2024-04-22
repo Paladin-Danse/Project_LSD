@@ -165,19 +165,7 @@ public class PlayerCharacter : CharacterStatHandler
         jumpDirection = stateMachine.player.GetMovementDirection();
         jumpSpeed = stateMachine.player.GetMovementSpeed();
     }
-    //InputAction Event
-    public void Rotate(InputAction.CallbackContext callbackContext)
-    {
-        Vector2 rotateDirection = callbackContext.ReadValue<Vector2>();
-        float recoil = curWeapon ? curWeapon.curRecoil : 0f;
 
-        camXRotate += rotateDirection.y * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime * -1;
-        camXRotate = Mathf.Clamp(camXRotate, -Data.UpdownMaxAngle, Data.UpdownMaxAngle);
-        stateMachine.playerYRotate += rotateDirection.x * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime;
-
-        playerCamTransform.localRotation = Quaternion.Euler(new Vector3(camXRotate - recoil, 0, 0));
-        rigidbody_.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
-    }
     public void Rotate()
     {
         Vector2 rotateDirection = input.playerActions.Look.ReadValue<Vector2>();
