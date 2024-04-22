@@ -13,7 +13,7 @@ using UnityEngine.AddressableAssets;
 
 public interface IObjectCrash
 {
-    void TakeAmmoItemColliderCrash(AmmoType ammoType, int count);
+    void TakeAmmoItemColliderCrash(int percent);
 }
 
 // 아이템 슬롯 클래스
@@ -101,10 +101,13 @@ public class Inventory : MonoBehaviour, IObjectCrash
     }
 
     [System.Obsolete]
-    public void TakeAmmoItemColliderCrash(AmmoType ammoType, int count)
+    public void TakeAmmoItemColliderCrash(int percent)
     {
-        inventoryAmmo[ammoType] += count;
-        if (inventoryAmmo[ammoType] > inventorySO.maxAmmo[ammoType]) inventoryAmmo[ammoType] = inventorySO.maxAmmo[ammoType];
+        AmmoType primaryWeaponAmmo = Player.Instance.playerCharacter.primaryWeapon.baseStat.e_useAmmo;
+        AmmoType secondaryWeaponAmmo = Player.Instance.playerCharacter.secondaryWeapon.baseStat.e_useAmmo;
+
+        inventoryAmmo[primaryWeaponAmmo] = math.min(inventorySO.maxAmmo[primaryWeaponAmmo] * (int)(percent * 0.01f), inventorySO.maxAmmo[primaryWeaponAmmo]);
+        inventoryAmmo[secondaryWeaponAmmo] = math.min(inventorySO.maxAmmo[secondaryWeaponAmmo] * (int)(percent * 0.01f), inventorySO.maxAmmo[secondaryWeaponAmmo]);
 
         if (inventoryUI.gameObject.active) // 인벤토리를 열고있다면
         {
