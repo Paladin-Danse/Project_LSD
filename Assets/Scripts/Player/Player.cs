@@ -63,15 +63,15 @@ public class Player : MonoBehaviour
         // playerCharacter.OnPossessCharacter에서 Inventory 정보를 받아와서 무기 장착 할 것
         OnControllCharacter();
 
-        // temp codes
-        if(UIController.Instance.Push<PlayerUI>("HUDCanvas", out playerUI)) 
-        {
-            playerUI.BindPlayerCharacter(playerCharacter);
-        }
         if (UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui))
         {
             inventory.Init(inventoryui);
             UIController.Instance.Pop();
+        }
+        // temp codes
+        if (UIController.Instance.Push<PlayerUI>("HUDCanvas", out playerUI)) 
+        {
+            playerUI.BindPlayerCharacter(playerCharacter);
         }
     }
 
