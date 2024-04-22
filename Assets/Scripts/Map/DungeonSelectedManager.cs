@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
@@ -17,8 +18,7 @@ public class DungeonSelectedManager : MonoBehaviour
     public GameObject dungeonEntrancePanel;
     public TextMeshProUGUI dungeonNameOfPanel;
     public Dungeon[] SelectedDungeon; 
-    public RectTransform tooltipRectTransform;
-    public RectTransform backgroundRectTransform;
+    public RectTransform tooltipRectTransform;    
 
     private void Update()
     {
@@ -43,10 +43,18 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
+        //Player.Instance.UnPossess();
         UIController.Instance.Pop();
-        SceneLoader.Instance.LoadScene(Defines.EScene.Dungeon);
-
+        UIController.Instance.Pop();
+        CutSceneManager.Instance.playableDirector.Play();        
+        Invoke("LoadScene", 12f);
     }
+
+    void LoadScene()
+    {        
+        SceneLoader.Instance.LoadScene(Defines.EScene.Dungeon);
+    }
+
     public void CloseDungeonSelectUI() 
     {
         UIController.Instance.Pop();
