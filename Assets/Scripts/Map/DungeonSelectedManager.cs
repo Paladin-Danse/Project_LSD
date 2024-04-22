@@ -29,8 +29,11 @@ public class DungeonSelectedManager : MonoBehaviour
     public void OnDungeonEntrancePanel(int dungeonNum)
     {
         dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].Ddata.dungeonName;
-        dungeonEntrancePanel.SetActive(true);
-        SelectedDungeonContext.Instance.selectedDungeon = SelectedDungeon[dungeonNum].Ddata.dungeonPrefab;
+        if(SelectedDungeon[dungeonNum].Ddata.QuestID != 0)
+            dungeonEntrancePanel.SetActive(true);
+        else
+            dungeonEntrancePanel.SetActive(false);
+        SelectedDungeonContext.Instance.selectedDungeonData = SelectedDungeon[dungeonNum].Ddata;
     }
 
     public void OffDungeonEntrancePanel()

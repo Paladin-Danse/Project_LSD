@@ -31,7 +31,7 @@ public class DungeonSceneManager : SceneManagerBase
     {
         // SceneLoader.Instance.loadingCanvasController.SetProgressText("¸Ê ·Îµù Áß");
 
-        map = GameObject.Instantiate(SelectedDungeonContext.Instance.selectedDungeon).GetComponent<Map>();
+        map = GameObject.Instantiate(SelectedDungeonContext.Instance.selectedDungeonData.dungeonPrefab).GetComponent<Map>();
 
         // SceneLoader.Instance.loadingCanvasController.SetProgressText("¸Ê ·Îµù ¿Ï·á");
     }
@@ -75,5 +75,7 @@ public class DungeonSceneManager : SceneManagerBase
         base.OnUnloadScene();
         ObjectPoolManager.Instance.ClearPools();
         UIController.Instance.Clear();
+        Player.Instance.SaveData();
+        Player.Instance.UnPossess();
     }
 }

@@ -74,11 +74,12 @@ public class Inventory : MonoBehaviour, IObjectCrash
             inventoryUI?.MoneyUI_Update();
         }
     }
-    //public PlayerCharacter character{ get; private set; }
-
-    void Awake()
+    
+    public void Init(InventoryUI _inventoryUI)
     {
-        if(inventorySO == null) 
+        inventoryUI = _inventoryUI;
+
+        if (inventorySO == null)
         {
             inventorySO = Addressables.LoadAssetAsync<InventoryData>("DefaultInventoryData").WaitForCompletion();
         }
@@ -87,30 +88,16 @@ public class Inventory : MonoBehaviour, IObjectCrash
         _playerMaxMoney = inventorySO.maxMoney;
 
         foreach (AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
-            inventoryAmmo.Add(ammo, 0);
+        {
+            if (ammo == AmmoType.None) continue;
+            else if (!inventoryAmmo.ContainsKey(ammo))
+                inventoryAmmo.Add(ammo, inventorySO.maxAmmo[ammo]);
+        }
+        money += inventorySO.playerStartMoney;
 
-        //Init(inventoryUI);
-    }
-
-    public void Init(InventoryUI _inventoryUI)
-    {
-        Debug.Log(inventoryUI);
         inventoryUI.Init(this);
 
         dropPosition = Player.Instance.playerCharacter.transform.Find("DropPosition");
-    }
-
-    private void Start()
-    {
-        foreach (AmmoType ammo in Enum.GetValues(typeof(AmmoType)))
-        {
-            if(ammo != AmmoType.None)
-                inventoryAmmo[ammo] = inventorySO.maxAmmo[ammo];
-        }
-
-        money += inventorySO.playerStartMoney;
-        //ClearSeletecItemWindow();
-        // inventoryUI.gameObject.SetActive(false); // 인벤토리 꺼두기
     }
 
     [System.Obsolete]
@@ -140,34 +127,27 @@ public class Inventory : MonoBehaviour, IObjectCrash
         return inventoryAmmo[ammoType];
     }
 
-
-
-    public void AddWeapon(Weapon weapon)
+    public void AddWeapon(ItemData itemData, WeaponStat weaponStat)
     {
-        if (Player.Instance.playerCharacter.primaryWeapon == null || Player.Instance.playerCharacter.primaryWeapon == null)
-        {
-            Player.Instance.playerCharacter.InventoryWeaponEquip(weapon);
-        }
-        else
-        {
-            AddItem(weapon.itemData);
-        }
+        if (!Player.Instance.playerCharacter.InventoryWeaponEquip(weaponStat))
+            AddItem(itemData, weaponStat);
     }
 
     // 인벤토리에 아이템 추가
-    public void AddItem(ItemData item)
+    public void AddItem(ItemData itemdata, WeaponStat _weaponStat)
     {
-        ItemSlot emptySlot = inventoryUI.GetEmptySlot(); // 비어있는 아이템 슬롯 찾기
+        ItemSlotUI emptySlot = inventoryUI.GetEmptySlot(); // 비어있는 아이템 슬롯 찾기
 
         if (emptySlot != null) // 비어있는 슬롯이 있다면
         {
-            emptySlot.data = item;
+            emptySlot.Set(itemdata, _weaponStat);
             inventoryUI.UpdateSlotUI();
             return;
         }
 
-        ThrowItem(item); // 인벤토리가 꽉 찼다면 버리기
+        ThrowItem(itemdata); // 인벤토리가 꽉 찼다면 버리기
     }
+    //public void AddItem(ItemData item, Equipment equipment)
 
     // 아이템 버림
     void ThrowItem(ItemData item)
@@ -187,24 +167,24 @@ public class Inventory : MonoBehaviour, IObjectCrash
     }
 
     // 아이템 착용
-    public void OnEquip()
+    public bool OnEquip(WeaponStat weaponStat)
     {
-
+        return Player.Instance.playerCharacter.InventoryWeaponEquip(weaponStat);
     }
 
     // 아이템 착용해제
     public void UnEquip(int index)
     {
-        ItemData unEquipItem;
+        WeaponSlotUI unEquipItem;
 
         switch (index)
         {
             case 1:
-                unEquipItem = inventoryUI.weaponSlotUI1.weaponItemData;
+                unEquipItem = inventoryUI.weaponSlotUI1;
                 Player.Instance.playerCharacter.InventoryWeaponUnequip(true);
                 break;
             case 2:
-                unEquipItem = inventoryUI.weaponSlotUI2.weaponItemData;
+                unEquipItem = inventoryUI.weaponSlotUI2;
                 Player.Instance.playerCharacter.InventoryWeaponUnequip(false);
                 break;
             default:
@@ -214,7 +194,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
         if(unEquipItem)
         {
-            AddItem(unEquipItem);
+            AddItem(unEquipItem.weaponItemData, unEquipItem.weaponData.baseStat);
         }
     }
 

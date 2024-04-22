@@ -27,8 +27,9 @@ public class InventoryUI : MonoBehaviour
     public TextMeshProUGUI rifleAmmoCountText;
     public TextMeshProUGUI pistolAmmoCountText;
     
-    public Transform AmmoSlots;
     /*
+    public Transform AmmoSlots;
+    
     public GameObject AmmoSlotUI;
     public Dictionary<AmmoType, TextMeshProUGUI> AmmoCountText;
     */
@@ -44,6 +45,9 @@ public class InventoryUI : MonoBehaviour
             PlayerCharacter character = Player.Instance.playerCharacter;
             WeaponSlotUI_Update();
         }
+
+        weaponSlotUI1?.button.onClick.RemoveAllListeners();
+        weaponSlotUI2?.button.onClick.RemoveAllListeners();
 
         weaponSlotUI1?.button.onClick.AddListener(() => _inventory.UnEquip(1));
         weaponSlotUI1?.button.onClick.AddListener(weaponSlotUI1.Clear);
@@ -75,6 +79,7 @@ public class InventoryUI : MonoBehaviour
         UI_All_Update += MoneyUI_Update;
         UI_All_Update += WeaponSlotUI_Update;
 
+        UI_All_Update?.Invoke();
         /*위와 마찬가지의 이유로 다른 탄이 추가되었을 때 Dictionary 변수에 Text를 저장하는 용도로 사용하기 위해 만듦.
         다만 위와 마찬가지로 현재 방식을 사용한 채로 8개 가량의 탄을 모두 인스펙터에서 관리한다면 둘 다 지울 것을 추천.
         foreach (AmmoType type in Enum.GetValues(typeof(AmmoType)))
@@ -110,11 +115,13 @@ public class InventoryUI : MonoBehaviour
     {
         if (Player.Instance.playerCharacter.primaryWeapon != null)
         {
-            weaponSlotUI1.UI_Update(Player.Instance.playerCharacter.primaryWeapon.itemData);
+            weaponSlotUI1.InputData(Player.Instance.playerCharacter.primaryWeapon);
+            weaponSlotUI1.UI_Update();
         }
         if (Player.Instance.playerCharacter.secondaryWeapon != null)
         {
-            weaponSlotUI2.UI_Update(Player.Instance.playerCharacter.secondaryWeapon.itemData);
+            weaponSlotUI2.InputData(Player.Instance.playerCharacter.secondaryWeapon);
+            weaponSlotUI2.UI_Update();
         }
     }
     public void SelectedItemUI_Update(ItemSlot item)
@@ -151,12 +158,12 @@ public class InventoryUI : MonoBehaviour
     }
 
     // 비어있는 아이템 슬롯 가져오기
-    public ItemSlot GetEmptySlot()
+    public ItemSlotUI GetEmptySlot()
     {
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].itemSlot.isEmpty)
-                return slots[i].itemSlot;
+                return slots[i];
         }
 
         return null;

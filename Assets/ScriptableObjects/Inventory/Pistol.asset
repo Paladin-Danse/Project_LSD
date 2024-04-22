@@ -15,5 +15,6 @@ MonoBehaviour:
   displayName: "\uAD8C\uCD1D"
   description: 
   type: 0
-  icon: {fileID: 21300000, guid: 9c0e52206557b2c4495608edb942218f, type: 3}
+  iconSprite: {fileID: 21300000, guid: 9c0e52206557b2c4495608edb942218f, type: 3}
+  FP_Object: {fileID: 500735882833398007, guid: 8fd8dd664c9c2d340b1df780497f5fb4, type: 3}
   dropPrefab: {fileID: 4358069183842237544, guid: 022182abf266d4ac2ab7d573397c463e, type: 3}
