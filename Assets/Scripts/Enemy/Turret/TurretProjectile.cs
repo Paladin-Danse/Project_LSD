@@ -16,42 +16,42 @@ public class TurretProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {        
-        if (other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
-        {
-            ExplosionDamage(transform.position, explosionRadius, layerMask, damage);
-            Destroy(gameObject);
-            int per = Random.Range(0, 99);
-            if (per < 25)
-            {
-                GameObject B1 = Instantiate(Boom1, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
-                ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
-                this.Boom = B1_Effect;
-                Destroy(B1, 2f);
-            }
-            else if (per >= 25 && per < 50)
-            {
-                GameObject B2 = Instantiate(Boom2, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
-                ParticleSystem B2_Effect = B2.GetComponent<ParticleSystem>();
-                this.Boom = B2_Effect;
-                Destroy(B2, 2f);
-            }
-            else if (per >= 50 && per < 75)
-            {
-                GameObject B3 = Instantiate(Boom3, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
-                ParticleSystem B3_Effect = B3.GetComponent<ParticleSystem>();
-                this.Boom = B3_Effect;
-                Destroy(B3, 2f);
-            }
-            else if (per >= 75)
-            {
-                GameObject B4 = Instantiate(Boom4, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
-                ParticleSystem B4_Effect = B4.GetComponent<ParticleSystem>();
-                this.Boom = B4_Effect;
-                Destroy(B4, 2f);
-            }
-            Boom.Play();
-        }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        //if (other.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+        //{
+        //    ExplosionDamage(transform.position, explosionRadius, layerMask, damage);
+        //    Destroy(gameObject);
+        //    int per = Random.Range(0, 99);
+        //    if (per < 25)
+        //    {
+        //        GameObject B1 = Instantiate(Boom1, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
+        //        ParticleSystem B1_Effect = B1.GetComponent<ParticleSystem>();
+        //        this.Boom = B1_Effect;
+        //        Destroy(B1, 2f);
+        //    }
+        //    else if (per >= 25 && per < 50)
+        //    {
+        //        GameObject B2 = Instantiate(Boom2, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
+        //        ParticleSystem B2_Effect = B2.GetComponent<ParticleSystem>();
+        //        this.Boom = B2_Effect;
+        //        Destroy(B2, 2f);
+        //    }
+        //    else if (per >= 50 && per < 75)
+        //    {
+        //        GameObject B3 = Instantiate(Boom3, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
+        //        ParticleSystem B3_Effect = B3.GetComponent<ParticleSystem>();
+        //        this.Boom = B3_Effect;
+        //        Destroy(B3, 2f);
+        //    }
+        //    else if (per >= 75)
+        //    {
+        //        GameObject B4 = Instantiate(Boom4, transform.position + new Vector3(-2.5f, 0, -2.5f), Quaternion.identity);
+        //        ParticleSystem B4_Effect = B4.GetComponent<ParticleSystem>();
+        //        this.Boom = B4_Effect;
+        //        Destroy(B4, 2f);
+        //    }
+        //    Boom.Play();
+        //}
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<Health>().TakeDamage(damage);
             ExplosionDamage(transform.position, explosionRadius, layerMask, damage);
