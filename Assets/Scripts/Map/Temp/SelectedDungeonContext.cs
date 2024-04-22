@@ -22,7 +22,8 @@ public class SelectedDungeonContext : MonoBehaviour
             return instance;
         }
     }
-    public GameObject selectedDungeon;
+
+    public DungeonData selectedDungeonData;
 
     private void Awake()
     {
