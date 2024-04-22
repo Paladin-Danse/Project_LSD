@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class Weapon : MonoBehaviour
 {
@@ -171,16 +172,14 @@ public class Weapon : MonoBehaviour
     }
     public Vector3 GetRaycastHitPosition()
     {
-        Camera curCam = playerCharacter_.FPCamera;
+        Transform camTransform = playerCharacter_.playerCamTransform;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
-        Vector3 centerWorldPos = curCam.ScreenToWorldPoint(centerPos);
+        Vector3 centerPos = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, math.abs(firePos.position.z - camTransform.position.z));
+        Vector3 centerWorldPos = Camera.main.ScreenToWorldPoint(centerPos);
 
-        Ray shotRay = new Ray(centerWorldPos, curCam.transform.forward + RandomSpread());
-        Debug.DrawRay(shotRay.origin, curCam.transform.forward + RandomSpread(), Color.red, rayDistance);
+        Ray shotRay = new Ray(centerWorldPos, camTransform.forward + RandomSpread());
+        Debug.DrawRay(shotRay.origin, camTransform.forward + RandomSpread(), Color.red, rayDistance);
 
-        //return shotRay.GetPoint(rayDistance);
-        
         RaycastHit hit;
         Vector3 hitPos;
 
@@ -208,7 +207,6 @@ public class Weapon : MonoBehaviour
         input_ = playerCharacter_.input;
         if(Cursor.lockState == CursorLockMode.Locked) input_.weaponActions.Enable();
         stateMachine.ChangeState(stateMachine.EnterState);
-        //stateMachine.currentState.AddInputActionsCallbacks();
     }
     public void CurrentWeaponUnEquip()
     {
