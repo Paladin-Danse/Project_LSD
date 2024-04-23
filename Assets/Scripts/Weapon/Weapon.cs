@@ -366,6 +366,7 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
 
+        isSwap = false;
         TakeCoroutine = null;
         gameObject.SetActive(false);
     }

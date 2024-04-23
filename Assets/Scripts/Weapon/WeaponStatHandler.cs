@@ -28,6 +28,8 @@ public class WeaponStatHandler : StatHandlerBase<WeaponStat>
 
     public void UnequipWeapon() 
     {
+        if (curWeapon == null) return;
+
         foreach (Mod mod in curWeapon.mods)
         {
             statModifiers.Remove(mod.modStat);
