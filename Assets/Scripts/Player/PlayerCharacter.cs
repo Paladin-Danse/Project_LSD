@@ -329,7 +329,6 @@ public class PlayerCharacter : CharacterStatHandler
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
         weapon.CurrentWeaponUnEquip();
         weapon.input_ = null;
-        OnWeaponSwapped?.Invoke();
     }
     public float GetMovementSpeed()
     {
