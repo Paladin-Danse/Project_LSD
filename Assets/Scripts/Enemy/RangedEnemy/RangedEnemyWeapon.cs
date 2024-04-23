@@ -45,14 +45,19 @@ public class RangedEnemyWeapon : MonoBehaviour
     }    
 
     IEnumerator Shot()
-    {        
-        GameObject instantProjectile = Instantiate(projectilePrefab, muzzlePos.position, muzzlePos.rotation);
+    {
+        EnemyProjectile instantProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<EnemyProjectile>();
+        instantProjectile.transform.position = muzzlePos.position;
+        instantProjectile.transform.forward = muzzlePos.forward;        
+
         Rigidbody projectileRigid = instantProjectile.GetComponent<Rigidbody>();
         projectileRigid.velocity = muzzlePos.forward * projectileSpeed;        
         rangedEnemy.Projectile = instantProjectile.GetComponent<EnemyProjectile>();
         rangedEnemy.Projectile.InitProjectile(this);
+        
         yield return WFS;               
     }
+
 
     void UpdateTarget()
     {

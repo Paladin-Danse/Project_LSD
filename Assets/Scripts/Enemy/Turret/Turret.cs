@@ -32,7 +32,10 @@ public class Turret : MonoBehaviour
     public AudioClip downSound;
     Health health;
 
-    public TurretProjectile t_Projectile { get; set; }
+    public TurretProjectile t_Projectile1 { get; set; }
+    public TurretProjectile t_Projectile2 { get; set; }
+    public TurretProjectile t_Projectile3 { get; set; }
+    public TurretProjectile t_Projectile4 { get; set; }
 
     private void Awake()
     {
@@ -113,10 +116,21 @@ public class Turret : MonoBehaviour
 
     IEnumerator TShot()
     {
-        GameObject instantProjectile1 = Instantiate(turretProjectile, t_MuzzlePos1.position, t_MuzzlePos1.rotation);
-        GameObject instantProjectile2 = Instantiate(turretProjectile, t_MuzzlePos2.position, t_MuzzlePos2.rotation);
-        GameObject instantProjectile3 = Instantiate(turretProjectile, t_MuzzlePos3.position, t_MuzzlePos3.rotation);
-        GameObject instantProjectile4 = Instantiate(turretProjectile, t_MuzzlePos4.position, t_MuzzlePos4.rotation);
+        TurretProjectile instantProjectile1 = ObjectPoolManager.Instance.Pop(turretProjectile).GetComponent<TurretProjectile>();
+        instantProjectile1.transform.position = t_MuzzlePos1.position;
+        instantProjectile1.transform.forward = t_MuzzlePos1.forward;
+
+        TurretProjectile instantProjectile2 = ObjectPoolManager.Instance.Pop(turretProjectile).GetComponent<TurretProjectile>();
+        instantProjectile2.transform.position = t_MuzzlePos2.position;
+        instantProjectile2.transform.forward = t_MuzzlePos2.forward;
+
+        TurretProjectile instantProjectile3 = ObjectPoolManager.Instance.Pop(turretProjectile).GetComponent<TurretProjectile>();
+        instantProjectile3.transform.position = t_MuzzlePos3.position;
+        instantProjectile3.transform.forward = t_MuzzlePos3.forward;
+
+        TurretProjectile instantProjectile4 = ObjectPoolManager.Instance.Pop(turretProjectile).GetComponent<TurretProjectile>();
+        instantProjectile4.transform.position = t_MuzzlePos4.position;
+        instantProjectile4.transform.forward = t_MuzzlePos4.forward;        
 
         GameObject particle1 = Instantiate(muzzleShotPar, t_MuzzlePos1.position, t_MuzzlePos1.rotation);
         GameObject particle2 = Instantiate(muzzleShotPar, t_MuzzlePos2.position, t_MuzzlePos2.rotation);
@@ -133,10 +147,10 @@ public class Turret : MonoBehaviour
         projectileRigid3.velocity = t_MuzzlePos3.forward * t_ProjectileSpeed;
         projectileRigid4.velocity = t_MuzzlePos4.forward * t_ProjectileSpeed;
 
-        t_Projectile = instantProjectile1.GetComponent<TurretProjectile>();
-        t_Projectile = instantProjectile2.GetComponent<TurretProjectile>();
-        t_Projectile = instantProjectile3.GetComponent<TurretProjectile>();
-        t_Projectile = instantProjectile4.GetComponent<TurretProjectile>();
+        t_Projectile1 = instantProjectile1.GetComponent<TurretProjectile>();
+        t_Projectile2 = instantProjectile2.GetComponent<TurretProjectile>();
+        t_Projectile3 = instantProjectile3.GetComponent<TurretProjectile>();
+        t_Projectile4 = instantProjectile4.GetComponent<TurretProjectile>();
 
         audioSource.PlayOneShot(t_ShotSound);
         audioSource.PlayOneShot(t_ShotSound);
@@ -148,7 +162,10 @@ public class Turret : MonoBehaviour
         Destroy(particle3, 0.5f);
         Destroy(particle4, 0.5f);
 
-        t_Projectile.TInitProjectile(this);
+        t_Projectile1.TInitProjectile(this);
+        t_Projectile2.TInitProjectile(this);
+        t_Projectile3.TInitProjectile(this);
+        t_Projectile4.TInitProjectile(this);
 
         yield return null;
     }
