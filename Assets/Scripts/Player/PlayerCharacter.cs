@@ -282,7 +282,6 @@ public class PlayerCharacter : CharacterStatHandler
         if (curWeapon == null)
         {
             EquipWeapon(weapon);
-            Player.Instance.playerUI.weaponUI.BindUI(this);
         }
         return true;
     }
@@ -293,7 +292,6 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
-                Player.Instance.playerUI.weaponUI.UnbindUI();
                 //EquipWeapon(emptyWeapon);
                 curWeapon = null;
             }
@@ -304,7 +302,6 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
-                Player.Instance.playerUI.weaponUI.UnbindUI();
                 //EquipWeapon(emptyWeapon);
                 curWeapon = null;
             }
@@ -362,7 +359,6 @@ public class PlayerCharacter : CharacterStatHandler
         if (curWeapon)
         {
             UnequipWeapon(curWeapon);
-            Player.Instance.playerUI.weaponUI.UnbindUI();
             while (curWeapon.gameObject.activeSelf)
             {
                 yield return null;
