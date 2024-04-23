@@ -35,9 +35,9 @@ public class LoadingSceneManager : MonoBehaviour
             {
                 ChangeProgressText("¾À ·Îµù ¿Ï·á");
                 RefreshProgressUI(1.0f);
-                asyncOperation.allowSceneActivation = true;
                 yield return YieldCacher.WaitForSeconds(1.0f);
                 UIController.Instance.Pop();
+                asyncOperation.allowSceneActivation = true;
             }
 
             yield return null;
