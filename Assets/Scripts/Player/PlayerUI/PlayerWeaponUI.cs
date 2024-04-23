@@ -18,18 +18,12 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
         playerCharacter = character;
         SetWeapon(playerCharacter.curWeapon);
         playerCharacter.OnWeaponChanged += SetWeapon;
-        playerWeaponImage.sprite = playerCharacter.curWeapon.itemData.iconSprite;
-        playerWeaponImage.enabled = true;
         RefreshUI(playerCharacter.curWeapon);
     }
 
     public void UnbindUI()
     {
         playerCharacter.OnWeaponChanged -= SetWeapon;
-        playerWeaponImage.sprite = null;
-        playerWeaponImage.enabled = false;
-        RefreshUI();
-        
     }
 
     public void RefreshUI() 
