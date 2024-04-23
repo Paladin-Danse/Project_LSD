@@ -16,7 +16,6 @@ public class GunExitState : GunBaseState
     }
     public override void Exit()
     {
-        stateMachine.gun.isSwap = false;
         base.Exit();
     }
     public override void Update()

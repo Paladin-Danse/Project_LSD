@@ -53,13 +53,13 @@ public class PlayerCharacter : CharacterStatHandler
 
     public Action<PlayerStateMachine> SetWeaponEvent;
     public Action OnWeaponSwapped;
-
     [SerializeField]
     public Weapon primaryWeapon;
     [SerializeField]
     public Weapon secondaryWeapon;
     [SerializeField]
     public Weapon emptyWeapon;
+    public bool isPrimary = true;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
@@ -108,8 +108,10 @@ public class PlayerCharacter : CharacterStatHandler
         if (stateMachine.currentState == null)
             stateMachine.ChangeState(stateMachine.IdleState);
 
+        //emptyWeapon.Init(this);
         if (primaryWeapon) primaryWeapon.Init(this);
         if (secondaryWeapon) secondaryWeapon.Init(this);
+        
 
         if (curWeapon == null)
         {
@@ -180,7 +182,9 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public void WeaponSwap()
     {
-        if(primaryWeapon != null && secondaryWeapon != null && SwapCoroutine == null && !curWeapon.isSwap)
+        Weapon swappingWeapon = isPrimary ? secondaryWeapon : primaryWeapon;
+        bool curWeaponSwapping = curWeapon?.isSwap == true;
+        if(swappingWeapon != null && SwapCoroutine == null && !curWeaponSwapping)
         {
             SwapCoroutine = Swapping();
             StartCoroutine(SwapCoroutine);
@@ -280,7 +284,9 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
+                //EquipWeapon(emptyWeapon);
             }
+            curWeapon = null;
             primaryWeapon = null;
         }
         else
@@ -288,7 +294,9 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
+                //EquipWeapon(emptyWeapon);
             }
+            curWeapon = null;
             secondaryWeapon = null;
         }
     }
@@ -308,11 +316,11 @@ public class PlayerCharacter : CharacterStatHandler
             weapon.StopAction(ref weapon.ReloadCoroutine);
         }
 
-        weaponStatHandler.UnequipWeapon();
+        weaponStatHandler?.UnequipWeapon();
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
-        curWeapon.CurrentWeaponUnEquip();
-        curWeapon.input_ = null;
-        curWeapon = null;
+        weapon.CurrentWeaponUnEquip();
+        weapon.input_ = null;
+        weapon = null;
         OnWeaponSwapped?.Invoke();
     }
     public float GetMovementSpeed()
@@ -343,16 +351,22 @@ public class PlayerCharacter : CharacterStatHandler
     public IEnumerator Swapping()
     {
         Weapon beforeWeapon = curWeapon;
-
-        UnequipWeapon(curWeapon);
-        while(beforeWeapon.gameObject.activeSelf)
+        if (beforeWeapon)
         {
-            yield return null;
+            UnequipWeapon(beforeWeapon);
+            Player.Instance.playerUI.weaponUI.UnbindUI();
+            while (beforeWeapon.gameObject.activeSelf)
+            {
+                yield return null;
+            }
+            curWeapon = null;
         }
-        if (beforeWeapon == primaryWeapon) EquipWeapon(secondaryWeapon);
+        if (isPrimary) EquipWeapon(secondaryWeapon);
         else EquipWeapon(primaryWeapon);
+        Player.Instance.playerUI.weaponUI.BindUI(this);
 
         yield return YieldCacher.WaitForSeconds(curWeapon.animator.GetCurrentAnimatorStateInfo(0).length);
+        isPrimary = !isPrimary;
         SwapCoroutine = null;
     }
 }
