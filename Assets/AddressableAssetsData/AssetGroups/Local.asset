@@ -86,6 +86,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d47823c4e344f474188abc779319754a
+    m_Address: MissionCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - UI
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cacb559963f73b146b2af7015c334e10, type: 2}
   m_SchemaSet:

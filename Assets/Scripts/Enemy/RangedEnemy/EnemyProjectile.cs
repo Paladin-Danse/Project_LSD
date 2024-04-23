@@ -49,7 +49,7 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Health>().TakeDamage(damage);
-            DungeonManager.Instance.receivedDamage += damage;
+            DungeonTracker.Instance.receivedDamage += damage;
             Debug.Log("Ranged - Player Hit" + damage);
             Destroy(gameObject);
         }

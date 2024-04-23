@@ -87,7 +87,7 @@ public class DesertBoss : MonoBehaviour
             Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 0f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
         }        
 
-        SmallShip.SetActive(true);        
+        SmallShip.SetActive(true);
     }    
 
     void DQU()
