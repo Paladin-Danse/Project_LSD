@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input_: {fileID: 0}
-  baseStatSO: {fileID: 11400000, guid: 7dafc06bad125094ca77373f284e5865, type: 2}
+  <baseStatSO>k__BackingField: {fileID: 11400000, guid: 7dafc06bad125094ca77373f284e5865, type: 2}
   baseStat:
     statModifyType: 0
     weaponStatFlag: -1
@@ -6178,7 +6178,6 @@ MonoBehaviour:
   weaponStatHandler: {fileID: 5726535166511427793}
   primaryWeapon: {fileID: 8501099254784560028}
   secondaryWeapon: {fileID: 5985780912830838625}
-  emptyWeapon: {fileID: 0}
 --- !u!54 &8657782265696073627
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30303,7 +30302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input_: {fileID: 0}
-  baseStatSO: {fileID: 11400000, guid: c3e9fbf9a6244e24ca874615d6501a65, type: 2}
+  <baseStatSO>k__BackingField: {fileID: 11400000, guid: c3e9fbf9a6244e24ca874615d6501a65, type: 2}
   baseStat:
     statModifyType: 0
     weaponStatFlag: -1

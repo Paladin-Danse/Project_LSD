@@ -14,8 +14,8 @@ public class Weapon : MonoBehaviour
 
     public GunStateMachine stateMachine { get; private set; }
     public PlayerInput input_;
-    [SerializeField]
-    WeaponStatSO baseStatSO;
+    [field: SerializeField]
+    public WeaponStatSO baseStatSO { get; private set; }
     public WeaponStat baseStat;
     public ItemData itemData;
 

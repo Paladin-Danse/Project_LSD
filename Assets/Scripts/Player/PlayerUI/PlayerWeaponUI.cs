@@ -41,6 +41,7 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
             gameObject.SetActive(true);
             RefreshWeaponMagText();
             RefreshInventoryAmmoText();
+            RefreshIcon();
         }
     }
 
@@ -52,5 +53,10 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     void RefreshInventoryAmmoText()
     {
         playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType)}";
+    }
+
+    void RefreshIcon() 
+    {
+        playerWeaponImage.sprite = playerCharacter.curWeapon.itemData.iconSprite;
     }
 }
