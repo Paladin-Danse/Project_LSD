@@ -73,9 +73,9 @@ public class DungeonSceneManager : SceneManagerBase
     public override void OnUnloadScene()
     {
         base.OnUnloadScene();
-        ObjectPoolManager.Instance.ClearPools();
-        UIController.Instance.Clear();
         Player.Instance.SaveData();
         Player.Instance.UnPossess();
+        ObjectPoolManager.Instance.ClearPools();
+        UIController.Instance.Clear();
     }
 }
