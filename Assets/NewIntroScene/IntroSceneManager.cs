@@ -12,13 +12,14 @@ public class IntroSceneManager : MonoBehaviour
     public GameObject settingMenu;
     public GameObject title;
     public GameObject storyBackground;
+    
     private void Awake()
-    {
+    {            
         animator = GetComponent<Animator>();
     }
 
     void Start()
-    {
+    {        
         skipButton.SetActive(false);
         nextButton.SetActive(false);
     }
@@ -27,7 +28,7 @@ public class IntroSceneManager : MonoBehaviour
         title.SetActive(false);
         storyBackground.SetActive(true);
         animator.SetTrigger("Play");
-        SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.storySound);
+        SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.storySound);        
         mainMenuButtons.SetActive(false);
         skipButton.SetActive(true);
     }
@@ -42,7 +43,7 @@ public class IntroSceneManager : MonoBehaviour
     public void SkipButton()
     {
         animator.SetTrigger("Skip");
-        SoundManager.instance.bgSound.Stop();
+        SoundManager.instance.bgSound.Stop();        
         SceneLoader.Instance.LoadScene(Defines.EScene.SafeZone);
     }
 

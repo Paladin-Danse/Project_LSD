@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IntroBtnColor : MonoBehaviour
+public class IntroBtn : MonoBehaviour
 {    
     Button Btn;
 
@@ -21,4 +21,14 @@ public class IntroBtnColor : MonoBehaviour
     {
         Btn.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
     }    
+
+    public void IntroBtnSound()
+    {
+        SoundManager.instance.BtnSound();
+    }
+
+    public void IntroPushBtnSound()
+    {
+        SoundManager.instance.PushBtnSound();
+    }
 }

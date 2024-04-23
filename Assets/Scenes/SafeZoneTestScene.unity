@@ -28070,6 +28070,7 @@ MonoBehaviour:
   primaryWeapon: {fileID: 5020570233471992896}
   secondaryWeapon: {fileID: 1584354138894819408}
   emptyWeapon: {fileID: 0}
+  isPrimary: 1
 --- !u!4 &5781925000950232390
 Transform:
   m_ObjectHideFlags: 0
