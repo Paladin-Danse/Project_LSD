@@ -23,7 +23,7 @@ public class GoldObject : MonoBehaviour, IInteractable
         ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 
-    private void OnColliderEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
