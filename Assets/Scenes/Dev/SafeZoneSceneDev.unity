@@ -423,12 +423,20 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7994141709666209547, guid: abc00000000009125445544468071814, type: 3}
+      propertyPath: MaxDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994141709666209547, guid: abc00000000009125445544468071814, type: 3}
+      propertyPath: MinDistance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994141709666209547, guid: abc00000000009125445544468071814, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 40ab8e9d6372acb459641d2b72892416, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7994141709666209547, guid: abc00000000009125445544468071814, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0.509
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1081,6 +1089,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8850781293418240719, guid: abc00000000009125445544468071814, type: 3}
   m_PrefabInstance: {fileID: 295271102}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1192355208 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7994141709666209547, guid: abc00000000009125445544468071814, type: 3}
+  m_PrefabInstance: {fileID: 295271102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1224482691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1265,8 @@ PlayableDirector:
     value: {fileID: 680743861}
   - key: {fileID: -743748803357694623, guid: ed7aab0cc2c6c7347a3b1ac69229dd21, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -9062442730299399658, guid: ed7aab0cc2c6c7347a3b1ac69229dd21, type: 2}
+    value: {fileID: 1192355208}
   m_ExposedReferences:
     m_References:
     - 21a248b66e2e61b46916134b26cee628: {fileID: 0}

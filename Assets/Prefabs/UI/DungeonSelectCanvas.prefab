@@ -373,6 +373,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 6098972079836878596, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
+          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+          m_MethodName: IntroBtnSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -521,6 +533,18 @@ MonoBehaviour:
         - m_Target: {fileID: 8220762540132939228}
           m_TargetAssemblyTypeName: DungeonSelect, Assembly-CSharp
           m_MethodName: MouseOverUI
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6098972079836878596, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
+          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+          m_MethodName: IntroBtnSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1425,6 +1449,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5193778792980024720}
         m_TargetAssemblyTypeName: DungeonManager, Assembly-CSharp
         m_MethodName: DungeonEntrance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6098972079836878596, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PushIntroBtnSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

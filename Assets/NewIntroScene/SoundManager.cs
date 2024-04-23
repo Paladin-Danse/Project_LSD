@@ -11,9 +11,11 @@ using UnityEngine.SceneManagement;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource bgSound; // 배경음
-    public AudioClip[] bgList; // 배경음리스트
+    public AudioClip[] introBGMList; // 배경음리스트
+    public AudioClip[] SafeZoneBGMList;
+    public AudioClip[] DesertDungeonBGMList;
 
-    [Header("IntroSceneBtnSound")]
+    [Header("BtnSound")]
     public AudioClip btnSound;
     public AudioClip btnPushSound;
 
@@ -38,12 +40,26 @@ public class SoundManager : MonoBehaviour
 
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        for (int i = 0; i < bgList.Length; i++)
-        {
-            if (arg0.name == bgList[i].name)
+    {        
+        if(arg0.name == "IntroScene")
+        {            
+            for (int i = 0; i < introBGMList.Length; i++)
             {
-                BgSoundPlay(bgList[i]); break;
+                BgSoundPlay(introBGMList[i]);
+            }            
+        }
+        else if(arg0.name == "SafeZoneScene")
+        {
+            for (int i = 0; i < SafeZoneBGMList.Length; i++)
+            {
+                BgSoundPlay(SafeZoneBGMList[i]); break;
+            }
+        }
+        else if(arg0.name == "DungeonScene")
+        {
+            for (int i = 0; i < DesertDungeonBGMList.Length; i++)
+            {
+                BgSoundPlay(DesertDungeonBGMList[i]); break;
             }
         }
     }
