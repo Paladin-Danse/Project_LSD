@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Possess(playerCharacter);
+        // Possess(playerCharacter);
         // PlayerData ·Îµå
         playerInteract.RegisterPlayer(this);
         _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
