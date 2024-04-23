@@ -37,7 +37,7 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        if (stateMachine.player.health.IsDead) stateMachine.ChangeState(stateMachine.DeadState);
+        
     }
 
     public virtual void PhysicsUpdate()
