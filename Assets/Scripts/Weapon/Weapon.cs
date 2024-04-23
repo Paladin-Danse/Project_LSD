@@ -246,7 +246,8 @@ public class Weapon : MonoBehaviour
     }
     public bool CheckInventoryAmmo()
     {
-        return Player.Instance.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
+        if(baseStat.e_useAmmo == AmmoType.None) return false;
+        else return Player.Instance.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
     }
     public int UseInventoryAmmo()
     {

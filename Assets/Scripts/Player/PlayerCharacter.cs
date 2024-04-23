@@ -40,7 +40,7 @@ public class PlayerCharacter : CharacterStatHandler
     public Transform firePos;
     public float fireRateDelay;
     [field: SerializeField]
-    public Weapon curWeapon { get { return _curWeapon; } set { _curWeapon = value; OnWeaponChanged?.Invoke(value);} }
+    public Weapon curWeapon { get { return _curWeapon; } set { OnWeaponChanged?.Invoke(value); _curWeapon = value; } }
     Weapon _curWeapon;
     public AmmoType curWeapon_AmmoType
     {
