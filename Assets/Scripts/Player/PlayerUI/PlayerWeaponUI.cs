@@ -16,7 +16,8 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     {
         playerCharacter = character;
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
-        playerCharacter.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
+        playerCharacter.OnWeaponSwapped += RefreshUI;
+        playerCharacter.curWeapon.OnMagChanged += RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
         RefreshUI();
     }
@@ -24,14 +25,23 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public void UnbindUI()
     {
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
-        playerCharacter.weaponStatHandler.OnStatChanged -= RefreshInventoryAmmoText;
+        playerCharacter.OnWeaponSwapped -= RefreshUI;
+        playerCharacter.curWeapon.OnMagChanged -= RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;
         // Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
     }
     public void RefreshUI()
     {
-        RefreshWeaponMagText();
-        RefreshInventoryAmmoText();
+        if (playerCharacter.curWeapon == null) 
+        { 
+            gameObject.SetActive(false); 
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            RefreshWeaponMagText();
+            RefreshInventoryAmmoText();
+        }
     }
 
     void RefreshWeaponMagText()
@@ -41,8 +51,6 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshInventoryAmmoText()
     {
-        // todo : Inventory Ammo와 연결
-        // 무기 종류에 따라 Ammo 연결 다르게 해줘야 함
         playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType)}";
     }
 }
