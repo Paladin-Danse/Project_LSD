@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldObject : MonoBehaviour
+public class GoldObject : MonoBehaviour, IInteractable
 {
     int gold;
 
     private void Awake()
     {
-        gold = Random.Range(10, 200);
+        gold = Random.Range(10, 200);        
     }
 
     public string GetInteractPrompt()
@@ -19,18 +19,18 @@ public class GoldObject : MonoBehaviour
     public void OnInteract(Player player)
     {
         player.inventory.money += gold;
+        DungeonTracker.Instance.earnGold += gold;
+        ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnColliderEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             if (other.TryGetComponent<PlayerCharacter>(out PlayerCharacter playerCharacter))
             {
-                OnInteract(playerCharacter.ownedPlayer);
-                DungeonTracker.Instance.earnGold += gold;
-            }
-            ObjectPoolManager.Instance.TryPush(this.gameObject);
+                OnInteract(playerCharacter.ownedPlayer);                
+            }                        
         }
-    }
+    }    
 }

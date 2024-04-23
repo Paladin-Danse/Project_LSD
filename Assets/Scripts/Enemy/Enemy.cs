@@ -73,12 +73,16 @@ public class Enemy : MonoBehaviour
         DungeonTracker.Instance.killedEnemies += 1;
 
         float gper = Random.Range(0, 99);
-        if(gper >= 50)
+        if(gper >= 0)
         {
             float goldPosX = Random.Range(0, 1f);
             float goldPosZ = Random.Range(0, 1f);
             float goldRot = Random.Range(0, 180f);
-            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 1f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+
+            GameObject gold = ObjectPoolManager.Instance.Pop("Gold").gameObject;
+            gold.transform.position = transform.position + new Vector3(goldPosX, 0f, goldPosZ);
+            gold.transform.rotation = Quaternion.Euler(0, goldRot, 0);
+            gold.SetActive(true);
         }        
 
         enabled = false;

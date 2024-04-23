@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
@@ -18,7 +19,7 @@ public class RangedEnemy : MonoBehaviour
     public Health health { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private GameObject firstAidKit;    
 
     public RangedEnemyStateMachine stateMachine;
 
@@ -76,7 +77,11 @@ public class RangedEnemy : MonoBehaviour
             float goldPosX = Random.Range(0, 1f);
             float goldPosZ = Random.Range(0, 1f);
             float goldRot = Random.Range(0, 180f);
-            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 0f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+            
+            GameObject gold = ObjectPoolManager.Instance.Pop("Gold").gameObject;
+            gold.transform.position = transform.position + new Vector3(goldPosX, 0f, goldPosZ);
+            gold.transform.rotation = Quaternion.Euler(0, goldRot, 0);
+            gold.SetActive(true);
         }            
 
         enabled = false;

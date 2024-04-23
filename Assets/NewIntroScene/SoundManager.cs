@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource bgSound; // 배경음
     public AudioSource UISound;
+    public AudioSource storySoundSource;
     public AudioClip[] introBGMList; // 배경음리스트
     public AudioClip[] SafeZoneBGMList;
     public AudioClip[] DesertDungeonBGMList;    
@@ -88,7 +89,7 @@ public class SoundManager : MonoBehaviour
             AudioClip randomClip = bgmList[clipRange];
             bgSound.clip = randomClip;
             bgSound.loop = true;
-            bgSound.volume = 0.1f;
+            bgSound.volume = 0.1f;            
             bgSound.Play();
         }
     }

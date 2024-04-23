@@ -25,10 +25,12 @@ public class IntroSceneManager : MonoBehaviour
     }
     public void StoryAnimatorStart()
     {
+        settingMenu.SetActive(false);
         title.SetActive(false);
         storyBackground.SetActive(true);
         animator.SetTrigger("Play");
-        SoundManager.instance.bgSound.PlayOneShot(SoundManager.instance.storySound);        
+        SoundManager.instance.storySoundSource.volume = 0.5f;
+        SoundManager.instance.storySoundSource.PlayOneShot(SoundManager.instance.storySound);        
         mainMenuButtons.SetActive(false);
         skipButton.SetActive(true);
     }
@@ -43,7 +45,7 @@ public class IntroSceneManager : MonoBehaviour
     public void SkipButton()
     {
         animator.SetTrigger("Skip");
-        SoundManager.instance.bgSound.Stop();        
+        SoundManager.instance.storySoundSource.Stop();        
         SceneLoader.Instance.LoadScene(Defines.EScene.SafeZone);
     }
 
