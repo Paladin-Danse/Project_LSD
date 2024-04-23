@@ -5601,7 +5601,7 @@ MonoBehaviour:
   maxRecoil: 0
   defaultSpread: 0
   maxSpread: 0
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 5846702838974413558, guid: f141f406a20f7bc46a8c70fdc680f6f4, type: 3}
   firePos: {fileID: 6311730112135329543}
   shot_AudioClip: {fileID: 8300000, guid: 80fcb1a77cae6c0498a4ab521473acb6, type: 3}
   dry_AudioClip: {fileID: 8300000, guid: 3240e06a294389f4780132974ee81c77, type: 3}

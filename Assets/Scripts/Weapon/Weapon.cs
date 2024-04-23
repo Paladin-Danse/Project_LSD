@@ -211,6 +211,7 @@ public class Weapon : MonoBehaviour
     public void CurrentWeaponUnEquip()
     {
         input_.weaponActions.Disable();
+        //input_ = null;
         stateMachine.ChangeState(stateMachine.ExitState);
     }
     public void PlayClip(AudioClip newClip, float volume)

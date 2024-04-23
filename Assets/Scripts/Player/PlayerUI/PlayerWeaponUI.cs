@@ -18,12 +18,18 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
         playerCharacter = character;
         SetWeapon(playerCharacter.curWeapon);
         playerCharacter.OnWeaponChanged += SetWeapon;
+        playerWeaponImage.sprite = playerCharacter.curWeapon.itemData.iconSprite;
+        playerWeaponImage.enabled = true;
         RefreshUI(playerCharacter.curWeapon);
     }
 
     public void UnbindUI()
     {
         playerCharacter.OnWeaponChanged -= SetWeapon;
+        playerWeaponImage.sprite = null;
+        playerWeaponImage.enabled = false;
+        RefreshUI();
+        
     }
 
     public void RefreshUI() 
@@ -73,12 +79,19 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshWeaponMagText()
     {
-        playerWeaponMagText.text = $"{bindedWeapon.curMagazine}";
+        if (playerCharacter.curWeapon) playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
+        else playerWeaponMagText.text = "0";
     }
 
     void RefreshInventoryAmmoText()
     {
-        playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(bindedWeapon.baseStatSO.weaponStat.e_useAmmo)}";
+        // todo : Inventory Ammo�� ����
+        // ���� ������ ���� Ammo ���� �ٸ��� ����� ��
+        if (playerCharacter.curWeapon)
+        {
+            int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
+            playerInventoryAmmoText.text = $"{curAmmoCount}";
+        }
     }
 
     void RefreshIcon() 

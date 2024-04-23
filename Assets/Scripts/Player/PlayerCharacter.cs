@@ -285,13 +285,14 @@ public class PlayerCharacter : CharacterStatHandler
         }
         return true;
     }
-    public void InventoryWeaponUnequip(bool isPrimary)
+    public void InventoryWeaponUnequip(bool _isPrimary)
     {
-        if (isPrimary)
+        if (_isPrimary)
         {
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
+                //EquipWeapon(emptyWeapon);
                 curWeapon = null;
             }
             primaryWeapon = null;
@@ -301,6 +302,7 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
+                //EquipWeapon(emptyWeapon);
                 curWeapon = null;
             }
             secondaryWeapon = null;
@@ -325,7 +327,6 @@ public class PlayerCharacter : CharacterStatHandler
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
         weapon.CurrentWeaponUnEquip();
         weapon.input_ = null;
-        weapon = null;
     }
     public float GetMovementSpeed()
     {
@@ -354,11 +355,10 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public IEnumerator Swapping()
     {
-        Weapon beforeWeapon = curWeapon;
-        if (beforeWeapon)
+        if (curWeapon)
         {
-            UnequipWeapon(beforeWeapon);
-            while (beforeWeapon.gameObject.activeSelf)
+            UnequipWeapon(curWeapon);
+            while (curWeapon.gameObject.activeSelf)
             {
                 yield return null;
             }
