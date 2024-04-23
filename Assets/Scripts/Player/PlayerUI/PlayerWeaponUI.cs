@@ -24,6 +24,7 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public void UnbindUI()
     {
         playerCharacter.OnWeaponChanged -= SetWeapon;
+        RefreshUI();
     }
 
     public void RefreshUI() 
@@ -73,19 +74,15 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshWeaponMagText()
     {
-        if (playerCharacter.curWeapon) playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
-        else playerWeaponMagText.text = "0";
+        playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
     }
 
     void RefreshInventoryAmmoText()
     {
         // todo : Inventory Ammo�� ����
         // ���� ������ ���� Ammo ���� �ٸ��� ����� ��
-        if (playerCharacter.curWeapon)
-        {
-            int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
-            playerInventoryAmmoText.text = $"{curAmmoCount}";
-        }
+        int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
+        playerInventoryAmmoText.text = $"{curAmmoCount}";
     }
 
     void RefreshIcon() 
