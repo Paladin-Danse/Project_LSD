@@ -6,6 +6,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
+    [SerializeField]
     float _maxHealth;
     public float maxHealth { get { return MaxHealth(); } }
     public float curHealth;
