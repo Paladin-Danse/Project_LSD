@@ -351,18 +351,19 @@ public class PlayerCharacter : CharacterStatHandler
     public IEnumerator Swapping()
     {
         Weapon beforeWeapon = curWeapon;
-        curWeapon = null;
-
         if (beforeWeapon)
         {
             UnequipWeapon(beforeWeapon);
+            Player.Instance.playerUI.weaponUI.UnbindUI();
             while (beforeWeapon.gameObject.activeSelf)
             {
                 yield return null;
             }
+            curWeapon = null;
         }
         if (isPrimary) EquipWeapon(secondaryWeapon);
         else EquipWeapon(primaryWeapon);
+        Player.Instance.playerUI.weaponUI.BindUI(this);
 
         yield return YieldCacher.WaitForSeconds(curWeapon.animator.GetCurrentAnimatorStateInfo(0).length);
         isPrimary = !isPrimary;

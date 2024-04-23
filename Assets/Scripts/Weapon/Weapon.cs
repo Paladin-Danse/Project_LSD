@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
     public float defaultSpread = 0f;
     public float maxSpread;
 
-    public Quaternion weaponTargetRotation { get; private set; }
+    //public Quaternion weaponTargetRotation { get; private set; }
 
     //IEnumerator
     public IEnumerator ShotCoroutine = null;
@@ -367,6 +367,7 @@ public class Weapon : MonoBehaviour
         }
 
         isSwap = false;
+        
         TakeCoroutine = null;
         gameObject.SetActive(false);
     }
