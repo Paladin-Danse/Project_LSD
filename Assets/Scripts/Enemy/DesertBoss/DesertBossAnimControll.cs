@@ -12,7 +12,7 @@ public class DesertBossAnimControll : MonoBehaviour
 
     void BossAnim()
     {
-        if(gameObject.GetComponent<Health>().curHealth > 500)
+        if(gameObject.GetComponent<Health>().curHealth > gameObject.GetComponent<Health>().maxHealth/2f)
         {
             anim.SetLayerWeight(1, 0);
         }

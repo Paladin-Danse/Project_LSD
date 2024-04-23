@@ -111,6 +111,7 @@ public class BossProjectile : MonoBehaviour
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;
+        this.gameObject.SetActive(true);
     }    
 
     void ExplosionDamage(Vector3 center, float radius, LayerMask layerMask, float damage)
@@ -123,7 +124,7 @@ public class BossProjectile : MonoBehaviour
             if (health != null)
             {                
                 health.TakeDamage(damage);
-                DungeonManager.Instance.receivedDamage += damage;
+                DungeonTracker.Instance.receivedDamage += damage;
             }
         }
 

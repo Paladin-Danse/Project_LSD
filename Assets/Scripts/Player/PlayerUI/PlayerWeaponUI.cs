@@ -11,32 +11,70 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public TMP_Text playerInventoryAmmoText;
 
     public PlayerCharacter playerCharacter { get; set; }
+    Weapon bindedWeapon = null;
 
     public void BindUI(PlayerCharacter character)
     {
         playerCharacter = character;
-        // todo : WeaponChange ÀÌº¥Æ® ¸¸µé°í RefreshWeaponUI ¹ÙÀÎµå
-        playerCharacter.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
-        playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
+        SetWeapon(playerCharacter.curWeapon);
+        playerCharacter.OnWeaponChanged += SetWeapon;
         playerWeaponImage.sprite = playerCharacter.curWeapon.itemData.iconSprite;
         playerWeaponImage.enabled = true;
-        RefreshUI();
+        RefreshUI(playerCharacter.curWeapon);
     }
 
     public void UnbindUI()
     {
-        // todo : WeaponChange ÀÌº¥Æ® ¸¸µé°í RefreshWeaponUI ¹ÙÀÎµå
-        playerCharacter.weaponStatHandler.OnStatChanged -= RefreshInventoryAmmoText;
-        playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;
+        playerCharacter.OnWeaponChanged -= SetWeapon;
         playerWeaponImage.sprite = null;
         playerWeaponImage.enabled = false;
         RefreshUI();
-        // Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
+        
     }
-    public void RefreshUI()
+
+    public void RefreshUI() 
     {
-        RefreshWeaponMagText();
-        RefreshInventoryAmmoText();
+    
+    }
+
+    public void RefreshUI(Weapon weapon)
+    {
+        if (weapon == null) 
+        {
+            gameObject.SetActive(false); 
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            RefreshWeaponMagText();
+            RefreshInventoryAmmoText();
+            RefreshIcon();
+        }
+    }
+
+    void SetWeapon(Weapon weapon) 
+    {
+        ReleaseWeapon();
+        if (weapon != null) 
+        {
+            Debug.Log("BindWeapon!");
+            bindedWeapon = weapon;
+            playerCharacter.ownedPlayer.inventory.OnAmmoChanged += RefreshInventoryAmmoText;
+            bindedWeapon.OnMagChanged += RefreshWeaponMagText;
+            RefreshUI(bindedWeapon);
+        }
+    }
+
+    void ReleaseWeapon() 
+    {
+        if(bindedWeapon != null) 
+        {
+            Debug.Log("ReleaseWeapon!");
+            playerCharacter.ownedPlayer.inventory.OnAmmoChanged -= RefreshInventoryAmmoText;
+            bindedWeapon.OnMagChanged -= RefreshWeaponMagText;
+            bindedWeapon = null;
+            RefreshUI(null);
+        }
     }
 
     void RefreshWeaponMagText()
@@ -47,12 +85,17 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshInventoryAmmoText()
     {
-        // todo : Inventory Ammo¿Í ¿¬°á
-        // ¹«±â Á¾·ù¿¡ µû¶ó Ammo ¿¬°á ´Ù¸£°Ô ÇØÁà¾ß ÇÔ
+        // todo : Inventory Ammoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ammo ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (playerCharacter.curWeapon)
         {
             int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
             playerInventoryAmmoText.text = $"{curAmmoCount}";
         }
+    }
+
+    void RefreshIcon() 
+    {
+        playerWeaponImage.sprite = bindedWeapon.itemData.iconSprite;
     }
 }

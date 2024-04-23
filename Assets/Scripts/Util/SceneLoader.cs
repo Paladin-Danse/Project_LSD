@@ -20,11 +20,8 @@ public class SceneLoader
         if (sceneManager != null)
         {
             Debug.Log("SceneManager exist");
+            sceneManager.OnUnloadScene();
         }
-
-        Player.Instance.UnPossess();
-        ObjectPoolManager.Instance.ClearPools();
-        UIController.Instance.Clear();
 
         UIController.Instance.Push<LoadingCanvasController>("LoadingCanvas", out loadingCanvasController);
         loadSceneContext = scene;
