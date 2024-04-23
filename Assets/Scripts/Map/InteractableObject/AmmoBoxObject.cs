@@ -12,8 +12,7 @@ public class AmmoBoxObject: MonoBehaviour, IInteractable
 
     public void OnInteract(Player player)
     {
-        player.inventory.TakeAmmoItemColliderCrash(ammoPercent);
+        player.inventory.TakeAmmoItem(supplyPercent);
         ObjectPoolManager.Instance.TryPush(this.gameObject);
-        Player.Instance.inventory.TakeAmmoItem(supplyPercent);
     }
 }
