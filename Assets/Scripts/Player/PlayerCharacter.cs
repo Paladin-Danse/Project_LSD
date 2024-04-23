@@ -292,8 +292,8 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
+                curWeapon = null;
             }
-            curWeapon = null;
             primaryWeapon = null;
         }
         else
@@ -301,8 +301,8 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
+                curWeapon = null;
             }
-            curWeapon = null;
             secondaryWeapon = null;
         }
     }
