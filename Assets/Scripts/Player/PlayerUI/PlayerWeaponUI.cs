@@ -43,6 +43,8 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     {
         // todo : Inventory Ammo와 연결
         // 무기 종류에 따라 Ammo 연결 다르게 해줘야 함
-        playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType)}";
+        int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
+
+        playerInventoryAmmoText.text = $"{curAmmoCount}";
     }
 }

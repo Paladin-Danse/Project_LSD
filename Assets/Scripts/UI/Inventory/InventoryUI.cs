@@ -75,7 +75,7 @@ public class InventoryUI : MonoBehaviour
             slots[i].Clear();
         }
 
-        UI_All_Update += AmmoUI_Update;
+        UI_All_Update += Inventory_AmmoUI_Update;
         UI_All_Update += MoneyUI_Update;
         UI_All_Update += WeaponSlotUI_Update;
 
@@ -106,7 +106,7 @@ public class InventoryUI : MonoBehaviour
         */
     }
     
-    public void AmmoUI_Update()
+    public void Inventory_AmmoUI_Update()
     {
         rifleAmmoCountText.text = _inventory.inventoryAmmo[AmmoType.Rifle].ToString();
         pistolAmmoCountText.text = _inventory.inventoryAmmo[AmmoType.Pistol].ToString();
