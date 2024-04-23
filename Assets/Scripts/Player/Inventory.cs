@@ -111,8 +111,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
         if (inventoryUI.gameObject.active) // 인벤토리를 열고있다면
         {
-            inventoryUI.AmmoUI_Update();
+            inventoryUI.Inventory_AmmoUI_Update();
         }
+        Player.Instance.playerUI.weaponUI.RefreshUI();
     }
     public int LostorUsedAmmo(AmmoType ammoType, int count)
     {
@@ -121,8 +122,10 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
         if (inventoryUI.gameObject.activeSelf) // 인벤토리를 열고있다면
         {
-            inventoryUI.AmmoUI_Update();
+            inventoryUI.Inventory_AmmoUI_Update();
         }
+        Player.Instance.playerUI.weaponUI.RefreshUI();
+
         return leftAmmo;
     }
     public int InventoryAmmoCheck(AmmoType ammoType)

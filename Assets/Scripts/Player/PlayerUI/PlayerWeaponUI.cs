@@ -15,7 +15,7 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public void BindUI(PlayerCharacter character)
     {
         playerCharacter = character;
-        // todo : WeaponChange ÀÌº¥Æ® ¸¸µé°í RefreshWeaponUI ¹ÙÀÎµå
+        // todo : WeaponChange ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ RefreshWeaponUI ï¿½ï¿½ï¿½Îµï¿½
         playerCharacter.OnWeaponSwapped += RefreshUI;
         playerCharacter.curWeapon.OnMagChanged += RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
@@ -24,7 +24,7 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     public void UnbindUI()
     {
-        // todo : WeaponChange ÀÌº¥Æ® ¸¸µé°í RefreshWeaponUI ¹ÙÀÎµå
+        // todo : WeaponChange ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ RefreshWeaponUI ï¿½ï¿½ï¿½Îµï¿½
         playerCharacter.OnWeaponSwapped -= RefreshUI;
         playerCharacter.curWeapon.OnMagChanged -= RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;

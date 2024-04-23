@@ -35,4 +35,4 @@ MonoBehaviour:
       IsKnockbackEnable: 0
       knockBackPower: 0
       knockBackTime: 0
-  weaponItem: {fileID: 0}
+  weaponItem: {fileID: 11400000, guid: 55455ea5caa910f4bb31acf0090f8267, type: 2}

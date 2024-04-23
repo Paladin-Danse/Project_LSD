@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         // Possess(playerCharacter);
-        // PlayerData ·Îµå
+        // PlayerData ï¿½Îµï¿½
         playerInteract.RegisterPlayer(this);
         _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
         _input.playerUIActions.Debug.started += Instance.ToggleEscape;
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     {
         this.playerCharacter = playerCharacter;
         playerCharacter.OnPossessCharacter(this);
-        // playerCharacter.OnPossessCharacter¿¡¼­ Inventory Á¤º¸¸¦ ¹Þ¾Æ¿Í¼­ ¹«±â ÀåÂø ÇÒ °Í
+        // playerCharacter.OnPossessCharacterï¿½ï¿½ï¿½ï¿½ Inventory ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
         OnControllCharacter();
 
         if (UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui))
@@ -129,6 +129,6 @@ public class Player : MonoBehaviour
 
     public void ToggleEscape(InputAction.CallbackContext callbackContext) 
     {
-        // todo : SettingÃ¢ Ç¥½Ã
+        // todo : SettingÃ¢ Ç¥ï¿½ï¿½
     }
 }
