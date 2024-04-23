@@ -25,7 +25,6 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     {
         playerCharacter.OnWeaponChanged -= SetWeapon;
         RefreshUI();
-        
     }
 
     public void RefreshUI() 
