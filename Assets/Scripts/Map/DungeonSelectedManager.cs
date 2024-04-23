@@ -45,13 +45,8 @@ public class DungeonSelectedManager : MonoBehaviour
     {
         Player.Instance.UnPossess();
         UIController.Instance.Clear();
-        CutSceneManager.Instance.playableDirector.Play();        
-        Invoke("LoadScene", 12f);
-    }
-
-    void LoadScene()
-    {        
-        SceneLoader.Instance.LoadScene(Defines.EScene.Dungeon);
+        CutSceneManager.Instance.playableDirector.Play();
+        CutSceneManager.Instance.ChangeSceneOnCutSceneEnd();
     }
 
     public void CloseDungeonSelectUI() 
