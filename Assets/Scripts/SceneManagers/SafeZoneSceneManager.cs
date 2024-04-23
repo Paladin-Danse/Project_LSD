@@ -57,9 +57,18 @@ public class SafeZoneSceneManager : SceneManagerBase
         UIController.Instance.Pop();
         if (handle.Result.TryGetComponent<PlayerCharacter>(out playerCharacter))
         {
-            UIController.Instance.Push("HUDCanvas");
-            Player.Instance.playerUI = UIController.Instance.Peek().GetComponent<PlayerUI>();
+            UIController.Instance.Push<PlayerUI>("HUDCanvas", out Player.Instance.playerUI);
             Player.Instance.Possess(playerCharacter);
         }
     }
+
+    public override void OnUnloadScene()
+    {
+        Player.Instance.SaveData();
+        Player.Instance.UnPossess();
+        ObjectPoolManager.Instance.ClearPools();
+        UIController.Instance.Clear();
+    }
+
+
 }

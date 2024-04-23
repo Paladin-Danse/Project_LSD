@@ -14,7 +14,7 @@ public class TestGold : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             //PlayerGold += gold;
-            DungeonManager.Instance.earnGold += gold;
+            DungeonTracker.Instance.earnGold += gold;
             Destroy(gameObject);
         }
     }

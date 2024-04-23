@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,7 +14,13 @@ public class DungeonCompleteUI : MonoBehaviour
 
     void OnEnable()
     {
+        TotalKillCountText.text = DungeonTracker.Instance.killedEnemies.ToString();
+        TotalDamageText.text = DungeonTracker.Instance.totalDamage.ToString();
+        TotalTakeDamageText.text = DungeonTracker.Instance.receivedDamage.ToString();
+        TotalGoldText.text = DungeonTracker.Instance.earnGold.ToString();
 
+        TimeSpan t = TimeSpan.FromSeconds(DungeonTracker.Instance.missionTime);
+        ClearTimeText.text = string.Format("{0:D1}:{1:D2}", t.Minutes, t.Seconds);
     }
 
     void SetTexts() 

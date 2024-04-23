@@ -124,7 +124,7 @@ public class BossProjectile : MonoBehaviour
             if (health != null)
             {                
                 health.TakeDamage(damage);
-                //DungeonManager.Instance.receivedDamage += damage;
+                DungeonTracker.Instance.receivedDamage += damage;
             }
         }
 

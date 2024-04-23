@@ -11,40 +11,78 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public TMP_Text playerInventoryAmmoText;
 
     public PlayerCharacter playerCharacter { get; set; }
+    Weapon bindedWeapon = null;
 
     public void BindUI(PlayerCharacter character)
     {
         playerCharacter = character;
-        // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
-        playerCharacter.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
-        playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
-        RefreshUI();
+        SetWeapon(playerCharacter.curWeapon);
+        playerCharacter.OnWeaponChanged += SetWeapon;
+        RefreshUI(playerCharacter.curWeapon);
     }
 
     public void UnbindUI()
     {
-        // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
-        playerCharacter.weaponStatHandler.OnStatChanged -= RefreshInventoryAmmoText;
-        playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;
-        // Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
+        playerCharacter.OnWeaponChanged -= SetWeapon;
     }
-    public void RefreshUI()
+
+    public void RefreshUI() 
     {
-        RefreshWeaponMagText();
-        RefreshInventoryAmmoText();
+    
+    }
+
+    public void RefreshUI(Weapon weapon)
+    {
+        if (weapon == null) 
+        {
+            gameObject.SetActive(false); 
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            RefreshWeaponMagText();
+            RefreshInventoryAmmoText();
+            RefreshIcon();
+        }
+    }
+
+    void SetWeapon(Weapon weapon) 
+    {
+        ReleaseWeapon();
+        if (weapon != null) 
+        {
+            Debug.Log("BindWeapon!");
+            bindedWeapon = weapon;
+            playerCharacter.ownedPlayer.inventory.OnAmmoChanged += RefreshInventoryAmmoText;
+            bindedWeapon.OnMagChanged += RefreshWeaponMagText;
+            RefreshUI(bindedWeapon);
+        }
+    }
+
+    void ReleaseWeapon() 
+    {
+        if(bindedWeapon != null) 
+        {
+            Debug.Log("ReleaseWeapon!");
+            playerCharacter.ownedPlayer.inventory.OnAmmoChanged -= RefreshInventoryAmmoText;
+            bindedWeapon.OnMagChanged -= RefreshWeaponMagText;
+            bindedWeapon = null;
+            RefreshUI(null);
+        }
     }
 
     void RefreshWeaponMagText()
     {
-        playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
+        playerWeaponMagText.text = $"{bindedWeapon.curMagazine}";
     }
 
     void RefreshInventoryAmmoText()
     {
-        // todo : Inventory Ammo와 연결
-        // 무기 종류에 따라 Ammo 연결 다르게 해줘야 함
-        int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
+        playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(bindedWeapon.baseStatSO.weaponStat.e_useAmmo)}";
+    }
 
-        playerInventoryAmmoText.text = $"{curAmmoCount}";
+    void RefreshIcon() 
+    {
+        playerWeaponImage.sprite = bindedWeapon.itemData.iconSprite;
     }
 }

@@ -80,8 +80,9 @@ public class DesertBoss : MonoBehaviour
         }
 
         audioSource.PlayOneShot(dieSound);
-        Invoke("DQU", 1f);
-        DungeonManager.Instance.killedEneies += 1;
+
+        DungeonTracker.Instance.killedEnemies += 1;
+        DQU();
 
         int gCount = Random.Range(3, 10);
         for(int i = 0; i < gCount;  i++)
@@ -92,11 +93,11 @@ public class DesertBoss : MonoBehaviour
             Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 0f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
         }        
 
-        SmallShip.SetActive(true);        
+        SmallShip.SetActive(true);
     }    
 
     void DQU()
     {
-        QuestManager.Instance.DQuestUpdate(1009, 1);
+        QuestManager.Instance.DQuestUpdate(SelectedDungeonContext.Instance.selectedDungeonData.QuestID, 1);
     }
 }
