@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource bgSound; // 배경음    
+    public AudioSource bgSound; // 배경음
+    public AudioSource UISound;
     public AudioClip[] introBGMList; // 배경음리스트
     public AudioClip[] SafeZoneBGMList;
     public AudioClip[] DesertDungeonBGMList;    
@@ -94,26 +95,26 @@ public class SoundManager : MonoBehaviour
 
     public void BtnSound()
     {
-        bgSound.PlayOneShot(btnSound);
+        UISound.PlayOneShot(btnSound);
     }    
 
     public void PushBtnSound()
     {
-        bgSound.PlayOneShot(btnPushSound);
+        UISound.PlayOneShot(btnPushSound);
     }
 
     public void PlanetEnterSound()
     {
-        bgSound.PlayOneShot(planetEnterSound);
+        UISound.PlayOneShot(planetEnterSound);
     }
 
     public void PlanetClickSound()
     {
-        bgSound.PlayOneShot(planetClickSound);
+        UISound.PlayOneShot(planetClickSound);
     }
 
     public void DungeonEntranceSound()
     {
-        bgSound.PlayOneShot(dungeonEntranceSound);
+        UISound.PlayOneShot(dungeonEntranceSound);
     }
 }

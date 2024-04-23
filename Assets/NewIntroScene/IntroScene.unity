@@ -348,10 +348,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3268257194278793516, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: 204ae77320b536d459d12c2126255a73, type: 2}
     - target: {fileID: 3833635112944171568, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -396,18 +392,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6098972079836878596, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
-      propertyPath: planetClickSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 465648b26023dcb409febf33783bb4a9, type: 3}
-    - target: {fileID: 6098972079836878596, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
-      propertyPath: planetEnterSound
-      value: 
-      objectReference: {fileID: 8300000, guid: e0eae0ff82f67b54cacffa220182a141, type: 3}
-    - target: {fileID: 6098972079836878596, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
-      propertyPath: dungeonEntranceSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 8917ff521233e1442b0e5bfd097b1e3f, type: 3}
     - target: {fileID: 7083458643908283860, guid: 0e223b732a63d4b43a26d47962aa823e, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -3956,45 +3940,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1834672065}
     m_Modifications:
-    - target: {fileID: 76894362520673910, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 76894362520673910, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 76894362520673910, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 250436593706262990, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 250436593706262990, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 317545795504823222, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 317545795504823222, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 317545795504823222, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1627535992588834019, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
       propertyPath: m_Name
       value: SettingMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 1627535992588834019, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2687768496732309389, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
       propertyPath: m_Pivot.x
@@ -4079,34 +4027,6 @@ PrefabInstance:
     - target: {fileID: 2687768496732309389, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3950754498440793974, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3950754498440793974, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3950754498440793974, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4063511345733556020, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4063511345733556020, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6914466560039477142, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6914466560039477142, guid: ba536aa745ba0b04294a73d104a774e7, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

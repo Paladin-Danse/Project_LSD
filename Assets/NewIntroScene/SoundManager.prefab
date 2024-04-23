@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 6872216157538270630}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -160,7 +160,7 @@ Transform:
   m_Children:
   - {fileID: 89683747893731651}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6098972079836878596
 MonoBehaviour:
@@ -201,6 +201,9 @@ MonoBehaviour:
   btnSound: {fileID: 8300000, guid: 136b95c3da7936d4ca0e36ee94c84389, type: 3}
   btnPushSound: {fileID: 8300000, guid: 9238af1f6a75ac944bbba7c4072b17f0, type: 3}
   storySound: {fileID: 8300000, guid: 0f61673394366f843ac5109b306e023f, type: 3}
+  planetEnterSound: {fileID: 8300000, guid: e0eae0ff82f67b54cacffa220182a141, type: 3}
+  planetClickSound: {fileID: 8300000, guid: 465648b26023dcb409febf33783bb4a9, type: 3}
+  dungeonEntranceSound: {fileID: 8300000, guid: 8917ff521233e1442b0e5bfd097b1e3f, type: 3}
   audioMixer: {fileID: 24100000, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
 --- !u!82 &3268257194278793516
 AudioSource:
@@ -211,7 +214,7 @@ AudioSource:
   m_GameObject: {fileID: 7083458643908283860}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3074291127088069590, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
