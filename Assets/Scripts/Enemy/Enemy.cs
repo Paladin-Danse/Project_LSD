@@ -69,8 +69,8 @@ public class Enemy : MonoBehaviour
             firstAidKit.transform.position = transform.position;
             firstAidKit.transform.rotation = transform.rotation;
         }
-
-        DungeonManager.Instance.killedEneies += 1;
+            
+        DungeonTracker.Instance.killedEnemies += 1;
 
         float gper = Random.Range(0, 99);
         if(gper >= 50)

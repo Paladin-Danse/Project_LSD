@@ -11,7 +11,6 @@ public class PlayerDeadState : PlayerBaseState
     {
         stateMachine.DebugCurrentState();
         RemoveInputActionsCallbacks();
-        stateMachine.player.Death();
         SetAnimation(stateMachine.player.AnimationData.DeathParameterHash);
     }
     public override void HandleInput()

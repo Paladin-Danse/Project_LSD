@@ -43,9 +43,8 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
-        //Player.Instance.UnPossess();
-        UIController.Instance.Pop();
-        UIController.Instance.Pop();
+        Player.Instance.UnPossess();
+        UIController.Instance.Clear();
         CutSceneManager.Instance.playableDirector.Play();        
         Invoke("LoadScene", 12f);
     }
@@ -58,5 +57,6 @@ public class DungeonSelectedManager : MonoBehaviour
     public void CloseDungeonSelectUI() 
     {
         UIController.Instance.Pop();
+        Player.Instance.OnControllCharacter();
     }
 }
