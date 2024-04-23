@@ -13,6 +13,13 @@ public class SoundManager : MonoBehaviour
     public AudioSource bgSound; // 배경음
     public AudioClip[] bgList; // 배경음리스트
 
+    [Header("IntroSceneBtnSound")]
+    public AudioClip btnSound;
+    public AudioClip btnPushSound;
+
+    [Header("StorySound")]
+    public AudioClip storySound;
+
     public AudioMixer audioMixer;
     public static SoundManager instance;
     private void Awake()
@@ -29,19 +36,19 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    
+
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         for (int i = 0; i < bgList.Length; i++)
         {
             if (arg0.name == bgList[i].name)
             {
-                BgSoundPlay(bgList[i]); break; 
+                BgSoundPlay(bgList[i]); break;
             }
         }
     }
 
-    
+
 
     public void BgSoundPlay(AudioClip clip)
     {
@@ -49,5 +56,15 @@ public class SoundManager : MonoBehaviour
         bgSound.loop = true;
         bgSound.volume = 0.1f;
         bgSound.Play();
+    }
+
+    public void IntroBtnSound()
+    {
+        bgSound.PlayOneShot(btnSound);
+    }    
+
+    public void PushIntroBtnSound()
+    {
+        bgSound.PlayOneShot(btnPushSound);
     }
 }

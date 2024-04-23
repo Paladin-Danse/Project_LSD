@@ -111,6 +111,7 @@ public class TurretProjectile : MonoBehaviour
 
     public void TInitProjectile(Turret weapon)
     {
-        this.damage = weapon.t_ProjectileDamage;        
+        this.damage = weapon.t_ProjectileDamage;      
+        this.gameObject.SetActive(true);
     }
 }
