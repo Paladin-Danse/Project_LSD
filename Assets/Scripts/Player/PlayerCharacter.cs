@@ -362,7 +362,6 @@ public class PlayerCharacter : CharacterStatHandler
             {
                 yield return null;
             }
-            curWeapon = null;
         }
         if (isPrimary) EquipWeapon(secondaryWeapon);
         else EquipWeapon(primaryWeapon);
