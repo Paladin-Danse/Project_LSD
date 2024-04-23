@@ -11,14 +11,20 @@ public class PlayerRunState : PlayerGroundedState
     public override void Enter()
     {
         stateMachine.player.MovementSpeedModifier = groundData.RunSpeedModifier;
-        stateMachine.player.curWeapon.CancelReload();
-        stateMachine.player.curWeapon.isShotable = false;
+        if(stateMachine.player.curWeapon != null) 
+        {
+            stateMachine.player.curWeapon?.CancelReload();
+            stateMachine.player.curWeapon.isShotable = false;
+        }
         stateMachine.player.input.weaponActions.Disable();
         base.Enter();
     }
     public override void Exit()
     {
-        stateMachine.player.curWeapon.isShotable = true;
+        if (stateMachine.player.curWeapon != null)
+        {
+            stateMachine.player.curWeapon.isShotable = true;
+        }
         stateMachine.player.input.weaponActions.Enable();
         base.Exit();
     }

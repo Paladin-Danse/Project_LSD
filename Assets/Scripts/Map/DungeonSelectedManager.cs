@@ -57,5 +57,6 @@ public class DungeonSelectedManager : MonoBehaviour
     public void CloseDungeonSelectUI() 
     {
         UIController.Instance.Pop();
+        Player.Instance.OnControllCharacter();
     }
 }

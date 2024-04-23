@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerCharacter : CharacterStatHandler
 {
@@ -38,7 +39,8 @@ public class PlayerCharacter : CharacterStatHandler
     [field: Header("Weapon")]
     public Transform firePos;
     public float fireRateDelay;
-    [SerializeField] public Weapon curWeapon;
+    [field: SerializeField] public Weapon curWeapon { get { return _curWeapon; } set { _curWeapon = value; OnWeaponSwapped?.Invoke(); } }
+    private Weapon _curWeapon;
     public AmmoType curWeapon_AmmoType
     {
         get
@@ -58,8 +60,6 @@ public class PlayerCharacter : CharacterStatHandler
     public Weapon primaryWeapon;
     [SerializeField]
     public Weapon secondaryWeapon;
-    [SerializeField]
-    public Weapon emptyWeapon;
     public bool isPrimary = true;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
@@ -110,7 +110,6 @@ public class PlayerCharacter : CharacterStatHandler
         if (stateMachine.currentState == null)
             stateMachine.ChangeState(stateMachine.IdleState);
 
-        //emptyWeapon.Init(this);
         if (primaryWeapon) primaryWeapon.Init(this);
         if (secondaryWeapon) secondaryWeapon.Init(this);
         
@@ -294,7 +293,6 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
-                //EquipWeapon(emptyWeapon);
             }
             curWeapon = null;
             primaryWeapon = null;
@@ -304,7 +302,6 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
-                //EquipWeapon(emptyWeapon);
             }
             curWeapon = null;
             secondaryWeapon = null;
@@ -364,7 +361,6 @@ public class PlayerCharacter : CharacterStatHandler
         if (beforeWeapon)
         {
             UnequipWeapon(beforeWeapon);
-            Player.Instance.playerUI.weaponUI.UnbindUI();
             while (beforeWeapon.gameObject.activeSelf)
             {
                 yield return null;
@@ -373,8 +369,7 @@ public class PlayerCharacter : CharacterStatHandler
         }
         if (isPrimary) EquipWeapon(secondaryWeapon);
         else EquipWeapon(primaryWeapon);
-        Player.Instance.playerUI.weaponUI.BindUI(this);
-
+        
         yield return YieldCacher.WaitForSeconds(curWeapon.animator.GetCurrentAnimatorStateInfo(0).length);
         isPrimary = !isPrimary;
         SwapCoroutine = null;

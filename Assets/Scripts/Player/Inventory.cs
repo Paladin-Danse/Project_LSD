@@ -113,7 +113,6 @@ public class Inventory : MonoBehaviour, IObjectCrash
         {
             inventoryUI.Inventory_AmmoUI_Update();
         }
-        Player.Instance.playerUI.weaponUI.RefreshUI();
     }
     public int LostorUsedAmmo(AmmoType ammoType, int count)
     {
@@ -124,7 +123,6 @@ public class Inventory : MonoBehaviour, IObjectCrash
         {
             inventoryUI.Inventory_AmmoUI_Update();
         }
-        Player.Instance.playerUI.weaponUI.RefreshUI();
 
         return leftAmmo;
     }
