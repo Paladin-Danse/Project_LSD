@@ -18,7 +18,7 @@ MonoBehaviour:
     e_useAmmo: 2
     magazine: 15
     spread: 3
-    recoil: 3
+    recoil: 0.4
     preFireDelay: 1
     fireDelay: 0.3
     reloadDelay: 1.5
