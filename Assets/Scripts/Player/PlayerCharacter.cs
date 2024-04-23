@@ -282,7 +282,6 @@ public class PlayerCharacter : CharacterStatHandler
         if (curWeapon == null)
         {
             EquipWeapon(weapon);
-            Player.Instance.playerUI.weaponUI.BindUI(this);
         }
         return true;
     }
@@ -362,7 +361,6 @@ public class PlayerCharacter : CharacterStatHandler
         if (curWeapon)
         {
             UnequipWeapon(curWeapon);
-            Player.Instance.playerUI.weaponUI.UnbindUI();
             while (curWeapon.gameObject.activeSelf)
             {
                 yield return null;
