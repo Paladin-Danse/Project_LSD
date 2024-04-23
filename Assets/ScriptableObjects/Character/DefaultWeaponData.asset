@@ -17,7 +17,7 @@ MonoBehaviour:
     weaponStatFlag: -1
     e_useAmmo: 1
     magazine: 30
-    spread: 5
+    spread: 1.5
     recoil: 5
     preFireDelay: 1
     fireDelay: 0.1
