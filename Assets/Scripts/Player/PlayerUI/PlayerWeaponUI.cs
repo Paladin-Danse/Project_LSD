@@ -18,6 +18,8 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
         playerCharacter.weaponStatHandler.OnStatChanged += RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
+        playerWeaponImage.sprite = playerCharacter.curWeapon.itemData.iconSprite;
+        playerWeaponImage.enabled = true;
         RefreshUI();
     }
 
@@ -26,6 +28,9 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
         // todo : WeaponChange 이벤트 만들고 RefreshWeaponUI 바인드
         playerCharacter.weaponStatHandler.OnStatChanged -= RefreshInventoryAmmoText;
         playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;
+        playerWeaponImage.sprite = null;
+        playerWeaponImage.enabled = false;
+        RefreshUI();
         // Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
     }
     public void RefreshUI()
@@ -36,15 +41,18 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshWeaponMagText()
     {
-        playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
+        if (playerCharacter.curWeapon) playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
+        else playerWeaponMagText.text = "0";
     }
 
     void RefreshInventoryAmmoText()
     {
         // todo : Inventory Ammo와 연결
         // 무기 종류에 따라 Ammo 연결 다르게 해줘야 함
-        int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
-
-        playerInventoryAmmoText.text = $"{curAmmoCount}";
+        if (playerCharacter.curWeapon)
+        {
+            int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
+            playerInventoryAmmoText.text = $"{curAmmoCount}";
+        }
     }
 }

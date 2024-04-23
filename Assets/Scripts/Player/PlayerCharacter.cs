@@ -274,19 +274,21 @@ public class PlayerCharacter : CharacterStatHandler
         if (curWeapon == null)
         {
             EquipWeapon(weapon);
+            Player.Instance.playerUI.weaponUI.BindUI(this);
         }
         return true;
     }
-    public void InventoryWeaponUnequip(bool isPrimary)
+    public void InventoryWeaponUnequip(bool _isPrimary)
     {
-        if (isPrimary)
+        if (_isPrimary)
         {
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
+                Player.Instance.playerUI.weaponUI.UnbindUI();
                 //EquipWeapon(emptyWeapon);
+                curWeapon = null;
             }
-            curWeapon = null;
             primaryWeapon = null;
         }
         else
@@ -294,9 +296,10 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
+                Player.Instance.playerUI.weaponUI.UnbindUI();
                 //EquipWeapon(emptyWeapon);
+                curWeapon = null;
             }
-            curWeapon = null;
             secondaryWeapon = null;
         }
     }
@@ -320,7 +323,6 @@ public class PlayerCharacter : CharacterStatHandler
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
         weapon.CurrentWeaponUnEquip();
         weapon.input_ = null;
-        weapon = null;
         OnWeaponSwapped?.Invoke();
     }
     public float GetMovementSpeed()
@@ -350,12 +352,11 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public IEnumerator Swapping()
     {
-        Weapon beforeWeapon = curWeapon;
-        if (beforeWeapon)
+        if (curWeapon)
         {
-            UnequipWeapon(beforeWeapon);
+            UnequipWeapon(curWeapon);
             Player.Instance.playerUI.weaponUI.UnbindUI();
-            while (beforeWeapon.gameObject.activeSelf)
+            while (curWeapon.gameObject.activeSelf)
             {
                 yield return null;
             }

@@ -23,7 +23,7 @@ public class WeaponAmmoObject : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out IObjectCrash objCrash))
         {
-            objCrash.TakeAmmoItemColliderCrash(ammoPercent);
+            objCrash.TakeAmmoItem(ammoPercent);
             Destroy(gameObject);
         }
     }

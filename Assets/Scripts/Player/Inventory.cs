@@ -13,7 +13,7 @@ using UnityEngine.AddressableAssets;
 
 public interface IObjectCrash
 {
-    void TakeAmmoItemColliderCrash(int percent);
+    void TakeAmmoItem(int percent);
 }
 
 // 아이템 슬롯 클래스
@@ -100,14 +100,13 @@ public class Inventory : MonoBehaviour, IObjectCrash
         dropPosition = Player.Instance.playerCharacter.transform.Find("DropPosition");
     }
 
-    [System.Obsolete]
-    public void TakeAmmoItemColliderCrash(int percent)
+    public void TakeAmmoItem(int percent)
     {
         AmmoType primaryWeaponAmmo = Player.Instance.playerCharacter.primaryWeapon.baseStat.e_useAmmo;
         AmmoType secondaryWeaponAmmo = Player.Instance.playerCharacter.secondaryWeapon.baseStat.e_useAmmo;
 
-        inventoryAmmo[primaryWeaponAmmo] = math.min(inventorySO.maxAmmo[primaryWeaponAmmo] * (int)(percent * 0.01f), inventorySO.maxAmmo[primaryWeaponAmmo]);
-        inventoryAmmo[secondaryWeaponAmmo] = math.min(inventorySO.maxAmmo[secondaryWeaponAmmo] * (int)(percent * 0.01f), inventorySO.maxAmmo[secondaryWeaponAmmo]);
+        inventoryAmmo[primaryWeaponAmmo] = math.min(inventoryAmmo[primaryWeaponAmmo] + (int)(inventorySO.maxAmmo[primaryWeaponAmmo] * (percent * 0.01f)), inventorySO.maxAmmo[primaryWeaponAmmo]);
+        inventoryAmmo[secondaryWeaponAmmo] = math.min(inventoryAmmo[secondaryWeaponAmmo] + (int)(inventorySO.maxAmmo[secondaryWeaponAmmo] * (percent * 0.01f)), inventorySO.maxAmmo[secondaryWeaponAmmo]);
 
         if (inventoryUI.gameObject.active) // 인벤토리를 열고있다면
         {
