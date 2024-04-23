@@ -76,5 +76,6 @@ public class BossSmallProjectile : MonoBehaviour
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;
+        this.gameObject.SetActive(true);
     }    
 }

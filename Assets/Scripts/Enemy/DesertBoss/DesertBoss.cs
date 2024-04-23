@@ -7,8 +7,14 @@ public class DesertBoss : MonoBehaviour
     [field: Header("References")]
     [field: SerializeField] public EnemySO RData { get; private set; }
     [field: SerializeField] public WeaponStatSO WSData { get; private set; }    
-    public BossProjectile BProjectile { get; set; }
-    public BossSmallProjectile SProjectile { get; set; }
+    public BossProjectile BProjectile1 { get; set; }
+    public BossProjectile BProjectile2 { get; set; }
+    public BossProjectile BProjectile3 { get; set; }
+    public BossProjectile BProjectile4 { get; set; }
+    public BossSmallProjectile SProjectile1 { get; set; }
+    public BossSmallProjectile SProjectile2 { get; set; }
+    public BossSmallProjectile SProjectile3 { get; set; }
+    public BossSmallProjectile SProjectile4 { get; set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }

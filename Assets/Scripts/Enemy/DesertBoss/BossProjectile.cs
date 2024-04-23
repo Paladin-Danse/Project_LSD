@@ -111,6 +111,7 @@ public class BossProjectile : MonoBehaviour
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;
+        this.gameObject.SetActive(true);
     }    
 
     void ExplosionDamage(Vector3 center, float radius, LayerMask layerMask, float damage)
