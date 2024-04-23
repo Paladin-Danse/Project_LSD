@@ -74,8 +74,9 @@ public class DesertBoss : MonoBehaviour
         }
 
         audioSource.PlayOneShot(dieSound);
-        Invoke("DQU", 1f);
-        DungeonManager.Instance.killedEneies += 1;
+
+        DungeonTracker.Instance.killedEnemies += 1;
+        DQU();
 
         int gCount = Random.Range(3, 10);
         for(int i = 0; i < gCount;  i++)
@@ -91,6 +92,6 @@ public class DesertBoss : MonoBehaviour
 
     void DQU()
     {
-        QuestManager.Instance.DQuestUpdate(1009, 1);
+        QuestManager.Instance.DQuestUpdate(SelectedDungeonContext.Instance.selectedDungeonData.QuestID, 1);
     }
 }

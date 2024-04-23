@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,8 @@ public class PlayerMissionUI : MonoBehaviour
         missionDescription.text = Database.Instance._quest._quest[questId].Description;
         missionProgress.text = "0";
         missionGoal.text = Database.Instance._quest._quest[questId].Count.ToString();
+
+        DungeonTracker.Instance.OnTimerUpdatedPerSeconds += RefreshTimeText;
     }
 
     void SetMissionProgress(int questId, int count) 
@@ -51,10 +54,12 @@ public class PlayerMissionUI : MonoBehaviour
         QuestManager.Instance.OnQuestStartCallback -= SetMissionBoard;
         QuestManager.Instance.OnQuestUpdateCallback -= SetMissionProgress;
         QuestManager.Instance.OnQuestCompleteCallback -= SetMissionComplete;
+        DungeonTracker.Instance.OnTimerUpdatedPerSeconds -= RefreshTimeText;
     }
 
     void RefreshTimeText() 
     {
-        
+        TimeSpan t = TimeSpan.FromSeconds(DungeonTracker.Instance.missionTime);
+        missionTime.text = string.Format("{0:D1}:{1:D2}", t.Minutes, t.Seconds);
     }
 }
