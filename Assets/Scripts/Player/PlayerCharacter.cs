@@ -39,8 +39,9 @@ public class PlayerCharacter : CharacterStatHandler
     [field: Header("Weapon")]
     public Transform firePos;
     public float fireRateDelay;
-    [field: SerializeField] public Weapon curWeapon { get { return _curWeapon; } set { _curWeapon = value; OnWeaponSwapped?.Invoke(); } }
-    private Weapon _curWeapon;
+    [field: SerializeField]
+    public Weapon curWeapon { get { return _curWeapon; } set { OnWeaponChanged?.Invoke(value); _curWeapon = value; } }
+    Weapon _curWeapon;
     public AmmoType curWeapon_AmmoType
     {
         get
@@ -55,7 +56,7 @@ public class PlayerCharacter : CharacterStatHandler
     public WeaponStatHandler weaponStatHandler;
 
     public Action<PlayerStateMachine> SetWeaponEvent;
-    public Action OnWeaponSwapped;
+    public Action<Weapon> OnWeaponChanged;
     [SerializeField]
     public Weapon primaryWeapon;
     [SerializeField]
@@ -238,8 +239,6 @@ public class PlayerCharacter : CharacterStatHandler
         ownedPlayer.OnControllUI();
         ownedPlayer.UnPossess();
         curWeapon.gameObject.SetActive(false);
-        // curWeapon = null;
-
 
         UIController.Instance.Clear();
         UIController.Instance.Push("DungeonFailedUI");
@@ -313,7 +312,6 @@ public class PlayerCharacter : CharacterStatHandler
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
         curWeapon.CurrentWeaponEquip();
-        OnWeaponSwapped?.Invoke();
     }
 
     public void UnequipWeapon(Weapon weapon)
@@ -328,7 +326,6 @@ public class PlayerCharacter : CharacterStatHandler
         weapon.CurrentWeaponUnEquip();
         weapon.input_ = null;
         weapon = null;
-        OnWeaponSwapped?.Invoke();
     }
     public float GetMovementSpeed()
     {

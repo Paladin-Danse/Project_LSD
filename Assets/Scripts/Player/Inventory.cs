@@ -64,6 +64,9 @@ public class Inventory : MonoBehaviour, IObjectCrash
 
     private int _playerMoney;
     private int _playerMaxMoney;
+
+    public event Action OnAmmoChanged;
+
     public int money
     {
         get { return _playerMoney; }
@@ -109,6 +112,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
         inventoryAmmo[primaryWeaponAmmo] = math.min(inventorySO.maxAmmo[primaryWeaponAmmo] * (int)(percent * 0.01f), inventorySO.maxAmmo[primaryWeaponAmmo]);
         inventoryAmmo[secondaryWeaponAmmo] = math.min(inventorySO.maxAmmo[secondaryWeaponAmmo] * (int)(percent * 0.01f), inventorySO.maxAmmo[secondaryWeaponAmmo]);
 
+        OnAmmoChanged?.Invoke();
         if (inventoryUI.gameObject.active) // 인벤토리를 열고있다면
         {
             inventoryUI.Inventory_AmmoUI_Update();
@@ -119,6 +123,7 @@ public class Inventory : MonoBehaviour, IObjectCrash
         int leftAmmo = inventoryAmmo[ammoType] < count ? inventoryAmmo[ammoType] : count;
         inventoryAmmo[ammoType] -= leftAmmo;
 
+        OnAmmoChanged?.Invoke();
         if (inventoryUI.gameObject.activeSelf) // 인벤토리를 열고있다면
         {
             inventoryUI.Inventory_AmmoUI_Update();

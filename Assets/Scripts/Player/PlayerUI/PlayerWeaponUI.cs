@@ -11,29 +11,30 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
     public TMP_Text playerInventoryAmmoText;
 
     public PlayerCharacter playerCharacter { get; set; }
+    Weapon bindedWeapon = null;
 
     public void BindUI(PlayerCharacter character)
     {
         playerCharacter = character;
-        // todo : WeaponChange �̺�Ʈ ����� RefreshWeaponUI ���ε�
-        playerCharacter.OnWeaponSwapped += RefreshUI;
-        playerCharacter.curWeapon.OnMagChanged += RefreshInventoryAmmoText;
-        playerCharacter.curWeapon.OnMagChanged += RefreshWeaponMagText;
-        RefreshUI();
+        SetWeapon(playerCharacter.curWeapon);
+        playerCharacter.OnWeaponChanged += SetWeapon;
+        RefreshUI(playerCharacter.curWeapon);
     }
 
     public void UnbindUI()
     {
-        // todo : WeaponChange �̺�Ʈ ����� RefreshWeaponUI ���ε�
-        playerCharacter.OnWeaponSwapped -= RefreshUI;
-        playerCharacter.curWeapon.OnMagChanged -= RefreshInventoryAmmoText;
-        playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponMagText;
-        // Player.Instance.playerCharacter.curWeapon.OnMagChanged -= RefreshWeaponUI;
+        playerCharacter.OnWeaponChanged -= SetWeapon;
     }
-    public void RefreshUI()
+
+    public void RefreshUI() 
     {
-        if (playerCharacter.curWeapon == null) 
-        { 
+    
+    }
+
+    public void RefreshUI(Weapon weapon)
+    {
+        if (weapon == null) 
+        {
             gameObject.SetActive(false); 
         }
         else
@@ -45,18 +46,43 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
         }
     }
 
+    void SetWeapon(Weapon weapon) 
+    {
+        ReleaseWeapon();
+        if (weapon != null) 
+        {
+            Debug.Log("BindWeapon!");
+            bindedWeapon = weapon;
+            playerCharacter.ownedPlayer.inventory.OnAmmoChanged += RefreshInventoryAmmoText;
+            bindedWeapon.OnMagChanged += RefreshWeaponMagText;
+            RefreshUI(bindedWeapon);
+        }
+    }
+
+    void ReleaseWeapon() 
+    {
+        if(bindedWeapon != null) 
+        {
+            Debug.Log("ReleaseWeapon!");
+            playerCharacter.ownedPlayer.inventory.OnAmmoChanged -= RefreshInventoryAmmoText;
+            bindedWeapon.OnMagChanged -= RefreshWeaponMagText;
+            bindedWeapon = null;
+            RefreshUI(null);
+        }
+    }
+
     void RefreshWeaponMagText()
     {
-        playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
+        playerWeaponMagText.text = $"{bindedWeapon.curMagazine}";
     }
 
     void RefreshInventoryAmmoText()
     {
-        playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType)}";
+        playerInventoryAmmoText.text = $"{Player.Instance.inventory.InventoryAmmoCheck(bindedWeapon.baseStatSO.weaponStat.e_useAmmo)}";
     }
 
     void RefreshIcon() 
     {
-        playerWeaponImage.sprite = playerCharacter.curWeapon.itemData.iconSprite;
+        playerWeaponImage.sprite = bindedWeapon.itemData.iconSprite;
     }
 }
