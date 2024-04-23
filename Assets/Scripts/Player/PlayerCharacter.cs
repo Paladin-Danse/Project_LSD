@@ -59,8 +59,6 @@ public class PlayerCharacter : CharacterStatHandler
     public Weapon primaryWeapon;
     [SerializeField]
     public Weapon secondaryWeapon;
-    [SerializeField]
-    public Weapon emptyWeapon;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
@@ -125,9 +123,7 @@ public class PlayerCharacter : CharacterStatHandler
             }
             else
             {
-                EquipWeapon(emptyWeapon);
-                curWeapon.Init(this);
-                input.weaponActions.Disable();
+                EquipWeapon(null);
             }
         }
     }
