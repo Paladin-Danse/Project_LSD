@@ -58,12 +58,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dd7d88496f02ee34281510612818ea80
-    m_Address: Map0
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Map
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6f334e0f804539f46aa359a94257c58b
     m_Address: DefaultInventoryData
     m_ReadOnly: 0
