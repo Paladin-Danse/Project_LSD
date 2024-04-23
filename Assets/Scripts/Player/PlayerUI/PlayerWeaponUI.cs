@@ -74,14 +74,14 @@ public class PlayerWeaponUI : MonoBehaviour, IPlayerUIInterface
 
     void RefreshWeaponMagText()
     {
-        playerWeaponMagText.text = $"{playerCharacter.curWeapon.curMagazine}";
+        playerWeaponMagText.text = $"{bindedWeapon.curMagazine}";
     }
 
     void RefreshInventoryAmmoText()
     {
         // todo : Inventory Ammo�� ����
         // ���� ������ ���� Ammo ���� �ٸ��� ����� ��
-        int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(playerCharacter.curWeapon_AmmoType);
+        int curAmmoCount = Player.Instance.inventory.InventoryAmmoCheck(bindedWeapon.baseStatSO.weaponStat.e_useAmmo);
         playerInventoryAmmoText.text = $"{curAmmoCount}";
     }
 
