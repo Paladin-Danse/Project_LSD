@@ -29,13 +29,15 @@ public class Enemy : MonoBehaviour
         health = GetComponent<Health>();
 
         stateMachine = new EnemyStateMachine(this);
+
+        health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdlingState);
-        health.OnDie += OnDie;
-        health.OnTakeDamage += OnHit;
+        
     }
 
     private void Update()

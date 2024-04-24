@@ -42,12 +42,13 @@ public class DesertBoss : MonoBehaviour
         stateMachine = new DesertBossStateMachine(this);
 
         audioSource = GetComponent<AudioSource>();
+
+        health.OnDie += OnDie;
     }
 
     private void Start()
     {
-        stateMachine.ChangeState(stateMachine.IdlingState);
-        health.OnDie += OnDie;        
+        stateMachine.ChangeState(stateMachine.IdlingState);                
     }
 
     private void Update()
