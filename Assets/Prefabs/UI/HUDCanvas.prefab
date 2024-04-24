@@ -415,8 +415,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[F] to Interact'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 53de64d46fd845a4aa2875b68a559a05, type: 2}
-  m_sharedMaterial: {fileID: 2327292994572875078, guid: 53de64d46fd845a4aa2875b68a559a05, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 16c94a184d890904aa762fea8f1e393e, type: 2}
+  m_sharedMaterial: {fileID: 2327292994572875078, guid: 16c94a184d890904aa762fea8f1e393e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -17,7 +17,7 @@ public class PlayerInteract : MonoBehaviour
 {
     public float checkRate = 0.05f;
     private float lastCheckTime;
-    public float maxCheckDistance = 10f;
+    public float maxCheckDistance = 1f;
     public LayerMask layerMask;
     private IInteractable curInteractable;
 
