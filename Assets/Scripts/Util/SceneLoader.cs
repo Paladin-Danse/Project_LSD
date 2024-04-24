@@ -23,6 +23,11 @@ public class SceneLoader
             sceneManager.OnUnloadScene();
         }
 
+        if (scene == Defines.EScene.Title)
+        {
+            GameObject.Destroy(Player.Instance.gameObject);
+        }
+
         UIController.Instance.Push<LoadingCanvasController>("LoadingCanvas", out loadingCanvasController);
         loadSceneContext = scene;
         SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
