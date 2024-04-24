@@ -31,14 +31,15 @@ public class RangedEnemy : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();        
         health = GetComponent<Health>();
 
-        stateMachine = new RangedEnemyStateMachine(this);        
+        stateMachine = new RangedEnemyStateMachine(this);
+
+        health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Start()
     {
-        stateMachine.ChangeState(stateMachine.IdlingState);
-        health.OnDie += OnDie;
-        health.OnTakeDamage += OnHit;                
+        stateMachine.ChangeState(stateMachine.IdlingState);                        
     }
 
     private void Update()
