@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
         // todo : Settingâ ǥ��
         if (UIController.Instance.Peek(out GameObject gameObject))
         {            
-            if (gameObject.TryGetComponent(out Menu menuUI))
+            if (gameObject.TryGetComponent(out MenuUI menuUI))
             {                
                 UIController.Instance.Pop();
                 Player.Instance.OnControllCharacter();
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (UIController.Instance.Push<Menu>("MenuCanvas", out Menu menuui, EUIShowMode.Single))
+        if (UIController.Instance.Push<MenuUI>("MenuCanvas", out MenuUI menuui, EUIShowMode.Single))
         {            
             Player.Instance.OnControllUI();
         }
