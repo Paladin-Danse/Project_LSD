@@ -74,7 +74,7 @@ public class QuestManager : SingletoneBase<QuestManager>
         quest.Start();
         
         if(_ongoingQuests.ContainsKey(questId))
-            return;
+            _ongoingQuests.Remove(questId);
         
         _ongoingQuests.Add(questId, quest);
 

@@ -46,13 +46,13 @@ public class Turret : MonoBehaviour
         t_ProjectileDamage = turretStat.weaponStat.attackStat.damage;
         anim = GetComponent<Animator>();        
         health = GetComponent<Health>();
+        health.OnDie += TOnDie;
     }
 
     void Start()
     {
         dieAnim.enabled = false;
-        curFireRate = fireRate;
-        health.OnDie += TOnDie;
+        curFireRate = fireRate;        
         InvokeRepeating("SearchEnemy", 0f, 0.5f);
     }
     
