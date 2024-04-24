@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime;
@@ -11,9 +10,11 @@ using UnityEngine.SceneManagement;
 public class SoundManager : MonoBehaviour
 {
     public AudioSource bgSound; // 배경음
+    public AudioSource UISound;
+    public AudioSource storySoundSource;
     public AudioClip[] introBGMList; // 배경음리스트
     public AudioClip[] SafeZoneBGMList;
-    public AudioClip[] DesertDungeonBGMList;
+    public AudioClip[] DesertDungeonBGMList;    
 
     [Header("BtnSound")]
     public AudioClip btnSound;
@@ -21,6 +22,12 @@ public class SoundManager : MonoBehaviour
 
     [Header("StorySound")]
     public AudioClip storySound;
+
+    [Header("DungeonUISound")]
+    public AudioClip planetEnterSound;
+    public AudioClip planetClickSound;
+    public AudioClip dungeonEntranceSound;
+
 
     public AudioMixer audioMixer;
     public static SoundManager instance;
@@ -35,8 +42,8 @@ public class SoundManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
+        }                
+    }    
 
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -45,42 +52,70 @@ public class SoundManager : MonoBehaviour
         {            
             for (int i = 0; i < introBGMList.Length; i++)
             {
-                BgSoundPlay(introBGMList[i]);
+                PlayRandomBGM(introBGMList);
             }            
         }
-        else if(arg0.name == "SafeZoneScene")
+        else if(arg0.name == "SafeZoneSceneDev")
         {
             for (int i = 0; i < SafeZoneBGMList.Length; i++)
             {
-                BgSoundPlay(SafeZoneBGMList[i]); break;
+                PlayRandomBGM(SafeZoneBGMList);
             }
         }
-        else if(arg0.name == "DungeonScene")
+        else if(arg0.name == "DungeonSceneDev")
         {
             for (int i = 0; i < DesertDungeonBGMList.Length; i++)
             {
-                BgSoundPlay(DesertDungeonBGMList[i]); break;
+                PlayRandomBGM(DesertDungeonBGMList);
             }
         }
     }
 
 
 
-    public void BgSoundPlay(AudioClip clip)
+    //public void BgSoundPlay(AudioClip clip)
+    //{
+    //    bgSound.clip = clip;
+    //    bgSound.loop = true;
+    //    bgSound.volume = 0.1f;
+    //    bgSound.Play();
+    //}
+
+    private void PlayRandomBGM(AudioClip[] bgmList)
     {
-        bgSound.clip = clip;
-        bgSound.loop = true;
-        bgSound.volume = 0.1f;
-        bgSound.Play();
+        if (bgmList.Length > 0)
+        {
+            int clipRange = Random.Range(0, bgmList.Length);
+            AudioClip randomClip = bgmList[clipRange];
+            bgSound.clip = randomClip;
+            bgSound.loop = true;
+            bgSound.volume = 0.1f;            
+            bgSound.Play();
+        }
     }
 
-    public void IntroBtnSound()
+    public void BtnSound()
     {
-        bgSound.PlayOneShot(btnSound);
+        UISound.PlayOneShot(btnSound);
     }    
 
-    public void PushIntroBtnSound()
+    public void PushBtnSound()
     {
-        bgSound.PlayOneShot(btnPushSound);
+        UISound.PlayOneShot(btnPushSound);
+    }
+
+    public void PlanetEnterSound()
+    {
+        UISound.PlayOneShot(planetEnterSound);
+    }
+
+    public void PlanetClickSound()
+    {
+        UISound.PlayOneShot(planetClickSound);
+    }
+
+    public void DungeonEntranceSound()
+    {
+        UISound.PlayOneShot(dungeonEntranceSound);
     }
 }
