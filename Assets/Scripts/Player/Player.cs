@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     public PlayerUI playerUI;
     public PlayerCharacter playerCharacter;
     public PlayerInteract playerInteract;
+    public GameObject menu;
 
     public event Action OnPossessed;
     public event Action OnUnPossessed;
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour
         if (UIController.Instance.Push<PlayerUI>("HUDCanvas", out playerUI)) 
         {
             playerUI.BindPlayerCharacter(playerCharacter);
-        }
+        }        
     }
 
     public void UnPossess() 
@@ -130,5 +131,19 @@ public class Player : MonoBehaviour
     public void ToggleEscape(InputAction.CallbackContext callbackContext) 
     {
         // todo : Settingâ ǥ��
+        if (UIController.Instance.Peek(out GameObject gameObject))
+        {            
+            if (gameObject.TryGetComponent(out Menu menuUI))
+            {                
+                UIController.Instance.Pop();
+                Player.Instance.OnControllCharacter();
+                return;
+            }
+        }
+
+        if (UIController.Instance.Push<Menu>("MenuCanvas", out Menu menuui, EUIShowMode.Single))
+        {            
+            Player.Instance.OnControllUI();
+        }
     }
 }

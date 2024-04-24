@@ -185,6 +185,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d7ff29e-a618-4d77-85a3-2d9366fa3020"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,6 +227,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52dfdd54-773f-4e59-848e-8bab9393b2d1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -369,6 +389,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerUI_Debug = m_PlayerUI.FindAction("Debug", throwIfNotFound: true);
         m_PlayerUI_Inventory = m_PlayerUI.FindAction("Inventory", throwIfNotFound: true);
         m_PlayerUI_Interact = m_PlayerUI.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerUI_Menu = m_PlayerUI.FindAction("Menu", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_WeaponSwap = m_Weapon.FindAction("WeaponSwap", throwIfNotFound: true);
@@ -509,6 +530,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerUI_Debug;
     private readonly InputAction m_PlayerUI_Inventory;
     private readonly InputAction m_PlayerUI_Interact;
+    private readonly InputAction m_PlayerUI_Menu;
     public struct PlayerUIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -516,6 +538,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Debug => m_Wrapper.m_PlayerUI_Debug;
         public InputAction @Inventory => m_Wrapper.m_PlayerUI_Inventory;
         public InputAction @Interact => m_Wrapper.m_PlayerUI_Interact;
+        public InputAction @Menu => m_Wrapper.m_PlayerUI_Menu;
         public InputActionMap Get() { return m_Wrapper.m_PlayerUI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -534,6 +557,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         private void UnregisterCallbacks(IPlayerUIActions instance)
@@ -547,6 +573,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         public void RemoveCallbacks(IPlayerUIActions instance)
@@ -646,6 +675,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnDebug(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
     public interface IWeaponActions
     {
