@@ -43,13 +43,17 @@ public class DungeonTracker : SingletoneBase<DungeonTracker>
         _totalDamage = 0;
         _receivedDamage = 0;
         _earnGold = 0;
+        curQuestID = questId;
         isQuestInProgress = true;
     }
 
     public void QuestEnd(int questID) 
     {
-        QuestManager.Instance.OnQuestCompleteCallback -= QuestEnd;
-        isQuestInProgress = false;
+        if(curQuestID == questID) 
+        {
+            QuestManager.Instance.OnQuestCompleteCallback -= QuestEnd;
+            isQuestInProgress = false;
+        }
     }
 
     public void TimerUpdate() 
