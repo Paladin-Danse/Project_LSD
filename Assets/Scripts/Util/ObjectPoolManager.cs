@@ -83,7 +83,8 @@ public class ObjectPoolManager
         {
             for (int i = 0; i < _poolList.Count; i++)
             {
-                GameObject.DestroyImmediate(_poolList[i].gameObject);
+                if(_poolList[i] != null && _poolList[i].IsDestroyed() == false)
+                    GameObject.Destroy(_poolList[i].gameObject);
             }
             _poolList.Clear();
             _poolStack.Clear();

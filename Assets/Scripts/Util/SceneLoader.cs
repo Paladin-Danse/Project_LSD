@@ -16,6 +16,7 @@ public class SceneLoader
 
     public void LoadScene(Defines.EScene scene, LoadSceneMode loadSceneModev = LoadSceneMode.Single) 
     {
+        GameManager.Instance.PauseGame();
         SceneManagerBase sceneManager = GameObject.FindObjectOfType<SceneManagerBase>();
         if (sceneManager != null)
         {
@@ -27,7 +28,6 @@ public class SceneLoader
         {
             GameObject.Destroy(Player.Instance.gameObject);
         }
-
         UIController.Instance.Push<LoadingCanvasController>("LoadingCanvas", out loadingCanvasController);
         loadSceneContext = scene;
         SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);

@@ -14,6 +14,11 @@ public class LoadingCanvasController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        ObjectPoolManager.Instance.ClearPools();
+    }
+
     public void SetProgress(float progress) 
     {
         progressImage.fillAmount = progress;
