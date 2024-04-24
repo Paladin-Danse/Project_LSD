@@ -9,6 +9,7 @@ public class DungeonSceneManager : SceneManagerBase
 {
     Map map;
     PlayerCharacter playerCharacter;
+    GameObject enemyGroup;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class DungeonSceneManager : SceneManagerBase
         // SceneLoader.Instance.loadingCanvasController.SetProgressText("¸Ê ·Îµù Áß");
 
         map = GameObject.Instantiate(SelectedDungeonContext.Instance.selectedDungeonData.dungeonPrefab).GetComponent<Map>();
+        enemyGroup = map.transform.Find("EnemyGroup").gameObject;
 
         // SceneLoader.Instance.loadingCanvasController.SetProgressText("¸Ê ·Îµù ¿Ï·á");
     }
@@ -69,12 +71,8 @@ public class DungeonSceneManager : SceneManagerBase
         }
         Player.Instance.Possess(playerCharacter);
 
-        if (!UIController.Instance.Push<PlayerMissionUI>("MissionCanvas", out PlayerMissionUI playerMissionUI, EUIShowMode.Additive))
-        {
-            Debug.Log("Failed to Create MissionCanvas!");
-        }
-
         QuestManager.Instance.QuestStart(SelectedDungeonContext.Instance.selectedDungeonData.QuestID);
+        QuestManager.Instance.OnQuestCompleteCallback += QuestEnd;
         DungeonTracker.Instance.InitTracker(SelectedDungeonContext.Instance.selectedDungeonData.QuestID);
     }
 
@@ -85,5 +83,14 @@ public class DungeonSceneManager : SceneManagerBase
         Player.Instance.UnPossess();
         ObjectPoolManager.Instance.ClearPools();
         UIController.Instance.Clear();
+    }
+
+    public void QuestEnd(int questID) 
+    {
+        if(SelectedDungeonContext.Instance.selectedDungeonData.QuestID == questID) 
+        {
+            if(enemyGroup != null) { enemyGroup.SetActive(false); }
+            QuestManager.Instance.OnQuestCompleteCallback -= QuestEnd;
+        }
     }
 }
