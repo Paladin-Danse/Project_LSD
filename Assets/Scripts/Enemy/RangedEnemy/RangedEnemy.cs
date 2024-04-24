@@ -60,30 +60,36 @@ public class RangedEnemy : MonoBehaviour
         this.GetComponent<Rigidbody>().isKinematic = true;
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
-        
+
         if (per >= 50)
         {
-            Instantiate(bulletBox, transform.position, transform.rotation);
+            GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
+            bulletObject.transform.position = transform.position;
+            bulletObject.transform.rotation = transform.rotation;
+            bulletObject.SetActive(true);
         }
         else if (per < 50)
         {
-            Instantiate(firstAidKit, transform.position, transform.rotation);
+            GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
+            firstAidObject.transform.position = transform.position;
+            firstAidObject.transform.rotation = transform.rotation;
+            firstAidObject.SetActive(true);
         }
 
         DungeonTracker.Instance.killedEnemies += 1;
 
         float gper = Random.Range(0, 99);
-        if (gper >= 50)
+        if (gper >= 0)
         {
             float goldPosX = Random.Range(0, 1f);
             float goldPosZ = Random.Range(0, 1f);
             float goldRot = Random.Range(0, 180f);
-            
+
             GameObject gold = ObjectPoolManager.Instance.Pop("Gold").gameObject;
             gold.transform.position = transform.position + new Vector3(goldPosX, 0f, goldPosZ);
             gold.transform.rotation = Quaternion.Euler(0, goldRot, 0);
             gold.SetActive(true);
-        }            
+        }
 
         enabled = false;
         Destroy(gameObject, 2f);

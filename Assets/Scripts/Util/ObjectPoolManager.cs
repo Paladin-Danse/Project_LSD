@@ -27,6 +27,7 @@ public class ObjectPoolManager
         public Transform rootObj { get; private set; }
 
         Stack<Poolable> _poolStack = new Stack<Poolable>();
+        List<Poolable> _poolList = new List<Poolable>();
 
         public void InitPool(GameObject original, int count = Defines.DEFAULT_POOL_SIZE) 
         {
@@ -44,7 +45,9 @@ public class ObjectPoolManager
         {
             GameObject gameObject = Object.Instantiate(originalObj);
             gameObject.name = originalObj.name;
-            return gameObject.GetOrAddComponent<Poolable>();
+            Poolable poolObj = gameObject.GetOrAddComponent<Poolable>();
+            _poolList.Add(poolObj);
+            return poolObj;
         }
 
         internal void Push(Poolable poolable) 
@@ -78,6 +81,11 @@ public class ObjectPoolManager
 
         public void ClearPool() 
         {
+            for (int i = 0; i < _poolList.Count; i++)
+            {
+                GameObject.DestroyImmediate(_poolList[i].gameObject);
+            }
+            _poolList.Clear();
             _poolStack.Clear();
         }
     }
@@ -137,7 +145,7 @@ public class ObjectPoolManager
         {
             pool.ClearPool();
         }
-        _pools.Clear();
+        // _pools.Clear();
     }
 }
 

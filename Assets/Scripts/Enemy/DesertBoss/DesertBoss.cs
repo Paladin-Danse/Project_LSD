@@ -71,13 +71,20 @@ public class DesertBoss : MonoBehaviour
         Animator.SetTrigger("Die");
         enabled = false;
         Destroy(gameObject, 2f);
+
         if (per >= 50)
         {
-            Instantiate(bulletBox, transform.position, transform.rotation);
+            GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
+            bulletObject.transform.position = transform.position;
+            bulletObject.transform.rotation = transform.rotation;
+            bulletObject.SetActive(true);
         }
         else if (per < 50)
         {
-            Instantiate(firstAidKit, transform.position, transform.rotation);
+            GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
+            firstAidObject.transform.position = transform.position;
+            firstAidObject.transform.rotation = transform.rotation;
+            firstAidObject.SetActive(true);
         }
 
         audioSource.PlayOneShot(dieSound);
