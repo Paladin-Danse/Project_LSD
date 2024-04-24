@@ -1470,7 +1470,6 @@ MonoBehaviour:
     smallAttackParameterName: SmallAttack
   bulletBox: {fileID: 1682786352928709123, guid: 97473e95d93d37e4c8334cf3c1555378, type: 3}
   firstAidKit: {fileID: 4887278874905095115, guid: 9dd7795374dcbd340917f62ba7fe8e63, type: 3}
-  GoldPrefab: {fileID: 6544341487614237897, guid: 25c3421d8eacfa348bf0a3a929b4d953, type: 3}
 --- !u!136 &8629421365099041732
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1560,7 +1559,7 @@ AudioSource:
   m_GameObject: {fileID: 9163229756498105670}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
