@@ -61,15 +61,17 @@ public class Enemy : MonoBehaviour
         
         if (per >= 50)
         {
-            ObjectPoolManager.Instance.Pop(bulletBox);
-            bulletBox.transform.position = transform.position;
-            bulletBox.transform.rotation = transform.rotation;
+            GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
+            bulletObject.transform.position = transform.position;
+            bulletObject.transform.rotation = transform.rotation;
+            bulletObject.SetActive(true);
         }
         else if (per < 50)
         {
-            ObjectPoolManager.Instance.Pop(firstAidKit);
-            firstAidKit.transform.position = transform.position;
-            firstAidKit.transform.rotation = transform.rotation;
+            GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
+            firstAidObject.transform.position = transform.position;
+            firstAidObject.transform.rotation = transform.rotation;
+            firstAidObject.SetActive(true);
         }
             
         DungeonTracker.Instance.killedEnemies += 1;

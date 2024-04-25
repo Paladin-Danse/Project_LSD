@@ -81,7 +81,6 @@ public class DungeonSceneManager : SceneManagerBase
         base.OnUnloadScene();
         Player.Instance.SaveData();
         Player.Instance.UnPossess();
-        ObjectPoolManager.Instance.ClearPools();
         UIController.Instance.Clear();
     }
 

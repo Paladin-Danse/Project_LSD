@@ -86,7 +86,6 @@ public class Weapon : MonoBehaviour
         animationData.Initialize();
 
         audioSource = GetComponent<AudioSource>();
-        //audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixer.FindMatchingGroups("Master")[0];
 
         WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
@@ -214,9 +213,8 @@ public class Weapon : MonoBehaviour
         //input_ = null;
         stateMachine.ChangeState(stateMachine.ExitState);
     }
-    public void PlayClip(AudioClip newClip, float volume)
+    public void PlayClip(AudioClip newClip)
     {
-        audioSource.volume = volume;
         audioSource.PlayOneShot(newClip);
     }
 
@@ -273,7 +271,7 @@ public class Weapon : MonoBehaviour
     public IEnumerator Shot()
     {
         curMagazine--;
-        PlayClip(shot_AudioClip, shot_Volume);
+        PlayClip(shot_AudioClip);
         OnMagChanged?.Invoke();
 
         //Projectile Create
@@ -297,7 +295,7 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator DryFire()
     {
-        PlayClip(dry_AudioClip, dry_Volume);
+        PlayClip(dry_AudioClip);
         yield return null;
         ShotCoroutine = null;
     }
@@ -331,7 +329,7 @@ public class Weapon : MonoBehaviour
     }
     public IEnumerator Reload()
     {
-        PlayClip(reload_start_AudioClip, reload_Volume);
+        PlayClip(reload_start_AudioClip);
         animator.SetInteger(animationData.reloadParameterHash, 1);
         while(!animator.GetCurrentAnimatorStateInfo(0).IsTag("Reload"))
         {
@@ -343,7 +341,7 @@ public class Weapon : MonoBehaviour
         animator.SetInteger(animationData.reloadParameterHash, -1);
 
         yield return YieldCacher.WaitForSeconds(curWeaponStat.reloadDelay);
-        PlayClip(reload_end_AudioClip, reload_Volume);
+        PlayClip(reload_end_AudioClip);
         animator.speed = 1;
         curMagazine += UseInventoryAmmo();
         ReloadCoroutine = null;

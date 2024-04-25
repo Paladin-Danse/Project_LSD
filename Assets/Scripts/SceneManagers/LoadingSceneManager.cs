@@ -19,6 +19,7 @@ public class LoadingSceneManager : MonoBehaviour
 
     private void Start()
     {
+        ObjectPoolManager.Instance.ClearPools();
         StartCoroutine(LoadScene());
     }
 
@@ -35,6 +36,7 @@ public class LoadingSceneManager : MonoBehaviour
             {
                 ChangeProgressText("¾À ·Îµù ¿Ï·á");
                 RefreshProgressUI(1.0f);
+                GameManager.Instance.ResumeGame();
                 yield return YieldCacher.WaitForSeconds(1.0f);
                 UIController.Instance.Pop();
                 asyncOperation.allowSceneActivation = true;

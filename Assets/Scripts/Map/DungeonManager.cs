@@ -33,7 +33,8 @@ public class DungeonManager : MonoBehaviour
         //else
         //{
         //    if (Instance != this)
-        //        Destroy(this.gameObject);
+        //
+        //        this.gameObject);
         //}
 
         dungeonMapPrefab = dungeons[selectedDungeonKeep.mapNumber].Ddata.dungeonPrefab;
