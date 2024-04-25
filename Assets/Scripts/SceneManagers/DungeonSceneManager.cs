@@ -64,6 +64,7 @@ public class DungeonSceneManager : SceneManagerBase
         if (map.spawnPoint == null) Debug.Log("No SpawnPoint!");
 
         playerCharacter.transform.position = map.spawnPoint.transform.position;
+        playerCharacter.transform.rotation = map.spawnPoint.transform.rotation;
 
         if (!UIController.Instance.Push<PlayerUI>("HUDCanvas", out Player.Instance.playerUI, EUIShowMode.Single))
         {
