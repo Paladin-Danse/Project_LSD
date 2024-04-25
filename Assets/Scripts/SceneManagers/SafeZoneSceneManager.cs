@@ -32,6 +32,7 @@ public class SafeZoneSceneManager : SceneManagerBase
         LoadPlayerCharacter();
 
         playerCharacter.transform.position = map.spawnPoint.transform.position;
+        playerCharacter.transform.rotation = map.spawnPoint.transform.rotation;
 
         // 플레이어 빙의 (플레이어 데이터 바인딩)
 
