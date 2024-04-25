@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeEnemySound : MonoBehaviour
 {
-    public AudioSource audioSource;
+    AudioSource audioSource;
     public AudioClip WalkSound;
     public AudioClip PunchSound;
 
