@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;

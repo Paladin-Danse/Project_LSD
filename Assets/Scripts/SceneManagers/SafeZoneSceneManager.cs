@@ -66,7 +66,6 @@ public class SafeZoneSceneManager : SceneManagerBase
     {
         Player.Instance.SaveData();
         Player.Instance.UnPossess();
-        ObjectPoolManager.Instance.ClearPools();
         UIController.Instance.Clear();
     }
 
