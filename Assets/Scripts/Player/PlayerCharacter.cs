@@ -100,6 +100,8 @@ public class PlayerCharacter : CharacterStatHandler
         stateMachine.ChangeState(stateMachine.IdleState);
         health.OnDie += Death;
         AnimationData.Initialize();
+
+        stateMachine.playerYRotate = rigidbody_.transform.rotation.eulerAngles.y;
     }
 
     public void OnPossessCharacter(Player player)
