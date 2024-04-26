@@ -55,6 +55,7 @@ public class Weapon : MonoBehaviour
     public Transform firePos;
 
     [Header("Audio")]
+    [SerializeField]
     protected AudioSource audioSource;
     public AudioClip shot_AudioClip;
     public AudioClip dry_AudioClip;
@@ -85,7 +86,7 @@ public class Weapon : MonoBehaviour
         animationData = new WeaponAnimationData();
         animationData.Initialize();
 
-        audioSource = GetComponent<AudioSource>();
+        // audioSource = GetComponent<AudioSource>();
 
         WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
@@ -118,8 +119,9 @@ public class Weapon : MonoBehaviour
     {
         if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
         stateMachine = new GunStateMachine(this);
-        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
+        // if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+        if (GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
 
         isShotable = true;
         isSwap = false;

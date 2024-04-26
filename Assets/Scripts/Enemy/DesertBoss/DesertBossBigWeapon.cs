@@ -26,6 +26,7 @@ public class DesertBossBigWeapon : MonoBehaviour
     {
         desertBoss = GetComponent<DesertBoss>();
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
         projectileSpeed = desertBoss.WSData.weaponStat.attackStat.bulletSpeed;
         projectileDamage = desertBoss.WSData.weaponStat.attackStat.damage;
         projectileDistance = desertBoss.WSData.weaponStat.attackStat.range;

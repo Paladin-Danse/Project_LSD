@@ -11,6 +11,7 @@ public class MeleeEnemySound : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
     }
 
     void OnWalkSound()
