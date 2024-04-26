@@ -14,6 +14,7 @@ public class SafeZoneSceneManager : SceneManagerBase
     void Start()
     {
         LoadScene();
+        SceneLoader.Instance.LoadCompleted();
     }
 
     // Update is called once per frame
