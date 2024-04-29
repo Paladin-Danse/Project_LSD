@@ -6160,7 +6160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStat:
-    statModifyType: 0
+    statModifyType: 2
     weaponStatFlag: 0
     e_useAmmo: 0
     magazine: 0
@@ -6171,7 +6171,7 @@ MonoBehaviour:
     reloadDelay: 0
     bulletPerFire: 0
     attackStat:
-      statModifyType: 0
+      statModifyType: 2
       AttackType: 0
       attackStatFlag: 0
       damage: 0
@@ -6184,7 +6184,7 @@ MonoBehaviour:
       knockBackTime: 0
   statModifiers: []
   <currentStat>k__BackingField:
-    statModifyType: 0
+    statModifyType: 2
     weaponStatFlag: 0
     e_useAmmo: 0
     magazine: 0
@@ -6195,7 +6195,7 @@ MonoBehaviour:
     reloadDelay: 0
     bulletPerFire: 0
     attackStat:
-      statModifyType: 0
+      statModifyType: 2
       AttackType: 0
       attackStatFlag: 0
       damage: 0

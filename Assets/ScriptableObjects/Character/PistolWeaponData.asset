@@ -20,11 +20,11 @@ MonoBehaviour:
     spread: 3
     recoil: 0.4
     preFireDelay: 1
-    fireDelay: 0.3
+    fireDelay: 0.2
     reloadDelay: 1.5
     bulletPerFire: 1
     attackStat:
-      statModifyType: 0
+      statModifyType: 2
       AttackType: 1
       attackStatFlag: -1
       damage: 20
