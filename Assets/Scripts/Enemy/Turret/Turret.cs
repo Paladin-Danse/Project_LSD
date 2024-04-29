@@ -41,6 +41,7 @@ public class Turret : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
         attackRange = turretStat.weaponStat.attackStat.range;
         fireRate = turretStat.weaponStat.fireDelay;
         t_ProjectileSpeed = turretStat.weaponStat.attackStat.bulletSpeed;

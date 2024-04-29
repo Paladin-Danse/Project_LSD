@@ -14,6 +14,7 @@ public class DungeonSceneManager : SceneManagerBase
     private void Awake()
     {
         InitGame();
+        SceneLoader.Instance.LoadCompleted();
     }
 
     // Start is called before the first frame update

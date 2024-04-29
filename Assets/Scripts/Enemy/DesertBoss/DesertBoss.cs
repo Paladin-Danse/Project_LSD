@@ -42,6 +42,7 @@ public class DesertBoss : MonoBehaviour
         stateMachine = new DesertBossStateMachine(this);
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
 
         health.OnDie += OnDie;
     }

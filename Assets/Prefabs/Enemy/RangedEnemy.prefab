@@ -1440,7 +1440,7 @@ GameObject:
   - component: {fileID: 3678741658430513559}
   - component: {fileID: 638612268114593838}
   - component: {fileID: 3557716177023381926}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2177,7 +2177,7 @@ Transform:
   - {fileID: 6135826674189065913}
   - {fileID: 3678741658430513559}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -17.737, z: 0}
 --- !u!95 &5718415022797314393
 Animator:

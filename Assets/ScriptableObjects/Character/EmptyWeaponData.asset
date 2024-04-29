@@ -24,7 +24,7 @@ MonoBehaviour:
     reloadDelay: 0
     bulletPerFire: 0
     attackStat:
-      statModifyType: 0
+      statModifyType: 2
       AttackType: 0
       attackStatFlag: 0
       damage: 0

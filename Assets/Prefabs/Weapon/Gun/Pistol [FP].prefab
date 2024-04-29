@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881278661170}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_RightShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881346095485}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881364708752}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger52
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881434820465}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger3Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881467966311}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881471877417}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger52
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881492870848}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881497178746}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881508327710}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881521100974}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881544422681}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881550261472}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881576894327}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881584488187}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Spine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881604559650}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger5Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881614291621}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: FIRESPOT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881660521482}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881706920192}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger2Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881791469175}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_RightForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881794221789}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881799481970}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881912611485}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -711,7 +711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881944619870}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: SMOKE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881964558652}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881986551894}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger4Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881997194816}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger51
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735881999137444}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_ForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -869,7 +869,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882039497577}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882097349199}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -933,7 +933,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882108425638}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -969,7 +969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882115583972}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1001,7 +1001,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882127882338}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_HeadTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882127894284}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,7 +1064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882228838104}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1095,7 +1095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882253293483}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1128,7 +1128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 500735882291030574}
   - component: {fileID: 500735882291030575}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Semi-Automatic_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882327230021}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger2Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1288,7 +1288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882341933382}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1320,7 +1320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882393003738}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1356,7 +1356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882481286223}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger4Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1387,7 +1387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882493156312}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger5Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1418,7 +1418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882538410592}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger1Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1449,7 +1449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882574503763}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1481,7 +1481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882698494624}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,7 +1513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882720583848}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1545,7 +1545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882723636269}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1577,7 +1577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882781431185}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1608,7 +1608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882832661740}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1643,7 +1643,7 @@ GameObject:
   - component: {fileID: 500735882833397996}
   - component: {fileID: 500735882833398005}
   - component: {fileID: 1172713341882916694}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Pistol [FP]
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -1797,7 +1797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input_: {fileID: 0}
-  baseStatSO: {fileID: 11400000, guid: c3e9fbf9a6244e24ca874615d6501a65, type: 2}
+  <baseStatSO>k__BackingField: {fileID: 0}
   baseStat:
     statModifyType: 0
     weaponStatFlag: -1
@@ -1834,6 +1834,7 @@ MonoBehaviour:
   maxSpread: 0
   projectilePrefab: {fileID: 5846702838974413558, guid: f141f406a20f7bc46a8c70fdc680f6f4, type: 3}
   firePos: {fileID: 500735881614291621}
+  audioSource: {fileID: 0}
   shot_AudioClip: {fileID: 8300000, guid: c68140d9497b69a4db62ec9f7cc06294, type: 3}
   dry_AudioClip: {fileID: 8300000, guid: 3240e06a294389f4780132974ee81c77, type: 3}
   cock_AudioClip: {fileID: 8300000, guid: adc3400a823b48444bbdf591543f1cdc, type: 3}
@@ -1855,7 +1856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882844024724}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger1Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1886,7 +1887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882967890577}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1918,7 +1919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882980405450}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1950,7 +1951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735882983349918}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1982,7 +1983,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883047878034}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2014,7 +2015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883051116434}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2051,7 +2052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883107325187}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2083,7 +2084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883116179698}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2115,7 +2116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883150014624}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2147,7 +2148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883162954721}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2179,7 +2180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883183550764}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2210,7 +2211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883185775490}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2242,7 +2243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883217395356}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_L_Finger3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2274,7 +2275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500735883249897087}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: BSP_rig_R_Finger3Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4980333890204293818}
   - component: {fileID: 6496653101488123240}
   - component: {fileID: 2273428576991771903}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: ShieldSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 3122584748890921287}
   - component: {fileID: 880350338535576858}
   - component: {fileID: 8119790554217520398}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: AccessSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
