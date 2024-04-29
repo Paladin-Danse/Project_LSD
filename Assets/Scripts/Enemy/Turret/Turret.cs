@@ -18,7 +18,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform t_MuzzlePos4;
     [SerializeField] WeaponStatSO turretStat;
     [SerializeField] GameObject destroyPre;
-    [SerializeField] GameObject muzzleShotPar;
+    [SerializeField] GameObject muzzleShotPar;    
 
     float curFireRate;
 
@@ -195,6 +195,19 @@ public class Turret : MonoBehaviour
         Destroy(dP3, 2f);
         Destroy(dP4, 2f);
         Destroy(gameObject, 3f);
+
+        int aCount = Random.Range(3, 10);
+        for (int i = 0; i < aCount; i++)
+        {
+            float AmmoBoxPosX = Random.Range(0, 2f);
+            float AmmoBoxPosZ = Random.Range(0, 2f);
+            float AmmoBoxRot = Random.Range(0, 180f);
+
+            GameObject AmmoBox = ObjectPoolManager.Instance.Pop("AmmoBox").gameObject;
+            AmmoBox.transform.position = transform.position + new Vector3(AmmoBoxPosX, 0f, AmmoBoxPosZ);
+            AmmoBox.transform.rotation = Quaternion.Euler(0, AmmoBoxRot, 0);
+            AmmoBox.SetActive(true);
+        }
     }   
     
     void OnUpSound()
