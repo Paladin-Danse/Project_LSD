@@ -155,10 +155,7 @@ public class Turret : MonoBehaviour
         t_Projectile3 = instantProjectile3.GetComponent<TurretProjectile>();
         t_Projectile4 = instantProjectile4.GetComponent<TurretProjectile>();
 
-        audioSource.PlayOneShot(t_ShotSound);
-        audioSource.PlayOneShot(t_ShotSound);
-        audioSource.PlayOneShot(t_ShotSound);
-        audioSource.PlayOneShot(t_ShotSound);
+        audioSource.PlayOneShot(t_ShotSound);        
 
         Destroy(particle1, 0.5f);
         Destroy(particle2, 0.5f);

@@ -1547,7 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2190145674f2849449db33697d91bd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
   WalkSound: {fileID: 8300000, guid: d3e3d897b8fc20a48a697de8aea6dfdd, type: 3}
   PunchSound: {fileID: 8300000, guid: 21f341c6bb5a07f47b720dc88f0eb418, type: 3}
 --- !u!82 &4971272066715777679
@@ -1562,7 +1561,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
