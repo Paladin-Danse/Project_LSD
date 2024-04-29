@@ -179,12 +179,12 @@ public class Weapon : MonoBehaviour
         Vector3 centerWorldPos = Camera.main.ScreenToWorldPoint(centerPos);
 
         Ray shotRay = new Ray(centerWorldPos, camTransform.forward + RandomSpread());
-        Debug.DrawRay(shotRay.origin, camTransform.forward + RandomSpread(), Color.red, rayDistance);
+        Debug.DrawRay(shotRay.origin, (camTransform.forward + RandomSpread()) * rayDistance, Color.red, 3.0f);
 
         RaycastHit hit;
         Vector3 hitPos;
-
-        if (Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Projectile")))
+        
+        if (Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Enemy")))
         {
             hitPos = hit.point;
         }
@@ -198,7 +198,7 @@ public class Weapon : MonoBehaviour
     {
         maxMagazine = curWeaponStat.magazine;
         curMagazine = math.max(0, maxMagazine);//zero is remaining ammo to Inventory & soon develop(math.max -> math.min)
-        maxRecoil = curWeaponStat.recoil * 2f;
+        maxRecoil = math.min(curWeaponStat.recoil * 4f, 10f);
         defaultSpread = curWeaponStat.spread * 0.01f;
         maxSpread = defaultSpread * 2f;
     }
@@ -280,6 +280,7 @@ public class Weapon : MonoBehaviour
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
         ammoProjectile.transform.position = firePos.position;
         ammoProjectile.transform.transform.LookAt(GetRaycastHitPosition());
+        Debug.DrawRay(ammoProjectile.transform.position, (GetRaycastHitPosition() - ammoProjectile.transform.position) * baseStat.attackStat.range, Color.blue, 3.0f);
         ammoProjectile.OnInit(stateMachine.gun);
 
         //Recoil

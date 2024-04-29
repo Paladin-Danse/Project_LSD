@@ -39,12 +39,14 @@ public class AmmoProjectile : MonoBehaviour
 
     private void Move()
     {
-        rigidbody_.velocity = transform.forward * ProjectileVelocity;
+        rigidbody_.velocity = transform.TransformDirection(Vector3.forward) * ProjectileVelocity;
+        Debug.Log(rigidbody_.velocity);
+        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * ProjectileMaxDistance, Color.blue, 2.0f);
     }
 
     private void CollisionCheck()
     {
-        if (rigidbody_.SweepTest(transform.forward, out hit, ProjectileVelocity * ProjectileSweepCheckModifier))
+        if (rigidbody_.SweepTest(transform.TransformDirection(Vector3.forward), out hit, ProjectileVelocity * ProjectileSweepCheckModifier))
         {
             int objectLayer = 1 << hit.transform.gameObject.layer;
 
@@ -52,13 +54,13 @@ public class AmmoProjectile : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent<Health>(out Health hit_Object))
                 {
-                    Debug.Log("Target Hit & Damaged!!");
+                    //Debug.Log("Target Hit & Damaged!!");
                     hit_Object.TakeDamage(ProjectileDamage);
                     DungeonTracker.Instance.totalDamage += ProjectileDamage;
                 }
                 else
                 {
-                    Debug.Log("Target Hit!!");
+                    //Debug.Log("Target Hit!!");
                 }
             }
             rigidbody_.velocity = Vector3.zero;
