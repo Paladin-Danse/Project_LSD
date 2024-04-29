@@ -25,7 +25,9 @@ public class DesertBoss : MonoBehaviour
 
     [SerializeField] private GameObject bulletBox;
     [SerializeField] private GameObject firstAidKit;    
-    [SerializeField] private GameObject SmallShip;    
+    [SerializeField] private GameObject SmallShip;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
 
     public DesertBossStateMachine stateMachine;
     public AudioSource audioSource;
@@ -45,6 +47,7 @@ public class DesertBoss : MonoBehaviour
         audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
 
         health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Start()
@@ -112,5 +115,10 @@ public class DesertBoss : MonoBehaviour
     void DQU()
     {
         QuestManager.Instance.DQuestUpdate(SelectedDungeonContext.Instance.selectedDungeonData.QuestID, 1);
+    }
+
+    void OnHit()
+    {        
+        hitSoundAudio.PlayOneShot(hitSound);
     }
 }

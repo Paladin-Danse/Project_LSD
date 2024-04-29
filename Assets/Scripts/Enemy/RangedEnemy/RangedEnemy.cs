@@ -19,7 +19,10 @@ public class RangedEnemy : MonoBehaviour
     public Health health { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;    
+    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
+    
 
     public RangedEnemyStateMachine stateMachine;
 
@@ -97,6 +100,9 @@ public class RangedEnemy : MonoBehaviour
 
     void OnHit()
     {
-        Animator.SetTrigger("Hit");        
+        Animator.SetTrigger("Hit");
+        hitSoundAudio.PlayOneShot(hitSound);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * -10f;
     }
 }

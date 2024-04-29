@@ -120,7 +120,7 @@ public class Weapon : MonoBehaviour
         if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
         stateMachine = new GunStateMachine(this);
         // if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+        //audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
         if (GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
 
         isShotable = true;

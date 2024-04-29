@@ -12,7 +12,9 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;    
+    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }        
@@ -95,6 +97,9 @@ public class Enemy : MonoBehaviour
 
     void OnHit()
     {
-        Animator.SetTrigger("Hit");        
+        Animator.SetTrigger("Hit");
+        hitSoundAudio.PlayOneShot(hitSound);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * -10f;
     }
 }
