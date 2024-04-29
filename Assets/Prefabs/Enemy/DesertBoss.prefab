@@ -904,19 +904,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32.5
+      value: 111.479385
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000014305115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 72.8
+      value: -136.23549
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1404,13 +1416,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d114b23c889da4aa67e9676146dcbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxR: 5
-  minR: 25
-  maxD: 35
-  minD: 5
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+  spinSpeed: 1
 --- !u!1 &140038347347399527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100046, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
@@ -1508,6 +1517,9 @@ MonoBehaviour:
   projectileSpeed: 0
   projectileDamage: 0
   projectileDistance: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &1069670884074637616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,15 +1832,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 683512136962653534, guid: b8cf00d6a48082849bbbf462949c7e4c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 683512136962653534, guid: b8cf00d6a48082849bbbf462949c7e4c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 683512136962653534, guid: b8cf00d6a48082849bbbf462949c7e4c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 683512136962653534, guid: b8cf00d6a48082849bbbf462949c7e4c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1934,8 +1946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d924fb5d866ded469a3502a59cbc220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceAmount: 10
-  damage: 10
+  forceAmount: 20
+  damage: 30
   sparkParticle: {fileID: 7523420938147424027, guid: 0cf6986939d702b4c856b2fb6c3d3b6d, type: 3}
   audioSource: {fileID: 6553369798539561546}
   electricity: {fileID: 8300000, guid: e5c04a20e76d8a14ba94c1f30410a0c0, type: 3}

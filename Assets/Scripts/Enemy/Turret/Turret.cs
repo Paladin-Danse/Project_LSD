@@ -22,7 +22,7 @@ public class Turret : MonoBehaviour
 
     float curFireRate;
 
-    Transform target = null;
+    [HideInInspector] public Transform target = null;
     Animator anim;
     public Animator dieAnim;
     AudioSource audioSource;
@@ -31,6 +31,7 @@ public class Turret : MonoBehaviour
     public AudioClip upSound;
     public AudioClip downSound;
     Health health;
+    public Health _Target;
 
     public TurretProjectile t_Projectile1 { get; set; }
     public TurretProjectile t_Projectile2 { get; set; }
@@ -61,6 +62,7 @@ public class Turret : MonoBehaviour
         if(target == null)
         {                        
             anim.SetBool("Attack", false);
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
         else
         {
@@ -68,6 +70,7 @@ public class Turret : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(target.position - turretBody.position);
             Vector3 euler = Quaternion.RotateTowards(turretBody.rotation, lookRotation, spinSpeed * Time.deltaTime).eulerAngles;
             turretBody.rotation = Quaternion.Euler(0, euler.y, 0);            
+            gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
             Quaternion fireRotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
             if(Quaternion.Angle(turretBody.rotation, fireRotation) < 5f)
@@ -181,8 +184,8 @@ public class Turret : MonoBehaviour
         anim.enabled = false;
         dieAnim.enabled = true;
 
-        audioSource.PlayOneShot(dieSound);        
-        //DungeonManager.Instance.killedEneies += 1;
+        audioSource.PlayOneShot(dieSound);
+        DungeonTracker.Instance.killedEnemies += 1;
         GameObject dP = Instantiate(destroyPre, transform.position + new Vector3(2.5f,0.5f,0), Quaternion.identity);
         GameObject dP2 = Instantiate(destroyPre, transform.position + new Vector3(-2.5f, 0.5f, 0), Quaternion.identity);
         GameObject dP3 = Instantiate(destroyPre, transform.position + new Vector3(0, 0.5f, 2.5f), Quaternion.identity);
