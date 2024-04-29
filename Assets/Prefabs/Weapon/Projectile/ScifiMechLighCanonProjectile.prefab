@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4648263176929510957}
   - component: {fileID: 7888026201643052019}
   - component: {fileID: 5576595024235836990}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ScifiMechLighCanonProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4421482015067916450}
   - component: {fileID: 1114582938076571962}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

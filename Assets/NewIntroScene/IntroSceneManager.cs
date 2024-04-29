@@ -16,6 +16,7 @@ public class IntroSceneManager : MonoBehaviour
     private void Awake()
     {            
         animator = GetComponent<Animator>();
+        SceneLoader.Instance.LoadCompleted();
     }
 
     void Start()
