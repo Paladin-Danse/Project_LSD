@@ -74,6 +74,9 @@ public class Weapon : MonoBehaviour
     public Animator animator;
     public WeaponAnimationData animationData;
 
+    [Header("Effect")]
+    public GameObject muzzleEffect;
+    public float effectTime = 0.1f;
     public Weapon(WeaponStatSO _weaponStatSO)
     {
         baseStatSO = _weaponStatSO;
@@ -275,6 +278,7 @@ public class Weapon : MonoBehaviour
         curMagazine--;
         PlayClip(shot_AudioClip);
         OnMagChanged?.Invoke();
+        StartCoroutine(MuzzleEffect());
 
         //Projectile Create
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
@@ -373,5 +377,12 @@ public class Weapon : MonoBehaviour
         
         TakeCoroutine = null;
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator MuzzleEffect()
+    {
+        muzzleEffect.SetActive(true);
+        yield return YieldCacher.WaitForSeconds(effectTime);
+        muzzleEffect.SetActive(false);
     }
 }

@@ -14,6 +14,9 @@ public class AmmoProjectile : MonoBehaviour
     RaycastHit hit;
     public LayerMask TargetLayer;
 
+    [Header("Effect")]
+    public ParticleSystem hitEffect;
+
     private void Awake()
     {
         rigidbody_ = GetComponent<Rigidbody>();
@@ -40,7 +43,6 @@ public class AmmoProjectile : MonoBehaviour
     private void Move()
     {
         rigidbody_.velocity = transform.TransformDirection(Vector3.forward) * ProjectileVelocity;
-        Debug.Log(rigidbody_.velocity);
         //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * ProjectileMaxDistance, Color.blue, 2.0f);
     }
 
@@ -63,6 +65,11 @@ public class AmmoProjectile : MonoBehaviour
                     //Debug.Log("Target Hit!!");
                 }
             }
+            ParticleSystem hitParticle = ObjectPoolManager.Instance.Pop(hitEffect.gameObject).GetComponent<ParticleSystem>();
+            hitParticle.transform.position = hit.point;
+            hitParticle.gameObject.SetActive(true);
+            hitParticle.Play();
+
             rigidbody_.velocity = Vector3.zero;
             DestroyProjectile();
         }
