@@ -22,6 +22,7 @@ public class PlayerUI : MonoBehaviour
     public PlayerMissionUI missionUI;
     public PlayerCrosshairUI crosshairUI;
     public PlayerInteractUI interactUI;
+    public PlayerDamageFeedbackUI damageFeedbackUI;
 
     PlayerCharacter bindedPlayerCharacter;
 
@@ -43,6 +44,7 @@ public class PlayerUI : MonoBehaviour
         healthUI.BindUI(character);
         weaponUI.BindUI(character);
         interactUI.BindUI(character);
+        damageFeedbackUI.BindUI(character);
     }
 
     void UnBindUI() 
@@ -50,5 +52,6 @@ public class PlayerUI : MonoBehaviour
         healthUI.UnbindUI();
         weaponUI.UnbindUI();
         interactUI.UnbindUI();
+        damageFeedbackUI.UnbindUI();
     }
 }
