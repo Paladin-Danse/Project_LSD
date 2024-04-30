@@ -104,6 +104,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 128
+  hitEffect: {fileID: 19800000, guid: 6dbea598de3aacc499b8cedbaf1aa95a, type: 3}
 --- !u!54 &7888026201643052019
 Rigidbody:
   m_ObjectHideFlags: 0
