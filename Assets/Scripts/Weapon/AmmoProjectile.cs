@@ -83,7 +83,7 @@ public class AmmoProjectile : MonoBehaviour
         }
     }
     
-    private void DestroyProjectile() 
+    private void DestroyProjectile()
     {
         ObjectPoolManager.Instance.TryPush(this.gameObject);
     }
