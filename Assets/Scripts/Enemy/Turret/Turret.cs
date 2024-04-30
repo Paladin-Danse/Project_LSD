@@ -18,7 +18,9 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform t_MuzzlePos4;
     [SerializeField] WeaponStatSO turretStat;
     [SerializeField] GameObject destroyPre;
-    [SerializeField] GameObject muzzleShotPar;    
+    [SerializeField] GameObject muzzleShotPar;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
 
     float curFireRate;
 
@@ -49,6 +51,7 @@ public class Turret : MonoBehaviour
         anim = GetComponent<Animator>();        
         health = GetComponent<Health>();
         health.OnDie += TOnDie;
+        health.OnTakeDamage += TOnHit;
     }
 
     void Start()
@@ -206,7 +209,12 @@ public class Turret : MonoBehaviour
             AmmoBox.transform.rotation = Quaternion.Euler(0, AmmoBoxRot, 0);
             AmmoBox.SetActive(true);
         }
-    }   
+    }  
+    
+    void TOnHit()
+    {
+        hitSoundAudio.PlayOneShot(hitSound);
+    }
     
     void OnUpSound()
     {

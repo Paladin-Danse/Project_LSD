@@ -371,7 +371,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 50
+  m_Radius: 45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8119790554217520398
 MonoBehaviour:
@@ -1048,7 +1048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 111.479385
+      value: 93.8
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1056,7 +1056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -136.23549
+      value: -147.1
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1579,7 +1579,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -1600,7 +1600,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 2.2
   m_Height: 6
