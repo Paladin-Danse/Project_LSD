@@ -14,7 +14,7 @@ public class PlayerInteractUI : MonoBehaviour, IPlayerUIInterface
     {
         Debug.Log("Binded!");
         playerCharacter = character;
-        playerCharacter.ownedPlayer.playerInteract.OnInteractableChanged += SetPromptText;
+        playerCharacter.playerInteract.OnInteractableChanged += SetPromptText;
         gameObject.SetActive(true);
         RefreshUI();
     }
@@ -28,7 +28,7 @@ public class PlayerInteractUI : MonoBehaviour, IPlayerUIInterface
     {
         if(playerCharacter != null) 
         {
-            playerCharacter.ownedPlayer.playerInteract.OnInteractableChanged -= SetPromptText;
+            playerCharacter.playerInteract.OnInteractableChanged -= SetPromptText;
             gameObject.SetActive(false);
             playerCharacter = null;
         }
