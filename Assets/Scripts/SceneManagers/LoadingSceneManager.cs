@@ -8,17 +8,9 @@ using TMPro;
 public class LoadingSceneManager : MonoBehaviour
 {
     AsyncOperation asyncOperation;
-    public TMP_Text progressText;
-    public Image filledImage;
-
-    private void Awake()
-    {
-        progressText = SceneLoader.Instance.loadingCanvasController.progressText;
-        filledImage = SceneLoader.Instance.loadingCanvasController.progressImage;
-    }
-
     private void Start()
     {
+        ObjectPoolManager.Instance.ClearPools();
         StartCoroutine(LoadScene());
     }
 
@@ -29,28 +21,18 @@ public class LoadingSceneManager : MonoBehaviour
 
         while(!asyncOperation.isDone) 
         {
-            RefreshProgressUI(asyncOperation.progress);
+            SceneLoader.Instance.loadingCanvasController.SetProgress(asyncOperation.progress);
 
             if (asyncOperation.progress >= 0.9f) 
             {
-                ChangeProgressText("¾À ·Îµù ¿Ï·á");
-                RefreshProgressUI(1.0f);
-                asyncOperation.allowSceneActivation = true;
+                SceneLoader.Instance.loadingCanvasController.SetProgressText("¾À ·Îµù ¿Ï·á");
+                SceneLoader.Instance.loadingCanvasController.SetProgress(1.0f);
+                GameManager.Instance.ResumeGame();
                 yield return YieldCacher.WaitForSeconds(1.0f);
-                UIController.Instance.Pop();
+                asyncOperation.allowSceneActivation = true;
             }
 
             yield return null;
         }
-    }
-    
-    void ChangeProgressText(string text) 
-    {
-        this.progressText.text = text;
-    }
-
-    void RefreshProgressUI(float progress) 
-    {
-        filledImage.fillAmount = progress;
     }
 }

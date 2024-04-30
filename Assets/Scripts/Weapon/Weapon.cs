@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class Weapon : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class Weapon : MonoBehaviour
 
     public GunStateMachine stateMachine { get; private set; }
     public PlayerInput input_;
-    [SerializeField]
-    WeaponStatSO baseStatSO;
+    [field: SerializeField]
+    public WeaponStatSO baseStatSO { get; private set; }
     public WeaponStat baseStat;
     public ItemData itemData;
 
@@ -39,7 +40,7 @@ public class Weapon : MonoBehaviour
     public float defaultSpread = 0f;
     public float maxSpread;
 
-    public Quaternion weaponTargetRotation { get; private set; }
+    //public Quaternion weaponTargetRotation { get; private set; }
 
     //IEnumerator
     public IEnumerator ShotCoroutine = null;
@@ -54,6 +55,7 @@ public class Weapon : MonoBehaviour
     public Transform firePos;
 
     [Header("Audio")]
+    [SerializeField]
     protected AudioSource audioSource;
     public AudioClip shot_AudioClip;
     public AudioClip dry_AudioClip;
@@ -72,12 +74,22 @@ public class Weapon : MonoBehaviour
     public Animator animator;
     public WeaponAnimationData animationData;
 
+    [Header("Effect")]
+    public GameObject muzzleEffect;
+    public float effectTime = 0.1f;
+    public Weapon(WeaponStatSO _weaponStatSO)
+    {
+        baseStatSO = _weaponStatSO;
+    }
+
     public void Init(PlayerCharacter playerCharacter)
     {
         playerCharacter_ = playerCharacter;
         
         animationData = new WeaponAnimationData();
         animationData.Initialize();
+
+        // audioSource = GetComponent<AudioSource>();
 
         WeaponStatSO weaponStatSO;
         if (baseStatSO != null)
@@ -86,10 +98,15 @@ public class Weapon : MonoBehaviour
             baseStat = weaponStatSO.weaponStat;
             itemData = weaponStatSO.weaponItem;
         }
+        else
+        {
+            Debug.LogError("Error(Weapon) : baseStatSO is not Found!");
+        }
+        /*
         weaponStatSO = Instantiate(baseStatSO);
         baseStat = weaponStatSO.weaponStat;
         itemData = weaponStatSO.weaponItem;
-
+        */
         itemData.Init();
         itemData.AddStat("Damage", (int)baseStat.attackStat.damage);
         itemData.AddStat("Accuracy", 100 - (int)baseStat.spread);
@@ -105,11 +122,28 @@ public class Weapon : MonoBehaviour
     {
         if (!TryGetComponent<Animator>(out animator)) Debug.Log("Weapon(animator) : Animator is not Found!");
         stateMachine = new GunStateMachine(this);
-        if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
-        if(GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
+        // if (!TryGetComponent<AudioSource>(out audioSource)) Debug.Log("this Weapon is not Found AudioSource Component!!");
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+        if (GetComponentInChildren<FirePos>() != null) firePos = GetComponentInChildren<FirePos>().transform;
 
         isShotable = true;
         isSwap = false;
+    }
+
+    private void OnEnable()
+    {
+        
+        /*
+        baseStat.attackStat.damage = itemData.itemStatValues["Damage"];
+        baseStat.spread = itemData.itemStatValues["Accuracy"];
+        baseStat.attackStat.damage = itemData.itemStatValues["Damage"];
+        baseStat.attackStat.damage = itemData.itemStatValues["Damage"];
+        */
+    }
+
+    private void Start()
+    {
+        //audioSource.outputAudioMixerGroup = SoundManager.instance.audioMixer.FindMatchingGroups("Master")[0];
     }
 
     private void Update()
@@ -142,20 +176,18 @@ public class Weapon : MonoBehaviour
     }
     public Vector3 GetRaycastHitPosition()
     {
-        Camera curCam = playerCharacter_.FPCamera;
+        Transform camTransform = playerCharacter_.playerCamTransform;
         float rayDistance = curWeaponStat.attackStat.range;
-        Vector3 centerPos = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, math.abs(firePos.position.z - curCam.transform.position.z));
-        Vector3 centerWorldPos = curCam.ScreenToWorldPoint(centerPos);
+        Vector3 centerPos = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, math.abs(firePos.position.z - camTransform.position.z));
+        Vector3 centerWorldPos = Camera.main.ScreenToWorldPoint(centerPos);
 
-        Ray shotRay = new Ray(centerWorldPos, curCam.transform.forward + RandomSpread());
-        Debug.DrawRay(shotRay.origin, curCam.transform.forward + RandomSpread(), Color.red, rayDistance);
+        Ray shotRay = new Ray(centerWorldPos, camTransform.forward + RandomSpread());
+        Debug.DrawRay(shotRay.origin, (camTransform.forward + RandomSpread()) * rayDistance, Color.red, 3.0f);
 
-        //return shotRay.GetPoint(rayDistance);
-        
         RaycastHit hit;
         Vector3 hitPos;
-
-        if (Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Projectile")))
+        
+        if (Physics.Raycast(shotRay, out hit, rayDistance, LayerMask.GetMask("Enemy")))
         {
             hitPos = hit.point;
         }
@@ -169,7 +201,7 @@ public class Weapon : MonoBehaviour
     {
         maxMagazine = curWeaponStat.magazine;
         curMagazine = math.max(0, maxMagazine);//zero is remaining ammo to Inventory & soon develop(math.max -> math.min)
-        maxRecoil = curWeaponStat.recoil * 2f;
+        maxRecoil = math.min(curWeaponStat.recoil * 4f, 10f);
         defaultSpread = curWeaponStat.spread * 0.01f;
         maxSpread = defaultSpread * 2f;
     }
@@ -177,16 +209,17 @@ public class Weapon : MonoBehaviour
     public void CurrentWeaponEquip()
     {
         input_ = playerCharacter_.input;
+        if(Cursor.lockState == CursorLockMode.Locked) input_.weaponActions.Enable();
         stateMachine.ChangeState(stateMachine.EnterState);
-        //stateMachine.currentState.AddInputActionsCallbacks();
     }
     public void CurrentWeaponUnEquip()
     {
+        input_.weaponActions.Disable();
+        //input_ = null;
         stateMachine.ChangeState(stateMachine.ExitState);
     }
-    public void PlayClip(AudioClip newClip, float volume)
+    public void PlayClip(AudioClip newClip)
     {
-        audioSource.volume = volume;
         audioSource.PlayOneShot(newClip);
     }
 
@@ -216,7 +249,8 @@ public class Weapon : MonoBehaviour
     }
     public bool CheckInventoryAmmo()
     {
-        return Player.Instance.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
+        if(baseStat.e_useAmmo == AmmoType.None) return false;
+        else return Player.Instance.inventory.InventoryAmmoCheck(baseStat.e_useAmmo) > 0;
     }
     public int UseInventoryAmmo()
     {
@@ -226,20 +260,31 @@ public class Weapon : MonoBehaviour
 
     public void StopAction(ref IEnumerator coroutine)
     {
+        if (coroutine == null) return;
         StopCoroutine(coroutine);
         coroutine = null;
+    }
+
+    public void CancelReload()
+    {
+        StopAction(ref ReloadCoroutine);
+        animator.speed = 1;
+        animator.SetInteger(animationData.reloadParameterHash, -1);
+        stateMachine.ChangeState(stateMachine.ReadyState);
     }
 
     public IEnumerator Shot()
     {
         curMagazine--;
-        PlayClip(shot_AudioClip, shot_Volume);
+        PlayClip(shot_AudioClip);
         OnMagChanged?.Invoke();
+        StartCoroutine(MuzzleEffect());
 
         //Projectile Create
         AmmoProjectile ammoProjectile = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<AmmoProjectile>();
         ammoProjectile.transform.position = firePos.position;
         ammoProjectile.transform.transform.LookAt(GetRaycastHitPosition());
+        Debug.DrawRay(ammoProjectile.transform.position, (GetRaycastHitPosition() - ammoProjectile.transform.position) * baseStat.attackStat.range, Color.blue, 3.0f);
         ammoProjectile.OnInit(stateMachine.gun);
 
         //Recoil
@@ -257,7 +302,7 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator DryFire()
     {
-        PlayClip(dry_AudioClip, dry_Volume);
+        PlayClip(dry_AudioClip);
         yield return null;
         ShotCoroutine = null;
     }
@@ -291,7 +336,7 @@ public class Weapon : MonoBehaviour
     }
     public IEnumerator Reload()
     {
-        PlayClip(reload_start_AudioClip, reload_Volume);
+        PlayClip(reload_start_AudioClip);
         animator.SetInteger(animationData.reloadParameterHash, 1);
         while(!animator.GetCurrentAnimatorStateInfo(0).IsTag("Reload"))
         {
@@ -303,11 +348,12 @@ public class Weapon : MonoBehaviour
         animator.SetInteger(animationData.reloadParameterHash, -1);
 
         yield return YieldCacher.WaitForSeconds(curWeaponStat.reloadDelay);
-        PlayClip(reload_end_AudioClip, reload_Volume);
+        PlayClip(reload_end_AudioClip);
         animator.speed = 1;
         curMagazine += UseInventoryAmmo();
         ReloadCoroutine = null;
         stateMachine.ChangeState(stateMachine.ReadyState);
+        OnMagChanged?.Invoke();
     }
     
     public IEnumerator TakeIn()
@@ -327,7 +373,16 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
 
+        isSwap = false;
+        
         TakeCoroutine = null;
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator MuzzleEffect()
+    {
+        muzzleEffect.SetActive(true);
+        yield return YieldCacher.WaitForSeconds(effectTime);
+        muzzleEffect.SetActive(false);
     }
 }

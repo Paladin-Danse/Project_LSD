@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedEnemy : MonoBehaviour
@@ -19,6 +20,9 @@ public class RangedEnemy : MonoBehaviour
 
     [SerializeField] private GameObject bulletBox;
     [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
+    
 
     public RangedEnemyStateMachine stateMachine;
 
@@ -30,14 +34,15 @@ public class RangedEnemy : MonoBehaviour
         Animator = GetComponentInChildren<Animator>();        
         health = GetComponent<Health>();
 
-        stateMachine = new RangedEnemyStateMachine(this);        
+        stateMachine = new RangedEnemyStateMachine(this);
+
+        health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Start()
     {
-        stateMachine.ChangeState(stateMachine.IdlingState);
-        health.OnDie += OnDie;
-        health.OnTakeDamage += OnHit;                
+        stateMachine.ChangeState(stateMachine.IdlingState);                        
     }
 
     private void Update()
@@ -58,17 +63,23 @@ public class RangedEnemy : MonoBehaviour
         this.GetComponent<Rigidbody>().isKinematic = true;
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
-        
-        if (per >= 50)
+
+        if (per >= 30)
         {
-            Instantiate(bulletBox, transform.position, transform.rotation);
+            GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
+            bulletObject.transform.position = transform.position;
+            bulletObject.transform.rotation = transform.rotation;
+            bulletObject.SetActive(true);
         }
-        else if (per < 50)
+        else if (per < 30)
         {
-            Instantiate(firstAidKit, transform.position, transform.rotation);
+            GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
+            firstAidObject.transform.position = transform.position;
+            firstAidObject.transform.rotation = transform.rotation;
+            firstAidObject.SetActive(true);
         }
 
-        DungeonManager.Instance.killedEneies += 1;
+        DungeonTracker.Instance.killedEnemies += 1;
 
         float gper = Random.Range(0, 99);
         if (gper >= 50)
@@ -76,8 +87,12 @@ public class RangedEnemy : MonoBehaviour
             float goldPosX = Random.Range(0, 1f);
             float goldPosZ = Random.Range(0, 1f);
             float goldRot = Random.Range(0, 180f);
-            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 0f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
-        }            
+
+            GameObject gold = ObjectPoolManager.Instance.Pop("Gold").gameObject;
+            gold.transform.position = transform.position + new Vector3(goldPosX, 0f, goldPosZ);
+            gold.transform.rotation = Quaternion.Euler(0, goldRot, 0);
+            gold.SetActive(true);
+        }
 
         enabled = false;
         Destroy(gameObject, 2f);
@@ -85,6 +100,9 @@ public class RangedEnemy : MonoBehaviour
 
     void OnHit()
     {
-        Animator.SetTrigger("Hit");        
+        Animator.SetTrigger("Hit");
+        hitSoundAudio.PlayOneShot(hitSound);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * -10f;
     }
 }

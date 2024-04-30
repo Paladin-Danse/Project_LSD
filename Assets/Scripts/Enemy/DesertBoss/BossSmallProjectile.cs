@@ -59,7 +59,7 @@ public class BossSmallProjectile : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             other.gameObject.GetComponent<Health>().TakeDamage(damage);
-            DungeonManager.Instance.receivedDamage += damage;
+            DungeonTracker.Instance.receivedDamage += damage;
 
             Destroy(gameObject, 2f);
         }
@@ -76,5 +76,6 @@ public class BossSmallProjectile : MonoBehaviour
     {
         this.damage = weapon.projectileDamage;
         this.projectileDistance = weapon.projectileDistance;
+        this.gameObject.SetActive(true);
     }    
 }

@@ -6,7 +6,7 @@ public class RangedEnemyStateMachine : StateMachine<RangedEnemyBaseState>
 {
     public RangedEnemy Enemy { get; }
 
-    public Health Target { get; private set; }
+    public Health Target;
 
     public RangedEnemyIdleState IdlingState { get; }
     public RangedEnemyChasingState ChasingState { get; }
@@ -19,8 +19,7 @@ public class RangedEnemyStateMachine : StateMachine<RangedEnemyBaseState>
 
     public RangedEnemyStateMachine(RangedEnemy enemy)
     {
-        Enemy = enemy;
-        Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        Enemy = enemy;        
 
         IdlingState = new RangedEnemyIdleState(this);
         ChasingState = new RangedEnemyChasingState(this);

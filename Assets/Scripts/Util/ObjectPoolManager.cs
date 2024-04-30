@@ -16,7 +16,6 @@ public class ObjectPoolManager
 
     private ObjectPoolManager() 
     {
-        Debug.Log("Created!");
         _root = new GameObject("ObjectPool").transform;
         Object.DontDestroyOnLoad(_root);
     }
@@ -27,6 +26,7 @@ public class ObjectPoolManager
         public Transform rootObj { get; private set; }
 
         Stack<Poolable> _poolStack = new Stack<Poolable>();
+        List<Poolable> _poolList = new List<Poolable>();
 
         public void InitPool(GameObject original, int count = Defines.DEFAULT_POOL_SIZE) 
         {
@@ -44,7 +44,9 @@ public class ObjectPoolManager
         {
             GameObject gameObject = Object.Instantiate(originalObj);
             gameObject.name = originalObj.name;
-            return gameObject.GetOrAddComponent<Poolable>();
+            Poolable poolObj = gameObject.GetOrAddComponent<Poolable>();
+            _poolList.Add(poolObj);
+            return poolObj;
         }
 
         internal void Push(Poolable poolable) 
@@ -55,8 +57,6 @@ public class ObjectPoolManager
             poolable.gameObject.SetActive(false);
             poolable.transform.parent = rootObj;
             _poolStack.Push(poolable);
-
-            Debug.Log(_poolStack.Count);
         }
 
         internal Poolable Pop() 
@@ -78,6 +78,12 @@ public class ObjectPoolManager
 
         public void ClearPool() 
         {
+            for (int i = 0; i < _poolList.Count; i++)
+            {
+                if(_poolList[i] != null && _poolList[i].IsDestroyed() == false)
+                    GameObject.Destroy(_poolList[i].gameObject);
+            }
+            _poolList.Clear();
             _poolStack.Clear();
         }
     }
@@ -137,7 +143,7 @@ public class ObjectPoolManager
         {
             pool.ClearPool();
         }
-        _pools.Clear();
+        // _pools.Clear();
     }
 }
 

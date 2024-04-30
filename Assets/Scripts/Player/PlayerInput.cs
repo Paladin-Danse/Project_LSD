@@ -7,13 +7,16 @@ public class PlayerInput : MonoBehaviour
 {
     public PlayerInputActions inputAction { get; private set; }
     public PlayerInputActions.PlayerActions playerActions { get; private set; }
+    public PlayerInputActions.WeaponActions weaponActions { get; private set; }
     public PlayerInputActions.PlayerUIActions playerUIActions { get; private set; }
+    
 
     private void Awake()
     {
         inputAction = new PlayerInputActions();
         playerActions = inputAction.Player;
         playerUIActions = inputAction.PlayerUI;
+        weaponActions = inputAction.Weapon;
     }
 
     private void OnEnable()
@@ -29,25 +32,15 @@ public class PlayerInput : MonoBehaviour
     {
         if (setBool)
         {
-            playerActions.Jump.Enable();
-            playerActions.Shoot.Enable();
-            playerActions.Move.Enable();
-            playerActions.Reload.Enable();
-            playerActions.Aim.Enable();
-            playerActions.Look.Enable();
-            playerActions.WeaponSwap.Enable();
+            playerActions.Enable();
+            weaponActions.Enable();
 
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
-            playerActions.Jump.Disable();
-            playerActions.Shoot.Disable();
-            playerActions.Move.Disable();
-            playerActions.Reload.Disable();
-            playerActions.Aim.Disable();
-            playerActions.Look.Disable();
-            playerActions.WeaponSwap.Disable();
+            playerActions.Disable();
+            weaponActions.Disable();
 
             Cursor.lockState = CursorLockMode.Confined;
         }

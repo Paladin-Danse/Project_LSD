@@ -5,14 +5,8 @@ using UnityEngine;
 
 public class SceneManagerBase : MonoBehaviour
 {
-    public Action OnSceneLoaded;
-    public Action OnSceneUnloaded;
-
     protected void Awake()
     {
-        DontDestroyOnLoad(this);
-        OnSceneLoaded -= OnLoadScene;
-        OnSceneUnloaded -= OnUnloadScene;
     }
 
     // Start is called before the first frame update
@@ -46,7 +40,7 @@ public class SceneManagerBase : MonoBehaviour
 
     public virtual void OnUnloadScene() 
     {
-    
+        
     }
 }
 

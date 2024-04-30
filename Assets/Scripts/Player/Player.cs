@@ -3,8 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     public Inventory inventory;
     public PlayerUI playerUI;
     public PlayerCharacter playerCharacter;
-    public PlayerInteract playerInteract;
+    public GameObject menu;
 
     public event Action OnPossessed;
     public event Action OnUnPossessed;
@@ -42,29 +42,41 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _input = transform.AddComponent<PlayerInput>();
-        inventory = GetComponent<Inventory>();
-        playerInteract = transform.AddComponent<PlayerInteract>();
+        inventory = transform.AddComponent<Inventory>();
     }
 
     private void Start()
     {
-        // PlayerData ∑ŒµÂ
-        playerInteract.RegisterPlayer(this);
+        // Possess(playerCharacter);
+        // PlayerData ÔøΩŒµÔøΩ
+        _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
+        _input.playerUIActions.Debug.started += Instance.ToggleEscape;
     }
 
     public void Possess(PlayerCharacter playerCharacter)
     {
         this.playerCharacter = playerCharacter;
         playerCharacter.OnPossessCharacter(this);
-        // playerCharacter.OnPossessCharacterø°º≠ Inventory ¡§∫∏∏¶ πﬁæ∆øÕº≠ π´±‚ ¿Â¬¯ «“ ∞Õ
+        // playerCharacter.OnPossessCharacterÔøΩÔøΩÔøΩÔøΩ Inventory ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩﬁæ∆øÕºÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ ÔøΩÔøΩ
         OnControllCharacter();
-        playerUI.BindPlayerCharacter(playerCharacter);
+
+        if (UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui))
+        {
+            inventory.Init(inventoryui);
+            UIController.Instance.Pop();
+        }
+        // temp codes
+        if (UIController.Instance.Push<PlayerUI>("HUDCanvas", out playerUI)) 
+        {
+            playerUI.BindPlayerCharacter(playerCharacter);
+            // Ïó¨Í∏∞ÏÑú PlayerCharacterÏùò InteractÎûë Ïó∞Í≤∞
+        }        
     }
 
     public void UnPossess() 
     {
-        playerUI.ReleasePlayerCharacter();
-        playerCharacter.OnUnpossessCharacter();
+        playerUI?.ReleasePlayerCharacter();
+        playerCharacter?.OnUnpossessCharacter();
         this.playerCharacter = null;
     }
 
@@ -72,12 +84,14 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         _input.playerActions.Enable();
+        _input.weaponActions.Enable();
     }
 
     public void OnControllUI() 
     {
         Cursor.lockState = CursorLockMode.None;
         _input.playerActions.Disable();
+        _input.weaponActions.Disable();
     }
 
     public void LoadData() 
@@ -88,5 +102,45 @@ public class Player : MonoBehaviour
     public void SaveData() 
     {
         // save Inventory data
+    }
+
+    public void ToggleInventory(InputAction.CallbackContext callbackContext)
+    {
+        if(UIController.Instance.Peek(out GameObject gameObject)) 
+        {
+            Debug.Log("GameObject!");
+            if(gameObject.TryGetComponent(out InventoryUI inventoryUI)) 
+            {
+                Debug.Log("InventoryUI!");
+                UIController.Instance.Pop();
+                Player.Instance.OnControllCharacter();
+                return;
+            }
+        }
+        
+        if(UIController.Instance.Push<InventoryUI>("InventoryCanvas", out InventoryUI inventoryui, EUIShowMode.Single)) 
+        {
+            Player.instance.inventory.inventoryUI.UI_All_Update();
+            Player.Instance.OnControllUI();
+        }
+    }
+
+    public void ToggleEscape(InputAction.CallbackContext callbackContext) 
+    {
+        // todo : Setting√¢ «•ÔøΩÔøΩ
+        if (UIController.Instance.Peek(out GameObject gameObject))
+        {            
+            if (gameObject.TryGetComponent(out MenuUI menuUI))
+            {                
+                UIController.Instance.Pop();
+                Player.Instance.OnControllCharacter();
+                return;
+            }
+        }
+
+        if (UIController.Instance.Push<MenuUI>("MenuCanvas", out MenuUI menuui, EUIShowMode.Single))
+        {            
+            Player.Instance.OnControllUI();
+        }
     }
 }

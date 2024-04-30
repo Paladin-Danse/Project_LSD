@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
@@ -14,37 +15,11 @@ public class Dungeon
 }
 public class DungeonSelectedManager : MonoBehaviour
 {
-    private static DungeonSelectedManager _instance;
-    public static DungeonSelectedManager instance
-    {
-        get
-        {
-            if(_instance == null)
-            {
-                GameObject gameObject = GameObject.FindObjectOfType<DungeonSelectedManager>().gameObject;
-                if (gameObject == null)
-                {
-                    gameObject = new GameObject("DungeonSelectedManager");
-                    _instance = gameObject.AddComponent<DungeonSelectedManager>();
-                }
-            }
-            return _instance;
-        }
-    }
     public GameObject dungeonEntrancePanel;
     public TextMeshProUGUI dungeonNameOfPanel;
     public Dungeon[] SelectedDungeon; 
-    public RectTransform tooltipRectTransform;
-    public RectTransform backgroundRectTransform;
-    
-    SelectedDungeonKeep dungeonKeep;
-    Player _player;
-    private void Awake()
-    {
-        dungeonKeep = FindObjectOfType<SelectedDungeonKeep>();
-        _player = FindObjectOfType<Player>();
-    }
-    
+    public RectTransform tooltipRectTransform;    
+
     private void Update()
     {
         Vector2 tooltipPosition = Input.mousePosition;        
@@ -54,8 +29,11 @@ public class DungeonSelectedManager : MonoBehaviour
     public void OnDungeonEntrancePanel(int dungeonNum)
     {
         dungeonNameOfPanel.text = SelectedDungeon[dungeonNum].Ddata.dungeonName;
-        dungeonEntrancePanel.SetActive(true);
-        dungeonKeep.mapNumber = dungeonNum;
+        if(SelectedDungeon[dungeonNum].Ddata.QuestID != 0)
+            dungeonEntrancePanel.SetActive(true);
+        else
+            dungeonEntrancePanel.SetActive(false);
+        SelectedDungeonContext.Instance.selectedDungeonData = SelectedDungeon[dungeonNum].Ddata;
     }
 
     public void OffDungeonEntrancePanel()
@@ -65,11 +43,15 @@ public class DungeonSelectedManager : MonoBehaviour
 
     public void DungeonEntrance()
     {
-        StartCoroutine(LoadScene());
+        Player.Instance.UnPossess();
+        UIController.Instance.Clear();
+        CutSceneManager.Instance.playableDirector.Play();
+        CutSceneManager.Instance.ChangeSceneOnCutSceneEnd();
     }
 
-    IEnumerator LoadScene()
+    public void CloseDungeonSelectUI() 
     {
-        yield return SceneManager.LoadSceneAsync("DungeonScene");
+        UIController.Instance.Pop();
+        Player.Instance.OnControllCharacter();
     }
 }

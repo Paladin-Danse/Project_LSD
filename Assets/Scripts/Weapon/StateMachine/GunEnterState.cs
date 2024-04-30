@@ -9,7 +9,7 @@ public class GunEnterState : GunBaseState
     }
     public override void Enter()
     {
-        stateMachine.gun.PlayClip(stateMachine.gun.cock_AudioClip, stateMachine.gun.cock_Volume);
+        stateMachine.gun.PlayClip(stateMachine.gun.cock_AudioClip);
         stateMachine.gun.isSwap = true;
         base.Enter();
     }

@@ -39,8 +39,13 @@ public class DesertBossSmallWeapon : MonoBehaviour
 
     IEnumerator FShot()
     {
-        GameObject instantProjectile1 = Instantiate(projectilePrefab, muzzlePos1.position, muzzlePos1.rotation);
-        GameObject instantProjectile2 = Instantiate(projectilePrefab, muzzlePos2.position, muzzlePos2.rotation);
+        BossSmallProjectile instantProjectile1 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossSmallProjectile>();
+        instantProjectile1.transform.position = muzzlePos1.position;
+        instantProjectile1.transform.forward = muzzlePos1.forward;
+
+        BossSmallProjectile instantProjectile2 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossSmallProjectile>();
+        instantProjectile2.transform.position = muzzlePos2.position;
+        instantProjectile2.transform.forward = muzzlePos2.forward;
 
         Rigidbody projectileRigid1 = instantProjectile1.GetComponent<Rigidbody>();
         Rigidbody projectileRigid2 = instantProjectile2.GetComponent<Rigidbody>();
@@ -48,17 +53,23 @@ public class DesertBossSmallWeapon : MonoBehaviour
         projectileRigid1.velocity = muzzlePos1.forward * projectileSpeed;
         projectileRigid2.velocity = muzzlePos2.forward * projectileSpeed;
 
-        desertBoss.SProjectile = instantProjectile1.GetComponent<BossSmallProjectile>();
-        desertBoss.SProjectile = instantProjectile2.GetComponent<BossSmallProjectile>();
+        desertBoss.SProjectile1 = instantProjectile1.GetComponent<BossSmallProjectile>();
+        desertBoss.SProjectile2 = instantProjectile2.GetComponent<BossSmallProjectile>();
 
-        desertBoss.SProjectile.SInitProjectile(this);
+        desertBoss.SProjectile1.SInitProjectile(this);
+        desertBoss.SProjectile2.SInitProjectile(this);
         yield return WFS;
     }
 
     IEnumerator SShot()
     {
-        GameObject instantProjectile3 = Instantiate(projectilePrefab, muzzlePos3.position, muzzlePos3.rotation);
-        GameObject instantProjectile4 = Instantiate(projectilePrefab, muzzlePos4.position, muzzlePos4.rotation);
+        BossSmallProjectile instantProjectile3 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossSmallProjectile>();
+        instantProjectile3.transform.position = muzzlePos3.position;
+        instantProjectile3.transform.forward = muzzlePos3.forward;
+
+        BossSmallProjectile instantProjectile4 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossSmallProjectile>();
+        instantProjectile4.transform.position = muzzlePos4.position;
+        instantProjectile4.transform.forward = muzzlePos4.forward;
 
         Rigidbody projectileRigid3 = instantProjectile3.GetComponent<Rigidbody>();
         Rigidbody projectileRigid4 = instantProjectile4.GetComponent<Rigidbody>();
@@ -66,10 +77,11 @@ public class DesertBossSmallWeapon : MonoBehaviour
         projectileRigid3.velocity = muzzlePos3.forward * projectileSpeed;
         projectileRigid4.velocity = muzzlePos4.forward * projectileSpeed;
 
-        desertBoss.SProjectile = instantProjectile3.GetComponent<BossSmallProjectile>();
-        desertBoss.SProjectile = instantProjectile4.GetComponent<BossSmallProjectile>();
+        desertBoss.SProjectile3 = instantProjectile3.GetComponent<BossSmallProjectile>();
+        desertBoss.SProjectile4 = instantProjectile4.GetComponent<BossSmallProjectile>();
 
-        desertBoss.SProjectile.SInitProjectile(this);
+        desertBoss.SProjectile3.SInitProjectile(this);
+        desertBoss.SProjectile4.SInitProjectile(this);
         yield return WFS;
     }
 }

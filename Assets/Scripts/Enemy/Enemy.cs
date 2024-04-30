@@ -12,13 +12,15 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;    
+    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
 
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }        
     public Health health { get; private set; }
 
-    private EnemyStateMachine stateMachine;
+    public EnemyStateMachine stateMachine;
 
     void Awake()
     {
@@ -29,13 +31,15 @@ public class Enemy : MonoBehaviour
         health = GetComponent<Health>();
 
         stateMachine = new EnemyStateMachine(this);
+
+        health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdlingState);
-        health.OnDie += OnDie;
-        health.OnTakeDamage += OnHit;
+        
     }
 
     private void Update()
@@ -57,20 +61,22 @@ public class Enemy : MonoBehaviour
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
         
-        if (per >= 50)
+        if (per >= 30)
         {
-            ObjectPoolManager.Instance.Pop(bulletBox);
-            bulletBox.transform.position = transform.position;
-            bulletBox.transform.rotation = transform.rotation;
+            GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
+            bulletObject.transform.position = transform.position;
+            bulletObject.transform.rotation = transform.rotation;
+            bulletObject.SetActive(true);
         }
-        else if (per < 50)
+        else if (per < 30)
         {
-            ObjectPoolManager.Instance.Pop(firstAidKit);
-            firstAidKit.transform.position = transform.position;
-            firstAidKit.transform.rotation = transform.rotation;
+            GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
+            firstAidObject.transform.position = transform.position;
+            firstAidObject.transform.rotation = transform.rotation;
+            firstAidObject.SetActive(true);
         }
-
-        DungeonManager.Instance.killedEneies += 1;
+            
+        DungeonTracker.Instance.killedEnemies += 1;
 
         float gper = Random.Range(0, 99);
         if(gper >= 50)
@@ -78,7 +84,11 @@ public class Enemy : MonoBehaviour
             float goldPosX = Random.Range(0, 1f);
             float goldPosZ = Random.Range(0, 1f);
             float goldRot = Random.Range(0, 180f);
-            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 1f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+
+            GameObject gold = ObjectPoolManager.Instance.Pop("Gold").gameObject;
+            gold.transform.position = transform.position + new Vector3(goldPosX, 0f, goldPosZ);
+            gold.transform.rotation = Quaternion.Euler(0, goldRot, 0);
+            gold.SetActive(true);
         }        
 
         enabled = false;
@@ -87,6 +97,9 @@ public class Enemy : MonoBehaviour
 
     void OnHit()
     {
-        Animator.SetTrigger("Hit");        
+        Animator.SetTrigger("Hit");
+        hitSoundAudio.PlayOneShot(hitSound);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * -10f;
     }
 }

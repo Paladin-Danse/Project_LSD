@@ -15,6 +15,7 @@ public class EnergyShield : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MeleeEnemySound : MonoBehaviour
 {
-    public AudioSource audioSource;
+    AudioSource audioSource;
     public AudioClip WalkSound;
     public AudioClip PunchSound;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
     }
 
     void OnWalkSound()

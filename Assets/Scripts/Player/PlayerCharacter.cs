@@ -6,11 +6,14 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class PlayerCharacter : CharacterStatHandler
 {
     public Player ownedPlayer { get; private set; }
     public PlayerInput input { get; private set; }
+
+    public PlayerInteract playerInteract;
 
     public PlayerStateMachine stateMachine { get; private set; }
     [HideInInspector]
@@ -21,7 +24,6 @@ public class PlayerCharacter : CharacterStatHandler
     public Animator animator { get; private set; }
     public PlayerAnimationData AnimationData { get; private set; }
     public Health health { get; private set; }
-    public DungeonInteract dungeonInteract;
     [field: SerializeField] public LayerMask layerMask_GroundCheck;
     public bool isGrounded = true;
     public bool isJump = true;
@@ -38,16 +40,29 @@ public class PlayerCharacter : CharacterStatHandler
     [field: Header("Weapon")]
     public Transform firePos;
     public float fireRateDelay;
-    [SerializeField] public Weapon curWeapon;
+    [field: SerializeField]
+    public Weapon curWeapon { get { return _curWeapon; } set { OnWeaponChanged?.Invoke(value); _curWeapon = value; } }
+    Weapon _curWeapon;
+    public AmmoType curWeapon_AmmoType
+    {
+        get
+        {
+            if(curWeapon)
+            {
+                return curWeapon.baseStat.e_useAmmo;
+            }
+            return AmmoType.None;
+        }
+    }
     public WeaponStatHandler weaponStatHandler;
 
     public Action<PlayerStateMachine> SetWeaponEvent;
-    public Action OnWeaponSwapped;
-
+    public Action<Weapon> OnWeaponChanged;
     [SerializeField]
     public Weapon primaryWeapon;
     [SerializeField]
     public Weapon secondaryWeapon;
+    public bool isPrimary = true;
 
     public Dictionary<int, float> AnimHashFloats = new Dictionary<int, float>();
     //public Action<PlayerStateMachine> SetWeaponEvent;
@@ -61,7 +76,6 @@ public class PlayerCharacter : CharacterStatHandler
         base.Awake();
         stateMachine = new PlayerStateMachine(this);
         rigidbody_ = GetComponent<Rigidbody>();
-        dungeonInteract = GetComponent<DungeonInteract>();
         AnimationData = new PlayerAnimationData();
         playerCamTransform = transform.Find("FPCamera");
         fpsBody = transform.Find("FPSBody").gameObject;
@@ -85,9 +99,11 @@ public class PlayerCharacter : CharacterStatHandler
     private void Start()
     {
         base.Start();
-        Instantiate(Player.Instance.inventory.inventoryUI.inventoryWindow).SetActive(false);
         stateMachine.ChangeState(stateMachine.IdleState);
+        health.OnDie += Death;
         AnimationData.Initialize();
+
+        stateMachine.playerYRotate = rigidbody_.transform.rotation.eulerAngles.y;
     }
 
     public void OnPossessCharacter(Player player)
@@ -100,6 +116,7 @@ public class PlayerCharacter : CharacterStatHandler
 
         if (primaryWeapon) primaryWeapon.Init(this);
         if (secondaryWeapon) secondaryWeapon.Init(this);
+        
 
         if (curWeapon == null)
         {
@@ -113,9 +130,8 @@ public class PlayerCharacter : CharacterStatHandler
             }
             else
             {
-                // todo : 무기 없을 경우에 주먹?
+                EquipWeapon(null);
             }
-            curWeapon.input_ = input;
         }
     }
 
@@ -123,6 +139,8 @@ public class PlayerCharacter : CharacterStatHandler
     {
         stateMachine.currentState.RemoveInputActionsCallbacks();
         input = null;
+        stateMachine.ChangeState(null);
+        curWeapon?.stateMachine.currentState.RemoveInputActionsCallbacks();
         curWeapon.input_ = null;
         ownedPlayer = null;
     }
@@ -154,19 +172,7 @@ public class PlayerCharacter : CharacterStatHandler
         jumpDirection = stateMachine.player.GetMovementDirection();
         jumpSpeed = stateMachine.player.GetMovementSpeed();
     }
-    //InputAction Event
-    public void Rotate(InputAction.CallbackContext callbackContext)
-    {
-        Vector2 rotateDirection = callbackContext.ReadValue<Vector2>();
-        float recoil = curWeapon ? curWeapon.curRecoil : 0f;
 
-        camXRotate += rotateDirection.y * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime * -1;
-        camXRotate = Mathf.Clamp(camXRotate, -Data.UpdownMaxAngle, Data.UpdownMaxAngle);
-        stateMachine.playerYRotate += rotateDirection.x * (Data.LookRotateSpeed * Data.LookRotateModifier) * Time.deltaTime;
-
-        playerCamTransform.localRotation = Quaternion.Euler(new Vector3(camXRotate - recoil, 0, 0));
-        rigidbody_.transform.rotation = Quaternion.Euler(new Vector3(0, stateMachine.playerYRotate, 0));
-    }
     public void Rotate()
     {
         Vector2 rotateDirection = input.playerActions.Look.ReadValue<Vector2>();
@@ -181,7 +187,9 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public void WeaponSwap()
     {
-        if(primaryWeapon != null && secondaryWeapon != null && SwapCoroutine == null && !curWeapon.isSwap)
+        Weapon swappingWeapon = isPrimary ? secondaryWeapon : primaryWeapon;
+        bool curWeaponSwapping = curWeapon?.isSwap == true;
+        if(swappingWeapon != null && SwapCoroutine == null && !curWeaponSwapping)
         {
             SwapCoroutine = Swapping();
             StartCoroutine(SwapCoroutine);
@@ -220,15 +228,23 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public void Death()
     {
-        input = null;
-        curWeapon.input_ = null;
-        curWeapon.gameObject.SetActive(false);
-        curWeapon = null;
+        input.playerUIActions.Inventory.started -= Player.Instance.ToggleInventory;
+
+        Debug.Log("PlayerDie");
 
         fpsBody.SetActive(false);
         fullBody.SetActive(true);
 
         animator = fullBody.GetComponent<Animator>();
+
+        stateMachine.ChangeState(stateMachine.DeadState);
+
+        ownedPlayer.OnControllUI();
+        ownedPlayer.UnPossess();
+        curWeapon.gameObject.SetActive(false);
+
+        UIController.Instance.Clear();
+        UIController.Instance.Push("DungeonFailedUI");
     }
     public void MoveLerpAnimation(int ParameterHash, float setFloat)
     {
@@ -236,31 +252,51 @@ public class PlayerCharacter : CharacterStatHandler
         AnimHashFloats[ParameterHash] = math.lerp(AnimHashFloats[ParameterHash], setFloat, 0.1f);
         stateMachine.player.animator.SetFloat(ParameterHash, AnimHashFloats[ParameterHash]);
     }
-    public void InventoryWeaponEquip(Weapon weapon)
+    public bool InventoryWeaponEquip(WeaponStat _weaponStat)
     {
-        if(primaryWeapon == null)
+        Weapon weapon;
+        switch (_weaponStat.e_useAmmo)
+        {
+            case AmmoType.Rifle:
+                playerCamTransform.Find("Assault Rifle [FP]").TryGetComponent<Weapon>(out weapon);
+                break;
+            case AmmoType.Pistol:
+                playerCamTransform.Find("Pistol [FP]").TryGetComponent<Weapon>(out weapon);
+                break;
+            default:
+                weapon = null;
+                break;
+        }
+
+        if (weapon == null) return false;
+
+        if (primaryWeapon == null)
         {
             primaryWeapon = weapon;
             primaryWeapon.Init(this);
         }
-        else if(secondaryWeapon == null)
+        else if (secondaryWeapon == null)
         {
             secondaryWeapon = weapon;
             secondaryWeapon.Init(this);
         }
+        else return false;
 
         if (curWeapon == null)
         {
             EquipWeapon(weapon);
         }
+        return true;
     }
-    public void InventoryWeaponUnequip(bool isPrimary)
+    public void InventoryWeaponUnequip(bool _isPrimary)
     {
-        if (isPrimary)
+        if (_isPrimary)
         {
             if(curWeapon == primaryWeapon)
             {
                 UnequipWeapon(primaryWeapon);
+                //EquipWeapon(emptyWeapon);
+                curWeapon = null;
             }
             primaryWeapon = null;
         }
@@ -269,6 +305,8 @@ public class PlayerCharacter : CharacterStatHandler
             if(curWeapon == secondaryWeapon)
             {
                 UnequipWeapon(secondaryWeapon);
+                //EquipWeapon(emptyWeapon);
+                curWeapon = null;
             }
             secondaryWeapon = null;
         }
@@ -279,7 +317,6 @@ public class PlayerCharacter : CharacterStatHandler
         weaponStatHandler.EquipWeapon(weapon);
         curWeapon = weapon;
         curWeapon.CurrentWeaponEquip();
-        OnWeaponSwapped?.Invoke();
     }
 
     public void UnequipWeapon(Weapon weapon)
@@ -289,12 +326,10 @@ public class PlayerCharacter : CharacterStatHandler
             weapon.StopAction(ref weapon.ReloadCoroutine);
         }
 
-        weaponStatHandler.UnequipWeapon();
+        weaponStatHandler?.UnequipWeapon();
         //curWeapon.stateMachine.currentState.RemoveInputActionsCallbacks();
-        curWeapon.CurrentWeaponUnEquip();
-        curWeapon.input_ = null;
-        curWeapon = null;
-        OnWeaponSwapped?.Invoke();
+        weapon.CurrentWeaponUnEquip();
+        weapon.input_ = null;
     }
     public float GetMovementSpeed()
     {
@@ -323,17 +358,19 @@ public class PlayerCharacter : CharacterStatHandler
     }
     public IEnumerator Swapping()
     {
-        Weapon beforeWeapon = curWeapon;
-
-        UnequipWeapon(curWeapon);
-        while(beforeWeapon.gameObject.activeSelf)
+        if (curWeapon)
         {
-            yield return null;
+            UnequipWeapon(curWeapon);
+            while (curWeapon.gameObject.activeSelf)
+            {
+                yield return null;
+            }
         }
-        if (beforeWeapon == primaryWeapon) EquipWeapon(secondaryWeapon);
+        if (isPrimary) EquipWeapon(secondaryWeapon);
         else EquipWeapon(primaryWeapon);
-
+        
         yield return YieldCacher.WaitForSeconds(curWeapon.animator.GetCurrentAnimatorStateInfo(0).length);
+        isPrimary = !isPrimary;
         SwapCoroutine = null;
     }
 }

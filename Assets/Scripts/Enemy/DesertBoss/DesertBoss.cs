@@ -7,8 +7,14 @@ public class DesertBoss : MonoBehaviour
     [field: Header("References")]
     [field: SerializeField] public EnemySO RData { get; private set; }
     [field: SerializeField] public WeaponStatSO WSData { get; private set; }    
-    public BossProjectile BProjectile { get; set; }
-    public BossSmallProjectile SProjectile { get; set; }
+    public BossProjectile BProjectile1 { get; set; }
+    public BossProjectile BProjectile2 { get; set; }
+    public BossProjectile BProjectile3 { get; set; }
+    public BossProjectile BProjectile4 { get; set; }
+    public BossSmallProjectile SProjectile1 { get; set; }
+    public BossSmallProjectile SProjectile2 { get; set; }
+    public BossSmallProjectile SProjectile3 { get; set; }
+    public BossSmallProjectile SProjectile4 { get; set; }
 
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
@@ -16,10 +22,10 @@ public class DesertBoss : MonoBehaviour
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public Health health { get; private set; }
-
-    [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;    
-    [SerializeField] private GameObject SmallShip;        
+      
+    [SerializeField] private GameObject SmallShip;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
 
     public DesertBossStateMachine stateMachine;
     public AudioSource audioSource;
@@ -36,12 +42,15 @@ public class DesertBoss : MonoBehaviour
         stateMachine = new DesertBossStateMachine(this);
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+
+        health.OnDie += OnDie;
+        health.OnTakeDamage += OnHit;
     }
 
     private void Start()
     {
-        stateMachine.ChangeState(stateMachine.IdlingState);
-        health.OnDie += OnDie;        
+        stateMachine.ChangeState(stateMachine.IdlingState);                
     }
 
     private void Update()
@@ -60,22 +69,15 @@ public class DesertBoss : MonoBehaviour
     {
         this.GetComponent<CapsuleCollider>().enabled = false;
         this.GetComponent<Rigidbody>().isKinematic = true;
-        int per = Random.Range(0, 99);
+        
         Animator.SetTrigger("Die");
         enabled = false;
-        Destroy(gameObject, 2f);
-        if (per >= 50)
-        {
-            Instantiate(bulletBox, transform.position, transform.rotation);
-        }
-        else if (per < 50)
-        {
-            Instantiate(firstAidKit, transform.position, transform.rotation);
-        }
+        Destroy(gameObject, 2f);        
 
         audioSource.PlayOneShot(dieSound);
-        Invoke("DQU", 1f);
-        DungeonManager.Instance.killedEneies += 1;
+
+        DungeonTracker.Instance.killedEnemies += 1;
+        DQU();
 
         int gCount = Random.Range(3, 10);
         for(int i = 0; i < gCount;  i++)
@@ -83,14 +85,23 @@ public class DesertBoss : MonoBehaviour
             float goldPosX = Random.Range(0, 2f);
             float goldPosZ = Random.Range(0, 2f);
             float goldRot = Random.Range(0, 180f);
-            Instantiate(DungeonManager.Instance.goldPrefab, transform.position + new Vector3(goldPosX, 0f, goldPosZ), Quaternion.Euler(0, goldRot, 0));
+
+            GameObject gold = ObjectPoolManager.Instance.Pop("Gold").gameObject;
+            gold.transform.position = transform.position + new Vector3(goldPosX, 0f, goldPosZ);
+            gold.transform.rotation = Quaternion.Euler(0, goldRot, 0);
+            gold.SetActive(true);
         }        
 
-        SmallShip.SetActive(true);        
+        SmallShip.SetActive(true);
     }    
 
     void DQU()
     {
-        QuestManager.Instance.DQuestUpdate(1009, 1);
+        QuestManager.Instance.DQuestUpdate(SelectedDungeonContext.Instance.selectedDungeonData.QuestID, 1);
+    }
+
+    void OnHit()
+    {        
+        hitSoundAudio.PlayOneShot(hitSound);
     }
 }

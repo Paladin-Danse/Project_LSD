@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
@@ -37,7 +36,7 @@ public class PlayerBaseState : IState
 
     public virtual void Update()
     {
-        if (stateMachine.player.health.IsDead) stateMachine.ChangeState(stateMachine.DeadState);
+        
     }
 
     public virtual void PhysicsUpdate()
@@ -68,10 +67,10 @@ public class PlayerBaseState : IState
         input.playerActions.Run.started += OnRun;
 
         //Interact
-        input.playerUIActions.Interact.started += stateMachine.player.ownedPlayer.playerInteract.OnInteractInput;
+        input.playerUIActions.Interact.started += stateMachine.player.playerInteract.OnInteractInput;
 
         //Equipment
-        input.playerActions.WeaponSwap.started += OnSwap;
+        input.weaponActions.WeaponSwap.started += OnSwap;
     }
 
     public virtual void RemoveInputActionsCallbacks()
@@ -83,10 +82,10 @@ public class PlayerBaseState : IState
         input.playerActions.Run.started -= OnRun;
 
         //Interact
-        input.playerUIActions.Interact.started -= stateMachine.player.dungeonInteract.OnInteractInput;
+        input.playerUIActions.Interact.started -= stateMachine.player.playerInteract.OnInteractInput;
         
         //Equipment
-        input.playerActions.WeaponSwap.started -= OnSwap;
+        input.weaponActions.WeaponSwap.started -= OnSwap;
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext callbackContext)
     {

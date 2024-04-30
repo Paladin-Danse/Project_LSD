@@ -21,20 +21,38 @@ public class DesertBossBigWeapon : MonoBehaviour
     [HideInInspector] public float projectileDistance;
     WaitForSeconds WFS;
     DesertBoss desertBoss;
+    private Transform target;
+    public LayerMask layerMask;
+    float attackRange;
 
     private void Awake()
     {
         desertBoss = GetComponent<DesertBoss>();
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
         projectileSpeed = desertBoss.WSData.weaponStat.attackStat.bulletSpeed;
         projectileDamage = desertBoss.WSData.weaponStat.attackStat.damage;
         projectileDistance = desertBoss.WSData.weaponStat.attackStat.range;
+        attackRange = desertBoss.RData.AttackRange;
     }
 
     private void Start()
     {
         WFS = new WaitForSeconds(desertBoss.stateMachine.Enemy.RData.AttackRate);
+        InvokeRepeating("UpdateTarget", 0, 0.25f);
     }
+
+    private void Update()
+    {
+        if (target != null)
+        {
+            muzzlePos1.transform.LookAt(target, muzzlePos1.transform.forward);
+            muzzlePos2.transform.LookAt(target, muzzlePos2.transform.forward);
+            muzzlePos3.transform.LookAt(target, muzzlePos3.transform.forward);
+            muzzlePos4.transform.LookAt(target, muzzlePos4.transform.forward);
+        }
+    }
+
     public void FirstShot()
     {
         StartCoroutine("FShot");
@@ -46,27 +64,38 @@ public class DesertBossBigWeapon : MonoBehaviour
     }
 
     IEnumerator FShot()
-    {
-        GameObject instantProjectile1 = Instantiate(projectilePrefab, muzzlePos1.position, muzzlePos1.rotation);
-        GameObject instantProjectile2 = Instantiate(projectilePrefab, muzzlePos2.position, muzzlePos2.rotation);
+    {        
+        BossProjectile instantProjectile1 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossProjectile>();
+        instantProjectile1.transform.position = muzzlePos1.position;
+        instantProjectile1.transform.forward = muzzlePos1.forward;
         
+        BossProjectile instantProjectile2 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossProjectile>();
+        instantProjectile2.transform.position = muzzlePos2.position;
+        instantProjectile2.transform.forward = muzzlePos2.forward;
+
         Rigidbody projectileRigid1 = instantProjectile1.GetComponent<Rigidbody>();
         Rigidbody projectileRigid2 = instantProjectile2.GetComponent<Rigidbody>();
 
         projectileRigid1.velocity = muzzlePos1.forward * projectileSpeed;
         projectileRigid2.velocity = muzzlePos2.forward * projectileSpeed;
 
-        desertBoss.BProjectile = instantProjectile1.GetComponent<BossProjectile>();
-        desertBoss.BProjectile = instantProjectile2.GetComponent<BossProjectile>();
+        desertBoss.BProjectile1 = instantProjectile1.GetComponent<BossProjectile>();
+        desertBoss.BProjectile2 = instantProjectile2.GetComponent<BossProjectile>();
         
-        desertBoss.BProjectile.BInitProjectile(this);
+        desertBoss.BProjectile1.BInitProjectile(this);
+        desertBoss.BProjectile2.BInitProjectile(this);
         yield return WFS;
     }
 
     IEnumerator SShot()
-    {        
-        GameObject instantProjectile3 = Instantiate(projectilePrefab, muzzlePos3.position, muzzlePos3.rotation);
-        GameObject instantProjectile4 = Instantiate(projectilePrefab, muzzlePos4.position, muzzlePos4.rotation);
+    {
+        BossProjectile instantProjectile3 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossProjectile>();
+        instantProjectile3.transform.position = muzzlePos3.position;
+        instantProjectile3.transform.forward = muzzlePos3.forward;
+
+        BossProjectile instantProjectile4 = ObjectPoolManager.Instance.Pop(projectilePrefab).GetComponent<BossProjectile>();
+        instantProjectile4.transform.position = muzzlePos4.position;
+        instantProjectile4.transform.forward = muzzlePos4.forward;        
         
         Rigidbody projectileRigid3 = instantProjectile3.GetComponent<Rigidbody>();
         Rigidbody projectileRigid4 = instantProjectile4.GetComponent<Rigidbody>();
@@ -74,9 +103,11 @@ public class DesertBossBigWeapon : MonoBehaviour
         projectileRigid3.velocity = muzzlePos3.forward * projectileSpeed;
         projectileRigid4.velocity = muzzlePos4.forward * projectileSpeed;
 
-        desertBoss.BProjectile = instantProjectile3.GetComponent<BossProjectile>();
-        desertBoss.BProjectile = instantProjectile4.GetComponent<BossProjectile>();
-        desertBoss.BProjectile.BInitProjectile(this);
+        desertBoss.BProjectile3 = instantProjectile3.GetComponent<BossProjectile>();
+        desertBoss.BProjectile4 = instantProjectile4.GetComponent<BossProjectile>();
+
+        desertBoss.BProjectile3.BInitProjectile(this);
+        desertBoss.BProjectile4.BInitProjectile(this);
         yield return WFS;
     }
 
@@ -94,5 +125,25 @@ public class DesertBossBigWeapon : MonoBehaviour
         boomSmoke4.Play();
         audioSource.PlayOneShot(Cannon1);
         audioSource.PlayOneShot(Cannon2);
+    }
+
+    void UpdateTarget()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, attackRange, layerMask);
+
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                if (cols[i].gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    target = cols[i].gameObject.transform;
+                }
+            }
+        }
+        else
+        {
+            target = null;
+        }
     }
 }

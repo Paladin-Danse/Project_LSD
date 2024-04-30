@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class DesertBossBodyDirection : MonoBehaviour
 {    
-    private Transform target;
-    public float maxR;
-    public float minR;
-    public float maxD;
-    public float minD;
+    private Transform target;                         
     float attackRange;
     public LayerMask layerMask;
     DesertBoss desertBoss;
+    public float spinSpeed;
 
     private void Awake()
     {
@@ -27,18 +24,57 @@ public class DesertBossBodyDirection : MonoBehaviour
     {
         if(target != null)
         {
-            LookTarget();
+            BodyDir();
         }        
-    }
+    }       
 
-    public void LookTarget()
-    {        
+    void BodyDir()
+    {
+
+        Quaternion lookRotation = Quaternion.LookRotation(target.position - transform.position);
+        Vector3 euler = Quaternion.RotateTowards(transform.rotation, lookRotation, spinSpeed * Time.deltaTime).eulerAngles;
+
         float distance = Vector3.Distance(transform.position, target.position);
-        float nor = Mathf.InverseLerp(minD, maxD, distance);
-        float targetR = Mathf.Lerp(minR, maxR, nor);
-        //targetR = Mathf.Clamp(targetR, minD, maxD);
-        transform.Rotate(0f, targetR, 0f);              
-    }    
+        float maxRotation = -170f;
+        float mxR = 0f;
+
+        if (distance < 10f)
+        {
+            mxR = maxRotation;
+        }
+        else if (distance >= 10f && distance < 15f)
+        {            
+            mxR = maxRotation - 20f;
+        }
+        else if (distance >= 15f && distance < 18.7f)
+        {            
+            mxR = maxRotation - 17f;
+        }
+        else if (distance >= 18.7f && distance < 23f)
+        {
+            mxR = maxRotation - 14f;
+        }
+        else if (distance >= 23f && distance < 26f)
+        {
+            mxR = maxRotation - 6f;
+        }
+        else if (distance >= 26f && distance < 28.5f)
+        {
+            mxR = maxRotation - 2.5f;
+        }
+        else if (distance >= 28.5f && distance < 31.1f)
+        {
+            mxR = maxRotation + 2f;
+        }
+        else if (distance >= 31.1f)
+        {
+            mxR = maxRotation + 5f;
+        }
+        
+        float yRotation = Mathf.LerpAngle(-115f, mxR, Mathf.Clamp01(distance / desertBoss.RData.AttackRange));
+
+        transform.localRotation = Quaternion.Euler(euler.x, yRotation - 10f, 0);        
+    }
 
     void UpdateTarget()
     {

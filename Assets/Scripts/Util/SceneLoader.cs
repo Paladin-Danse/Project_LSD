@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
+using System;
 
 
 public class SceneLoader
@@ -14,22 +15,34 @@ public class SceneLoader
 
     public LoadingCanvasController loadingCanvasController;
 
+    public Action LoadingCompleted;
+
     public void LoadScene(Defines.EScene scene, LoadSceneMode loadSceneModev = LoadSceneMode.Single) 
     {
+        if (loadingCanvasController == null)
+            loadingCanvasController = Addressables.InstantiateAsync("LoadingCanvas").WaitForCompletion().GetComponent<LoadingCanvasController>();
+        else
+            loadingCanvasController.gameObject.SetActive(true);
+
+        GameManager.Instance.PauseGame();
         SceneManagerBase sceneManager = GameObject.FindObjectOfType<SceneManagerBase>();
         if (sceneManager != null)
         {
-            sceneManager.Pause();
-            sceneManager.OnSceneUnloaded();
+            Debug.Log("SceneManager exist");
+            sceneManager.OnUnloadScene();
         }
 
-        if(loadingCanvasController == null)
+        if (scene == Defines.EScene.Title)
         {
-            UIController.Instance.Push("LoadingCanvas");
-            loadingCanvasController = UIController.Instance.Peek().GetComponent<LoadingCanvasController>();
+            GameObject.Destroy(Player.Instance.gameObject);
         }
-
         loadSceneContext = scene;
         SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
+    }
+
+    public void LoadCompleted() 
+    {
+        if(loadingCanvasController != null)
+            loadingCanvasController.gameObject.SetActive(false);
     }
 }

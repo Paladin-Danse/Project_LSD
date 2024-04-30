@@ -16,6 +16,7 @@ public class PlayerHealthUI : MonoBehaviour, IPlayerUIInterface
     {
         playerCharacter = character;
         playerCharacter.health.HealthChanged += RefreshUI;
+        playerCharacter.health.OnDie += RefreshUI;
         playerCharacter.OnStatChanged += RefreshUI;
         RefreshUI();
     }
@@ -23,6 +24,7 @@ public class PlayerHealthUI : MonoBehaviour, IPlayerUIInterface
     public void UnbindUI()
     {
         playerCharacter.health.HealthChanged -= RefreshUI;
+        playerCharacter.health.OnDie -= RefreshUI;
         playerCharacter.OnStatChanged -= RefreshUI;
     }
 
