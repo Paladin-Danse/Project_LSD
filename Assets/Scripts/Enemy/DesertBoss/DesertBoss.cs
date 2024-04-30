@@ -22,9 +22,7 @@ public class DesertBoss : MonoBehaviour
     public Rigidbody Rigidbody { get; private set; }
     public Animator Animator { get; private set; }
     public Health health { get; private set; }
-
-    [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;    
+      
     [SerializeField] private GameObject SmallShip;
     [SerializeField] private AudioSource hitSoundAudio;
     [SerializeField] private AudioClip hitSound;
@@ -71,25 +69,10 @@ public class DesertBoss : MonoBehaviour
     {
         this.GetComponent<CapsuleCollider>().enabled = false;
         this.GetComponent<Rigidbody>().isKinematic = true;
-        int per = Random.Range(0, 99);
+        
         Animator.SetTrigger("Die");
         enabled = false;
-        Destroy(gameObject, 2f);
-
-        if (per >= 50)
-        {
-            GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
-            bulletObject.transform.position = transform.position;
-            bulletObject.transform.rotation = transform.rotation;
-            bulletObject.SetActive(true);
-        }
-        else if (per < 50)
-        {
-            GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
-            firstAidObject.transform.position = transform.position;
-            firstAidObject.transform.rotation = transform.rotation;
-            firstAidObject.SetActive(true);
-        }
+        Destroy(gameObject, 2f);        
 
         audioSource.PlayOneShot(dieSound);
 
