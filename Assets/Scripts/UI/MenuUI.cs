@@ -15,4 +15,10 @@ public class MenuUI : MonoBehaviour
     {
         SceneLoader.Instance.LoadScene(Defines.EScene.Title);
     }
+
+    public void CloseMenuUI()
+    {
+        UIController.Instance.Pop();
+        Player.Instance.OnControllCharacter();
+    }
 }

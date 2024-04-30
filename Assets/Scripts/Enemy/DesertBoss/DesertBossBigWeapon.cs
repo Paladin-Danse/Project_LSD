@@ -21,6 +21,9 @@ public class DesertBossBigWeapon : MonoBehaviour
     [HideInInspector] public float projectileDistance;
     WaitForSeconds WFS;
     DesertBoss desertBoss;
+    private Transform target;
+    public LayerMask layerMask;
+    float attackRange;
 
     private void Awake()
     {
@@ -30,12 +33,26 @@ public class DesertBossBigWeapon : MonoBehaviour
         projectileSpeed = desertBoss.WSData.weaponStat.attackStat.bulletSpeed;
         projectileDamage = desertBoss.WSData.weaponStat.attackStat.damage;
         projectileDistance = desertBoss.WSData.weaponStat.attackStat.range;
+        attackRange = desertBoss.RData.AttackRange;
     }
 
     private void Start()
     {
         WFS = new WaitForSeconds(desertBoss.stateMachine.Enemy.RData.AttackRate);
+        InvokeRepeating("UpdateTarget", 0, 0.25f);
     }
+
+    private void Update()
+    {
+        if (target != null)
+        {
+            muzzlePos1.transform.LookAt(target, muzzlePos1.transform.forward);
+            muzzlePos2.transform.LookAt(target, muzzlePos2.transform.forward);
+            muzzlePos3.transform.LookAt(target, muzzlePos3.transform.forward);
+            muzzlePos4.transform.LookAt(target, muzzlePos4.transform.forward);
+        }
+    }
+
     public void FirstShot()
     {
         StartCoroutine("FShot");
@@ -108,5 +125,25 @@ public class DesertBossBigWeapon : MonoBehaviour
         boomSmoke4.Play();
         audioSource.PlayOneShot(Cannon1);
         audioSource.PlayOneShot(Cannon2);
+    }
+
+    void UpdateTarget()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, attackRange, layerMask);
+
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                if (cols[i].gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    target = cols[i].gameObject.transform;
+                }
+            }
+        }
+        else
+        {
+            target = null;
+        }
     }
 }
