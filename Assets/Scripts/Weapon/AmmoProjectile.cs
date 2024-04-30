@@ -69,7 +69,7 @@ public class AmmoProjectile : MonoBehaviour
             hitParticle.transform.position = hit.point;
             hitParticle.gameObject.SetActive(true);
             hitParticle.Play();
-
+            
             rigidbody_.velocity = Vector3.zero;
             DestroyProjectile();
         }
