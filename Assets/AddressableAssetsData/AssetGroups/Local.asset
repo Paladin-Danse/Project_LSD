@@ -99,7 +99,7 @@ MonoBehaviour:
     - UI
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 97473e95d93d37e4c8334cf3c1555378
-    m_Address: Assets/Prefabs/Map/Environment/Box/AmmoBox Variant.prefab
+    m_Address: AmmoBox
     m_ReadOnly: 0
     m_SerializedLabels:
     - Map

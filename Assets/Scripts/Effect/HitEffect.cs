@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class HitEffect : MonoBehaviour
 {
-    private void OnDisable()
+    public ParticleSystem particleSystem;
+
+    private void Awake()
+    {
+        var action = particleSystem.main;
+        action.stopAction = ParticleSystemStopAction.Callback;
+    }
+
+    private void OnParticleSystemStopped()
     {
         ObjectPoolManager.Instance.TryPush(gameObject);
     }

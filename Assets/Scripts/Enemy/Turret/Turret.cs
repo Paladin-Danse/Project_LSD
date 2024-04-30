@@ -19,10 +19,12 @@ public class Turret : MonoBehaviour
     [SerializeField] WeaponStatSO turretStat;
     [SerializeField] GameObject destroyPre;
     [SerializeField] GameObject muzzleShotPar;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
 
     float curFireRate;
 
-    Transform target = null;
+    [HideInInspector] public Transform target = null;
     Animator anim;
     public Animator dieAnim;
     AudioSource audioSource;
@@ -31,6 +33,7 @@ public class Turret : MonoBehaviour
     public AudioClip upSound;
     public AudioClip downSound;
     Health health;
+    public Health _Target;
 
     public TurretProjectile t_Projectile1 { get; set; }
     public TurretProjectile t_Projectile2 { get; set; }
@@ -48,6 +51,7 @@ public class Turret : MonoBehaviour
         anim = GetComponent<Animator>();        
         health = GetComponent<Health>();
         health.OnDie += TOnDie;
+        health.OnTakeDamage += TOnHit;
     }
 
     void Start()
@@ -62,6 +66,7 @@ public class Turret : MonoBehaviour
         if(target == null)
         {                        
             anim.SetBool("Attack", false);
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
         else
         {
@@ -69,6 +74,7 @@ public class Turret : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(target.position - turretBody.position);
             Vector3 euler = Quaternion.RotateTowards(turretBody.rotation, lookRotation, spinSpeed * Time.deltaTime).eulerAngles;
             turretBody.rotation = Quaternion.Euler(0, euler.y, 0);            
+            gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
             Quaternion fireRotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
             if(Quaternion.Angle(turretBody.rotation, fireRotation) < 5f)
@@ -153,10 +159,7 @@ public class Turret : MonoBehaviour
         t_Projectile3 = instantProjectile3.GetComponent<TurretProjectile>();
         t_Projectile4 = instantProjectile4.GetComponent<TurretProjectile>();
 
-        audioSource.PlayOneShot(t_ShotSound);
-        audioSource.PlayOneShot(t_ShotSound);
-        audioSource.PlayOneShot(t_ShotSound);
-        audioSource.PlayOneShot(t_ShotSound);
+        audioSource.PlayOneShot(t_ShotSound);        
 
         Destroy(particle1, 0.5f);
         Destroy(particle2, 0.5f);
@@ -182,8 +185,8 @@ public class Turret : MonoBehaviour
         anim.enabled = false;
         dieAnim.enabled = true;
 
-        audioSource.PlayOneShot(dieSound);        
-        //DungeonManager.Instance.killedEneies += 1;
+        audioSource.PlayOneShot(dieSound);
+        DungeonTracker.Instance.killedEnemies += 1;
         GameObject dP = Instantiate(destroyPre, transform.position + new Vector3(2.5f,0.5f,0), Quaternion.identity);
         GameObject dP2 = Instantiate(destroyPre, transform.position + new Vector3(-2.5f, 0.5f, 0), Quaternion.identity);
         GameObject dP3 = Instantiate(destroyPre, transform.position + new Vector3(0, 0.5f, 2.5f), Quaternion.identity);
@@ -193,7 +196,25 @@ public class Turret : MonoBehaviour
         Destroy(dP3, 2f);
         Destroy(dP4, 2f);
         Destroy(gameObject, 3f);
-    }   
+
+        int aCount = Random.Range(3, 10);
+        for (int i = 0; i < aCount; i++)
+        {
+            float AmmoBoxPosX = Random.Range(0, 2f);
+            float AmmoBoxPosZ = Random.Range(0, 2f);
+            float AmmoBoxRot = Random.Range(0, 180f);
+
+            GameObject AmmoBox = ObjectPoolManager.Instance.Pop("AmmoBox").gameObject;
+            AmmoBox.transform.position = transform.position + new Vector3(AmmoBoxPosX, 0f, AmmoBoxPosZ);
+            AmmoBox.transform.rotation = Quaternion.Euler(0, AmmoBoxRot, 0);
+            AmmoBox.SetActive(true);
+        }
+    }  
+    
+    void TOnHit()
+    {
+        hitSoundAudio.PlayOneShot(hitSound);
+    }
     
     void OnUpSound()
     {

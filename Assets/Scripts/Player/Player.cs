@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
     public Inventory inventory;
     public PlayerUI playerUI;
     public PlayerCharacter playerCharacter;
-    public PlayerInteract playerInteract;
     public GameObject menu;
 
     public event Action OnPossessed;
@@ -44,14 +43,12 @@ public class Player : MonoBehaviour
     {
         _input = transform.AddComponent<PlayerInput>();
         inventory = transform.AddComponent<Inventory>();
-        playerInteract = transform.AddComponent<PlayerInteract>();
     }
 
     private void Start()
     {
         // Possess(playerCharacter);
         // PlayerData �ε�
-        playerInteract.RegisterPlayer(this);
         _input.playerUIActions.Inventory.started += Instance.ToggleInventory;
         _input.playerUIActions.Debug.started += Instance.ToggleEscape;
     }
@@ -72,6 +69,7 @@ public class Player : MonoBehaviour
         if (UIController.Instance.Push<PlayerUI>("HUDCanvas", out playerUI)) 
         {
             playerUI.BindPlayerCharacter(playerCharacter);
+            // 여기서 PlayerCharacter의 Interact랑 연결
         }        
     }
 

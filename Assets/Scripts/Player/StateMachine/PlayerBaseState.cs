@@ -67,7 +67,7 @@ public class PlayerBaseState : IState
         input.playerActions.Run.started += OnRun;
 
         //Interact
-        input.playerUIActions.Interact.started += stateMachine.player.ownedPlayer.playerInteract.OnInteractInput;
+        input.playerUIActions.Interact.started += stateMachine.player.playerInteract.OnInteractInput;
 
         //Equipment
         input.weaponActions.WeaponSwap.started += OnSwap;
@@ -82,7 +82,7 @@ public class PlayerBaseState : IState
         input.playerActions.Run.started -= OnRun;
 
         //Interact
-        input.playerUIActions.Interact.started -= stateMachine.player.ownedPlayer.playerInteract.OnInteractInput;
+        input.playerUIActions.Interact.started -= stateMachine.player.playerInteract.OnInteractInput;
         
         //Equipment
         input.weaponActions.WeaponSwap.started -= OnSwap;

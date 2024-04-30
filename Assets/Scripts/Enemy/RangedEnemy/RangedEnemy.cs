@@ -19,7 +19,10 @@ public class RangedEnemy : MonoBehaviour
     public Health health { get; private set; }
 
     [SerializeField] private GameObject bulletBox;
-    [SerializeField] private GameObject firstAidKit;    
+    [SerializeField] private GameObject firstAidKit;
+    [SerializeField] private AudioSource hitSoundAudio;
+    [SerializeField] private AudioClip hitSound;
+    
 
     public RangedEnemyStateMachine stateMachine;
 
@@ -61,14 +64,14 @@ public class RangedEnemy : MonoBehaviour
         int per = Random.Range(0, 99);
         Animator.SetTrigger("Die");
 
-        if (per >= 50)
+        if (per >= 30)
         {
             GameObject bulletObject = ObjectPoolManager.Instance.Pop(bulletBox).gameObject;
             bulletObject.transform.position = transform.position;
             bulletObject.transform.rotation = transform.rotation;
             bulletObject.SetActive(true);
         }
-        else if (per < 50)
+        else if (per < 30)
         {
             GameObject firstAidObject = ObjectPoolManager.Instance.Pop(firstAidKit).gameObject;
             firstAidObject.transform.position = transform.position;
@@ -79,7 +82,7 @@ public class RangedEnemy : MonoBehaviour
         DungeonTracker.Instance.killedEnemies += 1;
 
         float gper = Random.Range(0, 99);
-        if (gper >= 0)
+        if (gper >= 50)
         {
             float goldPosX = Random.Range(0, 1f);
             float goldPosZ = Random.Range(0, 1f);
@@ -97,6 +100,9 @@ public class RangedEnemy : MonoBehaviour
 
     void OnHit()
     {
-        Animator.SetTrigger("Hit");        
+        Animator.SetTrigger("Hit");
+        hitSoundAudio.PlayOneShot(hitSound);
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * -10f;
     }
 }

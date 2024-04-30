@@ -16,7 +16,6 @@ public class ObjectPoolManager
 
     private ObjectPoolManager() 
     {
-        Debug.Log("Created!");
         _root = new GameObject("ObjectPool").transform;
         Object.DontDestroyOnLoad(_root);
     }
@@ -58,8 +57,6 @@ public class ObjectPoolManager
             poolable.gameObject.SetActive(false);
             poolable.transform.parent = rootObj;
             _poolStack.Push(poolable);
-
-            Debug.Log(_poolStack.Count);
         }
 
         internal Poolable Pop() 
