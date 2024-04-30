@@ -202,7 +202,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.95
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -625,7 +625,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 2.1
   m_Height: 3.5
@@ -654,7 +654,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 1594512772636261225}
   - component: {fileID: 8465477956426390253}
   - component: {fileID: 9099153955346995458}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

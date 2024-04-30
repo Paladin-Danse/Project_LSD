@@ -5,7 +5,13 @@ using UnityEngine;
 public class TurretSensor : MonoBehaviour
 {
     public Turret turret;
-    
+    private void Start()
+    {
+        turret.GetComponent<Rigidbody>().isKinematic = false;
+        turret.GetComponent<CapsuleCollider>().enabled = true;
+        Invoke("TriggerReady", 5f);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -26,5 +32,11 @@ public class TurretSensor : MonoBehaviour
                 turret.enabled = false;
             }
         }
+    }
+
+    void TriggerReady()
+    {
+        turret.GetComponent<Rigidbody>().isKinematic = true;
+        turret.GetComponent<CapsuleCollider>().enabled = false;
     }
 }
