@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &15135363164455993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2567170244026070323}
+  - component: {fileID: 7428652514946201549}
+  m_Layer: 0
+  m_Name: CutSceneSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2567170244026070323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15135363164455993}
+  m_LocalRotation: {x: 0, y: -0.2453074, z: 0, w: 0.96944535}
+  m_LocalPosition: {x: 147.26, y: 2.83, z: 338.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 988728435300537440}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: -28.4, z: 0}
+--- !u!114 &7428652514946201549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15135363164455993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f7af0be082dd04ebc9f82a852a1f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &74617067895607688
 GameObject:
   m_ObjectHideFlags: 0
@@ -15812,7 +15856,7 @@ PlayableDirector:
   m_PlayableAsset: {fileID: 11400000, guid: 5897099d3bca9764a9d5e7cb784b2f1d, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
-  m_DirectorUpdateMode: 1
+  m_DirectorUpdateMode: 2
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -2363309544855041541, guid: 5897099d3bca9764a9d5e7cb784b2f1d, type: 2}
@@ -22305,6 +22349,7 @@ Transform:
   - {fileID: 2730495868134520389}
   - {fileID: 7510989327962232880}
   - {fileID: 5287146629583548153}
+  - {fileID: 2567170244026070323}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23317,6 +23362,7 @@ MonoBehaviour:
   pd: {fileID: 1258789418571744065}
   pdObj: {fileID: 2990836131356180327}
   desertBossCutSceneCamera: {fileID: 8351707483434125524}
+  spawnPoint: {fileID: 7428652514946201549}
 --- !u!1 &6905219379848737134
 GameObject:
   m_ObjectHideFlags: 0
@@ -23633,7 +23679,7 @@ PlayableDirector:
   m_PlayableAsset: {fileID: 11400000, guid: fde41975ecad7cc4da19232dc216d181, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
-  m_DirectorUpdateMode: 1
+  m_DirectorUpdateMode: 2
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 254105291243804125, guid: fde41975ecad7cc4da19232dc216d181, type: 2}
