@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSlotCount: 20
   maxAmmoTypes: 0100000002000000
-  maxAmmoCounts: 2c01000078000000
+  maxAmmoCounts: f4010000f0000000
   statNames:
   - Damage
   - Accuracy

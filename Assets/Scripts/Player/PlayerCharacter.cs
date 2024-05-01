@@ -13,6 +13,8 @@ public class PlayerCharacter : CharacterStatHandler
     public Player ownedPlayer { get; private set; }
     public PlayerInput input { get; private set; }
 
+    public PlayerInteract playerInteract;
+
     public PlayerStateMachine stateMachine { get; private set; }
     [HideInInspector]
     [field: SerializeField] public PlayerData Data { get; private set; }
