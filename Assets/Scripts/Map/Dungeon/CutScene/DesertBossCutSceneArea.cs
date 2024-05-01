@@ -36,8 +36,8 @@ public class DesertBossCutSceneArea : MonoBehaviour
     void GamePlay()
     {
         SoundManager.instance.bgSound.Play();
-        pc.rigidbody_.isKinematic = false;
         pc.GetComponent<CapsuleCollider>().enabled = true;
+        pc.rigidbody_.isKinematic = false;        
         UIController.Instance.Pop();        
         //Player.Instance.Possess(pc);
         //Player.Instance.OnControllCharacter();
