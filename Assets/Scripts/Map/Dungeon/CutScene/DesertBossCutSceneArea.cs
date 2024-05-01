@@ -8,7 +8,19 @@ public class DesertBossCutSceneArea : MonoBehaviour
 {
     public PlayableDirector pd;
     public GameObject pdObj;
+    public DesertBossCutSceneCamera desertBossCutSceneCamera;
+    public PlayerSpawnPoint spawnPoint;
     PlayerCharacter pc;
+
+    public AudioSource audioSourceBGM;
+    public AudioSource audioSourceSFX;
+
+
+    private void Awake()
+    {
+        audioSourceBGM.outputAudioMixerGroup = SoundManager.instance.bgSound.outputAudioMixerGroup;
+        audioSourceSFX.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+    }
     //void Start()
     //{
     //    pd = GetComponentInChildren<PlayableDirector>();        
@@ -18,37 +30,37 @@ public class DesertBossCutSceneArea : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            gameObject.SetActive(false);
             pd.Play();
             pc = other.gameObject.GetComponent<PlayerCharacter>();
-            pc.rigidbody_.isKinematic = true;
-            pc.GetComponent<CapsuleCollider>().enabled = false;
-            DesertBossCutSceneCamera.Instance.DesertDungeonCutSceneCameraPlay();
             SoundManager.instance.bgSound.Pause();
-            //Player.Instance.UnPossess();
+            Player.Instance.OnControllUI();
             UIController.Instance.Push("EmptyCanvas", EUIShowMode.Single);
-            //Cursor.lockState = CursorLockMode.None;
-            Invoke("GamePlay", 18.5f);
+            desertBossCutSceneCamera.DesertDungeonCutSceneCameraPlay();
+            //Invoke("GamePlay", 18.5f);
+            StartCoroutine(GamePlay());
+            GameManager.Instance.PauseGame();
         }
 
     }
 
-    void GamePlay()
+    IEnumerator GamePlay()
     {
+        yield return YieldCacher.WaitForSecondsRealtime(16.35f);
+
+        GameManager.Instance.ResumeGame();
+
         SoundManager.instance.bgSound.Play();
-        pc.GetComponent<CapsuleCollider>().enabled = true;
-        pc.rigidbody_.isKinematic = false;        
-        UIController.Instance.Pop();        
-        //Player.Instance.Possess(pc);
-        //Player.Instance.OnControllCharacter();
-        //Cursor.lockState = CursorLockMode.Locked;
+        UIController.Instance.Pop();
+        Player.Instance.OnControllCharacter();
+
+        gameObject.SetActive(false);
     }
 
     public void CutSceneSkip()
     {
         pd.Stop();
         pdObj.SetActive(false);
-        DesertBossCutSceneCamera.Instance.DesertDungeonCutSceneCameraStop();
+        // DesertBossCutSceneCamera.Instance.DesertDungeonCutSceneCameraStop();
     }
 
 }

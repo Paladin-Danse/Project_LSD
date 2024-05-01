@@ -1668,7 +1668,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4218231381147439935, guid: f2eabca3dd9a45a46911445efdeac964, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2306,7 +2306,7 @@ Transform:
   - {fileID: 3678741658430513559}
   - {fileID: 9033424047294105103}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -17.737, z: 0}
 --- !u!95 &5718415022797314393
 Animator:

@@ -1,30 +1,28 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class DesertBossCutSceneCamera : MonoBehaviour
 {
-    private static DesertBossCutSceneCamera instance;
-    public static DesertBossCutSceneCamera Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<DesertBossCutSceneCamera>();
+    public PlayableDirector TLCamera;
 
-                if (instance == null)
-                {
-                    GameObject obj = new GameObject(typeof(DesertBossCutSceneCamera).Name);
-                    instance = obj.AddComponent<DesertBossCutSceneCamera>();
-                }
+    private void Awake()
+    {
+        TimelineAsset timelineAsset = (TimelineAsset)TLCamera.playableAsset;
+        foreach (var i in timelineAsset.outputs) 
+        {
+            if(i.streamName == "Cinemachine Track") 
+            {
+                TLCamera.SetGenericBinding(i.sourceObject, Camera.main.GetComponent<CinemachineBrain>());
+                break;
             }
-            return instance;
         }
     }
 
-    public PlayableDirector TLCamera;
     public void DesertDungeonCutSceneCameraPlay()
     {
         TLCamera.Play();
