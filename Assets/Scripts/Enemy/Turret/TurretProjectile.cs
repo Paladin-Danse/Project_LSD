@@ -103,7 +103,7 @@ public class TurretProjectile : MonoBehaviour
             {
                 health.TakeDamage(damage);
                 Debug.Log("ÅÍ·¿ Æø¹ß µ¥¹ÌÁö" + damage);
-                //DungeonManager.Instance.receivedDamage += damage;
+                DungeonTracker.Instance.receivedDamage += damage;
             }
         }
 

@@ -21,11 +21,12 @@ public class DesertBossCutSceneArea : MonoBehaviour
             gameObject.SetActive(false);
             pd.Play();
             pc = other.gameObject.GetComponent<PlayerCharacter>();
-            pc.GetComponent<PlayerCharacter>().gameObject.layer = 0;
+            pc.rigidbody_.isKinematic = true;
+            pc.GetComponent<CapsuleCollider>().enabled = false;
             DesertBossCutSceneCamera.Instance.DesertDungeonCutSceneCameraPlay();
             SoundManager.instance.bgSound.Pause();
             //Player.Instance.UnPossess();
-            //UIController.Instance.Clear();
+            UIController.Instance.Push("EmptyCanvas", EUIShowMode.Single);
             //Cursor.lockState = CursorLockMode.None;
             Invoke("GamePlay", 18.5f);
         }
@@ -35,8 +36,9 @@ public class DesertBossCutSceneArea : MonoBehaviour
     void GamePlay()
     {
         SoundManager.instance.bgSound.Play();
-        pc.GetComponent<PlayerCharacter>().gameObject.layer = 3;
-        //UIController.Instance.Pop();
+        pc.rigidbody_.isKinematic = false;
+        pc.GetComponent<CapsuleCollider>().enabled = true;
+        UIController.Instance.Pop();        
         //Player.Instance.Possess(pc);
         //Player.Instance.OnControllCharacter();
         //Cursor.lockState = CursorLockMode.Locked;
