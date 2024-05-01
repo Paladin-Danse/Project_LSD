@@ -10,8 +10,7 @@ public class RangedEnemySound : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        //audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+        audioSource.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
     }
 
     void GunShotSound()

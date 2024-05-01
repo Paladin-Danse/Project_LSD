@@ -2,7 +2,6 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;

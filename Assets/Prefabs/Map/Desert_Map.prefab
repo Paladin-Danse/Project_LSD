@@ -23363,6 +23363,8 @@ MonoBehaviour:
   pdObj: {fileID: 2990836131356180327}
   desertBossCutSceneCamera: {fileID: 8351707483434125524}
   spawnPoint: {fileID: 7428652514946201549}
+  audioSourceBGM: {fileID: 7331661995048644741}
+  audioSourceSFX: {fileID: 6631797205752834674}
 --- !u!1 &6905219379848737134
 GameObject:
   m_ObjectHideFlags: 0
@@ -35923,6 +35925,10 @@ PrefabInstance:
     - {fileID: 5768172625618240618, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
     - {fileID: 5319042481259513090, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
     - {fileID: 601398297064737227, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
+    - {fileID: 8808917279210561285, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
+    - {fileID: 6351232022821644600, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
+    - {fileID: 3511342268501327456, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
+    - {fileID: 5964445789111326467, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0abaac7dd577da47b9e1ef2941b5c83, type: 3}

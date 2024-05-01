@@ -11,6 +11,16 @@ public class DesertBossCutSceneArea : MonoBehaviour
     public DesertBossCutSceneCamera desertBossCutSceneCamera;
     public PlayerSpawnPoint spawnPoint;
     PlayerCharacter pc;
+
+    public AudioSource audioSourceBGM;
+    public AudioSource audioSourceSFX;
+
+
+    private void Awake()
+    {
+        audioSourceBGM.outputAudioMixerGroup = SoundManager.instance.bgSound.outputAudioMixerGroup;
+        audioSourceSFX.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+    }
     //void Start()
     //{
     //    pd = GetComponentInChildren<PlayableDirector>();        
