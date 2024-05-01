@@ -7,10 +7,14 @@ public class MeleeEnemySensor : MonoBehaviour
 {    
     EnemyStateMachine enemyStateMachine;
     public Enemy meleeEnemy;
-    private void Start()
+
+    private void Awake()
     {
         meleeEnemy.GetComponent<Rigidbody>().isKinematic = false;
         meleeEnemy.GetComponent<CapsuleCollider>().enabled = true;
+    }
+    private void Start()
+    {        
         Invoke("TriggerReady", 5f);
     }
     private void OnTriggerEnter(Collider other)

@@ -6,10 +6,14 @@ public class DesertBossAccessSensor : MonoBehaviour
 {
     DesertBossStateMachine desertBossStateMachine;
     public DesertBoss desertBoss;
-    private void Start()
+
+    private void Awake()
     {
         desertBoss.GetComponent<Rigidbody>().isKinematic = false;
         desertBoss.GetComponent<CapsuleCollider>().enabled = true;
+    }
+    private void Start()
+    {        
         Invoke("TriggerReady", 5f);
     }
     private void OnTriggerEnter(Collider other)
