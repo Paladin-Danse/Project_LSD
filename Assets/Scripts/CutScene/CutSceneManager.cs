@@ -41,5 +41,5 @@ public class CutSceneManager : MonoBehaviour
     public void OnCutSceneEnd() 
     {
         SceneLoader.Instance.LoadScene(Defines.EScene.Dungeon);
-    }
+    }    
 }

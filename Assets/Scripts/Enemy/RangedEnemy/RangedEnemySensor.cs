@@ -6,10 +6,14 @@ public class RangedEnemySensor : MonoBehaviour
 {
     public RangedEnemy rangedEnemy;
     RangedEnemyStateMachine rangedEnemyStateMachine;
-    private void Start()
+
+    private void Awake()
     {
         rangedEnemy.GetComponent<Rigidbody>().isKinematic = false;
         rangedEnemy.GetComponent<CapsuleCollider>().enabled = true;
+    }
+    private void Start()
+    {        
         Invoke("TriggerReady", 5f);
     }
     private void OnTriggerEnter(Collider other)
