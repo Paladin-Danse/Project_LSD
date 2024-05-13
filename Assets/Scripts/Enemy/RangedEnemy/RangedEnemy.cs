@@ -38,6 +38,8 @@ public class RangedEnemy : MonoBehaviour
 
         health.OnDie += OnDie;
         health.OnTakeDamage += OnHit;
+
+        hitSoundAudio.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
     }
 
     private void Start()

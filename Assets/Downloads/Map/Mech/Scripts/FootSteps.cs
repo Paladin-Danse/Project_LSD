@@ -10,8 +10,8 @@ public class FootSteps : MonoBehaviour {
 
 	void Start () {
 		ASFootStep = GetComponent<AudioSource> ();
-		ASFootStep.clip = audioFootStep;
-
+        ASFootStep.outputAudioMixerGroup = SoundManager.instance.UISound.outputAudioMixerGroup;
+        ASFootStep.clip = audioFootStep;
 	}
 	
 	void FootStep() {
